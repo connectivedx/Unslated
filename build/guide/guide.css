@@ -1,0 +1,55 @@
+@import './partials/nav/guide__nav.css';
+@import './partials/stylist/guide__stylist.css';
+@import './partials/welcome/guide__welcome.css';
+@import './partials/pages/guide__pages.css';
+@import './partials/examples/guide__examples.css';
+@import './partials/readme/guide__readme.css';
+
+:root {
+	--breakpoint-speed: 2s;
+}
+
+html,
+body,
+#index,
+.guide,
+.guide__main {
+	height: 100%;
+}
+
+.guide {
+	display: flex;
+	perspective: 100rem;
+	height: 100%;
+
+	& .hide { display: none; }
+
+	& .doc-error {
+		background-color: red;
+		color: white;
+		padding: 0.25rem;
+	}
+
+	&__main {
+		padding: 4rem 2rem 2rem;
+		width: 100%;
+		position: relative;
+		z-index: 1;
+		overflow-x: auto;
+	}
+
+	&__menu {
+		position: absolute;
+		z-index: 2;
+
+		&--top-left {
+			top: 0;
+			left: 0;
+		}
+
+		&--top-right {
+			top: 0;
+			right: 0;
+		}
+	}
+}

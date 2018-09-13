@@ -1,0 +1,13 @@
+/*
+  Define type configuration
+*/
+
+:root {
+  /* Base body line height for the body element. */
+  --type-line-height: 1.4;
+
+  /* Base body responsive typography. */
+  --type-responsive-min: 0.85rem;
+  --type-responsive-max: 1rem;
+  --type-responsive-range: 384px 1152px;
+}

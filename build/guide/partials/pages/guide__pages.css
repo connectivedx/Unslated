@@ -1,0 +1,95 @@
+/* Pages */
+.guide {
+	& .colors {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.list__item {
+			margin: 2rem;
+			position: relative;
+		}
+
+		.AccessibilityLevel {
+			display: flex;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			justify-content: space-evenly;
+			align-items: center;
+
+			&:before {
+				left: -3rem;
+				position: absolute;
+				top: 50%;
+			}
+
+		  &__badge {
+		  	background-color: var(--color-black);
+		    border-radius: 0.25rem;
+		    color: var(--color-white);
+		    margin: 0.2em;
+		    padding: 0.1em 0.3em;
+		    position: relative;
+
+		    &::before {
+		      content: 'A';
+		      position: absolute;
+		      top: -25px;
+		    }
+
+		    &--primary {
+		      &::before {
+		        color: var(--color-text--primary);
+		      	display: block;
+		      }
+		    }
+
+		    &--secondary {
+		      &::before {
+		        color: var(--color-text--secondary);
+		      	display: block;
+		      }
+		    }
+
+		    &--normal {
+		      &::before {
+		        font-size: 12pt;
+		        left: calc(50% - 5px);
+		      }
+		    }
+
+		    &--large--bold {
+		      &::before {
+		        font-size: 14pt;
+		        font-weight: bold;
+		        left: calc(50% - 5px);
+		        top: -1.45em;
+		      }
+		    }
+
+		    &--large {
+		      &::before {
+		        font-size: 18pt;
+		        left: calc(50% - 8px);
+		        top: -1.35em;
+		      }
+		    }
+		  }
+
+		  &--single::before {
+		    content: "'A'";
+		  }
+
+		  &--double::before {
+		    content: "'AA'";
+		  }
+
+		  &--triple::before {
+		    content: "'AAA'";
+		  }		  	
+		}
+	}
+}

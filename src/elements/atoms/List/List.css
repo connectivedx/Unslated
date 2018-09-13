@@ -1,0 +1,37 @@
+.list {
+  /* variants */
+  &--blank {
+    list-style: none;
+  }
+
+  &--unordered {
+    list-style-type: disc;
+    padding-left: 1em;
+
+    /* nested unordered list */
+    .List & {
+      list-style-type: circle;
+    }
+  }
+
+  &--ordered {
+    list-style-type: decimal;
+    padding-left: 1em;
+  }
+
+  &--definition {
+    & .List__item {
+      &--term {
+        font-weight: bold;
+      }
+
+      &--description {
+        padding-bottom: 1em;
+
+        &:last-of-type {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
