@@ -50,7 +50,7 @@ export const Guide__readme = (props) => {
                       <Table__row key={index}>
                         <Table__data>{index}</Table__data>
                         <Table__data>{propType}</Table__data>
-                        <Table__data>{prop.description}</Table__data>
+                        <Table__data>{(prop.description) ? prop.description: <div className="doc-error">Missing description</div>}</Table__data>
                       </Table__row>
                     );
                   })
@@ -83,7 +83,7 @@ export const Guide__readme = (props) => {
                       <Table__row key={index}>
                         <Table__data>{method.name}</Table__data>
                         <Table__data>
-                          {(method.params.length) ? 'this.' + method.name + '(' + Object.keys(method.params).map(index => method.params[index].name).join(', ') + ');' : ' -- '}
+                          {(method.params.length) ? Object.keys(method.params).map(index => method.params[index].name).join(', ') : ' -- '}
                         </Table__data>
                         <Table__data>
                           {(method.description) ? method.description : <div className="doc-error">Missing description</div>}

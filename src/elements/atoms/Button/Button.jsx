@@ -31,7 +31,7 @@ export class Button extends React.Component {
   }
 
   /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = (firstParam, secondParam, thirdParam) => {
+  toggle = () => {
     this.setState({ isActive: !this.state.isActive });
   }
 
