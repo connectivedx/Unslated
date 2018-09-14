@@ -1,12 +1,7 @@
 const requireAll = (context) => context.keys().map(context);
 
 // import variables before molecules
-require('@vars/breakpoints.css');
-require('@vars/colors.css');
-require('@vars/custom-selectors.css');
-require('@vars/fonts.css');
-require('@vars/type.css');
-require('@vars/zindex.css');
+requireAll(require.context('@vars/', true, /\.css$/));
 
 // guide styles
 require('@guide/guide.css');
