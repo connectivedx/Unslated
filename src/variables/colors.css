@@ -6,10 +6,11 @@
   color: var(--color-white);
 
   IMPORTANT:
-  In order for the project colors to be included by the SgColorSwatch,
-  please prefix all variables inside this file with '---color'.
+  In order for the project colors to be included on the colors sample page,
+  please prefix all variables inside this file with '--color'.
 */
-@define-mixin colors $export {
+
+:export {
   --color-generic--blue: #003346;
   --color-generic--green: #358450;
   --color-generic--red: #a40000;
@@ -35,13 +36,4 @@
   --color--alpha15: rgb(0, 0, 0, 0.15);
   --color--alpha05: rgb(0, 0, 0, 0.05);
   --color--alpha00: rgb(0, 0, 0, 0.00);
-  --color: $export;
-}
-
-:root {
-  @mixin colors false;
-}
-
-:export {
-  @mixin colors true;
 }
