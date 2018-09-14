@@ -72,7 +72,7 @@ export const Guide__examples = (props) => {
             if (index === 'children') { return false; }
             props[index] = component.props[index].toString();
           });
-          console.log(component);
+
           return (
             <Rhythm className={`examples examples__item ${(index === '0') ? '' : 'hide'}`} key={index}>
               <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
