@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import { List, List__item } from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
-
+console.log(colors);
 // Replaces var(--color-name) with value prior to sampling.
 const cleanVariables = (colors) => {
 	Object.keys(colors).map(key => {

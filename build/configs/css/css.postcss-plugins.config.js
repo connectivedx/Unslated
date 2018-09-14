@@ -28,6 +28,7 @@ const extend = require('postcss-extend');
 const mixins = require('postcss-mixins');
 const variables = require('postcss-custom-properties');
 const minification = require('cssnano');
+const colors = require('./css.postcss-colors.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
 const mediaPacker = require('css-mqpacker');
 
@@ -40,6 +41,7 @@ module.exports = {
         return resolver.resolveSync({}, basedir, id);
       }
     }),
+    colors(), // Pre-parse color variables
     variables({ // Allows for CSS variables
       'variables': {
         'preserve': false

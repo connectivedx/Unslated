@@ -72,7 +72,7 @@ export const Guide__examples = (props) => {
             if (index === 'children') { return false; }
             props[index] = component.props[index].toString();
           });
-
+          console.log(component);
           return (
             <Rhythm className={`examples examples__item ${(index === '0') ? '' : 'hide'}`} key={index}>
               <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
@@ -98,7 +98,7 @@ export const Guide__examples = (props) => {
                   {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(JSON.stringify(props)), Prism.languages.json) }} /> : ''}
                 </pre>
                 <pre className="examples__code hide">
-                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.displayName + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
+                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
                 </pre>                 
               </div>
             </Rhythm>
