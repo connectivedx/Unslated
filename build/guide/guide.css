@@ -6,7 +6,7 @@
 @import './partials/readme/guide__readme.css';
 
 :root {
-	--breakpoint-speed: 2s;
+  --breakpoint-speed: 2s;
 }
 
 html,
@@ -14,42 +14,42 @@ body,
 #index,
 .guide,
 .guide__main {
-	height: 100%;
+  height: 100%;
 }
 
 .guide {
-	display: flex;
-	perspective: 100rem;
-	height: 100%;
+  display: flex;
+  perspective: 100rem;
+  height: 100%;
 
-	& .hide { display: none; }
+  & .hide { display: none; }
 
-	& .doc-error {
-		background-color: red;
-		color: white;
-		padding: 0.25rem;
-	}
+  & .doc-error {
+    background-color: red;
+    color: white;
+    padding: 0.25rem;
+  }
 
-	&__main {
-		padding: 6rem 2rem 2rem;
-		width: 100%;
-		position: relative;
-		z-index: 1;
-		overflow-x: auto;
-	}
+  &__main {
+    padding: 6rem 2rem 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    overflow-x: auto;
+  }
 
-	&__menu {
-		position: absolute;
-		z-index: 2;
+  &__menu {
+    position: absolute;
+    z-index: 2;
 
-		&--top-left {
-			top: 0;
-			left: 0;
-		}
+    &--top-left {
+      top: 0;
+      left: 0;
+    }
 
-		&--top-right {
-			top: 0;
-			right: 0;
-		}
-	}
+    &--top-right {
+      top: 0;
+      right: 0;
+    }
+  }
 }

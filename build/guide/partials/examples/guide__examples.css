@@ -1,41 +1,41 @@
 /* Examples */
 .guide {
-	& .examples {
-		&__list {
-			& > div { 
-				display: inline-block;
-				width: 100%;
-			}
-		}
+  & .examples {
+    &__list {
+      & > div { 
+        display: inline-block;
+        width: 100%;
+      }
+    }
 
-		&__pallet {
-			padding: 1rem;
-			transition: width var(--breakpoint-speed);
-			width: 100%;
+    &__pallet {
+      padding: 1rem;
+      transition: width var(--breakpoint-speed);
+      width: 100%;
 
-			&-inner {
-				background-color: var(--color-white);
-			}
-		}
+      &-inner {
+        background-color: var(--color-white);
+      }
+    }
 
-		&__buttons {
-			display: flex;
-	    justify-content: flex-start;
+    &__buttons {
+      display: flex;
+      justify-content: flex-start;
 
-	    .button {
-	    	margin-right: 1rem;
-	    }
-		}
+      .button {
+        margin-right: 1rem;
+      }
+    }
 
-		&__codes {
-			background-color: var(--color--alpha05);
-			max-height: 320px;
-			overflow-x: hidden;
-			oveflow-y: scroll;
+    &__codes {
+      background-color: var(--color--alpha05);
+      max-height: 320px;
+      overflow-x: hidden;
+      oveflow-y: scroll;
 
-			pre {
-				padding: 1rem;				
-			}
-		}
-	}
+      pre {
+        padding: 1rem;        
+      }
+    }
+  }
 }

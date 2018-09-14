@@ -94,7 +94,7 @@ export const Guide__readme = (props) => {
                 }
               </Table__body>
             </Table>
-          </Rhythm>     
+          </Rhythm>
         </Rhythm>
       </div>
     </Rhythm>
