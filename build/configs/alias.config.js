@@ -6,10 +6,10 @@ const Webpack = require('webpack');
 
 module.exports = {
   config: {
-  	'@build': path.resolve(__dirname, '../../build/'),
+    '@build': path.resolve(__dirname, '../../build/'),
     '@guide': path.resolve(__dirname, '../../build/guide/'),
-  	'@src':  path.resolve(__dirname, '../../src/'),
-  	'@dest': path.resolve(__dirname, '../../dest/'),
+    '@src':  path.resolve(__dirname, '../../src/'),
+    '@dest': path.resolve(__dirname, '../../dest/'),
     '@elements': path.resolve(__dirname, '../../src/elements/'),
     '@vars': path.resolve(__dirname, '../../src/variables/'),
     '@atoms': path.resolve(__dirname, '../../src/elements/atoms/'),
