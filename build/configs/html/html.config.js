@@ -15,6 +15,6 @@ module.exports = {
     new HtmlWebPackPlugin({ // used to compile our html files/
       'template': './src/index.html',
       'filename': './index.html'
-    })   
+    })
   ]
 };

@@ -98,7 +98,7 @@ export const Guide__examples = (props) => {
                   {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(JSON.stringify(props)), Prism.languages.json) }} /> : ''}
                 </pre>
                 <pre className="examples__code hide">
-                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.displayName + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
+                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
                 </pre>                 
               </div>
             </Rhythm>

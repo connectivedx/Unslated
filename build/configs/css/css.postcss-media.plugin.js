@@ -37,6 +37,6 @@ module.exports = postcss.plugin('postcss-custom-media', (options) => {
           rule.params = queries[key];
         }
       });
-    });    
+    });
   };
 });
