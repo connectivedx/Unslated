@@ -27,6 +27,6 @@ module.exports = postcss.plugin('postcss-colors', (options) => {
       Object.keys(colors).map(index => {
         root.last.append([index, ':', colors[index], ';'].join(''));
       });
-    });   
+    });
   };
 });

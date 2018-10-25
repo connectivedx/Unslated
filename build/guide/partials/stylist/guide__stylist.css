@@ -1,81 +1,81 @@
 /* Stylist */
 .guide {
-	&__stylist {
-		background-color: var(--color-white);
-		border: 1px var(--color--alpha25) solid;
-		box-shadow: 2px 4px 10px 0px var(--color--alpha25);
-		max-width: 320px;
-		position: fixed;
-		right: 2rem;
-		top: 0;
-		opacity: 0.25;
-		transition: opacity 1s;
+  &__stylist {
+    background-color: var(--color-white);
+    border: 1px var(--color--alpha25) solid;
+    box-shadow: 2px 4px 10px 0px var(--color--alpha25);
+    max-width: 320px;
+    position: fixed;
+    right: 2rem;
+    top: 0;
+    opacity: 0.25;
+    transition: opacity 1s;
 
-		&:hover {
-			opacity: 1;
-		}
+    &:hover {
+      opacity: 1;
+    }
 
-		&-minmax {
-			display: flex;
-			justify-content: flex-end;
+    &-minmax {
+      display: flex;
+      justify-content: flex-end;
 
-			.icon {
-				cursor: pointer;
+      .icon {
+        cursor: pointer;
 
-				&--close {
-					transform: rotateZ(45deg);
-					transition: transform 0.45s;
-				}				
-			}
-		}
+        &--close {
+          transform: rotateZ(45deg);
+          transition: transform 0.45s;
+        }
+      }
+    }
 
-		&.open {
-			opacity: 1;
-			width: 100%;
+    &.open {
+      opacity: 1;
+      width: 100%;
 
-			& .guide__stylist{
-				&-minmax {
-					margin-bottom: -1.95rem;
-					& .icon--close {
-						transform: rotateZ(270deg);
-					}
-				}
+      & .guide__stylist{
+        &-minmax {
+          margin-bottom: -1.95rem;
+          & .icon--close {
+            transform: rotateZ(270deg);
+          }
+        }
 
-				&-inner {
-					padding: 1rem;
+        &-inner {
+          padding: 1rem;
 
-					& > .rhythm--default {
-						display: block;
-					}
-				}
-			}				
-		}
+          & > .rhythm--default {
+            display: block;
+          }
+        }
+      }       
+    }
 
-		&-inner {
-			padding: 1rem;
+    &-inner {
+      padding: 1rem;
 
-			& > .rhythm--default {
-				display: none;
-			}
-		}
+      & > .rhythm--default {
+        display: none;
+      }
+    }
 
-		select {
-			padding: 0.5rem;
-			width: calc(100% - 1px);
-		}
+    select {
+      padding: 0.5rem;
+      width: calc(100% - 1px);
+    }
 
-		& .guide__breakpoint {
-			display: flex;
-			justify-content: space-between;
+    & .guide__breakpoint {
+      display: flex;
+      justify-content: space-between;
 
-			> div {
-				margin: 0;
-				width: calc(50% - 0.25rem);
-			}
+      > div {
+        margin: 0;
+        width: calc(50% - 0.25rem);
+      }
 
-			select {
-				margin-top: 0;
-			}
-		}
-	}
+      select {
+        margin-top: 0;
+      }
+    }
+  }
 }

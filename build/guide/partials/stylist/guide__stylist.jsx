@@ -58,7 +58,7 @@ export const Guide__stylist = (props) => {
                 <option value="10s">10 seconds</option>
               </select>
             </div>
-          </div>        
+          </div>
         </Rhythm>
       </Rhythm>
     </section>

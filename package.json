@@ -15,7 +15,11 @@
   "scripts": {
     "dev": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
     "build": "webpack --config build/configs/webpack.config.js --mode production",
-    "watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server"
+    "watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server",
+    "new:atom": "node build/scaffolding/scaffolding.build.js atoms",
+    "new:molecule": "node build/scaffolding/scaffolding.build.js molecules",
+    "new:organism": "node build/scaffolding/scaffolding.build.js organisms",
+    "new:modifier": "node build/scaffolding/scaffolding.build.js modifiers"
   },
   "engines": {
     "node": ">=8.10.0"
