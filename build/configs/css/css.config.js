@@ -23,8 +23,8 @@ module.exports = {
   }],
   plugins: [
     new MiniCssExtractPlugin({ // used to compile our css file.
-      filename: './assets/css/styles.css',
-      chunkFilename: './[id].css'
+      filename: './assets/css/[name].css',
+      chunkFilename: './[name].css'
     })
   ]
 };

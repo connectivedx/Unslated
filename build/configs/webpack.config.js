@@ -12,11 +12,14 @@ const alias = require('./alias.config.js');    // all file path alias helper con
 
 // main config object
 const config = {
-  entry: './src/scripts.js',
+  entry: {
+    assets: './build/assets.js',
+    guide: './build/guide.js'
+  },
   output: {
     path: path.resolve(__dirname, '../../dist'), // sets default location for all compiled files
     publicPath: '/',                             // sets a default public location (required by react-routes)
-    filename: './assets/js/scripts.js'           // sets filename of bundled .js file (relative to output.path config)
+    filename: './assets/js/[name].js'           // sets filename of bundled .js file (relative to output.path config)
   },
   module: { 
     rules: [
@@ -66,18 +69,6 @@ module.exports = (env, argv) => {
       )
     );
   }
-
-  // Pushes Webpack.DefinePlugin into config.plugins.
-  // Passes our src/ scripts a buildInformation object.
-  config.plugins.push(
-    new Webpack.DefinePlugin({
-       'buildInfo': JSON.stringify({
-         'buildType': argv.mode, // production or development
-         'buildEntry': config.entry,  // our configured entry path location
-         'buildOutput': config.output // our configured output path location
-       })
-    })
-  );  
 
   // finally exports config object
   return config;
