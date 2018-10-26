@@ -9,7 +9,7 @@ module.exports = {
       'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)
       'options': {
         'compact': false,
-        'presets': ['@babel/env', '@babel/react'],
+        'presets': ['env', 'react'],
         'plugins': [
           'transform-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
           'transform-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
