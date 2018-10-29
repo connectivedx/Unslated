@@ -225,6 +225,18 @@ const createBasicComponent = (config) => {
 };
 
 
+/*
+  Helper: Instantiate components Container.js
+*/
+
+const initComponent = (name, selector, component) => {
+  const createComponent = (el, ...args) => new component(el, ...args);
+
+  // init maching elements
+  document.querySelectorAll(selector.toLowerCase())
+    .forEach(createComponent);
+};
+
 module.exports = {
   getBuildInfo,
   getBuildType,
@@ -233,5 +245,6 @@ module.exports = {
   getPages,
   getExamples,
   createBasicComponent,
-  createClassStack
+  createClassStack,
+  initComponent
 };
