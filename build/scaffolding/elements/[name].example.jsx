@@ -22,7 +22,7 @@
 import {{name}} from './{{name}}';
 import docs from '!!docgen-loader?htmlDescription!./{{name}}';
 
-export default [
+export default [{
   docs,
   examples: [
     {
@@ -33,4 +33,4 @@ export default [
       devNotes: ''
     }
   ]
-];
+}];
