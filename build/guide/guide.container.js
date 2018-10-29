@@ -49,6 +49,8 @@ export const Guide = (el) => {
       ui.examplesCodes[index].classList.add('hide');
     });
 
+    if (!selection) { return; }
+
     example.querySelectorAll('.examples__code')[selection].classList.remove('hide');
   };
 

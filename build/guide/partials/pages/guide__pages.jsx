@@ -10,14 +10,20 @@ export const Guide__pages = (props) => {
   ]);
 
   const pages = Utils.getPages();
-  const page = Object.keys(pages).map((key, index) => {
+  let page = Object.keys(pages).map((key, index) => {
     if (key.split('.')[1].split('/')[1] === props.match.params.page) {
       return pages[key].default;
     }
   });
 
   return (
-    <div className={classStack}>{page[0]()}</div>
+    <div className={classStack}>
+      {
+        page.filter((el) => {
+          return el != null;
+        })[0]()
+      }
+      </div>
   );
 };
 

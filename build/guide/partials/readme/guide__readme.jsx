@@ -21,6 +21,8 @@ export const Guide__readme = (props) => {
     'guide__readme'
   ];
 
+  if (!props.docs) { return false; }
+
   return (
     <Rhythm className="guide__readme">
       <Rhythm>

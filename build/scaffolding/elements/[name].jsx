@@ -41,7 +41,7 @@ export class {{name}} extends React.Component {
       ...attrs
     } = this.props;
 
-    const classStack = FcUtils.createClassStack([
+    const classStack = Utils.createClassStack([
       '{{cssName}}',
       `{{cssName}}--${variant}`,
       this.state.isActive && 'is-active',
