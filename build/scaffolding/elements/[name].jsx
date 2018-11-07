@@ -10,11 +10,11 @@ export class {{name}} extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /* Class stacking */
+    /** Class stacking */
     className: PropTypes.string,
-    /* Style variants */
+    /** Style variants */
     variant: PropTypes.oneOf(['default']),
-    /* Children passed through */
+    /** Children passed through */
     children: PropTypes.node
   };
 
