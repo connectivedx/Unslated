@@ -1,5 +1,5 @@
 {
-  "name": "Unslated",
+  "name": "Unslatedz",
   "version": "0.0.1",
   "description": "Boilerplate for component-based UI development",
   "repository": "connectivedx/unslated",
@@ -55,7 +55,6 @@
     "pretty": "^2.0.0",
     "prismjs": "^1.15.0",
     "react": "^16.4.1",
-    "react-docgen": "^2.21.0",
     "react-dom": "^16.4.1",
     "react-element-to-string": "^1.0.2",
     "react-loadable": "^5.5.0",

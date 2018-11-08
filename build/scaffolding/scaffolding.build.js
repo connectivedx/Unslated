@@ -90,18 +90,18 @@ class CreateAtomicElement {
 
   	// If this element already exists, we bail and perform a pretty console log
 		if (fs.existsSync(newElementPath)){
-			console.log('\x1b[37m\x1b[41m\x1b[2m\n\r');
-			console.log('ERROR: src/elements/' + this.type + '/' + this.name + ' element already exists.\n\rPlease choose a new name and try again.', '\n\r\x1b[40m\x1b[2m');
+			console.log('\n\r');
+			console.log('ERROR: src/elements/' + this.type + '/' + this.name + ' element already exists.\n\rPlease choose a new name and try again.', '\n\r');
 			return;
 		}
 
 		// If this element name is not in pascel format, we bail and perform a pretty console log
   	if (!new RegExp(/^[A-Z]/g).test(this.name)) {
-  		console.log('\x1b[37m\x1b[41m\x1b[2m\n\r');
-  		console.log('ERROR: "' + this.name + '" is not in pascal format.\n\r\x1b[40m\n\r\x1b[42m');
+  		console.log('\n\r');
+  		console.log('ERROR: "' + this.name + '" is not in pascal format.\n\r\n\r');
   		console.log('Good Example: NewElement\x1b[41m');
-  		console.log('Bad Examples: newElement, new-element, newelement\x1b[40m\n\r\x1b[43m');
-  		console.log('Please choose a new name and try again.\x1b[40m');
+  		console.log('Bad Examples: newElement, new-element, newelement\n\r');
+  		console.log('Please choose a new name and try again.');
   		return;
   	}
 
@@ -112,8 +112,8 @@ class CreateAtomicElement {
 			), newElementPath
 		);
 
-		console.log('\x1b[42m\x1b[2m\n\r');
-		console.log(['Success: "',this.name,'" can now be found under src/elements/',this.type,'/',this.name,'\n\r\x1b[40m'].join(''));
+		console.log('\n\r');
+		console.log(['Success: "',this.name,'" can now be found under src/elements/',this.type,'/',this.name,'\n\r'].join(''));
   }
 }
 
