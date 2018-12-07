@@ -35,7 +35,7 @@ export const Guide__examples = (props) => {
   ]);
 
   // Gather all atomic elements (getExamples has a handy atomicLevel prop)
-  const elementExamples = Utils.getExamples();
+  const elementExamples = GuideUtils.getExamples();
   let docs = undefined;
 
   // Gather all examples from atomic elements above

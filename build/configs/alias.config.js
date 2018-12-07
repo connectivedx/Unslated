@@ -18,13 +18,15 @@ module.exports = {
     '@modifiers': path.resolve(__dirname, '../../src/elements/modifiers/'),
     '@templates': path.resolve(__dirname, '../../src/elements/templates/'),
     '@pages': path.resolve(__dirname, '../../src/pages/'),
-    Utils: path.resolve(__dirname, '../../build/utilities.jsx')
+    Utils: path.resolve(__dirname, '../../build/utilities.jsx'),
+    GuideUtils: path.resolve(__dirname, '../../build/guide/guide.utilities.jsx')
   },
   plugins: [
     new Webpack.ProvidePlugin({
       'React': 'react',
       'PropTypes': 'prop-types',
-      Utils: 'Utils'
+      Utils: 'Utils',
+      GuideUtils: 'GuideUtils'
     })
   ]
 };

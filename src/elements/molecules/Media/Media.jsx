@@ -23,11 +23,6 @@ export class Media extends React.Component {
     isActive: false
   }
 
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       tagName: Tag,
@@ -77,11 +72,6 @@ export class Media__figure extends React.Component {
     isActive: false
   }
 
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       tagName: Tag,
@@ -106,9 +96,43 @@ export class Media__figure extends React.Component {
 }
 
 
-export const Media__body = Utils.createBasicComponent({
-  name: 'media__body'
-});
+export class Media__body extends React.Component {
+  static propTypes = {
+    /** Class stacking */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Style variant */
+    variant: PropTypes.oneOf(['default']),
+    /** Children nodes being passed through */
+    className: PropTypes.string    
+  };
 
+  static defaultProps = {
+    tagName: 'div',
+    variant: 'default'
+  };
 
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      variant,
+      ...attrs
+    } = this.props;
 
+    const classStack = Utils.createClassStack([
+      'media__body',
+      `media__body--${variant}`,
+      className
+    ]);
+
+    return (
+      <Tag className={classStack} {...attrs}>
+        {children}
+      </Tag>
+    );
+  }
+}
