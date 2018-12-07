@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
 	config: [{
     'test': /\.(jsx|js|css)$/,
+    'exclude': /node_modules/,
     'use': [{
       'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)
       'options': {
