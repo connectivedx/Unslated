@@ -41,6 +41,9 @@ const config = {
     alias: alias.config, // resolve alias namespaces to webpack resolver (see build/configs/alias.config.js)
     extensions: ['.js', '.jsx', '.json', '.css'], // limit alias to these file types (order matters here; css last)
     enforceExtension: false // allows importing of files without file's extension 
+  },
+  optimization: {
+    minimize: false // allows js bundles to be minified or not. Default is off, but production builds turns this on below.
   }
 };
 
@@ -57,6 +60,10 @@ module.exports = (env, argv) => {
 
   // CUSTOMIZE PRODUCTION BUILDS
   if (argv.mode === 'production') {
+    // Produciton builds turn JS minification on.
+    // Remove this line if production builds ought not to be minified.
+    config.optimization.minimize = true;
+    
     // Pushes the CleanWebPackPluging into our config.plugins object to clean our dist folder
     config.plugins.push(
       new CleanWebpackPlugin(
