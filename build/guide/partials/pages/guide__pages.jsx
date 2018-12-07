@@ -9,7 +9,7 @@ export const Guide__pages = (props) => {
     'pages'
   ]);
 
-  const pages = Utils.getPages();
+  const pages = GuideUtils.getPages();
   let page = Object.keys(pages).map((key, index) => {
     if (key.split('.')[1].split('/')[1] === props.match.params.page) {
       return pages[key].default;

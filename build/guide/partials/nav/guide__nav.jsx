@@ -6,7 +6,7 @@ import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
 // Navigation atomic levels
 const getAtomicListing = () => {
-  const elements = Utils.getExamples();
+  const elements = GuideUtils.getExamples();
   const collection = [];
 
   // Create new atomic level collection of elements
@@ -40,7 +40,7 @@ const getAtomicListing = () => {
 
 // Navigation atomic levels
 const getPageListing = () => {
-  const pages = Utils.getPages();
+  const pages = GuideUtils.getPages();
 
   return (
     <List__item key={index}>
