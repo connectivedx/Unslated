@@ -107,6 +107,8 @@ export class Media__body extends React.Component {
     /** Style variant */
     variant: PropTypes.oneOf(['default']),
     /** Children nodes being passed through */
+    children: PropTypes.node.isRequired,
+    /** Class string */
     className: PropTypes.string    
   };
 
