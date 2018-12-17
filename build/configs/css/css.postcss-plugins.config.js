@@ -24,7 +24,7 @@ const resolver = ResolverFactory.createResolver({
 const preset = require('postcss-preset-env');
 const imports = require('postcss-import');
 const nested = require('postcss-nested');
-const extend = require('postcss-extend');
+const extend = require('./css.postcss-extend.plugin.js');
 const mixins = require('postcss-mixins');
 const variables = require('postcss-custom-properties');
 const minification = require('cssnano');
@@ -49,8 +49,8 @@ module.exports = {
     }),
     media(),
     nested(), // Allows for nested selectors
-    mixins(), // Allows for CSS mixins
     extend(), // Allows for CSS @extend
+    mixins(), // Allows for CSS mixins
     mediaPacker(), // Allows for the consolidation of @media queries 
     minification(), // Minification of our final CSS results.
   ]

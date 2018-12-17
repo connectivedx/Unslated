@@ -47,7 +47,6 @@
     "mini-css-extract-plugin": "^0.4.1",
     "postcss": "^7.0.1",
     "postcss-custom-properties": "^7.0.0",
-    "postcss-extend": "^1.0.5",
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.6",
     "postcss-mixins": "^6.2.0",
