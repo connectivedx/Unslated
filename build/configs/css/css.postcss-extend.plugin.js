@@ -1,7 +1,7 @@
 // Simple little plugin that allows the use of @extend class|id|selector to extend another section of CSS.
 
 const postcss = require('postcss');
-const colors = [];
+
 module.exports = postcss.plugin('postcss-extend', (options) => {
   options = options || {
     preserve: false
