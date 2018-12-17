@@ -1,6 +1,7 @@
 // config dependencies
 const path = require('path');
 const Webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // config files
@@ -39,7 +40,10 @@ const config = {
   resolve: {
     alias: alias.config, // resolve alias namespaces to webpack resolver (see build/configs/alias.config.js)
     extensions: ['.js', '.jsx', '.json', '.css'], // limit alias to these file types (order matters here; css last)
-    enforceExtension: false // allows importing of files without file's extension
+    enforceExtension: false // allows importing of files without file's extension 
+  },
+  optimization: {
+    minimize: false // allows js bundles to be minified or not. Default is off, but production builds turns this on below.
   }
 };
 
@@ -56,17 +60,35 @@ module.exports = (env, argv) => {
 
   // CUSTOMIZE PRODUCTION BUILDS
   if (argv.mode === 'production') {
-    // Sets a target config of 'node' for production builds only
-    config.target = 'node';
-
+    // Produciton builds turn JS minification on.
+    // Remove this line if production builds ought not to be minified.
+    config.optimization.minimize = true;
+    
     // Pushes the CleanWebPackPluging into our config.plugins object to clean our dist folder
     config.plugins.push(
       new CleanWebpackPlugin(
         [config.output.path],
         {
-          'root': path.resolve(config.output.path, '../')
+          'root': path.resolve(config.output.path, '../') // re-focus CleanWebpackPlugin's root out of build/config/
         }
       )
+    );
+
+    // Pushes the CopyWebpackPlugin into our config.plugins object to copy over url_rewrite files
+    // These web.config files and .htaccess files are used when production build files are hosted on a real server
+    // without these files (respectively), the guide.js's use of react-router will not work.
+    const serverUrlRewriteTypes = ['web.config', '.htaccess'];
+    config.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, '../scaffolding/web.config'), // for IIS servers
+          to: config.output.path
+        }
+        //{
+        //  from: path.resolve(__dirname, '../scaffolding/.htaccess'), // For apache servers
+        //  to: config.output.path
+        //}
+      ])
     );
   }
 

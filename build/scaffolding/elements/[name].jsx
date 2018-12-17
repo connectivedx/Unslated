@@ -23,15 +23,6 @@ export class {{name}} extends React.Component {
     variant: 'default'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       tagName: Tag,
@@ -44,13 +35,11 @@ export class {{name}} extends React.Component {
     const classStack = Utils.createClassStack([
       '{{cssName}}',
       `{{cssName}}--${variant}`,
-      this.state.isActive && 'is-active',
       className
     ]);
 
     return (
       <Tag
-        onClick={this.toggle}
         className={classStack}
         {...attrs}
       >
