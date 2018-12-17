@@ -27,11 +27,6 @@ class CreateAtomicElement {
   	// our new filename in path form.
   	const newFileName = targetFile.replace('[name]', this.name);
 
-  	// first we rename the file to our new name
-		fs.rename(targetFile, newFileName, (err) => {
-		    if ( err ) console.log('ERROR: ' + err);
-		});
-
 		// searches the contents of the file for {{name}} tokens to replace with requested element name
 		fs.readFile(targetFile, 'utf8', (err, data) => {
 		  if (err) { return console.log(err); }
@@ -43,6 +38,11 @@ class CreateAtomicElement {
 		  fs.writeFile(newFileName, result, 'utf8', err => {
 		     if (err) return console.log(err);
 		  });
+		});
+
+  	// next we rename the file to our new name
+		fs.rename(targetFile, newFileName, (err) => {
+		    if ( err ) console.log('ERROR: ' + err);
 		});
   }
 
