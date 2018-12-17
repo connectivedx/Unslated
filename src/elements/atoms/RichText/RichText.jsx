@@ -35,8 +35,8 @@ export class RichText extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'richtext',
-      `richtext--${variant}`,
+      'rich-text',
+      `rich-text--${variant}`,
       className
     ]);
 
