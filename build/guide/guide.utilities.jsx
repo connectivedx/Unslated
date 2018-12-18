@@ -38,14 +38,25 @@ const getPages = () => {
 const getExamples = () => {
   const elements = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
   const collection = [];
-
+  const modifiersDescription = 'Modifiers are CSS based design patterns that are both simple, and reusable across the project.';
   Object.keys(elements).map((key, index) => {
+    const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
+    const atomicLevel = key.replace('./', '').split('/')[0];
+    const name = key.split('/').slice(-1)[0].split('.')[0];
+    const examples = [...elements[key].default];
+    
+    const autoDocs = elements[key].default[0].docs;
+    const docs = (autoDocs) ? autoDocs[0] : {
+      displayName: name,
+      description: (atomicLevel === 'modifiers') ? modifiersDescription : atomicLevel
+    };
+
     collection.push({
-      url: ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join(''),
-      atomicLevel: key.replace('./', '').split('/')[0],
-      name: key.split('/').slice(-1)[0].split('.')[0],
-      examples: [...elements[key].default],
-      docs: (elements[key].default[0].docs) ? elements[key].default[0].docs[0] : undefined
+      url,
+      atomicLevel,
+      name,
+      examples,
+      docs
     });
   });
 
