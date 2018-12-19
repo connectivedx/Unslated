@@ -16,7 +16,7 @@ class CreateAtomicElement {
   	this.name = params[params.length -1];
 
   	// creates a new class variable that defines the new atomic element's class name (css format)
-  	this.cssName = this.name.split(/(?=[A-Z])/).join('-').toLowerCase();
+  	this.cssName = this.name.split(/(?:[A-Z]+|[^A-Z]+)/).join('-').toLowerCase();
   	
   	// finally we use the BuildElement method.
   	this.BuildElement();
