@@ -22,7 +22,7 @@ export const Guide__stylist = (props) => {
         </div>
         <Rhythm>
           <Heading level="h5">Examples</Heading>
-          <select className="guide__stylist-examples" defaultValue="1">
+          <select className="guide__stylist-examples" defaultValue="0">
             <option value="0">All examples</option>
             {
               Object.keys(examples).map(index => {

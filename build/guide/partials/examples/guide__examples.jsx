@@ -56,7 +56,6 @@ export const Guide__examples = (props) => {
           const example = examples[index];
           const component = example.component;
 
-          
           // Gathers example's React code version
           const reactExample = ReactElementToString(component, {
             displayName: getTagName,
@@ -74,7 +73,7 @@ export const Guide__examples = (props) => {
           });
 
           return (
-            <Rhythm className={`examples examples__item ${(index === '0') ? '' : 'hide'}`} key={index}>
+            <Rhythm className={`examples examples__item`} key={index}>
               <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
               <div className="examples examples__pallet" style={{'--breakpoint-speed': '0s', backgroundImage: ['url(', ExampleBg, ')'].join('')}}>
                 <div className="examples examples__pallet-inner">
