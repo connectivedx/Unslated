@@ -5,11 +5,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // config files
-const js = require('./js/js.config.js');       // all js file related build configurations
-const css = require('./css/css.config.js');    // all css file related build configurations
-const img = require('./img/img.config.js');    // all img/svg related build configurations
-const html = require('./html/html.config.js'); // all html related build configurations
-const alias = require('./alias.config.js');    // all file path alias helper configurations
+const js = require('./js/js.config.js');                // all js file related build configurations
+const css = require('./css/css.config.js');             // all css file related build configurations
+const img = require('./img/img.config.js');             // all img/svg related build configurations
+const html = require('./html/html.config.js');          // all html related build configurations
+const alias = require('./alias.config.js');             // all file path alias helper configurations
+const performance = require('./performance.config.js'); // all minification and stats configurations
 
 // main config object
 const config = {
@@ -18,9 +19,9 @@ const config = {
     guide: './build/guide.js'
   },
   output: {
-    path: path.resolve(__dirname, '../../dist'), // sets default location for all compiled files
-    publicPath: '/',                             // sets a default public location (required by react-routes)
-    filename: './assets/js/[name].js'           // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, '../../dist'),  // sets default location for all compiled files
+    publicPath: '/',                              // sets a default public location (required by react-routes)
+    filename: './assets/js/[name].js'             // sets filename of bundled .js file (relative to output.path config)
   },
   module: { 
     rules: [
@@ -42,9 +43,7 @@ const config = {
     extensions: ['.js', '.jsx', '.json', '.css'], // limit alias to these file types (order matters here; css last)
     enforceExtension: false // allows importing of files without file's extension 
   },
-  optimization: {
-    minimize: false // allows js bundles to be minified or not. Default is off, but production builds turns this on below.
-  }
+  ...performance.config  
 };
 
 // config export

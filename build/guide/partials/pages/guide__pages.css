@@ -7,7 +7,16 @@
 
     .list__item {
       margin: 2rem;
+      padding: 2rem;
       position: relative;
+      box-shadow: 0 0 10px 0 var(--color-gray);
+      max-width: 225px;
+      width: 100%;
+
+      .color {
+        box-shadow: 0 0 10px 0 var(--color-gray);
+        height: 120px;
+      }
     }
 
     .AccessibilityLevel {
@@ -30,7 +39,6 @@
         background-color: var(--color-black);
         border-radius: 0.25rem;
         color: var(--color-white);
-        margin: 0.2em;
         padding: 0.1em 0.3em;
         position: relative;
 
@@ -90,6 +98,38 @@
       &--triple::before {
         content: "'AAA'";
       }       
+    }
+  }
+
+  .AccessibilityLevel {
+    &__wrapper {
+      margin: auto;
+      max-width: 1024px;
+      width: 100%;
+
+      & > .rhythm {
+        padding: 2rem 0 0;
+      }
+
+      select {
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    &__control {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__controls {
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.75rem;
+      margin-right: 0.8rem;
+      select {
+        padding: 0.4rem 1rem;
+        margin-left: 0.4rem;  
+      }
     }
   }
 }
