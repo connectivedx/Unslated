@@ -26,7 +26,7 @@ const imports = require('postcss-import');
 const nested = require('postcss-nested');
 const extend = require('./css.postcss-extend.plugin.js');
 const mixins = require('postcss-mixins');
-const variables = require('postcss-custom-properties');
+const variables = require('./css.postcss-vars.plugin.js');
 const minification = require('cssnano');
 const colors = require('./css.postcss-colors.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
@@ -35,18 +35,13 @@ const mediaPacker = require('css-mqpacker');
 
 module.exports = {
   plugins: [
-    preset(), // PostCSS Preset Env lets you transpose modern CSS into backwards compatable CSS
     imports({ // Allows for @import and our entry point for namespace alias config
       resolve: (id, basedir) => {
         return resolver.resolveSync({}, basedir, id);
       }
     }),
     colors(), // Pre-parse color variables
-    variables({ // Allows for CSS variables
-      'variables': {
-        'preserve': false
-      }
-    }),
+    variables(),
     media(),
     nested(), // Allows for nested selectors
     extend(), // Allows for CSS @extend

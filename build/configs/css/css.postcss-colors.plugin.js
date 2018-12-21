@@ -9,9 +9,8 @@
 const postcss = require('postcss');
 const colors = [];
 module.exports = postcss.plugin('postcss-colors', (options) => {
-  options = options || {
-    preserve: false
-  };
+  options = options || {};
+
   return (root) => {
 
     root.walkRules(':export', (rule) => {
@@ -22,11 +21,9 @@ module.exports = postcss.plugin('postcss-colors', (options) => {
           colors[variable] = value;
         }
       });
+
+      rule.selector = ':root';
       rule.append('--color-exports: true;');
-      root.append(':root {}');
-      Object.keys(colors).map(index => {
-        root.last.append([index, ':', colors[index], ';'].join(''));
-      });
     });
   };
 });

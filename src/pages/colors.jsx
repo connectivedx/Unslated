@@ -1,5 +1,4 @@
-import colors from '@vars/colors';
-import chroma from 'chroma-js';
+import colors from '!!style-loader!css-loader!@vars/colors';
 import { List, List__item } from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
@@ -15,8 +14,51 @@ const cleanVariables = (colors) => {
 	return colors;
 };
 
-// Builds color object for chroma module
-const getChromaColor = (color) => {
+const getLuminanace = (r, g, b) => {
+    let a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928
+            ? v / 12.92
+            : Math.pow( (v + 0.055) / 1.055, 2.4 );
+    });
+
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+const HexToRGB = (color) => {
+  color = color.replace('#', '');
+  if (color.length < 6) {
+    color = color + color;
+  }
+
+  return [
+    parseInt(color.substr(0,2), 16),
+    parseInt(color.substr(2,2), 16),
+    parseInt(color.substr(4,2), 16)
+  ];
+}
+
+const RGBToHex = (color) => {
+  const hexConvert = (rgb) => {
+    let hex = rgb.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  };
+
+  return "#" + hexConvert(color[0]) + hexConvert(color[1]) + hexConvert(color[2]);
+};
+
+const getContrast = (controlcolor, testcolor) => {
+  const controlRGB = HexToRGB(controlcolor);
+  const testRGB = HexToRGB(testcolor);
+
+  let result = (getLuminanace(testRGB[0], testRGB[1], testRGB[2]) + 0.05) / (getLuminanace(controlRGB[0], controlRGB[1], controlRGB[2]) + 0.05);
+  if (result < 1) result = 1 / result;
+  return result;
+}
+
+// Builds hex, and rgb color units for testing purposes
+
+const getColorUnits = (color) => {
   const chromaObj = {
     hex: '',
     rgb: { r: '', g: '', b: '' },
@@ -28,42 +70,34 @@ const getChromaColor = (color) => {
   const isHLS = (color.indexOf('hls') !== -1);
 
   /* if color is a simple hex */
-  if (isHex) {
+  if (isHex || !isHex && !isRGB && !isHLS) {
   	// applies color as a hex to chromaObj.hex
     chromaObj.hex = color;
 
     // converts hex into rgb and applies to chromaObj.rgb
-    [...chromaObj.rgb] = chroma(color).rgb();
+    [...chromaObj.rgb] = HexToRGB(color);
 
     // converts hex into hls and applies to chromaObj.hls
-    [...chromaObj.hsl] = chroma(color).hsl();
+    //[...chromaObj.hsl] = chroma(color).hsl();
 
   /* if color is rbg(a) */
   } else if (isRGB) {
   	// rgb object
-    const rgba = color.split('(')[1].split(')')[0].split(',');
+    const rgb = color.split('(')[1].split(')')[0].split(',');
 
     // rgb parts variables
-    const red = parseInt(rgba[0], 10);
-    const green = parseInt(rgba[1], 10);
-    const blue = parseInt(rgba[2], 10);
-    const alpha = ((parseInt(rgba[3], 10) * 255).toFixed() / 1).toString(16);
+    const red = parseInt(rgb[0], 10);
+    const green = parseInt(rgb[1], 10);
+    const blue = parseInt(rgb[2], 10);
 
     // applies rgb(a) to chromaObj.rgb
-    [...chromaObj.rgb] = rgba;
+    [...chromaObj.rgb] = rgb;
 
     // converts rgb into hex, and applies hex to chromaObj.hex (with or without alpha)
-    if (alpha) {
-      chromaObj.hex = ([
-      	chroma(chroma(red, green, blue).hex()), 
-      	(alpha < 10) ? `0${alpha}` : alpha
-      ].join(''));
-    } else {
-      chromaObj.hex = chroma(red, green, blue).hex();
-    }
+    chromaObj.hex = RGBToHex([red, green, blue]);
 
     // capture HSL colors as fallback
-    [...chromaObj.hsl] = chroma(chromaObj.hex).hsl();
+    //[...chromaObj.hsl] = chroma(chromaObj.hex).hsl();
   }
 
   return chromaObj;
@@ -71,7 +105,6 @@ const getChromaColor = (color) => {
 
 // Flags colors based on WCAG ratio, size and level specs
 const WCAGTest = (ratio, size, level) => {
-  console.log(ratio, size, level);
   switch (level) {
     case 'A':
       return 'PASS';
@@ -168,28 +201,29 @@ AccessibilityLevel.propTypes = {
 
 const cards = Object.keys(cleanVariables(colors)).map(key => {
 	if (colors[key] === 'true') { return; }
-  if (key.match('alpha')) { return; }
+  //if (key.match('alpha')) { return; }
 
-	const color = getChromaColor(colors[key]);
-	if (!color.hex) { return; }
+	const colorUnits = getColorUnits(colors[key]);
+
+	if (!colorUnits.hex) { return; }
 
 	return <List__item key={key}>
 		<div>
       <AccessibilityLevel 
-      	contrastPrimary={chroma.contrast(color.hex, colors['--color-text--primary'])} 
-      	contrastSecondary={chroma.contrast(color.hex, colors['--color-text--secondary'])} 
+      	contrastPrimary={getContrast(colors['--color-text--primary'], colorUnits.hex)} 
+      	contrastSecondary={getContrast(colors['--color-text--secondary'], colorUnits.hex)} 
       	level="AA" 
       />
       <AccessibilityLevel 
-      	contrastPrimary={chroma.contrast(color.hex, colors['--color-text--primary'])}
-      	contrastSecondary={chroma.contrast(color.hex, colors['--color-text--secondary'])}
+      	contrastPrimary={getContrast(colors['--color-text--primary'], colorUnits.hex)}
+      	contrastSecondary={getContrast(colors['--color-text--secondary'], colorUnits.hex)}
       	level="AAA"
       />
 
 			<div style={{backgroundColor: colors[key], width: '120px', height: '120px' }} />
 
 			<div>
-				{colors[key]}
+				{colorUnits.hex}
 			</div>
 		</div>
 		<div>{key.replace('--color-', '')}</div>
