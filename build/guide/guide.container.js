@@ -10,8 +10,8 @@ export const Guide = (el) => {
     stylistExampleSelect: document.querySelector('.guide__stylist-examples'),
     stylistBreakpointSelect: document.querySelector('.guide__stylist-breakpoint-size'),
     stylistBreakpointSpeed: document.querySelector('.guide__stylist-breakpoint-speed'),
-    colorAccessibilityLevel: document.querySelector('.accessibility__controls-level'),
-    colorAccessibilityWeight: document.querySelector('.accessibility__controls-weight')
+    colorAccessibilityLevel: document.querySelector('.accessibility__controls-level select'),
+    colorAccessibilityWeight: document.querySelector('.accessibility__controls-weight select')
   };
 
   const state = {
