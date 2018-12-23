@@ -1,0 +1,40 @@
+/* Select */
+.select {
+	.field__decorator {
+		border-radius: 0.1rem;
+		display: flex;
+		min-width: 10.25rem;
+		min-height: 1.90rem;
+		align-items: center;
+
+		&:after {
+			content: '';
+			background-image: url('./assets/chevron.svg');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			transform: rotateZ(90deg);
+			height: 1rem;
+			width: 1rem;
+			margin-left: -1.25rem;
+			margin-right: 0.25rem;
+			display: block;
+			z-index: 1;
+		}
+
+		.field__native {
+			cursor: pointer;
+			-webkit-appearance: none;
+			background: transparent;
+			color: black;
+			display: block;
+			outline: none;
+			padding: 6px 10px 6px 10px;
+			position: relative;
+			width: 100%;
+			z-index: 2;
+			padding-right: 1.5rem;
+			outline: none;
+		}
+	}
+}

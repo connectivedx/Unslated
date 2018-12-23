@@ -13,7 +13,7 @@ export class List extends React.Component {
     /** Style variant */
     variant: PropTypes.oneOf(['unordered', 'ordered', 'blank', 'definition']),
     /** Children nodes being passed through */
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
   };
 
   static defaultProps = {
