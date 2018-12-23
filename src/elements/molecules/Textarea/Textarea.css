@@ -1,0 +1,5 @@
+.textarea {
+  .field__native {
+  	padding: calc(var(--field__radio-size) / 2);
+  }
+}
