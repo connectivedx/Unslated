@@ -47,7 +47,11 @@
       position: relative;
 
       &:before {
-        content: url('assets/close.svg');
+        content: '';
+        background-image: url('assets/close.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
         cursor: pointer;
         display: block;
         height: 1.5rem;
