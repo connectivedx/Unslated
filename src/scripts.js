@@ -21,4 +21,3 @@ setTimeout(() => {
 	  ]
 	});
 }, 1000);
-// setup tracking
