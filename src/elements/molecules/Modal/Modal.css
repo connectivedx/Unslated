@@ -1,0 +1,137 @@
+:root {
+	--small: 480px;
+	--medium: 768px;
+	--large: 1024px;
+	--extraLarge: 1200px;
+}
+
+.modal {
+	background: var(--color--alpha25);
+	bottom: 0;
+	display: none;
+	left: 0;
+	opacity: 0;
+	position: fixed;
+	right: 0;
+	text-align: center;
+	top: 0;
+	transition: opacity 0.2s, z-index 0s 0.2s;
+	white-space: nowrap;
+	z-index: -1;
+	-webkit-overflow-scrolling: touch;
+
+	/* for multiple modals */
+	&[data-modal-hide] {
+		&.modal-visible {
+			display: none;
+		}
+	}
+
+  &.overflowing {
+  	& .modal-inner {
+	  	height: 100%;
+	  	&--height {
+		    overflow-x: hidden;
+		    overflow-y: scroll;
+	    }
+	  }
+	}
+
+	& > * {
+		display: inline-block;
+		white-space: normal;
+		vertical-align: middle;
+		text-align: left;
+	}
+
+	&:before {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		overflow: hidden;
+		vertical-align: middle;
+		width: 0;
+	}
+
+	& button {
+		margin-top: 1rem;
+	}
+
+	&.modal-visible {
+		display: block;
+		z-index: 99;
+		opacity: 1;
+		transition: opacity 0.2s;
+
+		& .modal-inner--width {
+			opacity: 1;
+			transform: scale(1);
+			transition: opacity 0.2s, transform 0.2s;
+			z-index: 100;
+		}		
+	}	
+
+	&-inner {
+		padding: 4rem 1rem 2rem;
+		width: 100%;
+
+		&--width {
+		  display: flex;
+		  flex-direction: column;
+		  height: 100%;
+		  margin: auto;
+			padding: 1rem;
+			position: relative;
+			transform: scale(0);
+			transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
+			width: 100%;
+		  justify-content: center;
+			z-index: -1;	
+			@media (--large) {
+				margin: 0;
+			}
+		}
+
+		&--height {
+			padding: 1rem;			
+		}
+	}
+
+	/* size variants */
+	&--small .modal-inner {
+		max-width: var(--small);
+	}
+
+	&--medium .modal-inner {
+		max-width: var(--medium);
+	}
+
+	&--large .modal-inner {
+		max-width: var(--large);
+	}
+
+	&--extraLarge .modal-inner {
+		max-width: var(--extraLarge);
+	}
+
+	/* style variants */
+	&--default .modal-inner--width {
+		background: #fff;
+		border-radius: 4px;
+	}
+
+	.icon--close {
+		color: white;
+		cursor: pointer;
+		font-size: 0;
+		height: 25px;
+		line-height: 25px;
+		position: absolute;
+		right: 5px;
+		text-align: center;
+		top: -35px;
+		width: 25px;
+		z-index: 2;
+		fill: var(--color-white);
+	}
+}
