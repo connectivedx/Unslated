@@ -6,35 +6,21 @@ module.exports = postcss.plugin('postcss-extend', (options) => {
   options = options || {
     preserve: false
   };
+
   return (root) => {
-    const extendParams = [];
+    root.walkAtRules('extend', extendRule => {
+      const lookupSelector = extendRule.params.trim();
+      root.walkRules(lookupRule => {
+        const matchingSelector = lookupRule.selector.trim();
 
-    // first gather all our param extends
-    root.walkAtRules((extendRule) => {
-      if (extendRule.name.trim() === 'extend') { 
-        const remover = () => {
-          extendRule.remove();
-        };
+        if (matchingSelector.indexOf(lookupSelector) !== -1) {
 
-        const lookupSelector = extendRule.params.trim();
-        const extended = [];
+          const combined = matchingSelector.replace(lookupSelector, extendRule.parent.selector);
+          lookupRule.selector += [',', combined].join('');
+        }
+      });
 
-        root.walkRules((lookupRule) => {
-          const matchingSelector = lookupRule.selector.trim();
-          if (matchingSelector === lookupSelector) { 
-            const nodes = lookupRule.nodes;
-            Object.keys(nodes).map(key => {
-              extended[nodes[key].prop] = nodes[key].value;
-            });
-          }
-        });
-
-        const cssRules = Object.keys(extended).map(index => {
-         return [index, ':', extended[index]].join('');
-        }).join(';');
-
-        extendRule.replaceWith(cssRules);
-      }
+      extendRule.remove();
     });
   };
 });

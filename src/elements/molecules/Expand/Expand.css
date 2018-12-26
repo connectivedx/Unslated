@@ -1,0 +1,38 @@
+.expand {
+	display: flex;
+	/* states */
+  &-state {
+ 		&--open {
+ 			.expand__target {
+	 			max-height: 4000px;
+	 		}
+ 		}
+
+ 		&--closed {
+ 			.expand__target {
+				overflow: hidden;
+				max-height: 0;
+ 			}
+ 		}
+ 	}
+
+ 	/* variants */
+ 	flex-direction: column;
+
+ 	&-align--top {
+ 		flex-direction: column-reverse;
+ 	}
+
+ 	&-align--bottom {
+ 		flex-direction: column;
+ 	}
+
+ 	&-align--right {
+ 		flex-direction: row;
+ 	}
+
+ 	&-align--left {
+ 		flex-direction: row-reverse;
+ 		justify-content: flex-end;
+ 	}
+}

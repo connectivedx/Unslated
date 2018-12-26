@@ -38,9 +38,9 @@ module.exports = {
         return resolver.resolveSync({}, basedir, id);
       }
     }),
+    media(),        // Allows for custom media queries
     colors(),       // Pre-parse color variables
     variables(),    // Allows var(--variables)
-    media(),        // Allows for custom media queries
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
     mixins(),       // Allows for CSS mixins
