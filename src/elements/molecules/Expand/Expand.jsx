@@ -40,7 +40,7 @@ export class Expand extends React.Component {
     icon: 'plus',
     defaultState: 'closed',
     level: 'h3',
-    align: 'bottom'
+    align: 'top'
   };
 
   render = () => {

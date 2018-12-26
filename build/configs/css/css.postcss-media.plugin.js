@@ -9,6 +9,7 @@
 
 const postcss = require('postcss');
 const queries = [];
+
 module.exports = postcss.plugin('postcss-custom-media', (options) => {
   options = options || {
     preserve: false
@@ -25,12 +26,10 @@ module.exports = postcss.plugin('postcss-custom-media', (options) => {
           value.indexOf('print and') !== -1) {
           queries[variable] = value;
         }
-        
       });
     });
 
-    root.walkAtRules((rule) => {
-      if (rule.name !== 'media') { return; }
+    root.walkAtRules('media', rule => {
       const variable = rule.params.replace(/\((.*)\)/g, '$1');
       Object.keys(queries).map(key => {
         if (key === variable) {

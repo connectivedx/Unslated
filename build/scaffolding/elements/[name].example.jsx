@@ -27,10 +27,11 @@ export default [{
   examples: [
     {
       name: 'Default styling',
+      description:'',
       component: (
         <{{name}}>Lorem ipsum</{{name}}>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];

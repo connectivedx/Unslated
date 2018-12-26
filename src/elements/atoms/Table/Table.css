@@ -65,6 +65,7 @@
 
   &--auto {
     display: inline-block;
+    width: 100%;
   }
 
   &--responsive {
@@ -176,7 +177,7 @@
   &.table--inline-data {
     @extend .table--responsive;
 
-    @media (--below-medium) {
+    @media only screen and (width <= 45em) {
       /* data values to be displayed inline on small screens, vs. stacked */
       .table__data:not(:first-of-type) {
         padding-left: 50%;

@@ -56,7 +56,7 @@
 	}
 
 	&--spread {
-		@extend .accordion--default;
+		@extend-all .accordion--default;
 		border: none;
 
 		.expand:first-child {
@@ -74,13 +74,13 @@
 				border: 1px solid var(--border-style);
 			}
 
-			&.expand-align--bottom {
+			&.expand-align--top {
 				.expand__target {
 					border-top: none;
 				}
 			}
 
-			&.expand-align--top {
+			&.expand-align--bottom {
 				.expand__target {
 					border-bottom: none;
 				}				

@@ -84,26 +84,38 @@ export default [{
         <Table variant="auto">
           <Table__head>
             <Table__row>
-              <Table__header>This thing</Table__header>
-              <Table__header>&nbsp;</Table__header>
-              <Table__header>That thing</Table__header>
+              <Table__header>Rating</Table__header>
+              <Table__header>Description</Table__header>
             </Table__row>
           </Table__head>
           <Table__body>
             <Table__row>
-              <Table__data>With this</Table__data>
-              <Table__data><small>or</small></Table__data>
-              <Table__data>With that</Table__data>
+              <Table__header>Lorem Ipsum</Table__header>
+              <Table__data>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              </Table__data>
             </Table__row>
             <Table__row>
-              <Table__data>With this</Table__data>
-              <Table__data><small>or</small></Table__data>
-              <Table__data>With that</Table__data>
+              <Table__header>Lorem Ipsum</Table__header>
+              <Table__data>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              </Table__data>
             </Table__row>
             <Table__row>
-              <Table__data>With this</Table__data>
-              <Table__data><small>or</small></Table__data>
-              <Table__data>With that</Table__data>
+              <Table__header>Lorem Ipsum</Table__header>
+              <Table__data>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              </Table__data>
+            </Table__row>
+            <Table__row>
+              <Table__header>Lorem Ipsum</Table__header>
+              <Table__data>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              </Table__data>
             </Table__row>
           </Table__body>
         </Table>

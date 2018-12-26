@@ -191,7 +191,7 @@ const getPages = () => {
 const getExamples = () => {
   const elements = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
   const collection = [];
-  const modifiersDescription = 'Modifiers are CSS based design patterns that are both simple, and reusable across the project.';
+  const modifiersDescription = 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.';
   Object.keys(elements).map((key, index) => {
     const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
     const atomicLevel = key.replace('./', '').split('/')[0];
