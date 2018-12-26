@@ -1,19 +1,19 @@
 :root {
-	--border-styles: 1px solid var(--color-gray);
-	--tabs-bg-color: var(--color-white);
+  --border-styles: 1px solid var(--color-gray);
+  --tabs-bg-color: var(--color-white);
   --tabs-trigger-padding: 0.5rem;
   --tabs-target-padding: 1rem;
 }
 .tabs {
-	@media (--medium) {
-	  display: flex;
-	  position: relative;
+  @media (--medium) {
+    display: flex;
+    position: relative;
   }
 
   &__trigger {
-  	&.tabs-state--open {
-  		& + .tabs__target { display: block; }
-  	}
+    &.tabs-state--open {
+      & + .tabs__target { display: block; }
+    }
   }
 
   &__target { display: none; }
@@ -82,26 +82,26 @@
 
   /* Style variants */
   &--default {
-  	.tabs__trigger,
-  	.tabs__target {
-  		@media (--medium) {
-  			background-color: var(--tabs-bg-color);
-  		}
-  	}
+    .tabs__trigger,
+    .tabs__target {
+      @media (--medium) {
+        background-color: var(--tabs-bg-color);
+      }
+    }
 
-  	.tabs__trigger {
-			border: var(--border-style);
-			cursor: pointer;
-			font-size: 1.35rem;
-			padding: var(--tabs-padding);
-			position: relative;
-			z-index: 2;
-			background-color: var(--color-gray-light);
+    .tabs__trigger {
+      border: var(--border-style);
+      cursor: pointer;
+      font-size: 1.35rem;
+      padding: var(--tabs-padding);
+      position: relative;
+      z-index: 2;
+      background-color: var(--color-gray-light);
 
-			@media (--medium) {
-				padding: var(--tabs-trigger-padding) 0.85rem;
-			}
-  	}
+      @media (--medium) {
+        padding: var(--tabs-trigger-padding) 0.85rem;
+      }
+    }
 
     @media (--below-medium) {
       .tabs__target {
@@ -110,16 +110,16 @@
       }      
     }
 
-  	@media (--medium) {
-    	&.tabs-align--top {
-    		.tabs-state--open { border-bottom: 1px solid var(--tabs-bg-color); }
-    		.tabs__target     {	margin-top: -1px; }
-    	}
+    @media (--medium) {
+      &.tabs-align--top {
+        .tabs-state--open { border-bottom: 1px solid var(--tabs-bg-color); }
+        .tabs__target     { margin-top: -1px; }
+      }
 
-    	&.tabs-align--bottom {
-  			.tabs-state--open { border-top: 1px solid var(--tabs-bg-color); }
-    		.tabs__target     { margin-bottom: -1px; }
-    	}
+      &.tabs-align--bottom {
+        .tabs-state--open { border-top: 1px solid var(--tabs-bg-color); }
+        .tabs__target     { margin-bottom: -1px; }
+      }
 
       &.tabs-align--left {
         .tabs-state--open { border-right: 1px solid var(--tabs-bg-color); }
@@ -132,11 +132,11 @@
       }
     }
 
-  	.tabs__target {
-  		border: var(--border-style);
-			padding: var(--tabs-target-padding);
-			position: relative;
-			z-index: 1;
-  	}
+    .tabs__target {
+      border: var(--border-style);
+      padding: var(--tabs-target-padding);
+      position: relative;
+      z-index: 1;
+    }
   }
 }
