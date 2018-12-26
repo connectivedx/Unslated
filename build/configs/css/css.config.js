@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const postcss = require('./css.postcss-plugins.config.js');
+const postcss = require('./css.postcss.config.js');
 
 // all css files get ran through these processes
 module.exports = {

@@ -1,6 +1,8 @@
 :root {
 	--border-styles: 1px solid var(--color-gray);
 	--tabs-bg-color: var(--color-white);
+  --tabs-trigger-padding: 0.5rem;
+  --tabs-target-padding: 1rem;
 }
 .tabs {
 	@media (--medium) {
@@ -16,6 +18,68 @@
 
   &__target { display: none; }
 
+  /* Tabs alignment & justification */
+  &-align {
+    &--left,
+    &--right {
+      @media (--medium) { display: grid; }
+
+      .tabs__target {
+        grid-row-start: 20;
+        grid-row-end: 1;
+      }     
+    }
+
+    &--left {
+      grid-template-columns: 15% 85%;
+
+       .tabs__trigger { grid-column-start: 1; }
+      .tabs__target { grid-column-start: 2; }
+    }
+
+    &--right {
+      grid-template-columns: 85% 15%;
+
+       .tabs__trigger { grid-column-start: 2; }
+      .tabs__target { grid-column-start: 1; }
+    }
+
+    /* Order is controlled via JS Containre with the CSS order: X; prop */
+    &--top,
+    &--bottom { flex-flow: row wrap; } 
+
+    &--top {
+      .tabs__trigger { order: 1; }
+      .tabs__target { order: 2; }
+    }
+
+    &--bottom {
+      .tabs__trigger{ order: 2;  }
+      .tabs__target { order: 1; }      
+    }
+  }
+
+  &-justify {
+    /* Justify horizontal tabs system to left */
+    &--left { justify-content: flex-start; }
+
+    /* Justify horizontal tab systems to center */
+    &--center { justify-content: center; }
+
+    /* Justify horizontal tab systems to right  */
+    &--right { justify-content: flex-end; }
+
+    &--bottom { 
+      &,
+      .tabs__trigger,
+      .tabs__target {
+        @media (--medium) {
+          transform: rotateX(180deg); /* Justify vertical aligned tab systems to bottom */
+        }
+      }      
+    }
+  }
+
   /* Style variants */
   &--default {
   	.tabs__trigger,
@@ -29,152 +93,50 @@
 			border: var(--border-style);
 			cursor: pointer;
 			font-size: 1.35rem;
-			padding: 0.5rem;
+			padding: var(--tabs-padding);
 			position: relative;
 			z-index: 2;
 			background-color: var(--color-gray-light);
 
 			@media (--medium) {
-				padding: 0.25rem 0.5rem;
+				padding: var(--tabs-trigger-padding) 0.85rem;
 			}
   	}
 
-  	.tabs__target {
-  		@media (--below-medium) {
-	  		border-top: none;
-	  		border-bottom: none;
-  		}
-  	}
+    @media (--below-medium) {
+      .tabs__target {
+        border-top: none;
+        border-bottom: none;
+      }      
+    }
 
-  	&.tabs-align--top {
-  		.tabs-state--open {
-  			@media (--medium) {
-	  			border-bottom: 1px solid var(--tabs-bg-color);
-	  		}
-  		}
+  	@media (--medium) {
+    	&.tabs-align--top {
+    		.tabs-state--open { border-bottom: 1px solid var(--tabs-bg-color); }
+    		.tabs__target     {	margin-top: -1px; }
+    	}
 
-  		.tabs__target {
-				@media (--medium) {  			
-	  			margin-top: -1px;
-	  		}
-  		}
-  	}
+    	&.tabs-align--bottom {
+  			.tabs-state--open { border-top: 1px solid var(--tabs-bg-color); }
+    		.tabs__target     { margin-bottom: -1px; }
+    	}
 
-  	&.tabs-align--bottom {
-			.tabs-state--open {
-				@media (--medium) {
-	  			border-top: 1px solid var(--tabs-bg-color);
-	  		}
-  		}
+      &.tabs-align--left {
+        .tabs-state--open { border-right: 1px solid var(--tabs-bg-color); }
+        .tabs__target     { margin-left: -1px; }
+      } 
 
-  		.tabs__target {
-  			@media (--medium) {
-	  			margin-bottom: -1px;
-	  		}
-  		}
-  	}
-
-
-  	&.tabs-align--left {
-			.tabs-state--open {
-				@media (--medium) {
-  				border-right: 1px solid var(--tabs-bg-color);
-  			}
-  		} 
-
-  		.tabs__target {
-				@media (--medium) {
-  				margin-left: -1px;
-  			}  			
-  		}
-  	} 
-
-  	&.tabs-align--right {
-			.tabs-state--open {
-				@media (--medium) {
-  				border-left: 1px solid var(--tabs-bg-color);
-  			}
-  		}
-
-  		.tabs__target {
-				@media (--medium) {
-  				margin-right: -1px;
-  			}  			
-  		}  		
-  	}   	 	
+      &.tabs-align--right {
+        .tabs-state--open { border-left: 1px solid var(--tabs-bg-color); }
+        .tabs__target     { margin-right: -1px; }      
+      }
+    }
 
   	.tabs__target {
   		border: var(--border-style);
-			padding: 1rem;
+			padding: var(--tabs-target-padding);
 			position: relative;
 			z-index: 1;
-  	}
-  }
-
-  /* Tabs alignment & justification */
-  &-align {
-  	&--left,
-  	&--right {
-  		@media (--medium) {
-  			display: grid;
-  		}
-
-  		.tabs__target {
-		    grid-row-start: 1000;
-		    grid-row-end: 1;
-  		} 		
-  	}
-
-  	&--left {
-  		grid-template-columns: 15% 85%;
-
- 			.tabs__trigger { grid-column-start: 1; }
-  		.tabs__target { grid-column-start: 2; }
-  	}
-
-  	&--right {
-  		grid-template-columns: 85% 15%;
-
- 			.tabs__trigger { grid-column-start: 2; }
-  		.tabs__target { grid-column-start: 1; }
-  	}
-
-  	/* Order is controlled via JS Containre with the CSS order: X; prop */
-  	&--top,
-  	&--bottom { flex-flow: row wrap; } 
-
-  	&--top {
-  		.tabs__trigger { order: 1; }
-  		.tabs__target { order: 2; }
-  	}
-
-  	&--bottom {
-  		.tabs__trigger{ order: 2;	}
-  		.tabs__target { order: 1; }  		
-  	}
-  }
-
-  &-justify {
-  	&--left { 
-  		justify-content: flex-start; /* Justify horizontal tabs system to left */
-  	}
-
-  	&--center {
-	  	justify-content: center; /* Justify horizontal tab systems to center */
-  	}
-
-  	&--right {
-  		justify-content: flex-end; /* Justify horizontal tab systems to right  */
-  	}
-
-  	&--bottom { 
-			&,
-			.tabs__trigger,
-			.tabs__target {
-				@media (--medium) {
-					transform: rotateX(180deg); /* Justify vertical aligned tab systems to bottom */
-				}
-			}  		
   	}
   }
 }

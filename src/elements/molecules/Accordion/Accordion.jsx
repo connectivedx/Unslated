@@ -80,7 +80,8 @@ export class Accordion__section extends React.Component {
 
   static defaultProps = {
     tagName: 'div',
-    variant: 'default'
+    variant: 'default',
+    align: 'top'
   };
 
   render = () => {

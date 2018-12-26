@@ -17,6 +17,11 @@ body,
   height: 100%;
 }
 
+strong,
+.heading {
+  font-weight: 600;
+}
+
 .guide {
   display: flex;
   perspective: 100rem;
