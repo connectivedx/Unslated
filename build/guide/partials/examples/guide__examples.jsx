@@ -60,7 +60,7 @@ export const Guide__examples = (props) => {
           const reactExample = ReactElementToString(component, {
             displayName: getTagName,
             showDefaultProps: false
-          });
+          }).replace(/\<Unknown\>/g, '').replace(/\<\/Unknown\>/g, '').trim();
 
           // Gathers example's HTML code version
           const htmlExample = ReactDOMServer.renderToStaticMarkup(component);
