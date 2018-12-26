@@ -33,7 +33,7 @@ export default [{
           <Input label="Basic input label text" type="text" name="text-input" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Text Inputs (Stacked top)',
       component: (
@@ -41,7 +41,7 @@ export default [{
           <Input label="Basic input label text" type="text" name="text-input" align="stacked-top" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Text Inputs (Inline left)',
       component: (
@@ -49,7 +49,7 @@ export default [{
           <Input label="Inline input label text" type="text" name="text-input" align="inline-left" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Text Inputs (Inline right)',
       component: (
@@ -57,7 +57,7 @@ export default [{
           <Input label="Inline input label text" type="text" name="text-input" align="inline-right" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Text Inputs (without label, with placeholder)',
       component: (
@@ -65,7 +65,7 @@ export default [{
           <Input name="test-name" label={false} type="text" name="text-input" placeholder="Labeless with placeholder" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Radio Inputs (Default inline left)',
       component: (
@@ -73,7 +73,7 @@ export default [{
           <Input label="Inline radio label text" type="radio" name="radio-inline-left" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Radio Inputs (Inline right)',
       component: (
@@ -81,7 +81,7 @@ export default [{
           <Input label="Inline radio label text" type="radio" align="inline-right" name="radio-inline-right" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Radio Inputs (Muti field / single selection)',
       component: (
@@ -90,7 +90,7 @@ export default [{
           <Input label="Inline radio two label text" type="radio" name="multi-field-same-name" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Checkbox Inputs (Default inline left)',
       component: (
@@ -98,7 +98,7 @@ export default [{
           <Input label="Inline checkbox label text" type="checkbox" name="checkbox-input" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Checkbox Inputs (Inline right)',
       component: (
@@ -106,7 +106,7 @@ export default [{
           <Input label="Inline checkbox label text" type="checkbox" name="checkbox-input" align="inline-right" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Checkbox Inputs (Muti-field)',
       component: (
@@ -115,7 +115,7 @@ export default [{
           <Input label="Inline checkbox two label text" type="checkbox" name="multi-field-two" required={true} />
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];

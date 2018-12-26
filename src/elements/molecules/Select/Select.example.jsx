@@ -37,7 +37,7 @@ export default [{
         </Select>
       </Form>
     ),
-    devNotes: ''
+    notes: ''
   }, {
     name: 'Select Inputs (Stacked top)',
     component: (
@@ -50,7 +50,7 @@ export default [{
         </Select>
       </Form>
     ),
-    devNotes: ''
+    notes: ''
   }, {
     name: 'Select Inputs (Inline left)',
     component: (
@@ -63,7 +63,7 @@ export default [{
         </Select>
       </Form>
     ),
-    devNotes: ''
+    notes: ''
   }, {
     name: 'Select Inputs (Inline right)',
     component: (
@@ -76,7 +76,7 @@ export default [{
         </Select>
       </Form>
     ),
-    devNotes: ''
+    notes: ''
   }, {
     name: 'Select Inputs (Without label)',
     component: (
@@ -89,6 +89,6 @@ export default [{
         </Select>
       </Form>
     ),
-    devNotes: ''
+    notes: ''
   }]
 }];

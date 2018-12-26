@@ -108,8 +108,10 @@ export const Guide = (el) => {
     // we don't use classList toggle method due to IE11.
     if (table.classList.contains('hide')) {
       table.classList.remove('hide');
+      target.classList.add('open');
     } else {
       table.classList.add('hide');
+      target.classList.remove('open');
     }
   };
 

@@ -15,6 +15,13 @@
       height: 15px;
       margin-left: 0.85rem;
       width: 15px;
+      transition: all 0.35s;
+    }
+
+    &.open {
+      &:after {
+        transform: rotateZ(450deg);
+      }
     }
   }
 
@@ -22,11 +29,21 @@
 
     &-section {
       margin-bottom: 1rem;
-      width: 49%;
+      width: 100%;
+
+      & + .guide__readme-section {
+        @media (--medium) {
+          margin-left: 1rem;
+        }
+      }
 
       &s {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap; 
+        @media (--medium) {
+          flex-wrap: nowrap;
+        }
       }
 
       & .heading {

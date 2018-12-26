@@ -1,8 +1,8 @@
 import Heading from '@atoms/Heading/Heading';
 
 /** 
-  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.
-  Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordions.
+  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.<br/>
+  <strong>Mobile friendly:</strong> Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordion experince.
 */
 
 export class Tabs extends React.Component {

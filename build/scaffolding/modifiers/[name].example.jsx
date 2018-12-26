@@ -14,10 +14,11 @@ export default [{
   examples: [
     {
       name: 'Default styling',
+      description:'',
       component: (
         <div className="{{name}}">Lorem ipsum</div>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];

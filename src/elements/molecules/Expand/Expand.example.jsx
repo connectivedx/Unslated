@@ -26,29 +26,29 @@ export default [{
   docs,
   examples: [
     {
-      name: 'Default state (align bottom)',
+      name: 'Default state (align top)',
       component: (
         <div>
           <Expand title="Toggle me" level="h5">Lorem ipsum</Expand>
         </div>
       ),
-      devNotes: ''
+      notes: ''
     }, {
-      name: 'Overloaded state (align bottom)',
+      name: 'Overloaded state (align top)',
       component: (
         <div>
           <Expand title="Toggle me also" defaultState="open" level="h5">Lorem ipsum</Expand>
         </div>
       ),
-      devNotes: ''
+      notes: ''
     }, {
-      name: 'Align top',
+      name: 'Align bottom',
       component: (
         <div>
-          <Expand title="Toggle me also" defaultState="open" level="h5" align="top">Lorem ipsum</Expand>
+          <Expand title="Toggle me also" defaultState="open" level="h5" align="bottom">Lorem ipsum</Expand>
         </div>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align left',
       component: (
@@ -56,7 +56,7 @@ export default [{
           <Expand title="Toggle me also" defaultState="open" level="h5" align="left">Lorem ipsum</Expand>
         </div>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align right',
       component: (
@@ -64,7 +64,7 @@ export default [{
           <Expand title="Toggle me also" defaultState="open" level="h5" align="right">Lorem ipsum</Expand>
         </div>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];
