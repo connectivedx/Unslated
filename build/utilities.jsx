@@ -7,6 +7,48 @@
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
 
+/*
+  Helper: Traverses up the dom to a given parent element
+*/
+const parents = (obj, parent) => {
+  let el = obj;
+  if(parent.indexOf('.') === 0){
+    while (el.parentNode) {
+      el = el.parentNode;
+      const classNAME = el.className;
+      if(classNAME && typeof classNAME.match == 'function'){
+        const classes = classNAME.split(" ");
+        let j = classes.length;
+        let hunted = parent.toLowerCase().replace('.','');
+        while(j--){
+          if(classes[j] == hunted)
+            return el;
+        }
+      }
+    }
+  }else if(parent.indexOf('#') === 0){
+    while (el.parentNode) {
+      el = el.parentNode;
+      const ID = el.id;
+      if(ID && typeof ID.match == 'function'){
+        if (ID.match(parent.toLowerCase().replace('#', '')))
+          return el;
+      }
+    }
+  }else{
+    while (el.parentNode) {
+      el = el.parentNode;
+      if(el.tagName){
+        if(typeof parent != 'undefined'){
+          if (el.tagName.toLowerCase() === parent.toLowerCase())
+            return el;
+        }
+      }
+    }
+  }
+
+  return null;
+}
 
 /*
   CORE: Creating a nice className from an array of unknown values
@@ -39,6 +81,7 @@ const initComponent = (name, selector, component, ...args) => {
 
 
 module.exports = {
+  parents,
   createClassStack,
   initComponent
 };

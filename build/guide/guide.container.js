@@ -45,13 +45,19 @@ export const Guide = (el) => {
 
   // Switch between code samples under a example
   const switchCodeSamples = (selection, example) => {
+    if (!selection) { return; }
+
+    const selected = example.querySelectorAll('.examples__code')[selection];
+    if (!selected.classList.contains('hide')) {
+      selected.classList.add('hide');
+      return;
+    }
+
     Object.keys(ui.examplesCodes).map(index => {
       ui.examplesCodes[index].classList.add('hide');
     });
 
-    if (!selection) { return; }
-
-    example.querySelectorAll('.examples__code')[selection].classList.remove('hide');
+    selected.classList.remove('hide');
   };
 
   // Switch between breakpoint sizes for all examples
