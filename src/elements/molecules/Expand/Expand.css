@@ -19,11 +19,11 @@
  	/* variants */
  	flex-direction: column;
 
- 	&-align--top {
+ 	&-align--bottom {
  		flex-direction: column-reverse;
  	}
 
- 	&-align--bottom {
+ 	&-align--top {
  		flex-direction: column;
  	}
 

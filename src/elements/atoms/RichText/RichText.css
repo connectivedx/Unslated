@@ -4,7 +4,7 @@
 @import "@atoms/List/List.css";
 
 .rich-text {
-  @extend .rhythm--deep;
+  @extend-all .rhythm--deep;
 
   & h1,
   & h2,
@@ -27,9 +27,8 @@
     @extend .button--default;
   }
 
-  & ul,
-  & ol {
-    @extend .rhythm--small;
+  ol, ul {
+    @extend-all .rhythm--small;
   }
 
   & ul {

@@ -30,6 +30,7 @@ const minification = require('cssnano');
 const colors = require('./css.postcss-colors.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
 const mediaPacker = require('css-mqpacker');
+const removeRoots = require('./css.postcss-roots.plugin.js');
 
 module.exports = {
   plugins: [
@@ -43,8 +44,9 @@ module.exports = {
     variables(),    // Allows var(--variables)
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
-    mixins(),       // Allows for CSS mixins
-    mediaPacker(),  // Allows for the consolidation of @media queries 
+    mixins(),       // Allows for CSS @mixins
+    removeRoots(),  // Cleans up leftover :root declarations.
+    mediaPacker(),   // Allows for the consolidation of @media queries
     minification(), // Minification of our final CSS results.
   ]
 };

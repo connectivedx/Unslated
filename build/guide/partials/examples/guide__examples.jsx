@@ -75,6 +75,7 @@ export const Guide__examples = (props) => {
           return (
             <Rhythm className={`examples examples__item`} key={index}>
               <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
+              <p dangerouslySetInnerHTML={{__html: example.description}}></p>
               <div className="examples examples__pallet" style={{'--breakpoint-speed': '0s', backgroundImage: ['url(', ExampleBg, ')'].join('')}}>
                 <div className="examples examples__pallet-inner">
                   {component}

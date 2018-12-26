@@ -61,11 +61,5 @@ module.exports = postcss.plugin('postcss-vars', (options) => {
         });
       });
     });
-
-    //Finally, now that we are done with :root objects, lets remove them from the style sheets
-    root.walkRules(':root', rule => {
-      //if (rule.parent.source.input.file.indexOf('colors.css') !== -1) { return; }
-      rule.remove();
-    });
   };
 });

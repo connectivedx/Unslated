@@ -35,7 +35,7 @@ export default [{
           </Textarea>
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Textarea (Stacked top)',
       component: (
@@ -45,7 +45,7 @@ export default [{
           </Textarea>
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Textarea (Inline left)',
       component: (
@@ -55,7 +55,7 @@ export default [{
           </Textarea>
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Textarea (Inline right)',
       component: (
@@ -65,7 +65,7 @@ export default [{
           </Textarea>
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Textarea (without label)',
       component: (
@@ -75,7 +75,7 @@ export default [{
           </Textarea>
         </Form>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];

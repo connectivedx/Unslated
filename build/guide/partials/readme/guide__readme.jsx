@@ -30,7 +30,7 @@ export const Guide__readme = (props) => {
         <Heading className="guide__readme-toggler" level="h3">Props</Heading>
         <Rhythm className="guide__readme-togglee hide">
           <p>Props are predefined inputs that alter or pass-through rendered.</p>
-          <Table>
+          <Table variant="responsive">
             <Table__head>
               <Table__row>
                 <Table__header>Prop name</Table__header>
@@ -64,7 +64,6 @@ export const Guide__readme = (props) => {
     );
   };
 
-
   const methodsSection = () => {
     if (!props.docs.methods) { return; }
     return (
@@ -72,7 +71,7 @@ export const Guide__readme = (props) => {
         <Heading className="guide__readme-toggler" level="h3">Methods</Heading>
         <Rhythm className="guide__readme-togglee hide">
           <p>Methods are private actions that alter element states.</p>
-          <Table>
+          <Table variant="responsive">
             <Table__head>
               <Table__row>
                 <Table__header width="5%">Method name</Table__header>
@@ -107,11 +106,13 @@ export const Guide__readme = (props) => {
     );
   };
 
+  const description = (props.docs.description) ? props.docs.description : <span className="doc-error">Missing Element description!<br /> Please describe this element in a multi-line comment at the top of it&apos;s JSX file.</span>;
+  
   return (
     <Rhythm className="guide__readme">
       <Rhythm>
         <Heading level="h1">{props.docs.displayName}</Heading>
-        <p>{(props.docs.description) ? props.docs.description : <span className="doc-error">Missing Element description!<br /> Please describe this element in a multi-line comment at the top of it&apos;s JSX file.</span>}</p>
+        <p dangerouslySetInnerHTML={{__html: description}}>{}</p>
       </Rhythm>
 
       <div className="guide__readme-sections">

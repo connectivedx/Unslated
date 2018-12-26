@@ -46,7 +46,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align top, justify center',
       component: (
@@ -68,7 +68,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align top, justify right',
       component: (
@@ -90,7 +90,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align bottom, justify left',
       component: (
@@ -112,7 +112,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align bottom, justify center',
       component: (
@@ -134,7 +134,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align bottom, justify right',
       component: (
@@ -156,7 +156,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align left',
       component: (
@@ -178,7 +178,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align left, Justify Bottom',
       component: (
@@ -200,7 +200,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align right',
       component: (
@@ -222,7 +222,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }, {
       name: 'Align right, justify bottom',
       component: (
@@ -244,7 +244,7 @@ export default [{
           </Tabs__section>                    
         </Tabs>
       ),
-      devNotes: ''
+      notes: ''
     }
   ]
 }];
