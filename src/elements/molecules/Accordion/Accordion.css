@@ -1,45 +1,94 @@
 :root {
 	--target-padding: 1rem;
 	--trigger-padding: 0.65rem var(--target-padding);
+	--border-style: 1px solid var(--color-gray);
+	--trigger-bg-color: var(--color-gray-light);
+	--target-bg-color: var(--color-white);
 }
 
 .accordion {
-	.expand {
-		&-state--closed {
-			.expand__trigger {
-				border-bottom: none;				
-			}
-			.expand__target {
-				border: none;
-				padding-top: 0;
-				padding-bottom: 0;
-			}
-		}
-
-		&:last-child {
-			.expand__target {
-				border-bottom: 1px solid var(--color-gray);
-			}
-		}
-	}
-
-
 	.expand__trigger {
-		background-color: var(--color--alpha15);
-		border: 1px solid var(--color-gray);
-		color: var(--color-gray);
-		cursor: pointer;
-		font-size: 1rem;
-		font-weight: normal;
-		padding: var(--trigger-padding);		
+		cursor: pointer;	
 	}
 
 	.expand__target {
-		border: 1px solid var(--color-gray);
-		border-top: none;
-		border-bottom: none;
-		padding: var(--target-padding);
-		transition: padding-top 0.5s, padding-bottom 0.5s, max-height 0.1s 0.1s ease;
 		overflow: hidden;
+	}
+
+	/* Style Variants */
+	&--default {
+		border: var(--border-style);
+		.expand:first-child {
+			.expand__trigger {
+				border-top: 0;
+			}
+		}
+
+		.expand__trigger {
+			background-color: var(--trigger-bg-color);
+			border-top: var(--border-style);			
+			color: var(--color-gray);
+			font-size: 1rem;
+			font-weight: normal;
+			padding: var(--trigger-padding);		
+		}
+
+		.expand__target {
+			background-color: var(--target-bg-color);
+			padding: var(--target-padding);
+		}
+
+		.expand-state--closed {
+			.expand__target {
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+		}
+
+		.expand-state--open {
+			.expand__trigger {
+				border-bottom: var(--border-style);
+			}
+			.expand__target {
+				transition: padding-top 0.5s, padding-bottom 0.5s, max-height 0.1s 0.1s ease;
+			}
+		}
+	}
+
+	&--spread {
+		@extend .accordion--default;
+		border: none;
+
+		.expand:first-child {
+			.expand__trigger {
+				border-top: var(--border-style);
+			}
+		}
+
+		.expand__trigger {
+			border: var(--border-style);
+		}
+
+		.expand-state--open {
+			.expand__target {
+				border: 1px solid var(--border-style);
+			}
+
+			&.expand-align--bottom {
+				.expand__target {
+					border-top: none;
+				}
+			}
+
+			&.expand-align--top {
+				.expand__target {
+					border-bottom: none;
+				}				
+			}
+		}
+
+		.expand {
+			margin-bottom: 1rem;
+		}
 	}
 }

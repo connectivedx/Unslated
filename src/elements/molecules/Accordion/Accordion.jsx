@@ -15,14 +15,17 @@ export class Accordion extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default']),
+    variant: PropTypes.oneOf(['default', 'spread']),
     /** Children passed through */
-    children: PropTypes.node
+    children: PropTypes.node,
+    /** Multi allows you specify if accordion allows multiple sections open at once.*/
+    multi: PropTypes.bool
   };
 
   static defaultProps = {
     tagName: 'div',
-    variant: 'default'
+    variant: 'default',
+    multi: true
   };
 
   render = () => {
@@ -31,12 +34,14 @@ export class Accordion extends React.Component {
       className,
       variant,
       children,
+      multi,
       ...attrs
     } = this.props;
 
     const classStack = Utils.createClassStack([
       'accordion',
       `accordion--${variant}`,
+      `accordion--multi-${multi}`,
       className
     ]);
 
@@ -68,6 +73,9 @@ export class Accordion__section extends React.Component {
     /** Title attribute sets the heading of an accordion section */
     title: PropTypes.string,
     /** Level attribute overloads the heading tag size of a accordion section (h1-h6)*/
+    level: PropTypes.string,
+    /** align attribute passes its value down to the expand molecule to align expanded content from top or bottom */
+    align: PropTypes.oneOf(['top', 'bottom'])
   };
 
   static defaultProps = {
@@ -82,6 +90,7 @@ export class Accordion__section extends React.Component {
       variant,
       children,
       title,
+      align,
       ...attrs
     } = this.props;
 
@@ -95,6 +104,7 @@ export class Accordion__section extends React.Component {
       <Expand tagName={Tag}
         className={classStack}
         title={title}
+        align={align}
         {...attrs}
       >
         {children}
