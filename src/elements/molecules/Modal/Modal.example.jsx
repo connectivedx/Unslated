@@ -31,10 +31,11 @@ export default [{
   docs,
   examples: [
     {
-      name: "default (large)",
+      name: "Default (large)",
+      description: 'A default modal example that has a default size of large',
       component: (
-        <div>
-          <Button data-modal="my-modal-id-01">Click me</Button>
+        <React.Fragment>
+          <Button data-modal="my-modal-id-01">Click to open</Button>
           <Modal data-modal="my-modal-id-01">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
@@ -66,13 +67,14 @@ export default [{
               </List__item>                                                      
             </List>
           </Modal>
-        </div>
+        </React.Fragment>
       )
     }, {
-      name: "small",
+      name: "Small",
+      description: 'A small size modal example',
       component: (
-        <div>
-          <Button data-modal="my-modal-id-02">Click me</Button>
+        <React.Fragment>
+          <Button data-modal="my-modal-id-02">Click to open</Button>
           <Modal data-modal="my-modal-id-02" size="small">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
@@ -92,25 +94,17 @@ export default [{
               </List__item>
               <List__item>
                 Sem, volutpat id justo ac, rhoncus congue nibh. Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>
-              <List__item>
-                Nullam odio sem, volutpat id justo ac, rhoncus congue nibh. Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>
-              <List__item>
-                Curabitur tincidunt leo ut sem pharetra, consequat luctus mauris semper. Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>
-              <List__item>
-                Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>                                                     
             </List>
           </Modal>
-        </div>
+        </React.Fragment>
       )
     }, {
-      name: "medium",
+      name: "Medium",
+      description: 'A medium size modal example',
       component: (
-        <div>
-          <Button data-modal="my-modal-id-03">Click me</Button>
+        <React.Fragment>
+          <Button data-modal="my-modal-id-03">Click to open</Button>
           <Modal data-modal="my-modal-id-03" size="medium">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
@@ -142,13 +136,14 @@ export default [{
               </List__item>                                                      
             </List>
           </Modal>
-        </div>
+        </React.Fragment>
       )
     }, {
-      name: "extra large",
+      name: "Extra large",
+      description: 'A large size modal example',
       component: (
-        <div>
-          <Button data-modal="my-modal-id-04">Click me</Button>
+        <React.Fragment>
+          <Button data-modal="my-modal-id-04">Click to open</Button>
           <Modal data-modal="my-modal-id-04" size="extraLarge">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
@@ -180,18 +175,19 @@ export default [{
               </List__item>                                                      
             </List>
           </Modal>
-        </div>
+        </React.Fragment>
       )
     }, {
       name: "Modal history example",
-      description: 'In this example, we are going to open a second modal on top of this already open modal. Note that a history of modals is being taken care of for you, so as you close the second modal you will be taken back here to this first modal.',
+      description: 'In this example, we are going to open a second modal on top of this already open modal.<br/> <strong>Note</strong> that a history of modals is being taken care of for you, so as you close the second modal you will be taken back to first modal.',
       component: (
-        <div>
-          <Button data-modal="my-modal-id-05">Click me</Button>
-          <Modal data-modal="my-modal-id-05">
-            <Button data-modal="my-modal-id-02">Click me to open another modal</Button>
+        <React.Fragment>
+          <Button data-modal="my-modal-id-05">Click to open</Button>
+          <Modal data-modal="my-modal-id-05" size="medium">
+            <p>Now click the button below to open another modal and main a modal history.</p>
+            <Button data-modal="my-modal-id-04">Click to open another modal</Button>
           </Modal>
-        </div>
+        </React.Fragment>
       )
     }
   ]
