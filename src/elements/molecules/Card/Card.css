@@ -1,0 +1,103 @@
+@import '@atoms/Rhythm/Rhythm.css';
+
+:root {
+	--card-grid__per-row: 4; /* configures number of cards per row in a Card__grid */
+	--card-spacing: 0.5rem;
+}
+
+.card {
+
+	&__header,
+	&__body,
+	&__footer {
+		padding: 1rem;
+	}
+
+  &__body {
+  	@extend-all .rhythm--medium;
+  }
+
+  /* Style variants */
+  &--default {
+		border: 1px solid var(--color-gray-light);
+		border-radius: 5px;
+
+		.card__header {
+			background-color: var(--color-gray-light);
+			border: 1px solid var(--color-gray);
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+
+		.card__footer {
+			border-top: 1px solid var(--color-gray-light);
+		}		
+  }
+
+  /* Colors */
+  &--color-white {
+  	background-color: var(--color-white);
+  }
+
+	  &:not(.card--color-white) {
+	  	color: var(--color-white);
+	  }
+
+  &--color-red {
+  	background-color: var(--color-generic--red);
+  }
+
+  &--color-green {
+  	background-color: var(--color-generic--green);
+  }
+
+  &--color-blue {
+  	background-color: var(--color-generic--blue);
+  }
+
+  /* Groups, Decks, Grids */
+  &__group,
+  &__deck,
+  &__grid {
+  	@media (--medium) {
+	  	display: flex;
+  	}
+
+  	.card {
+  		width: 100%;
+  	}
+  }
+
+  &__deck {
+  	padding: calc(var(--card-spacing) * 2);
+  	.card {
+  		margin: calc(var(--card-spacing) * 2) 0;
+
+  		@media (--medium) {
+  			margin: 0 var(--card-spacing);
+  		}
+
+  		&:first-child {
+  			margin-left: 0;
+  		}
+
+  		&:last-child {
+  			margin-right: 0;
+  		}
+  	}
+  }
+
+  &__grid {
+  	justify-content: space-evenly;
+  	flex-wrap: wrap;
+
+  	.card {
+  		margin: calc(var(--card-spacing) * 2) 0; 
+  		@media (--medium) {
+  			max-width: calc(
+  				calc(100% / var(--card-grid__per-row)) - calc(var(--card-spacing) * var(--card-grid__per-row))
+  			);
+  		}
+  	}
+  }
+}
