@@ -1,7 +1,8 @@
 import Icon from '@atoms/Icon/Icon';
 
 /** 
-  ELEMENT DESCRIPTION HERE
+  A modal is a dialog box/popup window that is displayed on top of the current page.<br/>
+  <strong>Mobile friendly:</strong> In both width and height, modal element is responsive across all screen sizes.
 */
 
 export class Modal extends React.Component {
