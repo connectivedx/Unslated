@@ -14,7 +14,7 @@ export class Rhythm extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Defines Rhythem spacing size */
-    size: PropTypes.oneOf(['default', 'small', 'large']),
+    size: PropTypes.oneOf(['none', 'default', 'small', 'medium', 'large']),
     /** Applies Rhythem to all nested levels */
     deep: PropTypes.bool,
     /** Children nodes being passed through */
