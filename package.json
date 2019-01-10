@@ -60,8 +60,8 @@
     "reset-css": "^4.0.1",
     "style-loader": "^0.23.0",
     "webpack": "^4.28.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.11",
     "webpack-node-externals": "^1.7.2",
     "webpack-svgstore-plugin": "^4.1.0"
   },
