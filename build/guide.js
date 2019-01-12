@@ -9,6 +9,19 @@ import ReactDOM from "react-dom";
 import Guide from '@guide/guide';
 import GuideJS from '@guide/guide.container.js';
 
+global.perf = {
+	stats: {}
+};
+
+const XHR = new XMLHttpRequest();
+XHR.onreadystatechange = () => {
+  if (XHR.readyState == 4 && XHR.status == 200) {
+   global.perf.stats = JSON.parse(XHR.responseText);
+  }
+};
+XHR.open("get", "./node_modules/.bin/webpack.stats.json", true);
+XHR.send();
+
 // Guide styles
 require('@guide/guide.css');
 require('prismjs/themes/prism.css');

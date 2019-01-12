@@ -32,6 +32,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "chart.js": "^2.7.3",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
@@ -62,6 +63,7 @@
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.11",
+    "webpack-monitor": "^1.0.14",
     "webpack-node-externals": "^1.7.2",
     "webpack-svgstore-plugin": "^4.1.0"
   },

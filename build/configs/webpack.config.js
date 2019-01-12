@@ -10,7 +10,7 @@ const css = require('./css/css.config.js');             // all css file related 
 const img = require('./img/img.config.js');             // all img/svg related build configurations
 const html = require('./html/html.config.js');          // all html related build configurations
 const alias = require('./alias.config.js');             // all file path alias helper configurations
-const performance = require('./performance.config.js'); // all minification and stats configurations
+const perf = require('./performance.config.js'); // all minification and stats configurations
 
 // main config object
 const config = {
@@ -32,18 +32,19 @@ const config = {
     ]
   },
   plugins: [
-    ...js.plugins,    // see build/config/js/js.config.js
-    ...html.plugins,  // see build/configs/htlm/html.config.js
-    ...css.plugins,   // see build/config/css/css.config.js
-    ...img.plugins,   // see build/config/img/img.config.js
-    ...alias.plugins  // see build/config/alias.config.js
+    ...js.plugins,         // see build/config/js/js.config.js
+    ...html.plugins,       // see build/configs/htlm/html.config.js
+    ...css.plugins,        // see build/config/css/css.config.js
+    ...img.plugins,        // see build/config/img/img.config.js
+    ...alias.plugins,      // see build/config/alias.config.js
+    ...perf.plugins        // see build/configs/performance.js
   ],
   resolve: {
     alias: alias.config, // resolve alias namespaces to webpack resolver (see build/configs/alias.config.js)
     extensions: ['.js', '.jsx', '.json', '.css'], // limit alias to these file types (order matters here; css last)
     enforceExtension: false // allows importing of files without file's extension 
   },
-  ...performance.config  
+  ...perf.config  
 };
 
 // config export

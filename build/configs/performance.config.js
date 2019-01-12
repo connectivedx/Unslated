@@ -1,5 +1,8 @@
 // Bundling performance and optimization config
 // Configuration settings used to tune output minification and bundle stats.
+const path = require('path');
+const Webpack = require('webpack');
+const PerformanceStats = require('../guide/plugins/webpack.performance.stats.js');
 
 module.exports = {
   config: {
@@ -20,7 +23,10 @@ module.exports = {
     devServer: {
       stats: {
         stats: 'errors-only' // enable / disable dev server stats
-      }
+      }      
     }
-  }
+  },
+  plugins: [
+    new PerformanceStats()
+  ]  
 };
