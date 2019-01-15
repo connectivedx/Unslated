@@ -1,6 +1,17 @@
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import { List, List__item } from '@atoms/List/List';
+import { 
+  Card, 
+  Card__header, 
+  Card__body, 
+  Card__footer, 
+  Card__group, 
+  Card__deck,
+  Card__grid,
+} from '@molecules/Card/Card';
+
+import { Tabs, Tabs__section } from '@molecules/Tabs/Tabs';
 
 export const Guide__welcome = (props) => {
   const classStack = Utils.createClassStack([
@@ -8,9 +19,49 @@ export const Guide__welcome = (props) => {
   ]);
 
   return (
-    <Rhythm tagName="section">
+    <Rhythm tagName="section" className="guide__welcome">
       <Heading>Welcome to Unslate!</Heading>
       <p>Unslated is Connective DX&apos;s in-house toolset for making static websites and atomic styleguides. It&apos;s great for producing static web assets with an emphasis on atomic driven architecture.</p>
+      <Tabs defaultTab="0" className="card__deck" defaultTab={false}>
+        <Card className="tabs__trigger fall-flip" color="green">
+          <Card__body className="js-size" tagName="h2" />
+        </Card>    
+        <Tabs__section>
+          <Card>
+            <Card__body className="atomic-js" />
+          </Card>
+          <Card className="chart-container">
+            <Card__body>
+              <canvas id="js-chart" />
+            </Card__body>
+          </Card>
+        </Tabs__section>
+
+        <Card className="tabs__trigger fall-flip" color="green">
+          <Card__body className="css-size" tagName="h2" />
+        </Card>      
+        <Tabs__section>
+          <Card>
+            <Card__body className="atomic-css" />
+          </Card> 
+          <Card className="chart-container">
+            <Card__body>
+              <canvas id="css-chart" />
+            </Card__body>
+          </Card>
+        </Tabs__section>
+
+
+        <Card className="tabs__trigger fall-flip builds">
+          <Card__body className="total-builds" tagName="h2" />
+        </Card>
+        <Tabs__section />
+
+        <Card color="red" className="tabs__trigger fall-flip errors">
+          <Card__body className="total-errors" tagName="h2" />
+        </Card>
+        <Tabs__section />
+      </Tabs>
 
       <Heading level="h3">About Unslated</Heading>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed sem pellentesque, volutpat dolor eget, accumsan quam. Donec ac porta mauris. Suspendisse blandit fringilla viverra. Vivamus sodales nisi et leo gravida, id imperdiet augue tristique. Mauris ultrices eros non sollicitudin finibus. Cras consequat placerat turpis sit amet porttitor. Cras efficitur ligula sit amet nibh convallis feugiat. Integer sem justo, mollis a risus sit amet, mattis venenatis mauris. Morbi rhoncus sem urna, id condimentum elit vehicula ut. Curabitur id nibh ut arcu iaculis convallis nec nec ipsum. Pellentesque feugiat vestibulum feugiat. Phasellus nisl mi, blandit vitae ipsum eu, scelerisque volutpat lorem. Sed condimentum felis nunc, nec commodo purus efficitur non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>

@@ -2,34 +2,38 @@ import _ from 'lodash';
 
 //Private functions
 const getWindowHeight = (maxHeight) => {
-  var heightTrim = parseInt(maxHeight);
-  heightTrim = 100 - heightTrim;
+  let heightTrim = parseInt(maxHeight);
+  heightTrim = (100 - heightTrim);
   return window.innerHeight - (window.innerHeight * (heightTrim/100).toFixed(2));  
 }
 
 export const Modal = (el) => {
   const ui = {
-    modal: el
+    modal: el,
+    innerWidth: el.querySelector('.modal-inner--width'),
+    innerHeight: el.querySelector('.modal-inner--height')
   };
 
-  // our modal history object
+  // modal history
   const modalHistory = [];
 
-  // This method is used to determin if the currently openend modal needs the overflow class applied or not to introduce inner scroll bars or not
-  // please note this method is debounced
+  // window resize event
+  const handleWindowResize = _.debounce(() => {
+    checkHeight();
+  }, 250);
+
+  // checks if window height is smaller than modal height
   const checkHeight = () => {
     const elm = document.querySelector('.modal-visible');
     if (!elm) { return; }
 
     elm.classList.remove('overflowing');
-    if (window.innerHeight <= (elm.querySelector('.modal-inner *:first-child').clientHeight + 180)) {
-      elm.classList.add('overflowing');
-    } else {
-      elm.classList.remove('overflowing');
-    }
+    elm.classList[
+      (window.innerHeight <= (ui.innerWidth.clientHeight + 180)) ? 'add' : 'remove'
+    ]('overflowing');
   }
 
-  // This method takes the modal element and puts into our history prior to opening it. It also closes or hides any previously opened modals within our history.
+  // Open modal
   const open = (modal, trigger) => {
     if (!modal || !modal.classList) { return; }
 
@@ -51,7 +55,7 @@ export const Modal = (el) => {
     });
   }
 
-  // This method takes the moda element and removes it from our history just prior to opening it.
+  // Close modal
   const close = (modal) => {
     if (!modal || !modal.classList) { return; }
 
@@ -64,9 +68,10 @@ export const Modal = (el) => {
     modal.classList.remove('modal-visible');
     modal.removeAttribute('data-modal-hide');
     modal.removeAttribute('data-href');
+    window.removeEventListener('resize', handleWindowResize, true);
   }
 
-  // This method re-uses our close method from above within a loop over all page modals.
+  // Close all modals
   const closeAll = () => {
     const modals = document.querySelectorAll('.modal');
     Object.keys(modal).map(index => {
@@ -74,13 +79,13 @@ export const Modal = (el) => {
     });
   }
 
-  // This method is used to hide any previously opened modals vs. close the modal to retain history of modals.
+  // Hide instead of close. Usefull in modal history usage.
   const hide = (modal) => {
     if (!modal) { return; }
     modal.setAttribute('data-modal-hide', true);
   }
 
-  // This method is used to unhide any previously hidden modals vs. re-open the modal to retain history of modals.
+  // Unhide instead of open. Usefull in modal history usage.
   const unhide = (modal) => {
     if (!modal) { return; }
     modal.removeAttribute('data-modal-hide');
@@ -121,48 +126,51 @@ export const Modal = (el) => {
 
     // one listener to rule them all
     // this allows modals and even targets to be changed or added to the DOM without losing any events.
-    document.body.addEventListener('click', (e) => {
-      const target = e.target; // tell us what was clicked please
+    if (!window.modals) {
+      document.body.addEventListener('click', (e) => {
+        console.log('testing');
+        const target = e.target; // tell us what was clicked please
 
-      // get our targets modal element
-      const getRefModal = (modalId) => {
-        const refSelector = ['.modal[data-modal="', modalId, '"]'].join('');
-        const refModal = document.querySelector(refSelector);
-        if (refModal) { return refModal; }
+        // get our targets modal element
+        const getRefModal = (modalId) => {
+          const refSelector = ['.modal[data-modal="', modalId, '"]'].join('');
+          const refModal = document.querySelector(refSelector);
+          if (refModal) { return refModal; }
 
-        return;
-      };
+          return;
+        };
 
-      // if target has no data set, we are done here
-      if (target.dataset) {
-        // open new modal, from within a modal
-        const dataset = target.dataset;
-        const classes = target.classList;
-        if (dataset.modal && !classes.contains('modal')) {
-          const refModal = getRefModal(dataset.modal);
-          if (!refModal) { return; }
-       
-          // pass our targets modal element to the open method
-          open(refModal, target);
-          e.preventDefault();
-        }
+        // if target has no data set, we are done here
+        if (target.dataset) {
+          // open new modal, from within a modal
+          const dataset = target.dataset;
+          const classes = target.classList;
+          if (dataset.modal && !classes.contains('modal')) {
+            const refModal = getRefModal(dataset.modal);
+            if (!refModal) { return; }
+         
+            // pass our targets modal element to the open method
+            open(refModal, target);
+            e.preventDefault();
+          }
 
-        // click close button
-        if (dataset.modalClose) {
-          close(Utils.parents(target, '.modal'));
-        }
+          // click close button
+          if (dataset.modalClose) {
+            close(Utils.parents(target, '.modal'));
+          }
 
-        // click overlay close modal
-        if (classes.contains('modal')) {
-          close(target);
-        }
-      }     
-    });
+          // click overlay close modal
+          if (classes.contains('modal')) {
+            close(target);
+          }
+        }     
+      });
+
+      window.modal = true;
+    }
 
     // finally, we run our debounced checkHeight to a window resize listener.
-    window.addEventListener('resize', _.debounce(() => {
-      checkHeight();
-    }, 250))
+    window.addEventListener("resize", handleWindowResize, true);
   }
 
   init();

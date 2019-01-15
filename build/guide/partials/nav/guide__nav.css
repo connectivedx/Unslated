@@ -97,6 +97,7 @@
       &.modifiers   { background-image: url('assets/modifiers.svg'); }
       &.templates   { background-image: url('assets/templates.svg'); }
       &.organisms   { background-image: url('assets/organisms.svg'); }
+      &.home        { background-image: url('assets/home.svg'); }
     }
 
     & [type="search"] {

@@ -6,24 +6,19 @@ export const Tabs = (el) => {
     defaultTab: el.dataset.default
   };
 
-
   const init = () => {
     ui.el.addEventListener('click', (e) => {
       const target = e.target;
-
+      if (!target.classList.contains('tabs__trigger')) { return; }
+      
       Object.keys(ui.triggers).map(index => {
-
-        ui.triggers[index].classList.add('tabs-state--open');
-        ui.triggers[index].classList.remove('tabs-state--closed');
-
-        if (target === ui.triggers[index]) { return; }
-
-        ui.triggers[index].classList.add('tabs-state--closed');
-        ui.triggers[index].classList.remove('tabs-state--open');
+        const trigger = ui.triggers[index];
+        Utils.replaceClass(trigger, ['tabs-state--closed', 'tabs-state--open']);
+        if (target === trigger) { return; }
+        Utils.replaceClass(trigger, ['tabs-state--open', 'tabs-state--closed']);
       });
 
       if (window.outerWidth < 768) {
-        console.log(target.offsetTop);
         window.scrollTo({
           top: target.offsetTop,
           left: 0,
@@ -32,7 +27,7 @@ export const Tabs = (el) => {
       }
     });
 
-    if (ui.defaultTab !== false) {
+    if (ui.defaultTab !== 'false') {
       ui.triggers[parseInt(ui.defaultTab, 10)].click();
     }
   };

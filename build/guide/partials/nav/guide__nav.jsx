@@ -2,7 +2,6 @@ import Link from '@atoms/Link/Link';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import { List, List__item } from '@atoms/List/List';
-import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
 // Navigation atomic levels
 const getAtomicListing = () => {
@@ -85,6 +84,7 @@ export const Guide__nav = (props) => {
         <Rhythm tagName="ul" deep size="small" className="list">
           { getAtomicListing() }
           { getPageListing() }
+          <Heading level="h3" weight="bold" className="home"><Link href="/">Home</Link></Heading>
         </Rhythm>
       </Rhythm>
     </nav>

@@ -1,5 +1,5 @@
 /* Pages */
-.guide {
+.guide__pages {
   & .colors {
     display: flex;
     flex-wrap: wrap;

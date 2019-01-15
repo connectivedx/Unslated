@@ -14,6 +14,15 @@ import arrorRight from '@guide/assets/tab-arrow-right.svg';
 import Button from '@atoms/Button/Button';
 import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
+import { 
+  Card, 
+  Card__header, 
+  Card__body, 
+  Card__footer, 
+  Card__group, 
+  Card__deck,
+  Card__grid,
+} from '@molecules/Card/Card';
 
 // Helper method to distil down an elements tag name for examples react code snip.
 const getTagName = (element) => {
@@ -31,7 +40,7 @@ export const Guide__examples = (props) => {
   } = props;
 
   const classStack = Utils.createClassStack([
-    'examples'
+    'guide__examples'
   ]);
 
   // Gather all atomic elements (getExamples has a handy atomicLevel prop)
@@ -51,7 +60,7 @@ export const Guide__examples = (props) => {
   return (
     <Rhythm tagName="section" className={classStack}>
       <Readme docs={docs} />
-      <Rhythm className="examples examples__listing">
+      <Rhythm className="examples__listing">
         {Object.keys(examples).map(index => {
           const example = examples[index];
           const component = example.component;
@@ -73,38 +82,46 @@ export const Guide__examples = (props) => {
           });
 
           return (
-            <Rhythm className={`examples examples__item`} key={index}>
-              <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
-              <p dangerouslySetInnerHTML={{__html: example.description}}></p>
-              <div className="examples examples__pallet" style={{'--breakpoint-speed': '0s', backgroundImage: ['url(', ExampleBg, ')'].join('')}}>
-                <div className="examples examples__pallet-inner">
-                  {component}
+            <Card key={index} className="examples">
+              <Card__header className="examples__header">
+                <Heading level="h5" className="examples__heading">{example.name}</Heading>
+              </Card__header>
+              <Card__body className="examples__body examples__item">
+                <Rhythm>
+                  <p dangerouslySetInnerHTML={{__html: example.description}}></p>
+                  <div className="examples__pallet" style={{'--breakpoint-speed': '0s', backgroundImage: ['url(', ExampleBg, ')'].join('')}}>
+                    <div className="examples__pallet-inner">
+                      {component}
+                    </div>
+                  </div>
+                </Rhythm>
+              </Card__body>
+              <Card__footer className="examples__footer">
+                <div>
+                  <Button size="small" data-index="0">React</Button>
+                  <Button size="small" data-index="1">HTML</Button>
+                  <Button size="small" data-index="2">Props</Button>
+                  { (component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
                 </div>
-              </div>
-              <div className="examples examples__buttons">
-                <Button size="small" data-index="0">React</Button>
-                <Button size="small" data-index="1">HTML</Button>
-                <Button size="small" data-index="2">Props</Button>
-                { (component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
-              </div>
-              <div className="examples examples__codes">
-                <pre className="examples__code hide">
-                  <code dangerouslySetInnerHTML={{ __html: Prism.highlight(reactExample, Prism.languages.jsx) }} />
-                </pre>
-                <pre className="examples__code hide">
-                  <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(htmlExample), Prism.languages.html) }} />
-                </pre>
-                <pre className="examples__code hide">
-                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(JSON.stringify(props)), Prism.languages.json) }} /> : ''}
-                </pre>
-                {
-                  (component.type.name) ?
-                    <pre className="examples__code hide">
-                      {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
-                    </pre> : ''
-                }
-              </div>
-            </Rhythm>
+                <div className="examples__codes">
+                  <pre className="examples__code hide">
+                    <code dangerouslySetInnerHTML={{ __html: Prism.highlight(reactExample, Prism.languages.jsx) }} />
+                  </pre>
+                  <pre className="examples__code hide">
+                    <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(htmlExample), Prism.languages.html) }} />
+                  </pre>
+                  <pre className="examples__code hide">
+                    {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(JSON.stringify(props)), Prism.languages.json) }} /> : ''}
+                  </pre>
+                  {
+                    (component.type.name) ?
+                      <pre className="examples__code hide">
+                        {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
+                      </pre> : ''
+                  }
+                </div>
+              </Card__footer>              
+            </Card>
           );
         })}
       </Rhythm>
