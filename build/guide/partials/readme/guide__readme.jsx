@@ -33,9 +33,9 @@ export const Guide__readme = (props) => {
           <Table variant="responsive">
             <Table__head>
               <Table__row>
-                <Table__header>Prop name</Table__header>
-                <Table__header>Prop types</Table__header>
-                <Table__header>Description</Table__header>        
+                <Table__header width="32%">Prop name</Table__header>
+                <Table__header width="32%">Prop types</Table__header>
+                <Table__header width="32%">Description</Table__header>        
               </Table__row>
             </Table__head>
             <Table__body>
@@ -74,9 +74,9 @@ export const Guide__readme = (props) => {
           <Table variant="responsive">
             <Table__head>
               <Table__row>
-                <Table__header width="5%">Method name</Table__header>
-                <Table__header width="45%">Method params</Table__header>
-                <Table__header width="45%">Description</Table__header>        
+                <Table__header width="32%">Method name</Table__header>
+                <Table__header width="32%">Method params</Table__header>
+                <Table__header width="32%">Description</Table__header>        
               </Table__row>
             </Table__head>
             <Table__body>

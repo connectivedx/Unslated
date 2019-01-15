@@ -1,5 +1,7 @@
 /* Examples */
-.guide {
+.guide__examples {
+
+
   & .examples {
     &__list {
       & > div { 
@@ -34,10 +36,26 @@
       max-height: 320px;
       overflow-x: hidden;
       oveflow-y: scroll;
+      margin-top: 1rem;
 
       pre {
         padding: 1rem;        
       }
     }
+
+    &__header {
+      background-color: var(--color--alpha05);
+    }
+
+    &__footer {
+      display: flex;
+      flex-direction: column;
+      
+      .button {
+        margin: 0 0.5rem;
+        &:first-child { margin-left: 0; }
+        &:last-child { margin-left: 0; }
+      }
+    }  
   }
 }

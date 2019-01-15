@@ -6,16 +6,13 @@ export const Accordion = (el) => {
     target: el.querySelector('.expand__target')
   };
 
-
   const init = () => {
     ui.el.addEventListener('click', (e) => {
-      console.log('hitting');
       if (el.classList.contains('accordion--multi-false')) {
-        const target = e.target;
-        Object.keys(ui.sections).map(index => {
-          if (target.parentNode === ui.sections[index]) { return; }
-          ui.sections[index].classList.add('expand-state--closed');
-          ui.sections[index].classList.remove('expand-state--open');
+        Object.keys(ui.sections).map(i => {
+          if (e.target.parentNode === ui.sections[i]) { return; }
+
+          Utils.replaceClass(ui.sections[i], ['expand-state--closed', 'expand-state--open']);
         });
       }
     });

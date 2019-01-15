@@ -7,41 +7,36 @@ export const Form = (el) => {
 
   const checkValidity = (field, native) => {
     if (native.required) {
-      if (native.checkValidity()) {
-        field.classList.remove('field__error');
-      } else {
-        field.classList.add('field__error');
-      }
+      field.classList[(native.checkValidity()) ? 'add':'remove']('field__error');
     }
   };
-  const bindValidationEvent = (field, eventType) => {
-    const native = field.querySelector('.field__native');
 
+  const bindValidation = (field, native, eventType) => {
     native.addEventListener(eventType, () => {
       checkValidity(field, native);
     });
   };
 
   const init = () => {
-    Object.keys(ui.fields).map(index => {
-      const field = ui.fields[index];
+    Object.keys(ui.fields).map(i => {
+      const field = ui.fields[i];
+      const classes = field.classList;
+      const native = field.querySelector('.field__native');
 
-      if (field.classList.contains('radio') || field.classList.contains('checkbox')) {
-        bindValidationEvent(field, 'click');
-        bindValidationEvent(field, 'blur');
-      } else if (field.classList.contains('select')) {
-        bindValidationEvent(field, 'change');
-        bindValidationEvent(field, 'blur');
+      if (classes.contains('radio') || classes.contains('checkbox')) {
+        bindValidation(field, native, 'click');
+      } else if (classes.contains('select')) {
+        bindValidation(field, native, 'change');
       } else {
-        // all other fields are textual
-        bindValidationEvent(field, 'keyup');
-        bindValidationEvent(field, 'blur');
+        bindValidation(field, native, 'keyup');
       }
+
+      bindValidation(field, native, 'blur');
     });
 
-    ui.submit.addEventListener('click', () => {
-      Object.keys(ui.fields).map(index => {
-        const field = ui.fields[index];
+    el.addEventListener('submit', () => {
+      Object.keys(ui.fields).map(i => {
+        const field = ui.fields[i];
         const native = field.querySelector('.field__native');
         checkValidity(field, native);
       });

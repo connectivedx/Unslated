@@ -1,7 +1,8 @@
 import Icon from '@atoms/Icon/Icon';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
-import breakpoints from '@vars/breakpoints.css';
+import breakpoints from '!!style-loader!css-loader!@vars/breakpoints';
+console.log(breakpoints);
 
 export const Guide__stylist = (props) => {
   const {

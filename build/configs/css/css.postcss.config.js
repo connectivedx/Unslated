@@ -27,7 +27,7 @@ const extend = require('./css.postcss-extend.plugin.js');
 const mixins = require('postcss-mixins');
 const variables = require('./css.postcss-vars.plugin.js');
 const minification = require('cssnano');
-const colors = require('./css.postcss-colors.plugin.js');
+const exporting = require('./css.postcss-exports.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
 const mediaPacker = require('css-mqpacker');
 const removeRoots = require('./css.postcss-roots.plugin.js');
@@ -40,7 +40,7 @@ module.exports = {
       }
     }),
     media(),        // Allows for custom media queries
-    colors(),       // Pre-parse color variables
+    exporting(),       // Pre-parse color variables
     variables(),    // Allows var(--variables)
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend

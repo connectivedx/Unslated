@@ -12,11 +12,11 @@
 
   &__trigger {
     &.tabs-state--open {
-      & + .tabs__target { display: block; }
+      & + .tabs__target { height: auto; opacity: 1; }
     }
   }
 
-  &__target { display: none; }
+  &__target { height: 0; opacity: 0; }
 
   /* Tabs alignment & justification */
   &-align {
@@ -81,14 +81,9 @@
   }
 
   /* Style variants */
-  &--default {
-    .tabs__trigger,
-    .tabs__target {
-      @media (--medium) {
-        background-color: var(--tabs-bg-color);
-      }
-    }
+  &--default { }
 
+  &--outline {
     .tabs__trigger {
       border: var(--border-style);
       cursor: pointer;

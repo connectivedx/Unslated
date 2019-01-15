@@ -48,7 +48,53 @@ const parents = (obj, parent) => {
   }
 
   return null;
-}
+};
+
+
+/*
+  Helper: Used to toggle between classes on elements
+  Note: Use this over native classList.toggleClass due to no IE support
+*/
+const toggleClass = (element, classString) => {
+  if (!element) {
+    console.log('First param of toggleClass needs to be the element.')
+  }
+
+  if (!classString || typeof classString === 'object') {
+    console.log('Second param of toggleClass needs to be a string.');
+  }
+
+  if (typeof classString === 'object') {
+    console.log('Perhaps you want Utils.replaceClass() instead?')
+  }
+
+  if (element.classList.contains(classString)) {
+    element.classList.remove(classString)
+  } else {
+    element.classList.add(classString)
+  }
+};
+
+/*
+  Helper: Used to replace a class
+  Note: Use this over native classList.replace due to no IE support
+*/
+const replaceClass = (element, classArray) => {
+  if (!element) {
+    console.log('First param of toggleClass needs to be the element.')
+  }
+
+  if (!classArray || typeof classArray === 'object') {
+    console.log('Second param of toggleClass needs to be an array of strings (from, to).');
+  }
+
+  if (typeof classArray === 'string') {
+    console.log('Perhaps you want Utils.toggleClass() instead?')
+  }
+
+  element.classList.remove(classArray[0]);
+  element.classList.add(classArray[1]);
+};
 
 /*
   CORE: Creating a nice className from an array of unknown values
@@ -83,5 +129,7 @@ const initComponent = (name, selector, component, ...args) => {
 module.exports = {
   parents,
   createClassStack,
-  initComponent
+  initComponent,
+  toggleClass,
+  replaceClass
 };

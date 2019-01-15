@@ -1,5 +1,6 @@
-// Bundling performance and optimization config
-// Configuration settings used to tune output minification and bundle stats.
+// Bundling stats config
+// Tune terminal stats, bundle minification and devServer configs.
+
 const path = require('path');
 const Webpack = require('webpack');
 const PerformanceStats = require('../guide/plugins/webpack.performance.stats.js');
@@ -7,13 +8,14 @@ const PerformanceStats = require('../guide/plugins/webpack.performance.stats.js'
 module.exports = {
   config: {
     optimization: {
-      minimize: false // main js files (assets.js/guide.js). (production builds use minification; see webpack.config.js)
+      // Minimizes our bundled JS
+      minimize: false // dev = false, prod = true (See webpack.config.js for production overload)
     },
     performance: { hints: false }, // disables / enables bundle size warnings
     stats: {
-      all: false, // enables / disabled all webpack bundle stats
+      all: false,
       modules: true, // enable / disable all module bundle stats
-      maxModules: 4, // limits number of modules stats
+      maxModules: 2, // limits number of modules stats
       errors: true, // enable / disable bundle error messages
       warnings: true, // enable / disable bundle warning messages
       moduleTrace: true, // enable / disable bundle module tracing
@@ -21,12 +23,10 @@ module.exports = {
       modulesSort: 'issuer'     
     }, 
     devServer: {
-      stats: {
-        stats: 'errors-only' // enable / disable dev server stats
-      }      
+      stats: 'minimal' // enable / disable dev server stats      
     }
   },
   plugins: [
-    new PerformanceStats()
-  ]  
+    new PerformanceStats() // Stats plugin to collect objects for style guide.
+  ]
 };

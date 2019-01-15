@@ -16,7 +16,7 @@ export class Tabs extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default']),
+    variant: PropTypes.oneOf(['default', 'outline']),
     /** Children passed through */
     children: PropTypes.node,
     /** Alignment of targets within tabs system (top, bottom, left, right). */
@@ -111,7 +111,7 @@ export class Tabs__section extends React.Component {
 
     return (
       <React.Fragment>
-        <Heading className="tabs__trigger">{title}</Heading>
+        {(title) ? <Heading className="tabs__trigger">{title}</Heading> : '' }
         <div className="tabs__target">
           {children}
         </div>

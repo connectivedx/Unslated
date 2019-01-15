@@ -1,13 +1,4 @@
 const fs = require('fs');
-const Webpack = require('webpack');
-
-const removeNulls = (obj) => {
-  let isArray = obj instanceof Array;
-  for (let k in obj){
-    if (obj[k] === null) isArray ? obj.splice(k,1) : delete obj[k];
-    else if (typeof obj[k] === 'object') removeNulls(obj[k]);
-  }
-};
 
 const removeParts = (object, filters, index, parent) => {
   // simple try catch to prevent killing
@@ -38,16 +29,29 @@ const removeParts = (object, filters, index, parent) => {
 
   // not all objects in the array are arrays, so object.splice vs. delete object was not an option.
   // so, lets clear out any `null` keys left over from delete usage.
-  return JSON.parse(JSON.stringify(object).replace(/null,/g, ''));
+  return JSON.parse(JSON.stringify(object).replace(/null,/g, '').replace(/,null/g, ''));
 };
 
+const buildStats = {
+  time: 0,
+  count: 0,
+  errors: 0
+};
+
+let buildCounts = 0;
 
 class StatsPlugin {
   // Alex helps track down location of build errors.
   apply(compiler) {    
     compiler.hooks.done.tap({name:'StatsPlugin'}, stats => {
-      fs.writeFile("./node_modules/.bin/webpack.stats.json", 
+      buildStats.count++;
+      buildStats.time = stats.toJson().time;
+      if (stats.hasErrors()) {
+        buildStats.errors++;
+      }
+      fs.writeFile('./node_modules/.bin/webpack.stats.json', 
         JSON.stringify({
+          builds: { ...buildStats },
           assets: removeParts(stats.toJson().assets, ['chunks', 'chunkNames', 'emitted']),
           chunks: removeParts(stats.toJson().chunks, [
             'id',
@@ -77,8 +81,8 @@ class StatsPlugin {
             'origins',
             'filteredModules'
           ])
-        }, null, 4)
-      );
+        }, null, 4),
+      (err) => { if (err) { console.log(err); } });
     });
   }
 }

@@ -6,7 +6,7 @@ export const Guide__pages = (props) => {
   } = props;
 
   const classStack = Utils.createClassStack([
-    'pages'
+    'guide__pages'
   ]);
 
   const pages = GuideUtils.getPages();
