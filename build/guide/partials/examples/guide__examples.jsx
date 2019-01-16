@@ -110,7 +110,7 @@ export const Guide__examples = (props) => {
                   <Rhythm>
                     <p dangerouslySetInnerHTML={{__html: example.description}}></p>
                     <div className="examples__pallet" style={{
-                        '--breakpoint-speed': '0s',
+                        '--speed': '0s',
                         '--brightness': options.brightness,
                         '--background': ['url(', options.background, ')'].join(''),
                         '--padding': options.padding

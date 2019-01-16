@@ -50,8 +50,12 @@ export const GuideStylist = (el) => {
     Object.keys(ui.examples).map((key, index) => {
       const pallet = ui.examples[index].querySelector('.examples__pallet');
       const width = (pallet.style.width) ? pallet.style.width : '100%';
-      const background = pallet.style.backgroundImage;
-      pallet.setAttribute('style', ['--breakpoint-speed:', selection, '; width:', width, '; background-image:', background, ';'].join(''));
+      const styles = getComputedStyle(pallet);
+      const brightness = styles.getPropertyValue('--brightness');
+      const background = styles.getPropertyValue('--background');
+      const padding = styles.getPropertyValue('--padding');
+
+      pallet.setAttribute('style', 'width: '+width+'; --speed:'+selection+'; --padding:'+padding+'; --brightness:'+brightness+'; --background: '+background+';')
     });
   };
 
