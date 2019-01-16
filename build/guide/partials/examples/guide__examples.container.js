@@ -27,7 +27,6 @@ export const GuideExamples = (el) => {
     if (ui.examples) {
       Object.keys(ui.examples).map(index => {
         const example = ui.examples[index];
-        console.log(example);
         const buttons = example.querySelectorAll('.button');
         Object.keys(buttons).map(index => {
           buttons[index].addEventListener('click', (e) => {

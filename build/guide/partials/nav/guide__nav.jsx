@@ -5,21 +5,20 @@ import { List, List__item } from '@atoms/List/List';
 
 // Navigation atomic levels
 const getAtomicListing = () => {
-  const elements = GuideUtils.getExamples();
+  const elements = GuideUtils.getExamples()[0];
   const collection = [];
 
   // Create new atomic level collection of elements
   Object.keys(elements).map(index => {
     const examples = elements[index];
-
     // prevents duplicates
-    if (!collection[examples.atomicLevel]) {
+    if (!collection[examples.atomic]) {
       // each atomic level is a new object
-      collection[examples.atomicLevel] = []; 
+      collection[examples.atomic] = []; 
     }
 
     // push examples element's atomic level
-    collection[examples.atomicLevel].push(examples); 
+    collection[examples.atomic].push(examples); 
   });
 
   // Create sections based on atomic collection from above
@@ -82,9 +81,9 @@ export const Guide__nav = (props) => {
       <Rhythm className="guide__nav-inner">
         <input type="search" name="guide__nav--search-input" />
         <Rhythm tagName="ul" deep size="small" className="list">
+          <Heading level="h3" weight="bold" className="home"><Link href="/">Home</Link></Heading>
           { getAtomicListing() }
           { getPageListing() }
-          <Heading level="h3" weight="bold" className="home"><Link href="/">Home</Link></Heading>
         </Rhythm>
       </Rhythm>
     </nav>

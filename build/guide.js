@@ -11,7 +11,7 @@ require('prismjs/themes/prism.css');
 
 // Guide JS
 import ReactDOM from "react-dom";
-import Guide from '@guide/guide';
+import { Guide, Blank, Data } from '@guide/guide';
 import GuideNav  from '@guide/partials/nav/guide__nav.container';
 import GuidePages from '@guide/partials/pages/guide__pages.container';
 import GuideReadme from '@guide/partials/readme/guide__readme.container';
@@ -23,12 +23,21 @@ import GuideExamples from '@guide/partials/examples/guide__examples.container';
 const requireAll = (context) => context.keys().map(context);
 requireAll(require.context('@elements/', true, /\.examples.jsx$/));
 
+let isData = (window.location.pathname.indexOf('/data/') !== -1) ? true : false;
+let isBlank = (window.location.pathname.indexOf('/blank/') !== -1) ? true : false;
+
 // Mount the guide into DOM and run it's container.js
-ReactDOM.render(<Guide />, document.getElementById("index"), () => {
-	Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
-	Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
-	Utils.initComponent('GuidePages', '.guide__pages', GuidePages);
-	Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
-	Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
-	Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
-});
+if (isData) {
+	ReactDOM.render(<Data />, document.querySelector("html"));	
+} else if (isBlank) {
+	ReactDOM.render(<Blank />, document.querySelector("#index"));	
+} else {
+	ReactDOM.render(<Guide />, document.querySelector("#index"), () => {
+		Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
+		Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
+		Utils.initComponent('GuidePages', '.guide__pages', GuidePages);
+		Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
+		Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
+		Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
+	});	
+}

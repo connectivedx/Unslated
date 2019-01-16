@@ -30,6 +30,7 @@ const minification = require('cssnano');
 const exporting = require('./css.postcss-exports.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
 const mediaPacker = require('css-mqpacker');
+const REM = require('./css.postcss-rems.plugin.js');
 const removeRoots = require('./css.postcss-roots.plugin.js');
 
 module.exports = {

@@ -4,6 +4,7 @@
 const path = require('path');
 const Webpack = require('webpack');
 const PerformanceStats = require('../guide/plugins/webpack.performance.stats.js');
+//const Package = require('../../package.json');
 
 module.exports = {
   config: {
@@ -22,9 +23,7 @@ module.exports = {
       errorDetails: true, // enable / disable bundle error details
       modulesSort: 'issuer'     
     }, 
-    devServer: {
-      stats: 'minimal' // enable / disable dev server stats      
-    }
+    devServer: {}
   },
   plugins: [
     new PerformanceStats() // Stats plugin to collect objects for style guide.

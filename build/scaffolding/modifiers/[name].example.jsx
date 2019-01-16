@@ -6,6 +6,11 @@
         component: (
           <div className={{name}}></div>
         ),
+        options: {
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
+        }        
       },
     ```
 */

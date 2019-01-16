@@ -25,16 +25,16 @@ const config = {
   },
   module: { 
     rules: [
+      ...css.config,  // see build/config/css/css.config.js
       ...js.config,   // see build/config/js/js.config.js
       ...html.config, // see build/configs/htlm/html.config.js
-      ...css.config,  // see build/config/css/css.config.js
       ...img.config   // see build/config/img/img.config.js
     ]
   },
   plugins: [
+    ...css.plugins,        // see build/config/css/css.config.js
     ...js.plugins,         // see build/config/js/js.config.js
     ...html.plugins,       // see build/configs/htlm/html.config.js
-    ...css.plugins,        // see build/config/css/css.config.js
     ...img.plugins,        // see build/config/img/img.config.js
     ...alias.plugins,      // see build/config/alias.config.js
     ...stats.plugins       // see build/configs/stats.config.js
