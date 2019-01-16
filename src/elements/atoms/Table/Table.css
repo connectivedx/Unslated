@@ -14,9 +14,11 @@
 }
 
 .table {
+  background-color: var(--color-white);
+
   & &__root {
     border-spacing: 0;
-    margin: 1em 0;
+    margin: 0;
     width: 100%;
   }
 

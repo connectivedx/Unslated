@@ -4,7 +4,7 @@ const path = require('path');
 // all js(x) files get ran through these build processes
 module.exports = {
 	config: [{
-    'test': /\.(jsx|js|css)$/,
+    'test': /\.(jsx|js)$/,
     'exclude': /node_modules/,
     'use': [{
       'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)

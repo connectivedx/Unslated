@@ -15,7 +15,7 @@ setTimeout(() => {
 	new Tracking({
 	  vendors: [
 	    {
-	      type: 'GoogleTagManager',
+	      type: 'Google',
 	      id: 'GOOGLE-API-KEY'
 	    }
 	  ]

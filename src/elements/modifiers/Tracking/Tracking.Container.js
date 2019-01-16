@@ -54,6 +54,7 @@ class Tracking {
     };
 
     this.debounceList = [
+      'input',
       'keydown',
       'waiting',
       'mousemove',
@@ -67,6 +68,7 @@ class Tracking {
 
     this.init(options);
     this.debounceWait = undefined;
+
   }
 
   setupGoogleTagManager = (id) => {
@@ -77,7 +79,7 @@ class Tracking {
 
     // Google Tag Manager Setup Code
     ((w, d, s, l, i) => {
-      const f = d.getElementsByTagName(s)[0];
+      const f = d.querySelector('body');
       if (!f) { return; }
       const j = d.createElement(s);
       const dl = l !== 'dataLayer' ? ['&l=', l].join('') : '';
@@ -88,8 +90,9 @@ class Tracking {
         event: 'gtm.js'
       });
       j.async = true;
-      j.src = ['https://www.googletagmanager.com/gtm.js?id=', i, dl].join('');
-      f.parentNode.insertBefore(j, f);
+      j.src = ['//www.googletagmanager.com/gtm.js?id=', i, dl].join('');
+      f.appendChild(j, f);
+
     })(window, document, 'script', 'dataLayer', id);
   }
 
@@ -165,10 +168,9 @@ class Tracking {
     if (!this.validateFormatting(elm.dataset.tracking)) {
       return;
     }
-    // we always do a debouce clear incase we are using debounce default events
-    clearTimeout(this.debounceWait);
-    // hook into the debounceWait variable to set a debounce or non-debounce timeout
-    if (debounceBool > -1) {
+
+    if (debounceBool) {
+      clearTimeout(this.debounceWait);
       this.debounceWait = setTimeout(() => {
         // scrub the incoming data against data tracking requirements
         this.eventScrub(this.validateFormatting(elm.dataset.tracking), eventType, elm);
@@ -221,6 +223,10 @@ class Tracking {
               ...data
             });
           }
+          if (window.location.search.indexOf('debug=true') !== -1) {
+            console.clear();
+            console.log(dataLayer);
+          }
         }
       }
     }
@@ -254,10 +260,11 @@ class Tracking {
         // if clicked target or parent element has tracking
         if (tracking || this.getParent(target)) {
           // finally execute tracking method
+
           this.execute(
             (this.getParent(target) ? this.getParent(target) : target),
             type,
-            this.debounceList.indexOf(type)
+            (this.debounceList.indexOf(type) !== -1) ? true : false
           );
         }
       }, true, true);
@@ -279,7 +286,7 @@ class Tracking {
 
         if (trackingEvent === 'pageload') {
           // finally we return the execute method with our found pageload tracking record to perform tracking.
-          return this.execute(this.ui.trackingAttrs[elmIndex], trackingEvent, this.debounceList.indexOf(trackingEvent));
+          return this.execute(this.ui.trackingAttrs[elmIndex], trackingEvent, (this.debounceList.indexOf(trackingEvent) !== -1 ? true : false));
         }
         return null;
       });

@@ -5,7 +5,7 @@
 
   /* variants */
   &--default {
-    background-color: color(var(--color-black) alpha(10%));
+    background-color: var(--color-white);
     border: 2px solid var(--color-black);
     color: var(--color-black);
 
@@ -16,7 +16,7 @@
   }
 
   &--cta {
-    background-color: color(var(--color-red) alpha(10%));
+    background-color: var(--color-white);
     border: 2px solid red;
     color: red;
 

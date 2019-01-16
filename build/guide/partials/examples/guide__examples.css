@@ -11,12 +11,30 @@
     }
 
     &__pallet {
-      padding: 1rem;
-      transition: width var(--breakpoint-speed);
+      padding: var(--padding);
+      transition: width var(--speed);
       width: 100%;
+      position: relative;
+      background-color: var(--color-black);
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;        
+      }
+
+      &:before {
+        background-image: var(--background);
+        opacity: var(--brightness);
+      }      
 
       &-inner {
-        background-color: var(--color-white);
+        position: relative;
+        z-index: 2;
       }
     }
 

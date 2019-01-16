@@ -189,35 +189,30 @@ const getPages = () => {
 */
 
 const getExamples = () => {
-  const elements = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
-  const collection = [];
-  const modifiersDescription = 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.';
-  Object.keys(elements).map((key, index) => {
-    const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
-    const atomicLevel = key.replace('./', '').split('/')[0];
-    const name = key.split('/').slice(-1)[0].split('.')[0];
-    const examples = [...elements[key].default];
-    
-    const autoDocs = elements[key].default[0].docs;
-    const docs = (autoDocs) ? autoDocs[0] : {
-      displayName: name,
-      description: (atomicLevel === 'modifiers') ? modifiersDescription : atomicLevel
-    };
+  const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
+  return [
+    Object.keys(allExamples).map((key, index) => {
+      const name = key.split('/').slice(-1)[0].split('.')[0];
+      const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
+      const docs = allExamples[key].default[0].docs;
+      const atomic = key.replace('./', '').split('/')[0];
+      const examples = [...allExamples[key].default];
 
-    collection.push({
-      url,
-      atomicLevel,
-      name,
-      examples,
-      docs
-    });
-  });
-
-  if (collection) {
-    return collection;
-  }
-
-  return;
+      return {
+        url,
+        atomic,
+        name,
+        examples,
+        docs: (docs) ? docs[0] : {
+          displayName: name,
+          description: (atomic === 'modifiers') ? 
+            'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
+            :
+            atomic
+        }
+      };
+    })
+  ];
 };
 
 

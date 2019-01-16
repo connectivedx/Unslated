@@ -6,6 +6,11 @@
         component: (
           <div className=Tracking></div>
         ),
+        options: {
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
+        }        
       },
     ```
 */
@@ -128,12 +133,12 @@ export default [{
         </Rhythm>
       )
     }, {
-      name: 'Keydown example',
+      name: 'Keydown example (input)',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
           <Textarea label={false}
             data-tracking="[{
-              'event': 'keydown',
+              'event': 'input',
               'label': 'Keyboard Events',
               'data': 'Element Keydown'
             }]"
