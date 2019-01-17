@@ -9,7 +9,7 @@ class CreateAtomicElement {
   		return args[index];
   	});
 
-  	// create a new class variable that defines the atomic type (atom, molecule, organism)
+  	// create a new class variable that defines the atomic type (atom, molecule, organism etc.)
   	this.type = params[params.length - 2];
 
   	// create a new class variable that defines the new atomic element's name. (pascel format)
@@ -17,15 +17,37 @@ class CreateAtomicElement {
 
   	// creates a new class variable that defines the new atomic element's class name (css format)
   	this.cssName = this.name.replace(/[^A-Z](?=[A-Z])/g, '$&-').toLowerCase();
+
+  	// schema of different scaffolding types. atoms, molecules, modifiers, organisms and templates use elements schema.
+  	this.files = {
+  		pages: {
+  			src: path.resolve(__dirname, './pages'),
+  			target: path.resolve(__dirname, '../../src/pages/')
+  		},
+  		variables: {
+  			src: path.resolve(__dirname, './variables'),
+  			target: path.resolve(__dirname, '../../src/variables/')
+  		},
+  		elements: {
+  			src: path.resolve(__dirname, './elements'),
+  			target: path.resolve(__dirname, '../../src/elements/'+this.type+'/'+this.name)
+  		}
+  	};
   	
   	// finally we use the BuildElement method.
-  	this.BuildElement();
+  	this.buildElement(
+  		(this.files[this.type]) ? this.files[this.type] : this.files['elements']
+  	);
   }
 
-  // Method to rename both file and file contents with newly requested element name
+  // Method to rename both file and file contents
   tokenReplace(targetFile) {
   	// our new filename in path form.
-  	const newFileName = targetFile.replace('[name]', this.name);
+  	let fileName = targetFile.replace('[name]', this.name);
+
+  	if (this.type === 'pages' || this.type === 'variables') {
+  		fileName = fileName.toLowerCase();
+  	}
 
 		// searches the contents of the file for {{name}} tokens to replace with requested element name
 		fs.readFile(targetFile, 'utf8', (err, data) => {
@@ -35,13 +57,13 @@ class CreateAtomicElement {
 		  const result = data.replace(/\{\{name\}\}/g, this.name).replace(/\{\{cssName\}\}/g, this.cssName);
 
 		  // write our results back to file
-		  fs.writeFile(newFileName, result, 'utf8', err => {
+		  fs.writeFile(fileName, result, 'utf8', err => {
 		     if (err) return console.log(err);
 		  });
 		});
 
   	// next we rename the file to our new name
-		fs.rename(targetFile, newFileName, (err) => {
+		fs.rename(targetFile, fileName, (err) => {
 		    if ( err ) console.log('ERROR: ' + err);
 		});
   }
@@ -53,16 +75,24 @@ class CreateAtomicElement {
 	    // Supporting Method to copy a file from one directory to another directory
 			const copyFileSync = (source, target) => {
 		    let targetFile = target;
-
-		    // check to make sure out target folder indeed exists
+		    // check to make sure our target folder indeed exists
 		    if ( fs.existsSync( target ) ) {
 		        if ( fs.lstatSync( target ).isDirectory() ) {
-		            targetFile = path.join( target, path.basename( source ) );
+		            targetFile = path.join( 
+		            	target,
+		            	path.basename( source )
+		            );
 		        }
 		    }
 
+		    // write our collected files from source to target location
 		    fs.writeFileSync(targetFile, fs.readFileSync(source));
-		    this.tokenReplace(targetFile, this.name);
+
+		    // string replace file name and file contents with new name
+		    this.tokenReplace(
+		    	targetFile,
+		    	this.name
+		    );
 			}
 
 	    //check if folder needs to be created or integrated
@@ -77,28 +107,47 @@ class CreateAtomicElement {
         files.forEach(file => {
           const curSource = path.join( source, file );
           if ( fs.lstatSync( curSource ).isDirectory() ) {
-            this.copyFolderRecursiveSync( curSource, targetFolder );
+            this.copyFolderRecursiveSync(
+            	curSource,
+            	targetFolder
+            );
           } else {
-            copyFileSync( curSource, targetFolder, this.name );
+            copyFileSync(
+            	curSource,
+            	targetFolder,
+            	this.name
+            );
           }
-        } );
+        });
 	    }
 	}
 
-  BuildElement() {
-  	const newElementPath = path.resolve(__dirname, '../../src/elements/' + this.type + '/' + this.name);
-
-  	// If this element already exists, we bail and perform a pretty console log
-		if (fs.existsSync(newElementPath)){
-			console.log('\n\r');
-			console.log('ERROR: src/elements/' + this.type + '/' + this.name + ' element already exists.\n\rPlease choose a new name and try again.', '\n\r');
-			return;
+  buildElement(config) {
+  	if (!this.files[this.type]) { // check for existing element folders
+			if (fs.existsSync(config.target)){
+				console.log(
+					'\n\r',
+					`ERROR: ${this.type} / ${this.name} element already exists.
+					\n\rPlease choose a new name and try again.`, 
+					'\n\r'
+				);
+				return;
+			}
+		} else {  // check for existing files
+			if (fs.existsSync(config.target+'/'+this.name)){
+				console.log(
+					'\n\r', 
+					`ERROR: ${this.type}/${this.name} element already exists.
+					\n\rPlease choose a new name and try again.`,
+					'\n\r'
+				);
+				return;
+			}
 		}
 
 		// If this element name is not in pascel format, we bail and perform a pretty console log
   	if (!new RegExp(/^[A-Z]/g).test(this.name)) {
-  		console.log('\n\r');
-  		console.log('ERROR: "' + this.name + '" is not in pascal format.\n\r\n\r');
+  		console.log('\n\r', 'ERROR: "' + this.name + '" is not in pascal format.\n\r\n\r');
   		console.log('Good Example: NewElement\x1b[41m');
   		console.log('Bad Examples: newElement, new-element, newelement\n\r');
   		console.log('Please choose a new name and try again.');
@@ -106,14 +155,15 @@ class CreateAtomicElement {
   	}
 
 		this.copyFolderRecursiveSync(
-			path.resolve(
-				__dirname, 
-				(this.type === 'modifiers')? './modifiers' : './elements'
-			), newElementPath
+			config.src,
+			config.target
 		);
 
-		console.log('\n\r');
-		console.log(['Success: "',this.name,'" can now be found under src/elements/',this.type,'/',this.name,'\n\r'].join(''));
+		console.log(
+			'\n\r',
+			`Success: ${this.name} can now be found under ${this.type}/${this.name}`,
+			'\n\r'
+		);
   }
 }
 
