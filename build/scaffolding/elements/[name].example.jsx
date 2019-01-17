@@ -1,9 +1,4 @@
 /*
-  OPTIONS:
-  The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
-
   Example:
     ```
       examples: [{

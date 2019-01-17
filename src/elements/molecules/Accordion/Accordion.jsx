@@ -1,7 +1,8 @@
 import Expand from '@molecules/Expand/Expand';
 
 /** 
-  Accordions are useful when you want to toggle between hiding and showing large amount of content.
+  <p>Accordions are useful when you want to toggle between hiding and showing large amount of content.</p>
+  <p>Accordion molecule is a simple re-abstraction of the Expand molecule with supporting UI styles and behavior.</p>
 */
 
 export class Accordion extends React.Component {

@@ -4,7 +4,7 @@
       examples: [{
         name: 'Default styling',
         component: (
-          <div className={{name}}></div>
+          <Component>Lorem ipsum</Component>
         ),
         options: {
           padding: '1rem',
