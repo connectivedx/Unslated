@@ -25,7 +25,8 @@ export class Form extends React.Component {
     /** Sets the text of submit button, or allows you to pass/overload with your own element(s). Default is "Submit" */
     submit: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.element
+      PropTypes.element,
+      PropTypes.bool
     ]),
     /** Action is the location to which a form's data will be posted */
     action: PropTypes.string.isRequired,
@@ -93,7 +94,8 @@ export class FormFieldset extends React.Component {
     /** Sets the text of submit button, or allows you to pass/overload with your own element(s) */
     submit: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.element
+      PropTypes.element,
+      PropTypes.bool
     ])
   };
 
@@ -121,6 +123,7 @@ export class FormFieldset extends React.Component {
     ]);
     
     const getSubmitButton = () => {
+      if (submit === false) { return; }
       if (typeof submit === 'string') {
         return (
           <li className="list__item list__item--default">

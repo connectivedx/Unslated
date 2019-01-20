@@ -67,7 +67,7 @@ export class Select extends React.Component {
       >
         {(label !== false) ? <label className="field__label">{label}</label> : ''}
         <span className="field__decorator">
-          <select className="field__native" required={required} defaultValue={defaultValue} {...attrs}>
+          <select className="field__native" required={required} name={name} defaultValue={defaultValue} {...attrs}>
             {children}
           </select>
         </span>

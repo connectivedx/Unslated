@@ -78,7 +78,6 @@
 		  flex-direction: column;
 		  height: 100%;
 		  margin: auto;
-			padding: 1rem;
 			position: relative;
 			transform: scale(0);
 			transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
@@ -89,8 +88,6 @@
 				margin: 0;
 			}
 		}
-
-		&--height { padding: 1rem; }
 	}
 
 	/* size variants */
@@ -98,6 +95,24 @@
 	&--medium .modal-inner 		 { max-width: var(--medium); 		 }
 	&--large .modal-inner 		 { max-width: var(--large); 		 }
 	&--extraLarge .modal-inner { max-width: var(--extraLarge); }
+
+	/* padding variants */
+	&--padding-none {
+		.modal-inner--width,
+		.modal-inner--height { padding: 0; }
+	}
+	&--padding-small {
+		.modal-inner--width,
+		.modal-inner--height { padding: 1rem; }
+	}
+	&--padding-medium {
+		.modal-inner--width,
+		.modal-inner--height { padding: 2rem; }
+	}
+	&--padding-large {
+		.modal-inner--width,
+		.modal-inner--height { padding: 3rem; }
+	}
 
 	/* style variants */
 	&--default .modal-inner--width {

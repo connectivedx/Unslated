@@ -19,7 +19,7 @@ setTimeout(() => {
 	  vendors: [
 	    {
 	      type: 'Google',
-	      id: 'GOOGLE-API-KEY'
+	      id: ''
 	    }
 	  ]
 	});

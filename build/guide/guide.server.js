@@ -39,7 +39,6 @@ app.get('/api', (req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const query = res.req.query;
   let input = res.req.query.input;
-  console.log(query);
   res.send();
   if (query.new) {
     if ([

@@ -4,9 +4,19 @@ import Heading from '@atoms/Heading/Heading';
 import { List, List__item } from '@atoms/List/List';
 import Modal from '@molecules/Modal/Modal';
 import { Form, Legend } from '@molecules/Form/Form';
+import Select from '@molecules/Select/Select';
 import Input from '@molecules/Input/Input';
 import Button from '@atoms/Button/Button';
 import Icon from '@atoms/Icon/Icon';
+import { 
+  Card, 
+  Card__header, 
+  Card__body, 
+  Card__footer, 
+  Card__group, 
+  Card__deck,
+  Card__grid,
+} from '@molecules/Card/Card';
 
 // Navigation atomic levels
 const getAtomicListing = () => {
@@ -34,21 +44,8 @@ const getAtomicListing = () => {
     <List__item key={index}>
       <Heading level="h3" className={index}>
         {index.charAt(0).toUpperCase() + index.slice(1)}
-        <Link data-modal={`new-${index}`}>
-          <Icon name="plus" />
-        </Link>
       </Heading>
-      <List className="hide">{ getElementListing(examples) }</List>
-      <Modal data-modal={`new-${index}`} size="small">
-        <Rhythm>
-          <Heading level="h3">Adding new {index}</Heading>
-          <p>Use this dialog to name and create a new project {index}.</p>
-          <Form method="get" data-action="/api" className="new-element" legend={`Use the form below to add a new ${index}`}>
-            <Input type="text" label={`New ${index} name`} name="name" required />
-            <Input type="hidden" label={false} name="new" defaultValue={index} required />
-          </Form>
-        </Rhythm> 
-      </Modal>      
+      <List className="hide">{ getElementListing(examples) }</List>    
     </List__item>
     );
   });
@@ -57,31 +54,23 @@ const getAtomicListing = () => {
 // Navigation atomic levels
 const getPageListing = () => {
   const pages = GuideUtils.getPages();
-
   return (
     <List__item key={index}>
       <Heading level="h3" className="pages">
-        Pages
-        <Link data-modal={`new-pages`}>
-          <Icon name="plus" />
-        </Link>        
+        Pages       
       </Heading>
       <List className="hide">
-        { Object.keys(pages).map((key, index) => {
-          const pageName = key.split('./')[1].split('.')[0];
-          return <Link key={index} href={['../../../pages/', pageName].join('')}>{pageName}</Link>;
-        }) }
-      </List>
-      <Modal data-modal={`new-pages`} size="small">
-        <Rhythm>
-          <Heading level="h3">Adding new page</Heading>
-          <p>Use this dialog to name and create a new project page.</p>
-          <Form method="get" data-action="/api" className="new-element" legend={`Use the form below to add a new page`}>
-            <Input type="text" label="New page name" name="name" required />
-            <Input type="hidden" label={false} name="new" defaultValue="pages" required />
-          </Form>
-        </Rhythm>
-      </Modal>       
+        {
+          Object.keys(pages).map((key, index) => {
+            const pageName = key.split('./')[1].split('.')[0];
+            return (
+              <List__item data-search={pageName} key={index}>
+                <Link href={['../../../pages/', pageName].join('')}>{pageName}</Link>
+              </List__item>
+            );
+          })
+        }
+      </List>      
     </List__item>
   );
 };
@@ -90,7 +79,7 @@ const getPageListing = () => {
 const getElementListing = (examples) => {
   return Object.keys(examples).map(index => {
     return (
-      <List__item key={index}>
+      <List__item key={index} data-search={examples[index].name}>
         <Link href={'../../../' + examples[index].url}>{ examples[index].name }</Link>
       </List__item>
     );
@@ -112,13 +101,51 @@ export const Guide__nav = (props) => {
   return (
     <nav className={classStack} {...attrs}>
       <Rhythm className="guide__nav-inner">
-        <input type="search" name="guide__nav--search-input" />
+        <Form action="get" method="post" submit={false} legend="Use the form below to search for atomic elements" autoComplete="off">
+          <Input type="search" label={false} name="query" className="guide__nav--search" />
+        </Form>
+        <span className="guide-nav__close" />
         <Rhythm tagName="ul" deep size="small" className="list">
           <Heading level="h3" className="home"><Link href="/">Home</Link></Heading>
           { getAtomicListing() }
           { getPageListing() }
         </Rhythm>
+        {
+          (process.env.NODE_ENV === 'development') ?
+          <Button data-modal="add" width="full"><Icon name="plus" />&nbsp; Create New</Button>
+          : ''
+        }
       </Rhythm>
+      {
+      (process.env.NODE_ENV === 'development') ?
+        <Modal data-modal="add" size="small" padding="none">
+          <Card>
+            <Card__header>
+                <Heading level="h3">Create new atomic part</Heading>
+            </Card__header>
+            <Card__body>
+              <Rhythm>
+                <p>Use this dialog to add new atomic parts to the project. First choose what part, then give it a name.</p>
+                <Form method="get" data-action="/api" className="new-element" legend={`Use the form below to add a new page`}>
+                  <Select name="new" required label="New:">
+                    <option value="">Choose one</option>
+                    <option value="atoms">Atom</option>
+                    <option value="molecules">Molecule</option>
+                    <option value="organisms">Organism</option>
+                    <option value="templates">Template</option>
+                    <option value="modifiers">Modifier</option>
+                    <option value="pages">Page</option>
+                    <option value="variables">Variable</option>
+                  </Select>
+                  <Input type="text" label="Named:" name="name" required />
+                </Form>
+              </Rhythm>
+            </Card__body>
+          </Card>
+        </Modal>
+        : ''
+      }      
+      <span className="guide-nav__open" />
     </nav>
   );
 };

@@ -157,7 +157,6 @@ const initComponent = (name, selector, component, callback) => {
   });
 
   if (typeof callback === 'function') {
-    console.log('hitting callback');
     callback();
   }
 };

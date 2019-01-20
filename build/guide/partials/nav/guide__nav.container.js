@@ -6,7 +6,7 @@ export const GuideNav = (el) => {
     nav: document.querySelector('.guide__nav'),
     navInner: document.querySelector('.guide__nav-inner'),
     navLists: document.querySelectorAll('.heading + .list'),
-    search: document.querySelector('.guide__search'),
+    search: el.querySelector('.guide__nav--search .field__native'),
     newElementForms: el.querySelectorAll('.new-element')
   };
 
@@ -16,7 +16,7 @@ export const GuideNav = (el) => {
         const target = e.target;
 
         // navigaiton toggle open/close
-        if (target === ui.nav || target == ui.navInner || target === ui.search) {
+        if (target.classList.contains('guide-nav__open') || target.classList.contains('guide-nav__close')) {
           if (ui.nav.classList.contains('open')) {
             ui.nav.classList.remove('open');
             ui.nav.classList.add('close');
@@ -47,6 +47,63 @@ export const GuideNav = (el) => {
 
           e.preventDefault();
         }
+      });
+      
+      // Navigation search
+      const loopList = (value) => {
+        Object.keys(ui.navLists).map(i => {
+          const items = ui.navLists[i].querySelectorAll('.list__item');
+          let j = items.length;
+          let hasMatches = false;
+
+          if (typeof value === 'string') {
+            // Searching
+            
+            // toggle list visibility by value length
+            if (value.length) {
+              ui.navLists[i].classList.remove('hide');
+            } else {
+              ui.navLists[i].classList.add('hide');
+            }
+
+            // toggle list__items visibility by value match
+            while(j--) {
+              items[j].classList.add('hide');
+              if (items[j].dataset.search.toLowerCase().match(value.toLowerCase())) {
+                items[j].classList.remove('hide');
+                hasMatches = true;
+              }
+            }
+
+            // toggle list parent by all list__items being hidden or not.
+            if (hasMatches === false) {
+              ui.navLists[i].parentNode.classList.add('hide');
+            } else {
+              ui.navLists[i].parentNode.classList.remove('hide');
+            }
+          } else {
+            // Clearing
+            ui.navLists[i].classList.add('hide');
+            while(j--) {
+              items[j].classList.remove('hide');
+              ui.navLists[i].parentNode.classList.remove('hide');
+            }            
+          }
+        });
+      };
+
+      // Searching Events
+      ui.search.addEventListener('keyup', (e) => {
+        loopList(ui.search.value);
+      });
+
+      ui.search.addEventListener('search', (e) => {
+        loopList(true);
+      });
+
+      // Prevent form from searching
+      Utils.parents(ui.search, 'form').addEventListener('submit', (e) => {
+        e.preventDefault();
       });
     }
   };

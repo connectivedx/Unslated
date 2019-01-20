@@ -20,13 +20,16 @@ export class Modal extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Size defines the max width of the modal container */
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'extraLarge'])
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'extraLarge']),
+    /** Padding defind the inner padding for modals */
+    padding: PropTypes.oneOf(['none', 'small', 'medium', 'large'])
   };
 
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    size: 'large'
+    size: 'large',
+    padding: 'medium'
   };
 
   render = () => {
@@ -36,6 +39,7 @@ export class Modal extends React.Component {
       variant,
       children,
       size,
+      padding,
       ...attrs
     } = this.props;
 
@@ -43,6 +47,7 @@ export class Modal extends React.Component {
       'modal',
       `modal--${variant}`,
       `modal--${size}`,
+      `modal--padding-${padding}`,
       className
     ]);
 

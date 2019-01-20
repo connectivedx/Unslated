@@ -85,7 +85,7 @@ module.exports = (env, argv) => {
           to: config.output.path
         }
       ])
-    );
+    );  
   }
 
   // finally exports config object
