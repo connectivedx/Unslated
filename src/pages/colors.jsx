@@ -89,7 +89,7 @@ const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
           level="AAA"
         />
 
-        <div style={{ backgroundColor: colors[key], height: '120px' }} />
+        <div  style={{ backgroundColor: colors[key], height: '120px' }} />
 
         <div>
           {colorUnits.hex}
