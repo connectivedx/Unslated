@@ -15,10 +15,10 @@ body {
 pre,
 code {
   font-family: monospace;
-  line-height: 1.4em;
+  line-height: rem(18px);
 }
 
 button {
   background-color: transparent;
-  font-size: 1em;
+  font-size: rem(16px);
 }

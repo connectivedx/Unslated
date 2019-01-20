@@ -28,7 +28,7 @@
       background-color: var(--trigger-bg-color);
       border-top: var(--border-style);      
       color: var(--color-gray);
-      font-size: 1rem;
+      font-size: rem(16px);
       font-weight: normal;
       padding: var(--trigger-padding);    
     }

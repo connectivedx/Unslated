@@ -21,37 +21,66 @@
 */
 
 import Heading from './Heading';
+import Rhythm from '@atoms/Rhythm/Rhythm';
 import docs from '!!docgen-loader?htmlDescription!./Heading';
 
 export default [{
   docs,
   examples: [{
-    name: 'default',
+    name: 'Light (h1-h6)',
     component: (
-      <Heading>
-        Hello
-      </Heading>
+      <React.Fragment>
+        <Rhythm>
+          <Heading level="h1" weight="thin">The brown fox jumps over the h1</Heading>
+          <Heading level="h2" weight="thin">The brown fox jumps over the h2</Heading>
+          <Heading level="h3" weight="thin">The brown fox jumps over the h3</Heading>
+          <Heading level="h4" weight="thin">The brown fox jumps over the h4</Heading>
+          <Heading level="h5" weight="thin">The brown fox jumps over the h5</Heading>
+          <Heading level="h6" weight="thin">The brown fox jumps over the h6</Heading>
+        </Rhythm>
+      </React.Fragment>
     )
   }, {
-    name: 'tagName',
+    name: 'Medium (h1-h6)',
     component: (
-      <Heading tagName="h3">
-        Wowie Zowie
-      </Heading>
+      <React.Fragment>
+        <Rhythm>
+          <Heading level="h1" weight="medium">The brown fox jumps over the h1</Heading>
+          <Heading level="h2" weight="medium">The brown fox jumps over the h2</Heading>
+          <Heading level="h3" weight="medium">The brown fox jumps over the h3</Heading>
+          <Heading level="h4" weight="medium">The brown fox jumps over the h4</Heading>
+          <Heading level="h5" weight="medium">The brown fox jumps over the h5</Heading>
+          <Heading level="h6" weight="medium">The brown fox jumps over the h6</Heading>
+        </Rhythm>
+      </React.Fragment>
     )
   }, {
-    name: 'className/variant',
+    name: 'Bold (h1-h6)',
     component: (
-      <Heading className="super" weight="medium">
-        Leg Shaking
-      </Heading>
+      <React.Fragment>
+        <Rhythm>
+          <Heading level="h1" weight="bold">The brown fox jumps over the h1</Heading>
+          <Heading level="h2" weight="bold">The brown fox jumps over the h2</Heading>
+          <Heading level="h3" weight="bold">The brown fox jumps over the h3</Heading>
+          <Heading level="h4" weight="bold">The brown fox jumps over the h4</Heading>
+          <Heading level="h5" weight="bold">The brown fox jumps over the h5</Heading>
+          <Heading level="h6" weight="bold">The brown fox jumps over the h6</Heading>
+        </Rhythm>
+      </React.Fragment>
     )
   }, {
-    name: 'tagName/className/variant',
+    name: 'Alternative element tagName',
     component: (
-      <Heading tagName="div" className="duper" level="h3" weight="thin">
-        Back Breaking
-      </Heading>
+      <React.Fragment>
+        <Rhythm>
+          <Heading level="h1" tagName="div">The brown fox jumps over the h1</Heading>
+          <Heading level="h2" tagName="div">The brown fox jumps over the h2</Heading>
+          <Heading level="h3" tagName="div">The brown fox jumps over the h3</Heading>
+          <Heading level="h4" tagName="div">The brown fox jumps over the h4</Heading>
+          <Heading level="h5" tagName="div">The brown fox jumps over the h5</Heading>
+          <Heading level="h6" tagName="div">The brown fox jumps over the h6</Heading>
+        </Rhythm>
+      </React.Fragment>
     )
   }]
 }];

@@ -17,8 +17,7 @@ body,
   height: 100%;
 }
 
-strong,
-.heading {
+strong {
   font-weight: 600;
 }
 

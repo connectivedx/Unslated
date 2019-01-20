@@ -1,4 +1,8 @@
-/** Heading should be used in place of headers. */
+/**
+Simple abstraction of the basic <strong>H1-H6</strong> tags with responsive typography support.<br/><br/>
+<strong>Please note:</strong> The difference between the Heading atom and RichText headings are the BEM classing.<br/> 
+Heading atom gets BEM classing opportunities, while RichText headings are to be treated as a tags only approach. 
+*/
 
 export class Heading extends React.Component {
   static propTypes = {
@@ -19,7 +23,7 @@ export class Heading extends React.Component {
   };
 
   static defaultProps = {
-    weight: 'bold',
+    weight: 'medium',
     level: 'h1'
   };
 

@@ -95,7 +95,7 @@
     .tabs__trigger {
       border: var(--border-style);
       cursor: pointer;
-      font-size: 1.35rem;
+      font-size: rem(20px);
       padding: var(--tabs-padding);
       position: relative;
       z-index: 2;
