@@ -18,7 +18,11 @@ module.exports = {
         ]
       }
     },{
-      'loader': 'eslint-loader'
+      'loader': 'eslint-loader',
+      'options': {
+        'configFile': path.resolve(__dirname, '.eslintrc'),
+        'formatter': require('eslint-friendly-formatter')
+      }
     }]
   }],
 	plugins: [
