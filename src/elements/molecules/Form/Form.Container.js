@@ -7,7 +7,7 @@ export const Form = (el) => {
 
   const checkValidity = (field, native) => {
     if (native.required) {
-      field.classList[(native.checkValidity()) ? 'add':'remove']('field__error');
+      field.classList[(native.checkValidity()) ? 'add' : 'remove']('field__error');
     }
   };
 
@@ -18,7 +18,7 @@ export const Form = (el) => {
   };
 
   const init = () => {
-    Object.keys(ui.fields).map(i => {
+    Object.keys(ui.fields).map((i) => {
       const field = ui.fields[i];
       const classes = field.classList;
       const native = field.querySelector('.field__native');
@@ -32,28 +32,30 @@ export const Form = (el) => {
       }
 
       bindValidation(field, native, 'blur');
+      return false;
     });
 
     el.addEventListener('submit', (e) => {
-      Object.keys(ui.fields).map(i => {
+      Object.keys(ui.fields).map((i) => {
         const field = ui.fields[i];
         const native = field.querySelector('.field__native');
         checkValidity(field, native);
+        return true;
       });
 
       if (el.dataset.action) {
         e.preventDefault();
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
-          if (xhttp.status == 200) {
-            console.log(xhttp.responseText);
+          if (xhttp.status === 200) {
+            console.log(xhttp.responseText); // eslint-disable-line
           }
         };
         xhttp.open(el.method, [el.dataset.action, Utils.serialize(el, 'urlencode')].join('?'), true);
         xhttp.send();
       }
     });
-  }
+  };
 
   init();
 };

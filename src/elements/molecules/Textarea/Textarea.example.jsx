@@ -72,7 +72,7 @@ export default [{
       name: 'Textarea (without label)',
       component: (
         <Form legend="Fieldset legend">
-          <Textarea name="test-name" label={false} type="text" name="text-input" required={true}>
+          <Textarea label={false} type="text" name="text-input" required={true}>
             This is my test content within a textarea.
           </Textarea>
         </Form>

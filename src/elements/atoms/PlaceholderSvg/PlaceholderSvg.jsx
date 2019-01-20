@@ -1,4 +1,6 @@
-/** This component provides an easy way to build a placeholder SVG. */
+/**
+  This component provides an easy way to build a placeholder SVG.
+*/
 
 export class PlaceholderSvg extends React.Component {
   static propTypes = {
@@ -37,15 +39,6 @@ export class PlaceholderSvg extends React.Component {
     fontWeight: 'bold'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       width,
@@ -69,6 +62,7 @@ export class PlaceholderSvg extends React.Component {
           textTransform: 'uppercase',
           width: `${width}px`
         }}
+        {...attrs}
       >
         <rect
           fill={imgColor}

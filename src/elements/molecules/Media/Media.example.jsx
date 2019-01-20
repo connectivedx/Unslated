@@ -38,22 +38,22 @@ import docs from '!!docgen-loader?htmlDescription!./Media';
 export default [{
   docs,
   examples: [{
-      name: 'media to the left',
-      component: (
-        <Media>
-          <Media__figure>
-            <Image src={randySavage} alt="Randy Savage" />
-          </Media__figure>
+    name: 'media to the left',
+    component: (
+      <Media>
+        <Media__figure>
+          <Image src={randySavage} alt="Randy Savage" />
+        </Media__figure>
 
-          <Media__body>
-            <Rhythm size="small">
-              <Heading level="h3">Randy Savage Buddy</Heading>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            </Rhythm>
-          </Media__body>
-        </Media>
-      )
+        <Media__body>
+          <Rhythm size="small">
+            <Heading level="h3">Randy Savage Buddy</Heading>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+          </Rhythm>
+        </Media__body>
+      </Media>
+    )
   }, {
     name: 'media to the right',
     component: (

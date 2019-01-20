@@ -1,8 +1,10 @@
-/** <List> should be used in place of lists (ul, ol, dl) */
+/**
+  <List> should be used in place of lists (ul, ol, dl)
+*/
 
 export class List extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -19,15 +21,6 @@ export class List extends React.Component {
   static defaultProps = {
     variant: 'unordered'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {
@@ -52,7 +45,7 @@ export class List extends React.Component {
 
     const Tag = tagName || getTagName();
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'list',
       `list--${variant}`,
       className
@@ -78,22 +71,13 @@ export class List__item extends React.Component {
     className: PropTypes.string,
     /** Class stacking */
     variant: PropTypes.oneOf(['item', 'description', 'term']),
-     /** Children nodes being passed through */
+    /** Children nodes being passed through */
     children: PropTypes.node.isRequired
   };
 
   static defaultProps = {
     variant: 'item'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {
@@ -118,7 +102,7 @@ export class List__item extends React.Component {
 
     const Tag = tagName || getTagName();
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'list__item',
       `list__item--${variant}`,
       className

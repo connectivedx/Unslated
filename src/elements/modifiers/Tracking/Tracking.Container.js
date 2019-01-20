@@ -68,7 +68,6 @@ class Tracking {
 
     this.init(options);
     this.debounceWait = undefined;
-
   }
 
   setupGoogleTagManager = (id) => {
@@ -92,7 +91,6 @@ class Tracking {
       j.async = true;
       j.src = ['//www.googletagmanager.com/gtm.js?id=', i, dl].join('');
       f.appendChild(j, f);
-
     })(window, document, 'script', 'dataLayer', id);
   }
 
@@ -224,8 +222,8 @@ class Tracking {
             });
           }
           if (window.location.search.indexOf('debug=true') !== -1) {
-            console.clear();
-            console.log(dataLayer);
+            console.clear();          // eslint-disable-line
+            console.log(global.dataLayer);   // eslint-disable-line
           }
         }
       }
@@ -264,7 +262,7 @@ class Tracking {
           this.execute(
             (this.getParent(target) ? this.getParent(target) : target),
             type,
-            (this.debounceList.indexOf(type) !== -1) ? true : false
+            (this.debounceList.indexOf(type) !== -1)
           );
         }
       }, true, true);
@@ -286,7 +284,7 @@ class Tracking {
 
         if (trackingEvent === 'pageload') {
           // finally we return the execute method with our found pageload tracking record to perform tracking.
-          return this.execute(this.ui.trackingAttrs[elmIndex], trackingEvent, (this.debounceList.indexOf(trackingEvent) !== -1 ? true : false));
+          return (this.execute(this.ui.trackingAttrs[elmIndex], trackingEvent, (this.debounceList.indexOf(trackingEvent) !== -1)));
         }
         return null;
       });

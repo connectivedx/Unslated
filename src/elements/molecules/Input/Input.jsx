@@ -1,4 +1,4 @@
-/** 
+/**
   Input is a simple abstraction of the basic form input element.
   This element allows you to configure alignment, labels, validation and type from a single tag.
 */
@@ -12,18 +12,18 @@ export class Input extends React.Component {
     ]),
     /** Class stacking */
     className: PropTypes.string,
-    /** Label attribute supplies text label tag (Note you can remove labels by setting this to false)*/
+    /** Label attribute supplies text label tag (Note you can remove labels by setting this to false) */
     label: PropTypes.oneOfType([
-       PropTypes.string,
-       PropTypes.bool
+      PropTypes.string,
+      PropTypes.bool
     ]),
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
-    /** Input type (text, radio, checkbox, date, number etc.)*/
+    /** Input type (text, radio, checkbox, date, number etc.) */
     type: PropTypes.string,
     /** Name attributes are used as keys when posting data to server */
     name: PropTypes.string.isRequired,
-    /** Alignment allows you set orientation between labels and inputs*/
+    /** Alignment allows you set orientation between labels and inputs */
     align: PropTypes.string,
     /** Placeholder allows you to set input text that clears upon field being focused */
     placeholder: PropTypes.string,
@@ -68,15 +68,15 @@ export class Input extends React.Component {
         className={classStack}
       >
         {
-          (label !== false && type !== 'radio' && type !== 'checkbox') ?
-            <label className="field__label">{label}</label>
-          : ''
+          (label !== false && type !== 'radio' && type !== 'checkbox')
+            ? <label className="field__label">{label}</label>
+            : ''
         }
         <input className="field__native" type={type} name={name} required={required} pattern={pattern} {...attrs} />
         {
-          (type === 'radio' || type === 'checkbox') ?
-            <label className="field__label">{label}</label>
-          : ''
+          (type === 'radio' || type === 'checkbox')
+            ? <label className="field__label">{label}</label>
+            : ''
         }
       </Tag>
     );

@@ -1,8 +1,10 @@
-/** Buttons are used to denote user interaction. */
+/**
+  Buttons are used to denote user interaction.
+*/
 
 export class Button extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -25,15 +27,6 @@ export class Button extends React.Component {
     variant: 'default',
     width: 'auto'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {
@@ -68,4 +61,3 @@ export class Button extends React.Component {
 }
 
 export default Button;
-

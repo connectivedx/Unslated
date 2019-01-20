@@ -8,29 +8,33 @@ export const GuidePages = (el) => {
   };
 
   // Switch between color sample levels & weights
-  const switchColorSamples = (level, weight) => {
+  const switchColorSamples = () => {
     const levels = ui.colorLevels;
     const levelOptions = ui.colorLevelSelect.options;
     const levelIndex = ui.colorLevelSelect.selectedIndex;
     const weightOptions = ui.colorWeightSelect.options;
     const weightIndex = ui.colorWeightSelect.selectedIndex;
-    
+
     // then we conditionally unhide the results
-    Object.keys(levels).map(index => {
-    	const level = levels[index];
-    	// first hide
+    Object.keys(levels).map((i) => {
+      const level = levels[i];
+      // first hide
       level.style.display = 'none';
       // then reveal
       if (level.classList.contains(levelOptions[levelIndex].value)) {
         level.style.display = 'flex';
         // next we hide all badges
-        Object.keys(ui.colorBadges).map(index => {
-          ui.colorBadges[index].style.display = 'none';
-          if (ui.colorBadges[index].classList.contains(weightOptions[weightIndex].value)) {
-            ui.colorBadges[index].style.display = 'flex';
+        Object.keys(ui.colorBadges).map((j) => {
+          ui.colorBadges[j].style.display = 'none';
+          if (ui.colorBadges[j].classList.contains(weightOptions[weightIndex].value)) {
+            ui.colorBadges[j].style.display = 'flex';
           }
+
+          return true;
         });
       }
+
+      return true;
     });
   };
 

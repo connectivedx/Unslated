@@ -53,7 +53,7 @@ export default [{
           <p>
             Lorem ipsum dolor sit amet, <a href="#/">consectetur adipisicing elit.</a> Sit ipsum sed, nesciunt earum quas molestiae nam repudiandae voluptas deserunt vitae.
           </p>
-          <button>This button</button>
+          <button type="button">This button</button>
         </RichText>
       )
     }

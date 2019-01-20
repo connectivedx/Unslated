@@ -1,4 +1,4 @@
-/** 
+/**
   A card is lightweight bordered (optional) box with some padding around its content.<br/> It includes options for headers, footers, content, colors, etc.
 */
 
@@ -210,8 +210,7 @@ export class Card__group extends React.Component {
   };
 
   static defaultProps = {
-    tagName: 'div',
-    variant: 'default'
+    tagName: 'div'
   };
 
   render = () => {

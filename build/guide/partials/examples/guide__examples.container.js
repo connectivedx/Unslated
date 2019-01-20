@@ -15,8 +15,9 @@ export const GuideExamples = (el) => {
       return;
     }
 
-    Object.keys(ui.examplesCodes).map(index => {
+    Object.keys(ui.examplesCodes).map((index) => {
       ui.examplesCodes[index].classList.add('hide');
+      return true;
     });
 
     selected.classList.remove('hide');
@@ -25,18 +26,22 @@ export const GuideExamples = (el) => {
   const init = () => {
     // Sets up events for each example's source code buttons
     if (ui.examples) {
-      Object.keys(ui.examples).map(index => {
+      Object.keys(ui.examples).map((index) => {
         const example = ui.examples[index];
         const buttons = example.querySelectorAll('.button');
-        Object.keys(buttons).map(index => {
-          if (!buttons[index].hasAttribute('type')) {
-            buttons[index].addEventListener('click', (e) => {
-              if (!e.target.classList.contains('button')) { return; }          
+        Object.keys(buttons).map((j) => {
+          if (!buttons[j].hasAttribute('type')) {
+            buttons[j].addEventListener('click', (e) => {
+              if (!e.target.classList.contains('button')) { return; }
               switchCodeSamples(e.target.dataset.index, example);
               e.preventDefault();
             });
           }
+
+          return true;
         });
+
+        return true;
       });
     }
   };

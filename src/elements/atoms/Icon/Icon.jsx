@@ -1,5 +1,5 @@
-/** 
-  Icons represent an instance of <use xlink:href="#icon" /> which inserts a referance to the svg symbol in its place. 
+/**
+  Icons represent an instance of <use xlink:href="#icon" /> which inserts a referance to the svg symbol in its place.
   Icons are named and defined in the <IconSet> tag.
 */
 
@@ -20,15 +20,6 @@ export class Icon extends React.Component {
     variant: 'default'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       className,
@@ -38,7 +29,7 @@ export class Icon extends React.Component {
       ...attrs
     } = this.props;
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'icon',
       `icon--${name}`,
       `icon--${size}`,

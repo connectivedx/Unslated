@@ -1,5 +1,3 @@
-import ReactDOMServer from 'react-dom/server';
-
 export const Guide__pages = (props) => {
   const {
     ...attrs
@@ -10,20 +8,20 @@ export const Guide__pages = (props) => {
   ]);
 
   const pages = GuideUtils.getPages();
-  let page = Object.keys(pages).map((key, index) => {
+  const page = Object.keys(pages).map((key) => {
     if (key.split('.')[1].split('/')[1] === props.match.params.page) {
       return pages[key].default;
     }
+
+    return false;
   });
 
   return (
-    <div className={classStack}>
+    <div className={classStack} {...attrs}>
       {
-        page.filter((el) => {
-          return el != null;
-        })[0]()
+        page.filter((el) => el != null)[0]()
       }
-      </div>
+    </div>
   );
 };
 

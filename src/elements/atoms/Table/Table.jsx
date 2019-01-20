@@ -9,7 +9,7 @@ import Trow from '@atoms/Table/partials/Trow.jsx';
 
 export class Table extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -20,22 +20,13 @@ export class Table extends React.Component {
     /** Style variant */
     variant: PropTypes.oneOf(['default', 'auto', 'inline-data', 'responsive']),
     /** Children nodes being passed through */
-    children: PropTypes.node    
+    children: PropTypes.node
   };
 
   static defaultProps = {
     tagName: 'div',
     variant: 'default'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {
