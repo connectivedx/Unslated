@@ -32,13 +32,12 @@ const AccessibilityLevel = (props) => {
   const weights = ['normal', 'large--bold', 'large'];
 
   const createBadges = (type) => (
-    Object.keys(weights).map((key, value) => (
-        <div key={key} className={`AccessibilityLevel__badge AccessibilityLevel__badge--${type} ${((weights[key] !== 'normal' || level !== 'AA') ? 'hide' : '')} AccessibilityLevel__badge--${weights[key]}`}>
-          {GuideUtils.WCAGTest((type === 'secondary') ? contrastSecondary : contrastPrimary, weights[key].split('--')[0], level)}
-        </div>
-      );
-    ));
-  };
+    Object.keys(weights).map((key) => (
+      <div key={key} className={`AccessibilityLevel__badge AccessibilityLevel__badge--${type} ${((weights[key] !== 'normal' || level !== 'AA') ? 'hide' : '')} AccessibilityLevel__badge--${weights[key]}`}>
+        {GuideUtils.WCAGTest((type === 'secondary') ? contrastSecondary : contrastPrimary, weights[key].split('--')[0], level)}
+      </div>
+    ))
+  );
 
   return (
     <Tag className={classStack} {...attrs}>
@@ -70,34 +69,35 @@ AccessibilityLevel.propTypes = {
 
 
 const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
-  if (colors[key] === 'true') { return; }
-  //if (key.match('alpha')) { return; }
+  if (colors[key] === 'true') { return false; }
 
   const colorUnits = GuideUtils.getColorUnits(colors[key]);
 
-  if (!colorUnits.hex) { return; }
+  if (!colorUnits.hex) { return false; }
 
-  return <List__item key={key}>
-    <div>
-      <AccessibilityLevel
-        contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
-        contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
-        level="AA" 
-      />
-      <AccessibilityLevel
-        contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
-        contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
-        level="AAA"
-      />
-
-      <div style={{backgroundColor: colors[key], height: '120px' }} />
-
+  return (
+    <List__item key={key}>
       <div>
-        {colorUnits.hex}
+        <AccessibilityLevel
+          contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
+          contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
+          level="AA"
+        />
+        <AccessibilityLevel
+          contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
+          contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
+          level="AAA"
+        />
+
+        <div style={{ backgroundColor: colors[key], height: '120px' }} />
+
+        <div>
+          {colorUnits.hex}
+        </div>
       </div>
-    </div>
-    <div>{key.replace('--color-', '')}</div>
-  </List__item>
+      <div>{key.replace('--color-', '')}</div>
+    </List__item>
+  );
 });
 
 const page = () => (

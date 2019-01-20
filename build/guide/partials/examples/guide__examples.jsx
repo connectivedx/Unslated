@@ -4,26 +4,21 @@ import pretty from 'pretty';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-json.min';
-import GuideConfig from '../../guide.config.js';
 
 import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
 
-import ExampleBg from '@guide/assets/example_bg.png';
-import arrorRight from '@guide/assets/tab-arrow-right.svg';
-
 import Button from '@atoms/Button/Button';
 import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
-import { 
-  Card, 
-  Card__header, 
-  Card__body, 
-  Card__footer, 
-  Card__group, 
-  Card__deck,
-  Card__grid
+import {
+  Card,
+  Card__header,
+  Card__body,
+  Card__footer
 } from '@molecules/Card/Card';
+
+import GuideConfig from '../../guide.config.js';
 
 // Helper method to distil down an elements tag name for examples react code snip.
 const getTagName = (element) => {
@@ -56,28 +51,28 @@ export const Guide__examples = (props) => {
     const element = data.examples[index];
 
     if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
-      data.docs = element.docs;
-      data.atomic = element.atomic;
-      data.name = element.name;
+      data.docs = element;
+      data.atomic = element;
+      data.name = element;
       return element.examples[0].examples;
     }
 
-  }).filter((n) => n)[0];
-
+    return true;
+  }).filter((n) => n[0]);
   return (
-    <Rhythm tagName="section" className={classStack}>
+    <Rhythm tagName="section" className={classStack} {...attrs}>
       <Readme docs={data.docs} />
       <Rhythm className="examples__listing">
         {
           Object.keys(data.examples).map((index) => {
             const example = data.examples[index];
-            const component = example.component;
+            const component = example;
 
             // Gathers example's React code version
             const reactExample = ReactElementToString(component, {
               displayName: getTagName,
               showDefaultProps: false
-            }).replace(/\<Unknown\>/g, '').replace(/\<\/Unknown\>/g, '').trim();
+            }).replace(/<Unknown>/g, '').replace(/<\/Unknown>/g, '').trim();
 
             // Gathers example's HTML code version
             let htmlExample = ReactDOMServer.renderToStaticMarkup(component);
@@ -86,11 +81,14 @@ export const Guide__examples = (props) => {
             }
 
             // Gathers example's used props
-            const props = {};
-            Object.keys(component.props).map((index) => {
-              if (index === 'children') { return false; }
-              props[index] = component.props[index].toString();
-            });
+            /*
+              const props = {};
+              Object.keys(component.props).map((index) => {
+                if (index === 'children') { return false; }
+                props[index] = component.props[index].toString();
+                return true;
+              });
+            */
 
             const options = {
               background: GuideConfig.examples.background,
@@ -111,13 +109,16 @@ export const Guide__examples = (props) => {
                 </Card__header>
                 <Card__body className="examples__body examples__item">
                   <Rhythm>
-                    <p dangerouslySetInnerHTML={{__html: example.description}}></p>
-                    <div className="examples__pallet" style={{
+                    <p dangerouslySetInnerHTML={{ __html: example.description }} />
+                    <div
+                      className="examples__pallet"
+                      style={{
                         '--speed': '0s',
                         '--brightness': options.brightness,
                         '--background': ['url(', options.background, ')'].join(''),
                         '--padding': options.padding
-                      }}>
+                      }}
+                    >
                       <div className="examples__pallet-inner">
                         {component}
                       </div>
@@ -142,20 +143,34 @@ export const Guide__examples = (props) => {
                       {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(JSON.stringify(props, null, 4), Prism.languages.json) }} /> : ''}
                     </pre>
                     {
-                      (component.type.name) ?
-                        <pre className="examples__code hide">
-                          {
-                            (component.props) ? 
-                              <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map((index) => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} />
-                                :
-                              ''
-                          }
-                        </pre>
-                          :
-                        ''
+                      (component.type.name)
+                        ? (
+                          <pre className="examples__code hide">
+                            {
+                              (component.props)
+                                ? (
+                                  <code dangerouslySetInnerHTML={{
+                                    __html: Prism.highlight(
+                                      [
+                                        '// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("',
+                                        component.type.name,
+                                        '",new { ',
+                                        Object.keys(props).map((i) => [i, ' = Model.', i].join('')),
+                                        ' });'
+                                      ].join(''),
+                                      Prism.languages.clike
+                                    )
+                                  }}
+                                  />
+                                )
+                                : ''
+                            }
+                          </pre>
+                        )
+                        : ''
                     }
                   </div>
-                </Card__footer>              
+                </Card__footer>
               </Card>
             );
           })
@@ -164,31 +179,6 @@ export const Guide__examples = (props) => {
       <Stylist examples={data.examples} />
     </Rhythm>
   );
-};
-
-export const Guide__blank = (props) => {
-  const {
-    ...attrs
-  } = props;
-
-  // Gather all atomic elements (getExamples has a handy atomicLevel prop)
-  const data = GuideUtils.getExamples()[0];
-
-  return Object.keys(data).map((index) => {
-    if (data[index].atomic === props.match.params.category && data[index].name === props.match.params.element) {
-      return <React.Fragment key={index}>{data[index].examples[0].examples[props.match.params.id].component}</React.Fragment>;
-    }
-  });
-  return false;
-};
-
-
-export const Guide__data = (props) => {
-  const {
-    ...attrs
-  } = props;
-  // tbd
-  return false;
 };
 
 export default Guide__examples;
