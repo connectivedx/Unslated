@@ -50,7 +50,6 @@ const parents = (obj, parent) => {
   return null;
 };
 
-
 /*
   Helper: Used to toggle between classes on elements
   Note: Use this over native classList.toggleClass due to no IE support
@@ -97,6 +96,39 @@ const replaceClass = (element, classArray) => {
 };
 
 /*
+  Helper: Used to serialize a form element's fields into JSON object. Useful for XHR.
+*/
+const serialize = (elm, type) => {
+  const jsonToQueryString = (json) => {
+    return Object.keys(json).map(function(key) {
+        return encodeURIComponent(key) + '=' +
+          encodeURIComponent(json[key]);
+      }).join('&');
+  };
+
+  type = (type) ? type : 'json';
+  const obj = {};
+  const elements = elm.querySelectorAll( "input, select, textarea" );
+  for( let i = 0; i < elements.length; ++i ) {
+    const element = elements[i];
+    const name = element.name;
+    const value = element.value;
+
+    if( name ) {
+      obj[ name ] = value;
+    }
+  }
+
+  if (type === 'urlencode') {
+    return jsonToQueryString( obj );
+  }
+
+  if (type === 'json') {
+    return JSON.stringify( obj );
+  }
+}
+
+/*
   CORE: Creating a nice className from an array of unknown values
 */
 const createClassStack = (classList) => (
@@ -115,14 +147,19 @@ const createClassStack = (classList) => (
 /*
   CORE: Installing an atomic element's Container.js class based on elements found on page
 */
-const initComponent = (name, selector, component, ...args) => {
-  const createComponent = (el, ...args) => new component(el, ...args);
+const initComponent = (name, selector, component, callback) => {
+  const createComponent = (el, ...args) => new component(el);
 
   // init maching elements
   const elms = document.querySelectorAll(selector.toLowerCase().toString());
   Object.keys(elms).map(index => {
-    createComponent(elms[index], ...args);
+    createComponent(elms[index]);
   });
+
+  if (typeof callback === 'function') {
+    console.log('hitting callback');
+    callback();
+  }
 };
 
 
@@ -131,5 +168,6 @@ module.exports = {
   createClassStack,
   initComponent,
   toggleClass,
-  replaceClass
+  replaceClass,
+  serialize
 };

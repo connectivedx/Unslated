@@ -30,7 +30,7 @@ export class Form extends React.Component {
     /** Action is the location to which a form's data will be posted */
     action: PropTypes.string.isRequired,
     /** Method sets the request type of the form (POST or GET) */
-    method: PropTypes.oneOf(['get', 'post']).isRequired  
+    method: PropTypes.oneOf(['get', 'GET', 'post', 'POST']).isRequired  
   };
 
   static defaultProps = {

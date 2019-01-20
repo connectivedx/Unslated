@@ -23,7 +23,15 @@ module.exports = {
       errorDetails: true, // enable / disable bundle error details
       modulesSort: 'issuer'     
     }, 
-    devServer: {}
+    devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false
+        }
+      }
+    }
   },
   plugins: [
     new PerformanceStats() // Stats plugin to collect objects for style guide.

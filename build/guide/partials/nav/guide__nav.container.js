@@ -1,10 +1,13 @@
+import __ from 'lodash';
+
 export const GuideNav = (el) => {
   const ui = {
     el,
     nav: document.querySelector('.guide__nav'),
     navInner: document.querySelector('.guide__nav-inner'),
     navLists: document.querySelectorAll('.heading + .list'),
-    search: document.querySelector('.guide__search')
+    search: document.querySelector('.guide__search'),
+    newElementForms: el.querySelectorAll('.new-element')
   };
 
   const init = () => {

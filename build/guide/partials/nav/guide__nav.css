@@ -90,6 +90,8 @@
       background-size: 25px;
       cursor: pointer;
       padding: 0.5rem 1rem 0.5rem 2.75rem;
+      display: flex;
+      justify-content: space-between;
 
       &.atoms       { background-image: url('assets/atoms.svg'); }
       &.pages       { background-image: url('assets/pages.svg'); }
@@ -98,6 +100,26 @@
       &.templates   { background-image: url('assets/templates.svg'); }
       &.organisms   { background-image: url('assets/organisms.svg'); }
       &.home        { background-image: url('assets/home.svg'); }
+
+      .link {
+        position: relative;
+
+        &:before {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 2;
+        }
+
+        .icon {
+          position: relative;
+          z-index: 1;
+          width: 15px;
+          height: 15px;
+        }
+      }
     }
 
     & [type="search"] {

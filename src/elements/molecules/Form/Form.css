@@ -4,8 +4,6 @@
 }
 
 .form {
-	padding: 1rem;
-
 	/* Field Error, Align, Labels */
   .field {
 		&__error {

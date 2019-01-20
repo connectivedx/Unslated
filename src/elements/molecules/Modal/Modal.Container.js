@@ -10,8 +10,8 @@ const getWindowHeight = (maxHeight) => {
 export const Modal = (el) => {
   const ui = {
     modal: el,
-    innerWidth: el.querySelector('.modal-inner--width'),
-    innerHeight: el.querySelector('.modal-inner--height')
+    innerWidth: undefined,
+    innerHeight: undefined
   };
 
   // modal history
@@ -92,6 +92,7 @@ export const Modal = (el) => {
   }
 
   const init = () => {
+
     // prepare a close button for modal
     const closeButton = document.createElement('a');
     closeButton.setAttribute('data-modal-close', true);
@@ -103,10 +104,12 @@ export const Modal = (el) => {
     // prepare inner wrapper for width variants
     const innerWidth = document.createElement('div');
     innerWidth.classList.add('modal-inner--width');
+    ui.innerWidth = innerWidth;
 
     // prepare inner wrapper for height scrolling
     const innerHeight = document.createElement('div');
     innerHeight.classList.add('modal-inner--height');
+    ui.innerHeight = innerHeight;
 
     // prepare inner modal content for a hook to modal content
     const modalContent = document.createElement('div');
@@ -128,7 +131,6 @@ export const Modal = (el) => {
     // this allows modals and even targets to be changed or added to the DOM without losing any events.
     if (!window.modals) {
       document.body.addEventListener('click', (e) => {
-        console.log('testing');
         const target = e.target; // tell us what was clicked please
 
         // get our targets modal element
