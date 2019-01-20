@@ -80,8 +80,11 @@ export const Guide__examples = (props) => {
             }).replace(/\<Unknown\>/g, '').replace(/\<\/Unknown\>/g, '').trim();
 
             // Gathers example's HTML code version
-            const htmlExample = ReactDOMServer.renderToStaticMarkup(component);
-            
+            let htmlExample = ReactDOMServer.renderToStaticMarkup(component);
+            if (component.props.devonly === 'true') {
+              htmlExample = htmlExample.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
+            }
+
             // Gathers example's used props
             const props = {};
             Object.keys(component.props).map(index => {
