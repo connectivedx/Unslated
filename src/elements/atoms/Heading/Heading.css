@@ -5,15 +5,15 @@
   line-height: 1em;
 
   /* weights */
-  &--thin { font-weight: 300; }
-  &--bold { font-weight: 700; }
+  &--thin   { font-weight: 300; }
+  &--bold   { font-weight: 700; }
   &--medium { font-weight: 500; }
 
   /* levels */
-  &--h1 { font-size: 2em; }
-  &--h2 { font-size: 1.6em; }
-  &--h3 { font-size: 1.4em; }
-  &--h4 { font-size: 1.3em; }
-  &--h5 { font-size: 1.2em; }
-  &--h6 { font-size: 1.1em; }
+  &--h1 { font-size: rem(28px); }
+  &--h2 { font-size: rem(24px); }
+  &--h3 { font-size: rem(22px); }
+  &--h4 { font-size: rem(20px); }
+  &--h5 { font-size: rem(18px); }
+  &--h6 { font-size: rem(16px); }
 }

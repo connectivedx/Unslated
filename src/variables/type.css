@@ -3,6 +3,9 @@
 */
 
 :root {
+  /* Base body font size */
+  --type-size--default: 16px;
+
   /* Base body line height for the body element. */
   --type-line-height: 1.4;
 

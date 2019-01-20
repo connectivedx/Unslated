@@ -29,6 +29,7 @@ const variables = require('./css.postcss-vars.plugin.js');
 const minification = require('cssnano');
 const exporting = require('./css.postcss-exports.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
+const rems = require('./css.postcss-rem.plugin.js');
 const mediaPacker = require('css-mqpacker');
 const removeRoots = require('./css.postcss-roots.plugin.js');
 
@@ -45,6 +46,7 @@ module.exports = {
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
     mixins(),       // Allows for CSS @mixins
+    rems(),         // Allows for CSS rem()
     removeRoots(),  // Cleans up leftover :root declarations.
     mediaPacker(),   // Allows for the consolidation of @media queries
     minification(), // Minification of our final CSS results.

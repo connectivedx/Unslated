@@ -12,11 +12,19 @@
 
   &__trigger {
     &.tabs-state--open {
-      & + .tabs__target { height: auto; opacity: 1; }
+      & + .tabs__target { 
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
 
-  &__target { height: 0; opacity: 0; }
+  &__target {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
 
   /* Tabs alignment & justification */
   &-align {
@@ -34,14 +42,14 @@
       grid-template-columns: 15% 85%;
 
        .tabs__trigger { grid-column-start: 1; }
-      .tabs__target { grid-column-start: 2; }
+      .tabs__target   { grid-column-start: 2; }
     }
 
     &--right {
       grid-template-columns: 85% 15%;
 
        .tabs__trigger { grid-column-start: 2; }
-      .tabs__target { grid-column-start: 1; }
+      .tabs__target   { grid-column-start: 1; }
     }
 
     /* Order is controlled via JS Containre with the CSS order: X; prop */
@@ -50,12 +58,12 @@
 
     &--top {
       .tabs__trigger { order: 1; }
-      .tabs__target { order: 2; }
+      .tabs__target  { order: 2; }
     }
 
     &--bottom {
-      .tabs__trigger{ order: 2;  }
-      .tabs__target { order: 1; }      
+      .tabs__trigger { order: 2;  }
+      .tabs__target  { order: 1; }      
     }
   }
 
