@@ -34,12 +34,24 @@ export const Form = (el) => {
       bindValidation(field, native, 'blur');
     });
 
-    el.addEventListener('submit', () => {
+    el.addEventListener('submit', (e) => {
       Object.keys(ui.fields).map(i => {
         const field = ui.fields[i];
         const native = field.querySelector('.field__native');
         checkValidity(field, native);
       });
+
+      if (el.dataset.action) {
+        e.preventDefault();
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+          if (xhttp.status == 200) {
+            console.log(xhttp.responseText);
+          }
+        };
+        xhttp.open(el.method, [el.dataset.action, Utils.serialize(el, 'urlencode')].join('?'), true);
+        xhttp.send();
+      }
     });
   }
 

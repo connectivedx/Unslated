@@ -15,7 +15,7 @@ body {
 pre,
 code {
   font-family: monospace;
-  line-height: rem(18px);
+  line-height: rem(24px);
 }
 
 button {

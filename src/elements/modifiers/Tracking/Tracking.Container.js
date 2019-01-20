@@ -73,7 +73,7 @@ class Tracking {
 
   setupGoogleTagManager = (id) => {
     if (!id) {
-      console.log('Error: Google Tag Manager requires an account id to complete tracking setup.'); // eslint-disable-line
+      console.log('Error: Google Tag Manager requires an account id to complete tracking setup. See src/scripts.js for Tracking config setup.'); // eslint-disable-line
       return;
     }
 

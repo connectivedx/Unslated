@@ -29,11 +29,13 @@ export const GuideExamples = (el) => {
         const example = ui.examples[index];
         const buttons = example.querySelectorAll('.button');
         Object.keys(buttons).map(index => {
-          buttons[index].addEventListener('click', (e) => {
-            if (!e.target.classList.contains('button')) { return; }          
-            switchCodeSamples(e.target.dataset.index, example);
-            e.preventDefault();
-          });
+          if (!buttons[index].hasAttribute('type')) {
+            buttons[index].addEventListener('click', (e) => {
+              if (!e.target.classList.contains('button')) { return; }          
+              switchCodeSamples(e.target.dataset.index, example);
+              e.preventDefault();
+            });
+          }
         });
       });
     }

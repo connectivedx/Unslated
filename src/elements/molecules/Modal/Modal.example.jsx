@@ -33,7 +33,7 @@ export default [{
   docs,
   examples: [
     {
-      name: "Default (large)",
+      name: "Default (large size, medium padding)",
       description: 'A default modal example that has a default size of large',
       component: (
         <React.Fragment>
@@ -73,11 +73,11 @@ export default [{
       )
     }, {
       name: "Small",
-      description: 'A small size modal example',
+      description: 'A small size modal example (with small padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-02">Click to open</Button>
-          <Modal data-modal="my-modal-id-02" size="small">
+          <Modal data-modal="my-modal-id-02" size="small" padding="small">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
@@ -103,11 +103,11 @@ export default [{
       )
     }, {
       name: "Medium",
-      description: 'A medium size modal example',
+      description: 'A medium size modal example (with medium padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-03">Click to open</Button>
-          <Modal data-modal="my-modal-id-03" size="medium">
+          <Modal data-modal="my-modal-id-03" size="medium" padding="medium">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
@@ -142,11 +142,11 @@ export default [{
       )
     }, {
       name: "Extra large",
-      description: 'A large size modal example',
+      description: 'A large size modal example (with large padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-04">Click to open</Button>
-          <Modal data-modal="my-modal-id-04" size="extraLarge">
+          <Modal data-modal="my-modal-id-04" size="extraLarge" padding="large">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
