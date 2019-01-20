@@ -2,7 +2,7 @@
   Define font variables.
 */
 
-:root {
+:root {  
   /* Individual font names */
   --font-name--default: 'Helvetica Neue';
 
@@ -16,4 +16,5 @@
   --font-weight--thin: 300;
   --font-weight--normal: 500;
   --font-weight--bold: 700;
+
 }
