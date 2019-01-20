@@ -13,8 +13,8 @@
   --font-family--default: var(--font-stack--default);
 
   /* property-set defining the light font-face */
-  --font-weight--thin: 300;
-  --font-weight--normal: 500;
-  --font-weight--bold: 700;
+  --font-weight--thin: 200;
+  --font-weight--medium: 600;
+  --font-weight--bold: 800;
 
 }

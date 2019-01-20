@@ -1,19 +1,45 @@
 .heading {
   font-family: var(--font-stack--default);
-  font-weight: var(--font-weight--bold);
-  font-size: 2em;
+  font-size: rem(28px);
   line-height: 1em;
 
   /* weights */
-  &--thin   { font-weight: 300; }
-  &--bold   { font-weight: 700; }
-  &--medium { font-weight: 500; }
+  &--thin   { font-weight: var(--font-weight--thin); }
+  &--bold   { font-weight: var(--font-weight--bold); }
+  &--medium { font-weight: var(--font-weight--medium); }
 
-  /* levels */
-  &--h1 { font-size: rem(28px); }
-  &--h2 { font-size: rem(24px); }
-  &--h3 { font-size: rem(22px); }
-  &--h4 { font-size: rem(20px); }
-  &--h5 { font-size: rem(18px); }
-  &--h6 { font-size: rem(16px); }
+  /* levels and responsive ranges */
+  &--h1 { 
+    font-size: rem(28px);
+    font-size: responsive rem(16px) rem(28px);
+    font-range: var(--type-responsive-range);
+  }
+
+  &--h2 {
+    font-size: rem(24px);
+    font-size: responsive rem(16px) rem(24px);
+    font-range: var(--type-responsive-range);
+  }
+
+  &--h3 {
+    font-size: rem(22px);
+    font-size: responsive rem(16px) rem(22px);
+    font-range: var(--type-responsive-range);
+  }
+
+  &--h4 {
+    font-size: rem(20px);
+    font-size: responsive rem(16px) rem(20px);
+    font-range: var(--type-responsive-range);
+  }
+
+  &--h5 {
+    font-size: rem(18px);
+    font-size: responsive rem(16px) rem(18px);
+    font-range: var(--type-responsive-range);
+  }
+
+  &--h6 {
+    font-size: rem(16px);
+  }
 }
