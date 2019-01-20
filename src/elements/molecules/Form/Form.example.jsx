@@ -22,7 +22,6 @@
 */
 
 import Form from './Form';
-import Link from '@atoms/Link/Link';
 import Input from '@molecules/Input/Input';
 import Select from '@molecules/Select/Select';
 import Textarea from '@molecules/Textarea/Textarea';
@@ -43,9 +42,9 @@ export default [{
               <Input type="radio" label="No" name="yes-no" align="inline-left" required />
             </ol>
           </li>
-          <Input type="checkbox" label="Agreement" name="agree" align="inline-right" label="Please check this box to agree to terms." required={true} />
+          <Input type="checkbox" name="agree" align="inline-right" label="Please check this box to agree to terms." required={true} />
           <Select label="Inline select label text" align="inline-left" name="select" required defaultValue="1">
-            <option></option>
+            <option />
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>

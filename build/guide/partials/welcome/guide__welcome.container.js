@@ -33,14 +33,14 @@ const getFilteredData = (data, filters) => {
   ];
 
   const atomicLevels = ['atoms', 'molecules', 'organisms', 'modifiers', 'templates', 'pages'];
-  const returnedData = Object.keys(atomicLevels).map(i => {
+  const returnedData = Object.keys(atomicLevels).map((i) => {
     let data = {
       level: atomicLevels[i],
       size: 0,
       files: []
     };
 
-    Object.keys(collection).map(j => {
+    Object.keys(collection).map((j) => {
       const file = collection[j];
       if (!file.name) { return; }
       if (file.name.indexOf(atomicLevels[i]) !== -1 && file.name.indexOf('/elements/') !== -1) {

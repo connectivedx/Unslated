@@ -8,7 +8,7 @@ import {
   Card__footer, 
   Card__group, 
   Card__deck,
-  Card__grid,
+  Card__grid
 } from '@molecules/Card/Card';
 
 import { Tabs, Tabs__section } from '@molecules/Tabs/Tabs';

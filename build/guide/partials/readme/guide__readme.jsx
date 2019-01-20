@@ -41,7 +41,7 @@ export const Guide__readme = (props) => {
             <Table__body>
               {
                 (props.docs.props) ? 
-                Object.keys(props.docs.props).map(index => {
+                Object.keys(props.docs.props).map((index) => {
                   const prop = props.docs.props[index];
                   const propType = prop.type.raw.replace(/\r?\n|\r/g, '').replace(/PropTypes./g, '').replace(/(.*)\(\[(.*)\]\)/g, '$2');
                   return (
@@ -81,7 +81,7 @@ export const Guide__readme = (props) => {
             </Table__head>
             <Table__body>
               {
-                Object.keys(props.docs.methods).map(index => {
+                Object.keys(props.docs.methods).map((index) => {
                   const method = props.docs.methods[index];
 
                   if (method.name === 'render') { return; } // no need to document React's render method
@@ -90,7 +90,7 @@ export const Guide__readme = (props) => {
                     <Table__row key={index}>
                       <Table__data>{method.name}</Table__data>
                       <Table__data>
-                        {(method.params.length) ? Object.keys(method.params).map(index => method.params[index].name).join(', ') : ' -- '}
+                        {(method.params.length) ? Object.keys(method.params).map((index) => method.params[index].name).join(', ') : ' -- '}
                       </Table__data>
                       <Table__data>
                         {(method.description) ? method.description : <div className="doc-error">Missing description</div>}

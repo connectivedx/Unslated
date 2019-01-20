@@ -22,7 +22,7 @@ import {
   Card__footer, 
   Card__group, 
   Card__deck,
-  Card__grid,
+  Card__grid
 } from '@molecules/Card/Card';
 
 // Helper method to distil down an elements tag name for examples react code snip.
@@ -52,7 +52,7 @@ export const Guide__examples = (props) => {
     examples: GuideUtils.getExamples()[0]
   };
 
-  data.examples = Object.keys(data.examples).map(index => {
+  data.examples = Object.keys(data.examples).map((index) => {
     const element = data.examples[index];
 
     if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
@@ -62,14 +62,14 @@ export const Guide__examples = (props) => {
       return element.examples[0].examples;
     }
 
-  }).filter(n => n)[0];
+  }).filter((n) => n)[0];
 
   return (
     <Rhythm tagName="section" className={classStack}>
       <Readme docs={data.docs} />
       <Rhythm className="examples__listing">
         {
-          Object.keys(data.examples).map(index => {
+          Object.keys(data.examples).map((index) => {
             const example = data.examples[index];
             const component = example.component;
 
@@ -87,7 +87,7 @@ export const Guide__examples = (props) => {
 
             // Gathers example's used props
             const props = {};
-            Object.keys(component.props).map(index => {
+            Object.keys(component.props).map((index) => {
               if (index === 'children') { return false; }
               props[index] = component.props[index].toString();
             });
@@ -146,7 +146,7 @@ export const Guide__examples = (props) => {
                         <pre className="examples__code hide">
                           {
                             (component.props) ? 
-                              <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} />
+                              <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map((index) => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} />
                                 :
                               ''
                           }
@@ -174,7 +174,7 @@ export const Guide__blank = (props) => {
   // Gather all atomic elements (getExamples has a handy atomicLevel prop)
   const data = GuideUtils.getExamples()[0];
 
-  return Object.keys(data).map(index => {
+  return Object.keys(data).map((index) => {
     if (data[index].atomic === props.match.params.category && data[index].name === props.match.params.element) {
       return <React.Fragment key={index}>{data[index].examples[0].examples[props.match.params.id].component}</React.Fragment>;
     }

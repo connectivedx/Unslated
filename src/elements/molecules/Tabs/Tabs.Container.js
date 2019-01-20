@@ -8,14 +8,19 @@ export const Tabs = (el) => {
 
   const init = () => {
     ui.el.addEventListener('click', (e) => {
-      const target = e.target;
+      const target = e;
       if (!target.classList.contains('tabs__trigger')) { return; }
-      
-      Object.keys(ui.triggers).map(index => {
+
+      Object.keys(ui.triggers).map((index) => {
         const trigger = ui.triggers[index];
+
         Utils.replaceClass(trigger, ['tabs-state--closed', 'tabs-state--open']);
-        if (target === trigger) { return; }
-        Utils.replaceClass(trigger, ['tabs-state--open', 'tabs-state--closed']);
+
+        if (target !== trigger) {
+          Utils.replaceClass(trigger, ['tabs-state--open', 'tabs-state--closed']);
+        }
+
+        return true;
       });
 
       if (window.outerWidth < 768) {

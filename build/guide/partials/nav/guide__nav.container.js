@@ -34,7 +34,7 @@ export const GuideNav = (el) => {
         if (target.classList.contains('heading')) {
           const items = ui.navLists;
           const closeAllSections = () => {
-            Object.keys(items).map(index => {
+            Object.keys(items).map((index) => {
               items[index].classList.add('hide');
             });
           };
@@ -51,7 +51,7 @@ export const GuideNav = (el) => {
       
       // Navigation search
       const loopList = (value) => {
-        Object.keys(ui.navLists).map(i => {
+        Object.keys(ui.navLists).map((i) => {
           const items = ui.navLists[i].querySelectorAll('.list__item');
           let j = items.length;
           let hasMatches = false;

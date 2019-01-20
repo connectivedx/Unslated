@@ -21,7 +21,7 @@ export const GuideReadme = (el) => {
   const init = () => {
     // Sets up open/close toggle event for both props and methods readme headers
     if (ui.examplesReadmeTogglers) {
-      Object.keys(ui.examplesReadmeTogglers).map(index => {
+      Object.keys(ui.examplesReadmeTogglers).map((index) => {
         const trigger = ui.examplesReadmeTogglers[index];
         trigger.addEventListener('click', () => {
           toggleExamplesReadmeTable(trigger);

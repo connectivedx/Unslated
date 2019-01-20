@@ -16,7 +16,7 @@ export const GuidePages = (el) => {
     const weightIndex = ui.colorWeightSelect.selectedIndex;
     
     // then we conditionally unhide the results
-    Object.keys(levels).map(index => {
+    Object.keys(levels).map((index) => {
     	const level = levels[index];
     	// first hide
       level.style.display = 'none';
@@ -24,7 +24,7 @@ export const GuidePages = (el) => {
       if (level.classList.contains(levelOptions[levelIndex].value)) {
         level.style.display = 'flex';
         // next we hide all badges
-        Object.keys(ui.colorBadges).map(index => {
+        Object.keys(ui.colorBadges).map((index) => {
           ui.colorBadges[index].style.display = 'none';
           if (ui.colorBadges[index].classList.contains(weightOptions[weightIndex].value)) {
             ui.colorBadges[index].style.display = 'flex';

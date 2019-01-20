@@ -28,7 +28,7 @@ import {
   Card__footer, 
   Card__group, 
   Card__deck,
-  Card__grid,
+  Card__grid
 } from './Card';
 import Heading from '@atoms/Heading/Heading';
 import docs from '!!docgen-loader?htmlDescription!./Card';

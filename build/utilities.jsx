@@ -152,7 +152,7 @@ const initComponent = (name, selector, component, callback) => {
 
   // init maching elements
   const elms = document.querySelectorAll(selector.toLowerCase().toString());
-  Object.keys(elms).map(index => {
+  Object.keys(elms).map((index) => {
     createComponent(elms[index]);
   });
 

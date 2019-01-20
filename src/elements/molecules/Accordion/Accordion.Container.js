@@ -9,7 +9,7 @@ export const Accordion = (el) => {
   const init = () => {
     ui.el.addEventListener('click', (e) => {
       if (el.classList.contains('accordion--multi-false')) {
-        Object.keys(ui.sections).map(i => {
+        Object.keys(ui.sections).map((i) => {
 
           if (e.target.parentNode === ui.sections[i]) { return; }
           Utils.replaceClass(

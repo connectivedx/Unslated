@@ -64,7 +64,7 @@ export default [{
       name: 'Text Inputs (without label, with placeholder)',
       component: (
         <Form legend="Fieldset legend">
-          <Input name="test-name" label={false} type="text" name="text-input" placeholder="Labeless with placeholder" required={true} />
+          <Input label={false} type="text" name="text-input" placeholder="Labeless with placeholder" required={true} />
         </Form>
       ),
       notes: ''

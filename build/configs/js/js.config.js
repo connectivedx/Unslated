@@ -17,6 +17,8 @@ module.exports = {
           'add-react-displayname' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
         ]
       }
+    },{
+      'loader': 'eslint-loader'
     }]
   }],
 	plugins: [

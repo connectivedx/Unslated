@@ -21,7 +21,13 @@ module.exports = {
       warnings: true, // enable / disable bundle warning messages
       moduleTrace: true, // enable / disable bundle module tracing
       errorDetails: true, // enable / disable bundle error details
-      modulesSort: 'issuer'     
+      modulesSort: 'issuer',
+      warningsFilter: (warning) => {
+        if (warning.indexOf('Tapable.plugin is deprecated') !== -1) {
+          return false;
+        }
+        return true;
+      }     
     }, 
     devServer: {
       proxy: {

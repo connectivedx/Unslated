@@ -9,7 +9,7 @@
   CORE: Helps clean color variables upon import
 */
 const cleanColorVariables = (colors) => {
-  Object.keys(colors).map(key => {
+  Object.keys(colors).map((key) => {
     if (colors[key].indexOf('var') !== -1) {
       const variable = colors[key].replace('var(', '').replace(')', '');
       colors[key] = colors[variable];
@@ -50,7 +50,7 @@ const RGBToHex = (color) => {
   CORE: Returns the luminance score of a color (must be rgb value);
 */
 const getColorLuminanace = (r, g, b) => {
-    let a = [r, g, b].map(v => {
+    let a = [r, g, b].map((v) => {
         v /= 255;
         return v <= 0.03928
             ? v / 12.92
@@ -164,7 +164,7 @@ const WCAGTest = (ratio, size, level) => {
 
 const readDirectory = (context) => {
   const collection = [];
-  context.keys().forEach(key => collection[key] = context(key));
+  context.keys().forEach((key) => collection[key] = context(key));
 
   return collection;
 };

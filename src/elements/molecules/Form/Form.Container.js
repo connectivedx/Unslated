@@ -18,7 +18,7 @@ export const Form = (el) => {
   };
 
   const init = () => {
-    Object.keys(ui.fields).map(i => {
+    Object.keys(ui.fields).map((i) => {
       const field = ui.fields[i];
       const classes = field.classList;
       const native = field.querySelector('.field__native');
@@ -35,7 +35,7 @@ export const Form = (el) => {
     });
 
     el.addEventListener('submit', (e) => {
-      Object.keys(ui.fields).map(i => {
+      Object.keys(ui.fields).map((i) => {
         const field = ui.fields[i];
         const native = field.querySelector('.field__native');
         checkValidity(field, native);

@@ -7,20 +7,19 @@ import Tracking from '@modifiers/Tracking/Tracking.Container';
 import Accordion from '@molecules/Accordion/Accordion.Container';
 
 setTimeout(() => {
-
-	Utils.initComponent('Expand', '.expand', Expand);
-	Utils.initComponent('Accordion', '.accordion', Accordion);
-	Utils.initComponent('Tabs', '.tabs', Tabs);	
-	Utils.initComponent('Modal', '.modal', Modal, () => {
-		//give modals a chance to forms installed
-		Utils.initComponent('Form', '.form', Form); 
-	});
-	new Tracking({
-	  vendors: [
-	    {
-	      type: 'Google',
-	      id: ''
-	    }
-	  ]
-	});
+  Utils.initComponent('Expand', '.expand', Expand);
+  Utils.initComponent('Accordion', '.accordion', Accordion);
+  Utils.initComponent('Tabs', '.tabs', Tabs);
+  Utils.initComponent('Modal', '.modal', Modal, () => {
+    // give modals a chance to forms installed
+    Utils.initComponent('Form', '.form', Form);
+  });
+  Tracking({
+    vendors: [
+      {
+        type: 'Google',
+        id: ''
+      }
+    ]
+  });
 }, 1000);

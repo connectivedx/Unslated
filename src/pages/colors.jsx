@@ -31,18 +31,19 @@ const AccessibilityLevel = (props) => {
 
   const weights = ['normal', 'large--bold', 'large'];
 
-  const createBadges = (type) => {
-		return Object.keys(weights).map((key, value) => {
-			return (<div key={key} className={`AccessibilityLevel__badge AccessibilityLevel__badge--${type} ${((weights[key] !== 'normal' || level !== 'AA')? 'hide' : '')} AccessibilityLevel__badge--${weights[key]}`}>
-	      {GuideUtils.WCAGTest((type === 'secondary') ? contrastSecondary : contrastPrimary, weights[key].split('--')[0], level)}
-	    </div>);
-		});
+  const createBadges = (type) => (
+    Object.keys(weights).map((key, value) => (
+        <div key={key} className={`AccessibilityLevel__badge AccessibilityLevel__badge--${type} ${((weights[key] !== 'normal' || level !== 'AA') ? 'hide' : '')} AccessibilityLevel__badge--${weights[key]}`}>
+          {GuideUtils.WCAGTest((type === 'secondary') ? contrastSecondary : contrastPrimary, weights[key].split('--')[0], level)}
+        </div>
+      );
+    ));
   };
 
   return (
     <Tag className={classStack} {...attrs}>
-    	{createBadges('primary')}
-    	{createBadges('secondary')}
+      {createBadges('primary')}
+      {createBadges('secondary')}
     </Tag>
   );
 };
@@ -68,42 +69,42 @@ AccessibilityLevel.propTypes = {
 };
 
 
-const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map(key => {
-	if (colors[key] === 'true') { return; }
+const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
+  if (colors[key] === 'true') { return; }
   //if (key.match('alpha')) { return; }
 
-	const colorUnits = GuideUtils.getColorUnits(colors[key]);
+  const colorUnits = GuideUtils.getColorUnits(colors[key]);
 
-	if (!colorUnits.hex) { return; }
+  if (!colorUnits.hex) { return; }
 
-	return <List__item key={key}>
-		<div>
-      <AccessibilityLevel 
-      	contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)} 
-      	contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)} 
-      	level="AA" 
+  return <List__item key={key}>
+    <div>
+      <AccessibilityLevel
+        contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
+        contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
+        level="AA" 
       />
-      <AccessibilityLevel 
-      	contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
-      	contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
-      	level="AAA"
+      <AccessibilityLevel
+        contrastPrimary={GuideUtils.getColorContrast(colors['--color-text--primary'], colorUnits.hex)}
+        contrastSecondary={GuideUtils.getColorContrast(colors['--color-text--secondary'], colorUnits.hex)}
+        level="AAA"
       />
 
-			<div style={{backgroundColor: colors[key], height: '120px' }} />
+      <div style={{backgroundColor: colors[key], height: '120px' }} />
 
-			<div>
-				{colorUnits.hex}
-			</div>
-		</div>
-		<div>{key.replace('--color-', '')}</div>
-	</List__item>
+      <div>
+        {colorUnits.hex}
+      </div>
+    </div>
+    <div>{key.replace('--color-', '')}</div>
+  </List__item>
 });
 
 const page = () => (
   <div>
     <Rhythm>
       <Heading level="h1">Project colors</Heading>
-      <p>Below is a comprehensive quick view of all project colors against both AA and AAA accessiiblity contrast tests. Each color is tested for both black and white contrast levels against font color, size and weights.</p>    
+      <p>Below is a comprehensive quick view of all project colors against both AA and AAA accessiiblity contrast tests. Each color is tested for both black and white contrast levels against font color, size and weights.</p>
       <div className="AccessibilityLevel__control">
         <label className="AccessibilityLevel__controls accessibility__controls-level">WCAG Level
           <select>
@@ -119,7 +120,7 @@ const page = () => (
           </select>
         </label>
       </div>
-    </Rhythm>  
+    </Rhythm>
     <List className="colors" variant="blank">{ cards }</List>
   </div>
 );

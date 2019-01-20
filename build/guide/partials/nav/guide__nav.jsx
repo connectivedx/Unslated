@@ -15,7 +15,7 @@ import {
   Card__footer, 
   Card__group, 
   Card__deck,
-  Card__grid,
+  Card__grid
 } from '@molecules/Card/Card';
 
 // Navigation atomic levels
@@ -24,7 +24,7 @@ const getAtomicListing = () => {
   const collection = [];
 
   // Create new atomic level collection of elements
-  Object.keys(elements).map(index => {
+  Object.keys(elements).map((index) => {
     const examples = elements[index];
     // prevents duplicates
     if (!collection[examples.atomic]) {
@@ -37,7 +37,7 @@ const getAtomicListing = () => {
   });
 
   // Create sections based on atomic collection from above
-  return Object.keys(collection).map(index => {
+  return Object.keys(collection).map((index) => {
     const examples = collection[index];
 
     return (
@@ -77,7 +77,7 @@ const getPageListing = () => {
 
 // Navigation element levels
 const getElementListing = (examples) => {
-  return Object.keys(examples).map(index => {
+  return Object.keys(examples).map((index) => {
     return (
       <List__item key={index} data-search={examples[index].name}>
         <Link href={'../../../' + examples[index].url}>{ examples[index].name }</Link>

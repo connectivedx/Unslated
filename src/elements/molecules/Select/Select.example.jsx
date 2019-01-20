@@ -32,7 +32,7 @@ export default [{
     component: (
       <Form legend="Fieldset legend">
         <Select label="Inline select label text" name="select" required={true} defaultValue="1">
-          <option></option>
+          <option />
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -45,7 +45,7 @@ export default [{
     component: (
       <Form legend="Fieldset legend">
         <Select label="Inline select label text" name="select" align="stacked-top" required={true} defaultValue="1">
-          <option></option>
+          <option />
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -58,7 +58,7 @@ export default [{
     component: (
       <Form legend="Fieldset legend">
         <Select label="Inline select label text" name="select" align="inline-left" required={true} defaultValue="1">
-          <option></option>
+          <option />
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -71,7 +71,7 @@ export default [{
     component: (
       <Form legend="Fieldset legend">
         <Select label="Inline select label text" name="select" align="inline-right" required={true} defaultValue="1">
-          <option></option>
+          <option />
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -84,7 +84,7 @@ export default [{
     component: (
       <Form legend="Fieldset legend">
         <Select label={false} required={true} name="select" defaultValue="1">
-          <option></option>
+          <option />
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>

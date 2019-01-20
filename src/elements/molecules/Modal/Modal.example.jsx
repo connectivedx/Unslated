@@ -23,9 +23,6 @@
 
 import Modal from './Modal';
 import Button from '@atoms/Button/Button';
-import Link from '@atoms/Link/Link';
-import Form from '@molecules/Form/Form';
-import Input from '@molecules/Input/Input';
 import { List, List__item } from '@atoms/List/List';
 import docs from '!!docgen-loader?htmlDescription!./Modal';
 
@@ -33,7 +30,7 @@ export default [{
   docs,
   examples: [
     {
-      name: "Default (large size, medium padding)",
+      name: 'Default (large size, medium padding)',
       description: 'A default modal example that has a default size of large',
       component: (
         <React.Fragment>
@@ -66,13 +63,13 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Small",
+      name: 'Small',
       description: 'A small size modal example (with small padding)',
       component: (
         <React.Fragment>
@@ -96,13 +93,13 @@ export default [{
               </List__item>
               <List__item>
                 Sem, volutpat id justo ac, rhoncus congue nibh. Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                     
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Medium",
+      name: 'Medium',
       description: 'A medium size modal example (with medium padding)',
       component: (
         <React.Fragment>
@@ -135,13 +132,13 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Extra large",
+      name: 'Extra large',
       description: 'A large size modal example (with large padding)',
       component: (
         <React.Fragment>
@@ -174,13 +171,13 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Modal history example",
+      name: 'Modal history example',
       description: 'In this example, we are going to open a second modal on top of this already open modal.<br/> <strong>Note</strong> that a history of modals is being taken care of for you, so as you close the second modal you will be taken back to first modal.',
       component: (
         <React.Fragment>

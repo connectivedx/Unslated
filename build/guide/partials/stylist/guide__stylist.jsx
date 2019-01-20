@@ -25,7 +25,7 @@ export const Guide__stylist = (props) => {
           <select className="guide__stylist-examples" defaultValue="0">
             <option value="0">All examples</option>
             {
-              Object.keys(examples).map(index => {
+              Object.keys(examples).map((index) => {
                 return <option key={index} value={(parseInt(index, 10) + 1)}>{examples[index].name}</option>;
               })
             }
