@@ -6,6 +6,7 @@ const Webpack = require('webpack');
 
 module.exports = {
   config: {
+    '@root': path.resolve(__dirname, '../../'),
     '@build': path.resolve(__dirname, '../../build/'),
     '@guide': path.resolve(__dirname, '../../build/guide/'),
     '@src':  path.resolve(__dirname, '../../src/'),
