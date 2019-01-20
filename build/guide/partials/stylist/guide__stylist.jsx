@@ -25,9 +25,11 @@ export const Guide__stylist = (props) => {
           <select className="guide__stylist-examples" defaultValue="0">
             <option value="0">All examples</option>
             {
-              Object.keys(examples).map((index) => {
-                return <option key={index} value={(parseInt(index, 10) + 1)}>{examples[index].name}</option>;
-              })
+              Object.keys(examples).map((index) => (
+                <option key={index} value={(parseInt(index, 10) + 1)}>
+                  {examples[index].name}
+                </option>
+              ))
             }
           </select>
         </Rhythm>
@@ -40,7 +42,7 @@ export const Guide__stylist = (props) => {
                 <option value="none">None</option>
                 {
                   Object.keys(breakpoints).map((key, index) => {
-                    if (key.indexOf('below') !== -1) { return; }
+                    if (key.indexOf('below') !== -1) { return false; }
                     let value = breakpoints[key].replace(/\((.*)\)/g, '$1').split(' ');
                     value = value[value.length - 1].replace('width:', '');
                     return <option key={index} value={value}>{key.replace('--', '')}</option>;

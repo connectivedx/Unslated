@@ -3,20 +3,25 @@ import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import { List, List__item } from '@atoms/List/List';
 import Modal from '@molecules/Modal/Modal';
-import { Form, Legend } from '@molecules/Form/Form';
+import Form from '@molecules/Form/Form';
 import Select from '@molecules/Select/Select';
 import Input from '@molecules/Input/Input';
 import Button from '@atoms/Button/Button';
 import Icon from '@atoms/Icon/Icon';
-import { 
-  Card, 
-  Card__header, 
-  Card__body, 
-  Card__footer, 
-  Card__group, 
-  Card__deck,
-  Card__grid
+import {
+  Card,
+  Card__header,
+  Card__body
 } from '@molecules/Card/Card';
+
+// Navigation element levels
+const getElementListing = (examples) => {
+  Object.keys(examples).map((index) => (
+    <List__item key={index} data-search={examples[index].name}>
+      <Link href={['../../../', examples[index].url].join('')}>{ examples[index].name }</Link>
+    </List__item>
+  ));
+};
 
 // Navigation atomic levels
 const getAtomicListing = () => {
@@ -29,11 +34,13 @@ const getAtomicListing = () => {
     // prevents duplicates
     if (!collection[examples.atomic]) {
       // each atomic level is a new object
-      collection[examples.atomic] = []; 
+      collection[examples.atomic] = [];
     }
 
     // push examples element's atomic level
-    collection[examples.atomic].push(examples); 
+    collection[examples.atomic].push(examples);
+
+    return true;
   });
 
   // Create sections based on atomic collection from above
@@ -41,12 +48,12 @@ const getAtomicListing = () => {
     const examples = collection[index];
 
     return (
-    <List__item key={index}>
-      <Heading level="h3" className={index}>
-        {index.charAt(0).toUpperCase() + index.slice(1)}
-      </Heading>
-      <List className="hide">{ getElementListing(examples) }</List>    
-    </List__item>
+      <List__item key={index}>
+        <Heading level="h3" className={index}>
+          {index.charAt(0).toUpperCase() + index.slice(1)}
+        </Heading>
+        <List className="hide">{getElementListing(examples)}</List>
+      </List__item>
     );
   });
 };
@@ -55,10 +62,8 @@ const getAtomicListing = () => {
 const getPageListing = () => {
   const pages = GuideUtils.getPages();
   return (
-    <List__item key={index}>
-      <Heading level="h3" className="pages">
-        Pages       
-      </Heading>
+    <List__item>
+      <Heading level="h3" className="pages">Pages</Heading>
       <List className="hide">
         {
           Object.keys(pages).map((key, index) => {
@@ -70,20 +75,9 @@ const getPageListing = () => {
             );
           })
         }
-      </List>      
+      </List>
     </List__item>
   );
-};
-
-// Navigation element levels
-const getElementListing = (examples) => {
-  return Object.keys(examples).map((index) => {
-    return (
-      <List__item key={index} data-search={examples[index].name}>
-        <Link href={'../../../' + examples[index].url}>{ examples[index].name }</Link>
-      </List__item>
-    );
-  });
 };
 
 export const Guide__nav = (props) => {
@@ -111,40 +105,42 @@ export const Guide__nav = (props) => {
           { getPageListing() }
         </Rhythm>
         {
-          (process.env.NODE_ENV === 'development') ?
-          <Button data-modal="add" width="full"><Icon name="plus" />&nbsp; Create New</Button>
-          : ''
+          (process.env.NODE_ENV === 'development')
+            ? <Button data-modal="add" width="full"><Icon name="plus" />&nbsp; Create New</Button>
+            : ''
         }
       </Rhythm>
       {
-      (process.env.NODE_ENV === 'development') ?
-        <Modal data-modal="add" size="small" padding="none">
-          <Card>
-            <Card__header>
+      (process.env.NODE_ENV === 'development')
+        ? (
+          <Modal data-modal="add" size="small" padding="none">
+            <Card>
+              <Card__header>
                 <Heading level="h3">Create new atomic part</Heading>
-            </Card__header>
-            <Card__body>
-              <Rhythm>
-                <p>Use this dialog to add new atomic parts to the project. First choose what part, then give it a name.</p>
-                <Form method="get" data-action="/api" className="new-element" legend={`Use the form below to add a new page`}>
-                  <Select name="new" required label="New:">
-                    <option value="">Choose one</option>
-                    <option value="atoms">Atom</option>
-                    <option value="molecules">Molecule</option>
-                    <option value="organisms">Organism</option>
-                    <option value="templates">Template</option>
-                    <option value="modifiers">Modifier</option>
-                    <option value="pages">Page</option>
-                    <option value="variables">Variable</option>
-                  </Select>
-                  <Input type="text" label="Named:" name="name" required />
-                </Form>
-              </Rhythm>
-            </Card__body>
-          </Card>
-        </Modal>
+              </Card__header>
+              <Card__body>
+                <Rhythm>
+                  <p>Use this dialog to add new atomic parts to the project. First choose what part, then give it a name.</p>
+                  <Form method="get" data-action="/api" className="new-element" legend="Use the form below to add a new page">
+                    <Select name="new" required label="New:">
+                      <option value="">Choose one</option>
+                      <option value="atoms">Atom</option>
+                      <option value="molecules">Molecule</option>
+                      <option value="organisms">Organism</option>
+                      <option value="templates">Template</option>
+                      <option value="modifiers">Modifier</option>
+                      <option value="pages">Page</option>
+                      <option value="variables">Variable</option>
+                    </Select>
+                    <Input type="text" label="Named:" name="name" required />
+                  </Form>
+                </Rhythm>
+              </Card__body>
+            </Card>
+          </Modal>
+        )
         : ''
-      }      
+      }
       <span className="guide-nav__open" />
     </nav>
   );

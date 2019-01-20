@@ -16,7 +16,7 @@ export const GuideReadme = (el) => {
       table.classList.add('hide');
       target.classList.remove('open');
     }
-  };  
+  };
 
   const init = () => {
     // Sets up open/close toggle event for both props and methods readme headers
@@ -26,6 +26,8 @@ export const GuideReadme = (el) => {
         trigger.addEventListener('click', () => {
           toggleExamplesReadmeTable(trigger);
         });
+
+        return true;
       });
     }
   };

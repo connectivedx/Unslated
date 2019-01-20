@@ -1,4 +1,3 @@
-const Package = require('../../../../package.json');
 const __svg__ = { // eslint-disable-line
   path: './assets/**/*.svg',
   name: 'assets/svgs/iconset-[hash].svg'

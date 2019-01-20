@@ -1,4 +1,6 @@
-/** Defines a container with a specified max-width. */
+/**
+  Defines a container with a specified max-width.
+*/
 
 export class Wrapper extends React.Component {
   static propTypes = {
@@ -13,22 +15,13 @@ export class Wrapper extends React.Component {
     /* Size prop */
     size: PropTypes.oneOf(['narrow', 'default', 'wide']),
     /** Children nodes being passed through */
-    children: PropTypes.node.isRequired    
+    children: PropTypes.node.isRequired
   };
 
   static defaultProps = {
     tagName: 'div',
     size: 'default'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {

@@ -19,11 +19,13 @@ export const GuideStylist = (el) => {
         state.currentExample = 'all';
       } else {
         ui.examples[index].classList.add('hide');
-        if (selection === parseInt(index+1, 10)) {
+        if (selection === parseInt(index + 1, 10)) {
           state.currentExample = ui.examples[(parseInt(selection, 10) - 1)];
           ui.examples[(parseInt(selection, 10) - 1)].classList.remove('hide');
         }
       }
+
+      return true;
     });
   };
 
@@ -40,8 +42,9 @@ export const GuideStylist = (el) => {
   const switchBreakpointSizes = (selection) => {
     Object.keys(ui.examples).map((key, index) => {
       const pallet = ui.examples[index].querySelector('.examples__pallet');
-      pallet.style.width = pallet.offsetWidth + 'px';
+      pallet.style.width = [pallet.offsetWidth, 'px'].join('');
       pallet.style.width = (selection !== 'none') ? selection : '100%';
+      return true;
     });
   };
 
@@ -50,12 +53,13 @@ export const GuideStylist = (el) => {
     Object.keys(ui.examples).map((key, index) => {
       const pallet = ui.examples[index].querySelector('.examples__pallet');
       const width = (pallet.style.width) ? pallet.style.width : '100%';
-      const styles = getComputedStyle(pallet);
+      const styles = window.getComputedStyle(pallet);
       const brightness = styles.getPropertyValue('--brightness');
       const background = styles.getPropertyValue('--background');
       const padding = styles.getPropertyValue('--padding');
 
-      pallet.setAttribute('style', 'width: '+width+'; --speed:'+selection+'; --padding:'+padding+'; --brightness:'+brightness+'; --background: '+background+';')
+      pallet.setAttribute('style', ['width: ', width, '; --speed:', selection, '; --padding:', padding, '; --brightness:', brightness, '; --background: ', background, ';'].join(''));
+      return true;
     });
   };
 

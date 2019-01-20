@@ -21,12 +21,12 @@
     ```
 */
 
-import { 
-  Card, 
-  Card__header, 
-  Card__body, 
-  Card__footer, 
-  Card__group, 
+import {
+  Card,
+  Card__header,
+  Card__body,
+  Card__footer,
+  Card__group,
   Card__deck,
   Card__grid
 } from './Card';
@@ -38,7 +38,7 @@ export default [{
   examples: [
     {
       name: 'Default styling',
-      description:'As basic a card you can get',
+      description: 'As basic a card you can get',
       component: (
         <Card>
           <Card__body>
@@ -51,7 +51,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card Header, Body, Footer',
-      description:'As basic a card you can get',
+      description: 'As basic a card you can get',
       component: (
         <Card>
           <Card__header>
@@ -71,7 +71,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card group with card colors',
-      description:'A card group is a container for cards that layout cards horizontal with equal height and stack at mobile.',
+      description: 'A card group is a container for cards that layout cards horizontal with equal height and stack at mobile.',
       component: (
         <Card__group>
           <Card>
@@ -99,7 +99,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card deck with card colors',
-      description:'A card deck is the same as a card group, but with spacing between cards.',
+      description: 'A card deck is the same as a card group, but with spacing between cards.',
       component: (
         <Card__deck>
           <Card>
@@ -127,7 +127,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card grid',
-      description:'A card grid is like a desk, but begins to wrap cards after configured number (see Cards.css :root for number).',
+      description: 'A card grid is like a desk, but begins to wrap cards after configured number (see Cards.css :root for number).',
       component: (
         <Card__grid>
           <Card>
@@ -169,7 +169,7 @@ export default [{
             <Card__body>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
             </Card__body>
-          </Card>          
+          </Card>
         </Card__grid>
       ),
       notes: ''

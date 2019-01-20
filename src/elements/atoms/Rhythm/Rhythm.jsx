@@ -1,11 +1,11 @@
 /**
-Rhythm is used to define vertical spacing between elements because CSS reset is used. 
-Adds `margin-top` to child elements, except for the first element.
+  Rhythm is used to define vertical spacing between elements because CSS reset is used.
+  Adds `margin-top` to child elements, except for the first element.
 */
 
 export class Rhythm extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -27,22 +27,13 @@ export class Rhythm extends React.Component {
     deep: false
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
-    tagName: Tag,
-    className,
-    size,
-    deep,
-    children,
+      tagName: Tag,
+      className,
+      size,
+      deep,
+      children,
       ...attrs
     } = this.props;
 
@@ -54,9 +45,9 @@ export class Rhythm extends React.Component {
     ]);
 
     return (
-    <Tag className={classStack} {...attrs}>
-      {children}
-    </Tag>
+      <Tag className={classStack} {...attrs}>
+        {children}
+      </Tag>
     );
   }
 }

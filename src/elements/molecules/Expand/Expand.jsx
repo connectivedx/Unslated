@@ -1,7 +1,6 @@
 import Heading from '@atoms/Heading/Heading';
-import Icon from '@atoms/Icon/Icon';
 
-/** 
+/**
   Expand is a molecule used to hide or display conent under a given title.
 */
 
@@ -19,14 +18,14 @@ export class Expand extends React.Component {
     icon: PropTypes.string,
     /** Style variants */
     variant: PropTypes.oneOf(['default', 'purple', 'navy', 'gold']),
-    /** Expand trigger heading*/
+    /** Expand trigger heading */
     title: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element
     ]),
     /** Children passed through */
     children: PropTypes.node,
-    /** Default state determins if a expand should be open or closed at page load*/
+    /** Default state determins if a expand should be open or closed at page load */
     defaultState: PropTypes.oneOf(['open', 'closed']),
     /** Level defines the heading tag size (h1 - h6) of the expand trigger */
     level: PropTypes.string,

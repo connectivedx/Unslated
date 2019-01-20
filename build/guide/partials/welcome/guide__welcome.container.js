@@ -2,29 +2,22 @@ const Chart = require('chart.js');
 
 // Helper method to get random gray scale color
 const getRandomGray = () => {
-  let value = Math.random() * 0xFF | 0;
-  let grayscale = (value << 16) | (value << 8) | value;
-  return '#' + grayscale.toString(16);
+  const value = Math.random() * 0xFF | 0;
+  const grayscale = (value << 16) | (value << 8) | value;
+  return ['#', grayscale.toString(16)].join('');
 };
 
 // Little helper method to convert raw int into bytes, kb or kb for display.
 const bytesToSize = (bytes) => {
-   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-   if (bytes == 0) return '0 Byte';
-   let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+  return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
 };
 
 // Main method to get custom data struct out of webpack-stats object
 const getFilteredData = (data, filters) => {
-  if (!data) { return; }
-
-  const filterData = (data) => {
-    if (!data.name) { return; }
-    if (data.name.indexOf('elements') !== -1) {
-
-    }
-  };
+  if (!data) { return false; }
 
   const collection = [
     ...data.assets,
@@ -34,7 +27,7 @@ const getFilteredData = (data, filters) => {
 
   const atomicLevels = ['atoms', 'molecules', 'organisms', 'modifiers', 'templates', 'pages'];
   const returnedData = Object.keys(atomicLevels).map((i) => {
-    let data = {
+    const returnData = {
       level: atomicLevels[i],
       size: 0,
       files: []
@@ -42,19 +35,19 @@ const getFilteredData = (data, filters) => {
 
     Object.keys(collection).map((j) => {
       const file = collection[j];
-      if (!file.name) { return; }
       if (file.name.indexOf(atomicLevels[i]) !== -1 && file.name.indexOf('/elements/') !== -1) {
-      let j = filters.length;
-        while (j--) {
-          if (file.name.match(filters[j])) {
-            data.size += file.size;
-            data.files.push(file);
+        let k = filters.length;
+        while (k--) {
+          if (file.name.match(filters[k])) {
+            returnData.size += file.size;
+            returnData.files.push(file);
           }
-        } 
+        }
       }
+      return true;
     });
 
-    return data;
+    return true;
   });
 
   return returnedData;
@@ -82,23 +75,23 @@ export const GuideWelcome = (el) => {
       JSChart: el.querySelector('#js-chart'),
       CSSChart: el.querySelector('#css-chart'),
       TotalJSXChart: el.querySelector('#total-jsx'),
-      TotalCSSChart: el.querySelector('#total-css')  
+      TotalCSSChart: el.querySelector('#total-css')
     }
   };
 
   // Method to fetch our webpack-stats JSON file at page load via XHR.
   const getPerformanceStats = (callback) => {
-    const XHR = new XMLHttpRequest();
+    const XHR = XMLHttpRequest();
     XHR.onreadystatechange = () => {
-      if (XHR.readyState == 4 && XHR.status == 200) {
-       if (typeof callback === 'function') {
-         callback(JSON.parse(XHR.responseText));
-       }
+      if (XHR.readyState === 4 && XHR.status === 200) {
+        if (typeof callback === 'function') {
+          callback(JSON.parse(XHR.responseText));
+        }
       }
     };
-    XHR.open("get", "./node_modules/.bin/webpack.stats.json", true);
+    XHR.open('get', './node_modules/.bin/webpack.stats.json', true);
     XHR.send();
-  }
+  };
 
   // Method to use our custom data struct and render a doughnut chart from chart.js module
   const renderDoughnutChart = (element, data, title) => {
@@ -110,7 +103,7 @@ export const GuideWelcome = (el) => {
     };
 
     const atomicSet = {
-      labels:[],
+      labels: [],
       data: [],
       backgroundColor: []
     };
@@ -130,13 +123,13 @@ export const GuideWelcome = (el) => {
         fileSet.labels.push(file.name.split('/')[file.name.split('/').length - 1]);
         fileSet.data.push(file.size);
         fileSet.backgroundColor.push(getRandomGray());
-      }      
+      }
     }
 
     collection.datasets.push(atomicSet);
     collection.datasets.push(fileSet);
 
-    new Chart(element, {
+    Chart(element, {
       type: 'doughnut',
       data: collection,
       options: {
@@ -154,11 +147,9 @@ export const GuideWelcome = (el) => {
         },
         tooltips: {
           callbacks: {
-            label: (tip, tipData) => {
-              return ` ${tipData.datasets[tip.datasetIndex].labels[tip.index]} / ${bytesToSize(tipData.datasets[tip.datasetIndex].data[tip.index])}`;
-            }
+            label: (tip, tipData) => ` ${tipData.datasets[tip.datasetIndex].labels[tip.index]} / ${bytesToSize(tipData.datasets[tip.datasetIndex].data[tip.index])}`
           }
-        }        
+        }
       }
     });
   };
@@ -172,13 +163,12 @@ export const GuideWelcome = (el) => {
     while (j--) {
       const atomicLevel = data[j];
       if (atomicLevel.files.length) {
-
         const card = document.createElement('div');
         card.setAttribute('class', 'card card--color-white card--default');
-        
+
         const cardBody = document.createElement('div');
         cardBody.setAttribute('class', 'card__body card__body--default');
-        
+
         const heading = document.createElement('h3');
         heading.setAttribute('class', 'heading h3--heading');
         heading.innerHTML = `${atomicLevel.level} - ${bytesToSize(atomicLevel.size)}`;
@@ -188,12 +178,12 @@ export const GuideWelcome = (el) => {
 
         let k = atomicLevel.files.length;
 
-        while(k--) {
+        while (k--) {
           const files = atomicLevel.files[k];
           const listItem = document.createElement('li');
           listItem.setAttribute('class', 'list__item list__item--default');
           listItem.innerHTML = `${files.name} / ${bytesToSize(files.size)}`;
-          
+
           list.appendChild(listItem);
         }
         cardBody.appendChild(heading);
@@ -206,9 +196,9 @@ export const GuideWelcome = (el) => {
     target.appendChild(fragment);
 
     if (typeof callback === 'function') {
-      callback(atomicData);
+      callback(data);
     }
-  }
+  };
 
   // Method to calculate the total size of assets (.css, .js, .jsx etc) across all atomic levels.
   const getAssetsTotal = (data, title) => {
@@ -225,22 +215,21 @@ export const GuideWelcome = (el) => {
     // Start by getting webpack-stats JSON file data
     // We use XHR to get this data instaed of a direct import to avoid endless build looping.
     getPerformanceStats((JSON) => {
-
       // Install JS Size card
       ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.js$']), 'JS Size:');
       createAtomicList(ui.JSAtomicList, getFilteredData(JSON, ['/*.js$']));
       renderDoughnutChart(ui.charts.JSChart, getFilteredData(JSON, ['/*.js$']), 'Project JS (files and atomic levels)');
-      
+
       // Install CSS Size card
       ui.cards.cssSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.css']), 'CSS Size:');
       createAtomicList(ui.CSSAtomicList, getFilteredData(JSON, ['/*.css']));
       renderDoughnutChart(ui.charts.CSSChart, getFilteredData(JSON, ['/*.css']), 'Project CSS (files and atomic levels)');
-      
+
       // Install Total Builds card
       ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${JSON.builds.count} / <small>${JSON.builds.time}ms</small></strong>`;
-      
+
       // Install Total Errors card
-      ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${JSON.builds.errors}</strong>`;  
+      ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${JSON.builds.errors}</strong>`;
     });
   };
 

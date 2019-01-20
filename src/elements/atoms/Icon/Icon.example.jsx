@@ -22,7 +22,8 @@
 */
 
 import Icon from './Icon';
-const docs = require("!!docgen-loader?htmlDescription!./Icon");
+
+const docs = require('!!docgen-loader?htmlDescription!./Icon');
 
 export default [{
   docs,

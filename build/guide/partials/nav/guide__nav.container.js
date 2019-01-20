@@ -1,5 +1,3 @@
-import __ from 'lodash';
-
 export const GuideNav = (el) => {
   const ui = {
     el,
@@ -13,7 +11,7 @@ export const GuideNav = (el) => {
   const init = () => {
     if (ui.nav) {
       ui.nav.addEventListener('click', (e) => {
-        const target = e.target;
+        const target = e;
 
         // navigaiton toggle open/close
         if (target.classList.contains('guide-nav__open') || target.classList.contains('guide-nav__close')) {
@@ -32,13 +30,6 @@ export const GuideNav = (el) => {
 
         // navigation accordion
         if (target.classList.contains('heading')) {
-          const items = ui.navLists;
-          const closeAllSections = () => {
-            Object.keys(items).map((index) => {
-              items[index].classList.add('hide');
-            });
-          };
-
           if (target.nextSibling.classList.contains('hide')) {
             target.nextSibling.classList.remove('hide');
           } else {
@@ -48,7 +39,7 @@ export const GuideNav = (el) => {
           e.preventDefault();
         }
       });
-      
+
       // Navigation search
       const loopList = (value) => {
         Object.keys(ui.navLists).map((i) => {
@@ -58,7 +49,7 @@ export const GuideNav = (el) => {
 
           if (typeof value === 'string') {
             // Searching
-            
+
             // toggle list visibility by value length
             if (value.length) {
               ui.navLists[i].classList.remove('hide');
@@ -67,7 +58,7 @@ export const GuideNav = (el) => {
             }
 
             // toggle list__items visibility by value match
-            while(j--) {
+            while (j--) {
               items[j].classList.add('hide');
               if (items[j].dataset.search.toLowerCase().match(value.toLowerCase())) {
                 items[j].classList.remove('hide');
@@ -84,20 +75,22 @@ export const GuideNav = (el) => {
           } else {
             // Clearing
             ui.navLists[i].classList.add('hide');
-            while(j--) {
+            while (j--) {
               items[j].classList.remove('hide');
               ui.navLists[i].parentNode.classList.remove('hide');
-            }            
+            }
           }
+
+          return true;
         });
       };
 
       // Searching Events
-      ui.search.addEventListener('keyup', (e) => {
+      ui.search.addEventListener('keyup', () => {
         loopList(ui.search.value);
       });
 
-      ui.search.addEventListener('search', (e) => {
+      ui.search.addEventListener('search', () => {
         loopList(true);
       });
 

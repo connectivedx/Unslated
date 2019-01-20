@@ -1,12 +1,12 @@
 /**
-Simple abstraction of the basic <strong>H1-H6</strong> tags with responsive typography support.<br/><br/>
-<strong>Please note:</strong> The difference between the Heading atom and RichText headings are the BEM classing.<br/> 
-Heading atom gets BEM classing opportunities, while RichText headings are to be treated as a tags only approach. 
+  Simple abstraction of the basic <strong>H1-H6</strong> tags with responsive typography support.<br/><br/>
+  <strong>Please note:</strong> The difference between the Heading atom and RichText headings are the BEM classing.<br/>
+  Heading atom gets BEM classing opportunities, while RichText headings are to be treated as a tags only approach.
 */
 
 export class Heading extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -27,15 +27,6 @@ export class Heading extends React.Component {
     level: 'h1'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       tagName,
@@ -49,7 +40,7 @@ export class Heading extends React.Component {
 
     const Tag = tagName || level || 'h1';
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'heading',
       `heading--${weight}`,
       `heading--${level}`,
@@ -65,5 +56,3 @@ export class Heading extends React.Component {
 }
 
 export default Heading;
-
-
