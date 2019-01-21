@@ -20,8 +20,8 @@ module.exports = {
     },{
       'loader': 'eslint-loader',
       'options': {
-        'configFile': path.resolve(__dirname, '.eslintrc'),
-        'formatter': require('eslint-friendly-formatter')
+        'formatter': require('eslint-friendly-formatter'),
+        'configFile': path.resolve(__dirname, '.eslintrc')
       }
     }]
   }],

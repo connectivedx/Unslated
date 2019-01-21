@@ -86,7 +86,7 @@ const replaceClass = (element, classArray) => {
     console.log('First param of toggleClass needs to be the element.'); // eslint-disable-line
   }
 
-  if (!classArray || typeof classArray === 'object') {
+  if (!classArray || !Array.isArray(classArray)) {
     console.log('Second param of toggleClass needs to be an array of strings (from, to).'); // eslint-disable-line
   }
 
@@ -105,15 +105,14 @@ const serialize = (elm, type) => {
   const jsonToQueryString = (json) => (
     Object.keys(json).map((key) => [encodeURIComponent(key), '=', encodeURIComponent(json[key])].join('')).join('&')
   );
-
   if (typeof type === 'undefined') { type = 'json'; }
 
   const obj = {};
   const elements = elm.querySelectorAll('input, select, textarea');
   for (let i = 0; i < elements.length; ++i) {
     const element = elements[i];
-    const name = element;
-    const value = element;
+    const { name } = element;
+    const { value } = element;
 
     if (name) {
       obj[name] = value;

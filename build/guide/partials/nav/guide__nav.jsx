@@ -15,13 +15,11 @@ import {
 } from '@molecules/Card/Card';
 
 // Navigation element levels
-const getElementListing = (examples) => {
-  Object.keys(examples).map((index) => (
-    <List__item key={index} data-search={examples[index].name}>
-      <Link href={['../../../', examples[index].url].join('')}>{ examples[index].name }</Link>
-    </List__item>
-  ));
-};
+const getElementListing = (examples) => Object.keys(examples).map((i) => (
+  <List__item key={i} data-search={examples[i].name}>
+    <Link href={['../../../', examples[i].url].join('')}>{ examples[i].name }</Link>
+  </List__item>
+));
 
 // Navigation atomic levels
 const getAtomicListing = () => {
@@ -31,15 +29,11 @@ const getAtomicListing = () => {
   // Create new atomic level collection of elements
   Object.keys(elements).map((index) => {
     const examples = elements[index];
-    // prevents duplicates
     if (!collection[examples.atomic]) {
-      // each atomic level is a new object
       collection[examples.atomic] = [];
     }
 
-    // push examples element's atomic level
     collection[examples.atomic].push(examples);
-
     return true;
   });
 

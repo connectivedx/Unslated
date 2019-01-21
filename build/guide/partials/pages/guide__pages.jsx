@@ -1,8 +1,4 @@
 export const Guide__pages = (props) => {
-  const {
-    ...attrs
-  } = props;
-
   const classStack = Utils.createClassStack([
     'guide__pages'
   ]);
@@ -12,14 +8,13 @@ export const Guide__pages = (props) => {
     if (key.split('.')[1].split('/')[1] === props.match.params.page) {
       return pages[key].default;
     }
-
-    return false;
-  });
+    return null;
+  }).filter((el) => el != null);
 
   return (
-    <div className={classStack} {...attrs}>
+    <div className={classStack}>
       {
-        page.filter((el) => el != null)[0]()
+        page[0]()
       }
     </div>
   );

@@ -14,7 +14,8 @@ setTimeout(() => {
     // give modals a chance to forms installed
     Utils.initComponent('Form', '.form', Form);
   });
-  Tracking({
+
+  new Tracking({
     vendors: [
       {
         type: 'Google',

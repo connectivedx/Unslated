@@ -1,9 +1,3 @@
-import ReactDOMServer from 'react-dom/server';
-import ReactElementToString from 'react-element-to-string';
-import pretty from 'pretty';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx.min';
-import 'prismjs/components/prism-json.min';
 
 import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
@@ -18,28 +12,51 @@ import {
   Card__footer
 } from '@molecules/Card/Card';
 
+import ReactDOMServer from 'react-dom/server';
+import ReactElementToString from 'react-element-to-string';
+import pretty from 'pretty';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx.min';
+import 'prismjs/components/prism-json.min';
 import GuideConfig from '../../guide.config.js';
 
-// Helper method to distil down an elements tag name for examples react code snip.
-const getTagName = (element) => {
-  if (typeof element === 'string') return element;
-  if (typeof element.type === 'string') return element.type;
-  if (element.type.displayName) return element.type.displayName;
-  if (element.type.name) return element.type.name;
-  if (element.props && element.props.tagName) return element.props.tagName;
-  return 'unknown-element';
-};
-
 export const Guide__examples = (props) => {
-  const {
-    ...attrs
-  } = props;
-
   const classStack = Utils.createClassStack([
     'guide__examples'
   ]);
 
-  // Gather all atomic elements (getExamples has a handy atomicLevel prop)
+  // JSX Prisim Code Snips
+  const getJSXPrisim = (component, data) => {
+    const prisimData = ReactElementToString(component, {
+      displayName: data.name,
+      showDefaultProps: false
+    }).replace(/<Unknown>/g, '').replace(/<\/Unknown>/g, '').trim();
+
+    return Prism.highlight(prisimData, Prism.languages.jsx);
+  };
+
+  // Props Prisim Code Snips
+  const getPropsPrisim = (component) => {
+    const prisimData = {};
+    Object.keys(component.props).map((i) => {
+      if (i === 'children') { return false; }
+      prisimData[i] = component.props[i].toString();
+      return true;
+    });
+
+    return Prism.highlight(['[', JSON.stringify(prisimData, null, 4), ']'].join(''), Prism.languages.json);
+  };
+
+  // HTML Prisim Code Snips
+  const getHTMLPrisim = (component) => {
+    let prisimData = ReactDOMServer.renderToStaticMarkup(component);
+    if (component.props.devonly === 'true') {
+      prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
+    }
+    return Prism.highlight(pretty(prisimData), Prism.languages.html);
+  };
+
+  // Gather data
   const data = {
     docs: undefined,
     name: undefined,
@@ -47,48 +64,37 @@ export const Guide__examples = (props) => {
     examples: GuideUtils.getExamples()[0]
   };
 
+  // C# Prisim Code Snips
+  const getCSharpPrisim = (component) => [
+    '// https://reactjs.net/getting-started/aspnet.html \n',
+    '// when consuming JSX components directly in CSHTML \n\r',
+    '@Html.React("',
+    component.type.name,
+    '", new { ',
+    Object.keys(props).map((j) => [j, ' = Model.', j].join('')),
+    ' });'
+  ].join('');
+
   data.examples = Object.keys(data.examples).map((index) => {
     const element = data.examples[index];
 
     if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
-      data.docs = element;
-      data.atomic = element;
-      data.name = element;
-      return element.examples[0].examples;
+      data.docs = element.docs;
+      data.atomic = element.atomic;
+      data.name = element.name;
+      return element.examples;
     }
 
-    return true;
+    return false;
   }).filter((n) => n[0]);
+
   return (
-    <Rhythm tagName="section" className={classStack} {...attrs}>
+    <Rhythm tagName="section" className={classStack}>
       <Readme docs={data.docs} />
       <Rhythm className="examples__listing">
         {
-          Object.keys(data.examples).map((index) => {
-            const example = data.examples[index];
-            const component = example;
-
-            // Gathers example's React code version
-            const reactExample = ReactElementToString(component, {
-              displayName: getTagName,
-              showDefaultProps: false
-            }).replace(/<Unknown>/g, '').replace(/<\/Unknown>/g, '').trim();
-
-            // Gathers example's HTML code version
-            let htmlExample = ReactDOMServer.renderToStaticMarkup(component);
-            if (component.props.devonly === 'true') {
-              htmlExample = htmlExample.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
-            }
-
-            // Gathers example's used props
-            /*
-              const props = {};
-              Object.keys(component.props).map((index) => {
-                if (index === 'children') { return false; }
-                props[index] = component.props[index].toString();
-                return true;
-              });
-            */
+          Object.keys(data.examples[0]).map((index) => {
+            const example = data.examples[0][index];
 
             const options = {
               background: GuideConfig.examples.background,
@@ -120,7 +126,7 @@ export const Guide__examples = (props) => {
                       }}
                     >
                       <div className="examples__pallet-inner">
-                        {component}
+                        {example.component}
                       </div>
                     </div>
                   </Rhythm>
@@ -130,37 +136,29 @@ export const Guide__examples = (props) => {
                     <Button size="small" data-index="0">React</Button>
                     <Button size="small" data-index="1">HTML</Button>
                     <Button size="small" data-index="2">Props</Button>
-                    { (component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
+                    { (example.component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
                   </div>
                   <div className="examples__codes">
                     <pre className="examples__code hide">
-                      <code dangerouslySetInnerHTML={{ __html: Prism.highlight(reactExample, Prism.languages.jsx) }} />
+                      <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, data) }} />
                     </pre>
                     <pre className="examples__code hide">
-                      <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(htmlExample), Prism.languages.html) }} />
+                      <code dangerouslySetInnerHTML={{ __html: getHTMLPrisim(example.component) }} />
                     </pre>
                     <pre className="examples__code hide">
-                      {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(JSON.stringify(props, null, 4), Prism.languages.json) }} /> : ''}
+                      {(example.component.props) ? <code dangerouslySetInnerHTML={{ __html: getPropsPrisim(example.component) }} /> : ''}
                     </pre>
                     {
-                      (component.type.name)
+                      (example.component.type.name)
                         ? (
                           <pre className="examples__code hide">
                             {
-                              (component.props)
+                              (example.component.props)
                                 ? (
-                                  <code dangerouslySetInnerHTML={{
-                                    __html: Prism.highlight(
-                                      [
-                                        '// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("',
-                                        component.type.name,
-                                        '",new { ',
-                                        Object.keys(props).map((i) => [i, ' = Model.', i].join('')),
-                                        ' });'
-                                      ].join(''),
-                                      Prism.languages.clike
-                                    )
-                                  }}
+                                  <code
+                                    dangerouslySetInnerHTML={{
+                                      __html: Prism.highlight(getCSharpPrisim(example.component), Prism.languages.clike)
+                                    }}
                                   />
                                 )
                                 : ''
@@ -176,7 +174,7 @@ export const Guide__examples = (props) => {
           })
         }
       </Rhythm>
-      <Stylist examples={data.examples} />
+      <Stylist examples={data.examples[0]} />
     </Rhythm>
   );
 };

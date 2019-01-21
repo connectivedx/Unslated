@@ -27,7 +27,7 @@ const getFilteredData = (data, filters) => {
 
   const atomicLevels = ['atoms', 'molecules', 'organisms', 'modifiers', 'templates', 'pages'];
   const returnedData = Object.keys(atomicLevels).map((i) => {
-    const returnData = {
+    const levels = {
       level: atomicLevels[i],
       size: 0,
       files: []
@@ -39,17 +39,16 @@ const getFilteredData = (data, filters) => {
         let k = filters.length;
         while (k--) {
           if (file.name.match(filters[k])) {
-            returnData.size += file.size;
-            returnData.files.push(file);
+            levels.size += file.size;
+            levels.files.push(file);
           }
         }
       }
       return true;
     });
 
-    return true;
+    return levels;
   });
-
   return returnedData;
 };
 
@@ -81,7 +80,7 @@ export const GuideWelcome = (el) => {
 
   // Method to fetch our webpack-stats JSON file at page load via XHR.
   const getPerformanceStats = (callback) => {
-    const XHR = XMLHttpRequest();
+    const XHR = new XMLHttpRequest();
     XHR.onreadystatechange = () => {
       if (XHR.readyState === 4 && XHR.status === 200) {
         if (typeof callback === 'function') {
@@ -96,7 +95,6 @@ export const GuideWelcome = (el) => {
   // Method to use our custom data struct and render a doughnut chart from chart.js module
   const renderDoughnutChart = (element, data, title) => {
     if (!data) { return; }
-
     // abstract our data struct into custom struct for charts.js
     const collection = {
       datasets: []
@@ -129,7 +127,7 @@ export const GuideWelcome = (el) => {
     collection.datasets.push(atomicSet);
     collection.datasets.push(fileSet);
 
-    Chart(element, {
+    new Chart(element, {
       type: 'doughnut',
       data: collection,
       options: {

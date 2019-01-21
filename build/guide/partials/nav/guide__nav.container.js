@@ -11,7 +11,7 @@ export const GuideNav = (el) => {
   const init = () => {
     if (ui.nav) {
       ui.nav.addEventListener('click', (e) => {
-        const target = e;
+        const { target } = e;
 
         // navigaiton toggle open/close
         if (target.classList.contains('guide-nav__open') || target.classList.contains('guide-nav__close')) {

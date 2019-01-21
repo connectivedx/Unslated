@@ -211,16 +211,16 @@ const getExamples = () => {
     Object.keys(allExamples).map((key) => {
       const name = key.split('/').slice(-1)[0].split('.')[0];
       const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
-      const docs = allExamples[key].default[0];
+      const { ...doc } = allExamples[key].default[0].docs;
       const atomic = key.replace('./', '').split('/')[0];
-      const examples = [...allExamples[key].default];
+      const examples = [...allExamples[key].default][0];
 
       return {
         url,
         atomic,
         name,
-        examples,
-        docs: (docs) ? docs[0] : {
+        examples: examples.examples,
+        docs: doc[0] || {
           displayName: name,
           description: (atomic === 'modifiers')
             ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
