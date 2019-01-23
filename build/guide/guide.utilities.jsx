@@ -4,6 +4,33 @@
 
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
+const path = require('path');
+
+/*
+  CORE: Helper method to convert raw int into bytes, kb or kb for display.
+*/
+const bytesToSize = (bytes) => {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+  return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
+};
+
+/*
+  CORE: Helps get webpack's current build stats
+*/
+const getBuildStats = (callback) => {
+  const XHR = new XMLHttpRequest();
+  XHR.onreadystatechange = () => {
+    if (XHR.readyState === 4 && XHR.status === 200) {
+      if (typeof callback === 'function') {
+        callback(JSON.parse(XHR.responseText));
+      }
+    }
+  };
+  XHR.open('get', path.resolve(__dirname, '../../node_modules/.bin/webpack.stats.json'), true);
+  XHR.send();
+};
 
 /*
   CORE: Helps clean color variables upon import
@@ -211,16 +238,16 @@ const getExamples = () => {
     Object.keys(allExamples).map((key) => {
       const name = key.split('/').slice(-1)[0].split('.')[0];
       const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
-      const docs = allExamples[key].default[0];
+      const { ...doc } = allExamples[key].default[0].docs;
       const atomic = key.replace('./', '').split('/')[0];
-      const examples = [...allExamples[key].default];
+      const examples = [...allExamples[key].default][0];
 
       return {
         url,
         atomic,
         name,
-        examples,
-        docs: (docs) ? docs[0] : {
+        examples: examples.examples,
+        docs: doc[0] || {
           displayName: name,
           description: (atomic === 'modifiers')
             ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
@@ -235,6 +262,8 @@ const getExamples = () => {
 module.exports = {
   getPages,
   getExamples,
+  getBuildStats,
+  bytesToSize,
   WCAGTest,
   getColorUnits,
   getColorContrast,

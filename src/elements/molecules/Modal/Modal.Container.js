@@ -18,14 +18,14 @@ export const Modal = (el) => {
 
     elm.classList.remove('overflowing');
     elm.classList[
-      (window.innerHeight <= (ui.innerWidth.clientHeight + 180)) ? 'add' : 'remove'
+      (window.innerHeight <= (ui.innerWidth.clientHeight + 96)) ? 'add' : 'remove'
     ]('overflowing');
   };
 
   // window resize event
   const handleWindowResize = _.debounce(() => {
     checkHeight();
-  }, 250);
+  }, 64);
 
   // Hide instead of close. Usefull in modal history usage.
   const hide = (modal) => {
@@ -46,7 +46,6 @@ export const Modal = (el) => {
     if (modalHistory.length) {
       hide(modalHistory[modalHistory.length - 1]);
     }
-
     modalHistory.push(modal);
 
     if (trigger.hasAttribute('href')) {
@@ -116,7 +115,7 @@ export const Modal = (el) => {
     // this allows modals and even targets to be changed or added to the DOM without losing any events.
     if (!window.modals) {
       document.body.addEventListener('click', (e) => {
-        const target = e; // tell us what was clicked please
+        const { target } = e; // tell us what was clicked please
 
         // get our targets modal element
         const getRefModal = (modalId) => {
@@ -130,7 +129,7 @@ export const Modal = (el) => {
         // if target has no data set, we are done here
         if (target.dataset) {
           // open new modal, from within a modal
-          const dataset = target;
+          const { dataset } = target;
           const classes = target.classList;
           if (dataset.modal && !classes.contains('modal')) {
             const refModal = getRefModal(dataset.modal);

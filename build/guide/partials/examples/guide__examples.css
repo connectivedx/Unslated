@@ -28,7 +28,7 @@
       }
 
       &:before {
-        background-image: var(--background);
+        background: var(--background);
         opacity: var(--brightness);
       }      
 
@@ -50,14 +50,13 @@
     }
 
     &__codes {
-      background-color: var(--color--alpha05);
-      max-height: 320px;
-      overflow-x: hidden;
-      oveflow-y: scroll;
-      margin-top: 1rem;
-
       pre {
-        padding: 1rem;        
+        background-color: var(--color--alpha05);
+        margin-top: 1rem;
+        max-height: 320px;
+        overflow-x: scroll;
+        overflow-y: scroll;
+        padding: 1rem;
       }
     }
 
@@ -72,7 +71,7 @@
       .button {
         margin: 0 0.5rem;
         &:first-child { margin-left: 0; }
-        &:last-child { margin-left: 0; }
+        &:last-child { margin-right: 0; }
       }
     }  
   }

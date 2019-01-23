@@ -1,6 +1,6 @@
 import Nav from '@guide/partials/nav/guide__nav';
-import Pages from '@guide/partials/pages/guide__pages';
 import Welcome from '@guide/partials/welcome/guide__welcome';
+import { Pages, BadAddress } from '@guide/partials/pages/guide__pages';
 import { Guide__examples, Guide__blank, Guide__data } from '@guide/partials/examples/guide__examples';
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ export const Guide = (props) => {
             <Route exact path="/examples" component={Welcome} />
             <Route path="/examples/:category/:element" component={Guide__examples} />
             <Route path="/pages/:page" component={Pages} />
+            <Route component={BadAddress} />
           </Switch>
         </BrowserRouter>
       </main>

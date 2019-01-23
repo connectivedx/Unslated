@@ -35,7 +35,7 @@ export const Guide__stylist = (props) => {
         </Rhythm>
         <Rhythm>
           <Heading level="h5">Breakpoints</Heading>
-          <div className="guide__breakpoint">
+          <div className="guide__breakpoint guide__stylist__section">
             <div>
               <label>Size</label>
               <select className="guide__stylist-breakpoint-size" defaultValue="1">
@@ -60,6 +60,13 @@ export const Guide__stylist = (props) => {
                 <option value="10s">10 seconds</option>
               </select>
             </div>
+          </div>
+        </Rhythm>
+        <Rhythm>
+          <Heading level="h5">Stats</Heading>
+          <div className="guide__stats guide__stylist__section">
+            <small className="guide__stylist-js-stat stats"><strong>JS:</strong> 0 Bytes</small>
+            <small className="guide__stylist-css-stat stats"><strong>CSS:</strong> 0 Bytes</small>
           </div>
         </Rhythm>
       </Rhythm>

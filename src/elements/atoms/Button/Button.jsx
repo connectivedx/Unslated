@@ -50,7 +50,7 @@ export class Button extends React.Component {
 
     if (href) {
       Tag = 'a';
-      classStack = [classStack, 'button--link'];
+      classStack = [classStack, ' button--link'].join('');
       attrs.href = href;
     }
 

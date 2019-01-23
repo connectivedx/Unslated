@@ -17,7 +17,7 @@ export class Card extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Color defines the cards background color and forground content color */
-    color: PropTypes.oneOf(['white', 'red', 'green', 'blue'])
+    color: PropTypes.oneOf(['white', 'red', 'green', 'blue', 'none'])
   };
 
   static defaultProps = {

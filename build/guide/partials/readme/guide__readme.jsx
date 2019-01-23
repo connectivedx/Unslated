@@ -19,7 +19,7 @@ export const Guide__readme = (props) => {
   if (!docs) { return false; }
 
   const propsSection = () => {
-    if (!docs.props) { return false; }
+    if (!props.docs.props) { return false; }
     return (
       <Rhythm tagName="section" className="guide__readme-section" {...attrs}>
         <Heading className="guide__readme-toggler" level="h3">Props</Heading>
@@ -35,9 +35,9 @@ export const Guide__readme = (props) => {
             </Table__head>
             <Table__body>
               {
-                (docs.props)
-                  ? Object.keys(docs.props).map((index) => {
-                    const prop = docs.props[index];
+                (props.docs.props)
+                  ? Object.keys(props.docs.props).map((index) => {
+                    const prop = props.docs.props[index];
                     const propType = prop.type.raw.replace(/\r?\n|\r/g, '').replace(/PropTypes./g, '').replace(/(.*)\(\[(.*)\]\)/g, '$2');
                     return (
                       <Table__row key={index}>
@@ -57,7 +57,7 @@ export const Guide__readme = (props) => {
   };
 
   const methodsSection = () => {
-    if (!docs.methods) { return false; }
+    if (!props.docs.methods) { return false; }
     return (
       <Rhythm tagName="section" className="guide__readme-section">
         <Heading className="guide__readme-toggler" level="h3">Methods</Heading>
@@ -73,8 +73,8 @@ export const Guide__readme = (props) => {
             </Table__head>
             <Table__body>
               {
-                Object.keys(docs.methods).map((index) => {
-                  const method = docs.methods[index];
+                Object.keys(props.docs.methods).map((index) => {
+                  const method = props.docs.methods[index];
 
                   if (method.name === 'render') { return false; } // no need to document React's render method
 
@@ -98,12 +98,12 @@ export const Guide__readme = (props) => {
     );
   };
 
-  const description = (docs.description) ? docs.description : <span className="doc-error">Missing Element description!<br /> Please describe this element in a multi-line comment at the top of it&apos;s JSX file.</span>;
+  const description = (props.docs.description) ? props.docs.description : <span className="doc-error">Missing Element description!<br /> Please describe this element in a multi-line comment at the top of it&apos;s JSX file.</span>;
 
   return (
     <Rhythm className="guide__readme">
       <Rhythm>
-        <Heading level="h1">{docs.displayName}</Heading>
+        <Heading level="h1">{props.docs.displayName}</Heading>
         <p dangerouslySetInnerHTML={{ __html: description }} />
       </Rhythm>
 

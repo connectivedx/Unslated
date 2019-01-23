@@ -6,7 +6,6 @@ import { List, List__item } from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 
-
 // AccessibilityLevel
 const AccessibilityLevel = (props) => {
   const {
@@ -67,7 +66,6 @@ AccessibilityLevel.propTypes = {
   level: PropTypes.string
 };
 
-
 const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
   if (colors[key] === 'true') { return false; }
 
@@ -89,7 +87,7 @@ const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
           level="AAA"
         />
 
-        <div  style={{ backgroundColor: colors[key], height: '120px' }} />
+        <div style={{ backgroundColor: colors[key], height: '120px' }} />
 
         <div>
           {colorUnits.hex}

@@ -6,7 +6,9 @@ export const GuideStylist = (el) => {
     stylistMinMax: document.querySelector('.guide__stylist-minmax'),
     stylistExampleSelect: document.querySelector('.guide__stylist-examples'),
     stylistBreakpointSelect: document.querySelector('.guide__stylist-breakpoint-size'),
-    stylistBreakpointSpeed: document.querySelector('.guide__stylist-breakpoint-speed')
+    stylistBreakpointSpeed: document.querySelector('.guide__stylist-breakpoint-speed'),
+    stylistJSStat: el.querySelector('.guide__stylist-js-stat'),
+    stylistCSSStat: el.querySelector('.guide__stylist-css-stat')
   };
 
   const state = {};
@@ -63,6 +65,19 @@ export const GuideStylist = (el) => {
     });
   };
 
+  // Filter build stats data
+  const filterBuildStats = (stats) => {
+    let i = stats.length;
+    const collection = [];
+    const elementName = window.location.href.split('/')[window.location.href.split('/').length - 1];
+    while (i--) {
+      if (stats[i].name.indexOf(elementName) !== -1) {
+        collection.push(stats[i]);
+      }
+    }
+    return collection;
+  };
+
   const init = () => {
     // Sets up event for stylist minimize and maximize
     if (ui.stylistMinMax) {
@@ -91,6 +106,24 @@ export const GuideStylist = (el) => {
         switchBreakpointSpeeds(ui.stylistBreakpointSpeed.options[ui.stylistBreakpointSpeed.selectedIndex].value);
       });
     }
+
+    GuideUtils.getBuildStats((JSON) => {
+      const stats = filterBuildStats(JSON.chunks[0].modules);
+      let i = stats.length;
+
+      while (i--) {
+        const isJS = (stats[i].name.indexOf('.js') !== -1);
+        const isCSS = (stats[i].name.indexOf('.css') !== -1);
+
+        if (ui.stylistJSStat && isJS) {
+          ui.stylistJSStat.innerHTML = ['<strong>JS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
+        }
+
+        if (ui.stylistCSSStat && isCSS) {
+          ui.stylistCSSStat.innerHTML = ['<strong>CSS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
+        }
+      }
+    });
   };
 
   init();

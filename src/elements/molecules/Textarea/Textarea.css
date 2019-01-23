@@ -2,4 +2,11 @@
   .field__native {
   	padding: calc(var(--field__radio-size) / 2);
   }
+
+  /* Style variants */
+  &.field--default {
+  	.field__native {
+  		background-color: var(--color-white);
+  	}
+  }
 }
