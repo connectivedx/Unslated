@@ -1,5 +1,5 @@
 /* Pages */
-.guide {
+.guide__pages {
   & .colors {
     display: flex;
     flex-wrap: wrap;
@@ -163,5 +163,24 @@
         margin-left: 0.4rem;  
       }
     }
+  }
+}
+
+.guide__404 {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .heading {
+    color: var(--color-white);
+    text-shadow: 0 4px var(--color-black);
+    font-size: rem(48px);
+    margin-top: rem(200px);
+    text-align: center;
   }
 }

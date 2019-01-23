@@ -1,114 +1,195 @@
+
+import Stylist from '@guide/partials/stylist/guide__stylist';
+import Readme from '@guide/partials/readme/guide__readme';
+
+import Button from '@atoms/Button/Button';
+import Heading from '@atoms/Heading/Heading';
+import Rhythm from '@atoms/Rhythm/Rhythm';
+import {
+  Card,
+  Card__header,
+  Card__body,
+  Card__footer
+} from '@molecules/Card/Card';
+
 import ReactDOMServer from 'react-dom/server';
 import ReactElementToString from 'react-element-to-string';
 import pretty from 'pretty';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-json.min';
-
-import Stylist from '@guide/partials/stylist/guide__stylist';
-import Readme from '@guide/partials/readme/guide__readme';
-
-import ExampleBg from '@guide/assets/example_bg.png';
-import arrorRight from '@guide/assets/tab-arrow-right.svg';
-
-import Button from '@atoms/Button/Button';
-import Heading from '@atoms/Heading/Heading';
-import Rhythm from '@atoms/Rhythm/Rhythm';
-
-// Helper method to distil down an elements tag name for examples react code snip.
-const getTagName = (element) => {
-  if (typeof element === 'string') return element;
-  if (typeof element.type === 'string') return element.type;
-  if (element.type.displayName) return element.type.displayName;
-  if (element.type.name) return element.type.name;
-  if (element.props && element.props.tagName) return element.props.tagName;
-  return 'unknown-element';
-};
+import GuideConfig from '../../guide.config.js';
 
 export const Guide__examples = (props) => {
-  const {
-    ...attrs
-  } = props;
-
   const classStack = Utils.createClassStack([
-    'examples'
+    'guide__examples'
   ]);
 
-  // Gather all atomic elements (getExamples has a handy atomicLevel prop)
-  const elementExamples = GuideUtils.getExamples();
-  let docs = undefined;
+  // JSX Prisim Code Snips
+  const getJSXPrisim = (component, data) => {
+    const prisimData = ReactElementToString(component, {
+      displayName: data.name,
+      showDefaultProps: false
+    }).replace(/<Unknown>/g, '')
+      .replace(/<\/Unknown>/g, '')
+      .replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2')
+      .trim();
 
-  // Gather all examples from atomic elements above
-  const examples = Object.keys(elementExamples).map(index => {
-    const element = elementExamples[index];
-    if ((element.atomicLevel === props.match.params.category) && (element.name === props.match.params.element)) {
-      docs = element.docs;
-      return element.examples[0].examples;
+    return Prism.highlight(pretty(prisimData), Prism.languages.jsx, 'jsx');
+  };
+
+  // Props Prisim Code Snips
+  const getPropsPrisim = (component) => {
+    const prisimData = {};
+    Object.keys(component.props).map((i) => {
+      if (i === 'children') { return false; }
+      prisimData[i] = component.props[i].toString();
+      return true;
+    });
+
+    return Prism.highlight(['[', JSON.stringify(prisimData, null, 4), ']'].join(''), Prism.languages.json, 'javascript');
+  };
+
+  // HTML Prisim Code Snips
+  const getHTMLPrisim = (component) => {
+    let prisimData = ReactDOMServer.renderToStaticMarkup(component);
+    let indent = '';
+    prisimData = prisimData.replace(/></g, (x) => {
+      indent += '  ';
+      return x.replace('><', ['>\n', indent, '<'].join(''));
+    }).trim();
+    if (component.props.devonly === 'true') {
+      prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
     }
-    return;
-  }).filter(n => n)[0];
+    return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
+  };
+
+  // Gather data
+  const data = {
+    docs: undefined,
+    name: undefined,
+    atomic: undefined,
+    examples: GuideUtils.getExamples()[0]
+  };
+
+  // C# Prisim Code Snips
+  const getCSharpPrisim = (component) => [
+    '// https://reactjs.net/getting-started/aspnet.html \n',
+    '// when consuming JSX components directly in CSHTML \n\r',
+    '@Html.React("',
+    component.type.name,
+    '", new { ',
+    Object.keys(props).map((j) => [j, ' = Model.', j].join('')),
+    ' });'
+  ].join('');
+
+  data.examples = Object.keys(data.examples).map((index) => {
+    const element = data.examples[index];
+
+    if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
+      data.docs = element.docs;
+      data.atomic = element.atomic;
+      data.name = element.name;
+      return element.examples;
+    }
+
+    return false;
+  }).filter((n) => n[0]);
 
   return (
     <Rhythm tagName="section" className={classStack}>
-      <Readme docs={docs} />
-      <Rhythm className="examples examples__listing">
-        {Object.keys(examples).map(index => {
-          const example = examples[index];
-          const component = example.component;
+      <Readme docs={data.docs} />
+      <Rhythm className="examples__listing">
+        {
+          Object.keys(data.examples[0]).map((index) => {
+            const example = data.examples[0][index];
+            const exampleConfig = GuideConfig.example.options;
 
-          // Gathers example's React code version
-          const reactExample = ReactElementToString(component, {
-            displayName: getTagName,
-            showDefaultProps: false
-          }).replace(/\<Unknown\>/g, '').replace(/\<\/Unknown\>/g, '').trim();
+            const options = {
+              background: exampleConfig.background,
+              padding: exampleConfig.padding,
+              brightness: exampleConfig.brightness
+            };
 
-          // Gathers example's HTML code version
-          const htmlExample = ReactDOMServer.renderToStaticMarkup(component);
-          
-          // Gathers example's used props
-          const props = {};
-          Object.keys(component.props).map(index => {
-            if (index === 'children') { return false; }
-            props[index] = component.props[index].toString();
-          });
-
-          return (
-            <Rhythm className={`examples examples__item`} key={index}>
-              <Heading level="h5" className="examples examples__heading">{example.name}</Heading>
-              <p dangerouslySetInnerHTML={{__html: example.description}}></p>
-              <div className="examples examples__pallet" style={{'--breakpoint-speed': '0s', backgroundImage: ['url(', ExampleBg, ')'].join('')}}>
-                <div className="examples examples__pallet-inner">
-                  {component}
-                </div>
-              </div>
-              <div className="examples examples__buttons">
-                <Button size="small" data-index="0">React</Button>
-                <Button size="small" data-index="1">HTML</Button>
-                <Button size="small" data-index="2">Props</Button>
-                { (component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
-              </div>
-              <div className="examples examples__codes">
-                <pre className="examples__code hide">
-                  <code dangerouslySetInnerHTML={{ __html: Prism.highlight(reactExample, Prism.languages.jsx) }} />
-                </pre>
-                <pre className="examples__code hide">
-                  <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(htmlExample), Prism.languages.html) }} />
-                </pre>
-                <pre className="examples__code hide">
-                  {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight(pretty(JSON.stringify(props)), Prism.languages.json) }} /> : ''}
-                </pre>
-                {
-                  (component.type.name) ?
-                    <pre className="examples__code hide">
-                      {(component.props) ? <code dangerouslySetInnerHTML={{ __html: Prism.highlight('// https://reactjs.net/getting-started/aspnet.html \n// when consuming JSX components directly in CSHTML \n\r @Html.React("' + component.type.name + '", new { ' + Object.keys(props).map(index => {return index + ' = Model.' + index;}) +' });', Prism.languages.clike) }} /> : ''}
-                    </pre> : ''
+            if (example.options) {
+              if (typeof example.options.background !== 'undefined') {
+                if (example.options.background === '') {
+                  options.background = '#ffffff';
+                } else {
+                  options.background = example.options.background;
                 }
-              </div>
-            </Rhythm>
-          );
-        })}
+              }
+              if (typeof example.options.padding !== 'undefined') { options.padding = example.options.padding; }
+              if (typeof example.options.brightness !== 'undefined') { options.brightness = example.options.brightness; }
+            }
+
+            return (
+              <Card key={index} className="examples">
+                <Card__header className="examples__header">
+                  <Heading level="h5" className="examples__heading">{example.name}</Heading>
+                </Card__header>
+                <Card__body className="examples__body examples__item">
+                  <Rhythm>
+                    <p dangerouslySetInnerHTML={{ __html: example.description }} />
+                    <div
+                      className="examples__pallet"
+                      style={{
+                        '--speed': '0s',
+                        '--brightness': options.brightness,
+                        '--background': (options.background.match('#') || options.background.match('rgb')) ? options.background : ['url(', options.background, ')'].join(''),
+                        '--padding': options.padding
+                      }}
+                    >
+                      <div className="examples__pallet-inner">
+                        {example.component}
+                      </div>
+                    </div>
+                  </Rhythm>
+                </Card__body>
+                <Card__footer className="examples__footer">
+                  <div>
+                    <Button size="small" data-index="0">React</Button>
+                    <Button size="small" data-index="1">HTML</Button>
+                    <Button size="small" data-index="2">Props</Button>
+                    { (example.component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
+                  </div>
+                  <div className="examples__codes">
+                    <pre className="examples__code hide">
+                      <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, data) }} />
+                    </pre>
+                    <pre className="examples__code hide">
+                      <code dangerouslySetInnerHTML={{ __html: getHTMLPrisim(example.component) }} />
+                    </pre>
+                    <pre className="examples__code hide">
+                      {(example.component.props) ? <code dangerouslySetInnerHTML={{ __html: getPropsPrisim(example.component) }} /> : ''}
+                    </pre>
+                    {
+                      (example.component.type.name)
+                        ? (
+                          <pre className="examples__code hide">
+                            {
+                              (example.component.props)
+                                ? (
+                                  <code
+                                    dangerouslySetInnerHTML={{
+                                      __html: Prism.highlight(getCSharpPrisim(example.component), Prism.languages.clike)
+                                    }}
+                                  />
+                                )
+                                : ''
+                            }
+                          </pre>
+                        )
+                        : ''
+                    }
+                  </div>
+                </Card__footer>
+              </Card>
+            );
+          })
+        }
       </Rhythm>
-      <Stylist examples={examples} />
+      <Stylist examples={data.examples[0]} />
     </Rhythm>
   );
 };

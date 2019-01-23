@@ -1,8 +1,9 @@
 /*
   OPTIONS:
   The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
+    - No Padding variant (padding: true|false)
+    - Background Image (background: path|blank)
+    - Dark Background variant (brightness: 0.0-1.0)
 
   Example:
     ```
@@ -12,15 +13,17 @@
           <Component>Lorem ipsum</Component>
         ),
         options: {
-          noPadding: true,
-          darkBackground: true
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
         }
       },
     ```
 */
 
 import Icon from './Icon';
-const docs = require("!!docgen-loader?htmlDescription!./Icon");
+
+const docs = require('!!docgen-loader?htmlDescription!./Icon');
 
 export default [{
   docs,

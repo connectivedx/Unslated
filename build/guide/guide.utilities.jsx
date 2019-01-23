@@ -1,19 +1,47 @@
 /*
   !!!!!!!!!!THIS IS ONLY FOR GUIDE PARTIALS!!!!!!!!!!
   !!!!!!!!!DO NO USE METHODS HERE IN ASSETS.JS!!!!!!!
- 
+
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
+const path = require('path');
+
+/*
+  CORE: Helper method to convert raw int into bytes, kb or kb for display.
+*/
+const bytesToSize = (bytes) => {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+  return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
+};
+
+/*
+  CORE: Helps get webpack's current build stats
+*/
+const getBuildStats = (callback) => {
+  const XHR = new XMLHttpRequest();
+  XHR.onreadystatechange = () => {
+    if (XHR.readyState === 4 && XHR.status === 200) {
+      if (typeof callback === 'function') {
+        callback(JSON.parse(XHR.responseText));
+      }
+    }
+  };
+  XHR.open('get', path.resolve(__dirname, '../../node_modules/.bin/webpack.stats.json'), true);
+  XHR.send();
+};
 
 /*
   CORE: Helps clean color variables upon import
 */
 const cleanColorVariables = (colors) => {
-  Object.keys(colors).map(key => {
+  Object.keys(colors).map((key) => {
     if (colors[key].indexOf('var') !== -1) {
       const variable = colors[key].replace('var(', '').replace(')', '');
       colors[key] = colors[variable];
     }
+    return true;
   });
   return colors;
 };
@@ -24,41 +52,41 @@ const cleanColorVariables = (colors) => {
 const HexToRGB = (color) => {
   color = color.replace('#', '');
   if (color.length < 6) {
-    color = color + color;
+    color += color;
   }
 
   return [
-    parseInt(color.substr(0,2), 16),
-    parseInt(color.substr(2,2), 16),
-    parseInt(color.substr(4,2), 16)
+    parseInt(color.substr(0, 2), 16),
+    parseInt(color.substr(2, 2), 16),
+    parseInt(color.substr(4, 2), 16)
   ];
-}
+};
 
 /*
   CORE: Converts RGB color to HEX
 */
 const RGBToHex = (color) => {
   const hexConvert = (rgb) => {
-    let hex = rgb.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    const hex = rgb.toString(16);
+    return hex.length === 1 ? ['0', hex].join('') : hex;
   };
 
-  return "#" + hexConvert(color[0]) + hexConvert(color[1]) + hexConvert(color[2]);
+  return ['#', hexConvert(color[0]), hexConvert(color[1]), hexConvert(color[2])].join('');
 };
 
 /*
   CORE: Returns the luminance score of a color (must be rgb value);
 */
 const getColorLuminanace = (r, g, b) => {
-    let a = [r, g, b].map(v => {
-        v /= 255;
-        return v <= 0.03928
-            ? v / 12.92
-            : Math.pow( (v + 0.055) / 1.055, 2.4 );
-    });
+  const a = [r, g, b].map((v) => {
+    v /= 255;
+    return v <= 0.03928
+      ? v / 12.92
+      : ((v + 0.055) / 1.055) ** 2.4;
+  });
 
-    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-}
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+};
 
 /*
   CORE: Returns the contrast score of one color against project's primary colors
@@ -70,7 +98,7 @@ const getColorContrast = (controlcolor, testcolor) => {
   let result = (getColorLuminanace(testRGB[0], testRGB[1], testRGB[2]) + 0.05) / (getColorLuminanace(controlRGB[0], controlRGB[1], controlRGB[2]) + 0.05);
   if (result < 1) result = 1 / result;
   return result;
-}
+};
 
 /*
   CORE: Builds and returns an object that contains hex, and rgb color units of a given color (can supply hex or rgb)
@@ -87,7 +115,7 @@ const getColorUnits = (color) => {
   const isHLS = (color.indexOf('hls') !== -1);
 
   /* if color is a simple hex */
-  if (isHex || !isHex && !isRGB && !isHLS) {
+  if ((isHex || !isHex) && !isRGB && !isHLS) {
     // applies color as a hex to chromaObj.hex
     chromaObj.hex = color;
 
@@ -95,7 +123,7 @@ const getColorUnits = (color) => {
     [...chromaObj.rgb] = HexToRGB(color);
 
     // converts hex into hls and applies to chromaObj.hls
-    //[...chromaObj.hsl] = chroma(color).hsl();
+    // [...chromaObj.hsl] = chroma(color).hsl();
 
   /* if color is rbg(a) */
   } else if (isRGB) {
@@ -114,7 +142,7 @@ const getColorUnits = (color) => {
     chromaObj.hex = RGBToHex([red, green, blue]);
 
     // capture HSL colors as fallback
-    //[...chromaObj.hsl] = chroma(chromaObj.hex).hsl();
+    // [...chromaObj.hsl] = chroma(chromaObj.hex).hsl();
   }
 
   return chromaObj;
@@ -130,29 +158,42 @@ const WCAGTest = (ratio, size, level) => {
     case 'AA':
       if (size === 'large' && ratio > 3) {
         return 'PASS';
-      } else if (size === 'large--bold' && ratio > 3) {
-        return 'PASS';
-      } else if (size === 'normal' && ratio > 4.5) {
+      }
+
+      if (size === 'large--bold' && ratio > 3) {
         return 'PASS';
       }
+
+      if (size === 'normal' && ratio > 4.5) {
+        return 'PASS';
+      }
+
       return 'FAIL';
 
     case 'AAA':
       if (size === 'large' && ratio > 4.5) {
         return 'PASS';
-      } else if (size === 'large--bold' && ratio > 4.5) {
-        return 'PASS';
-      } else if (size === 'normal' && ratio > 7) {
+      }
+
+      if (size === 'large--bold' && ratio > 4.5) {
         return 'PASS';
       }
+
+      if (size === 'normal' && ratio > 7) {
+        return 'PASS';
+      }
+
       return 'FAIL';
 
     default:
       if (size === 'large' && ratio > 3) {
         return 'PASS';
-      } else if (size === 'normal' && ratio > 4.5) {
+      }
+
+      if (size === 'normal' && ratio > 4.5) {
         return 'PASS';
       }
+
       return 'FAIL';
   }
 };
@@ -164,7 +205,10 @@ const WCAGTest = (ratio, size, level) => {
 
 const readDirectory = (context) => {
   const collection = [];
-  context.keys().forEach(key => collection[key] = context(key));
+  context.keys().forEach((key) => {
+    collection[key] = context(key);
+    return true;
+  });
 
   return collection;
 };
@@ -180,7 +224,7 @@ const getPages = () => {
     return pages;
   }
 
-  return;
+  return true;
 };
 
 
@@ -189,41 +233,37 @@ const getPages = () => {
 */
 
 const getExamples = () => {
-  const elements = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
-  const collection = [];
-  const modifiersDescription = 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.';
-  Object.keys(elements).map((key, index) => {
-    const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
-    const atomicLevel = key.replace('./', '').split('/')[0];
-    const name = key.split('/').slice(-1)[0].split('.')[0];
-    const examples = [...elements[key].default];
-    
-    const autoDocs = elements[key].default[0].docs;
-    const docs = (autoDocs) ? autoDocs[0] : {
-      displayName: name,
-      description: (atomicLevel === 'modifiers') ? modifiersDescription : atomicLevel
-    };
+  const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
+  return [
+    Object.keys(allExamples).map((key) => {
+      const name = key.split('/').slice(-1)[0].split('.')[0];
+      const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
+      const { ...doc } = allExamples[key].default[0].docs;
+      const atomic = key.replace('./', '').split('/')[0];
+      const examples = [...allExamples[key].default][0];
 
-    collection.push({
-      url,
-      atomicLevel,
-      name,
-      examples,
-      docs
-    });
-  });
-
-  if (collection) {
-    return collection;
-  }
-
-  return;
+      return {
+        url,
+        atomic,
+        name,
+        examples: examples.examples,
+        docs: doc[0] || {
+          displayName: name,
+          description: (atomic === 'modifiers')
+            ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
+            : atomic
+        }
+      };
+    })
+  ];
 };
 
 
 module.exports = {
   getPages,
   getExamples,
+  getBuildStats,
+  bytesToSize,
   WCAGTest,
   getColorUnits,
   getColorContrast,

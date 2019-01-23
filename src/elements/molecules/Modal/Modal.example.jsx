@@ -1,8 +1,9 @@
 /*
   OPTIONS:
   The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
+    - No Padding variant (padding: true|false)
+    - Background Image (background: path|blank)
+    - Dark Background variant (brightness: 0.0-1.0)
 
   Example:
     ```
@@ -12,8 +13,9 @@
           <Component>Lorem ipsum</Component>
         ),
         options: {
-          noPadding: true,
-          darkBackground: true
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
         }
       },
     ```
@@ -21,9 +23,6 @@
 
 import Modal from './Modal';
 import Button from '@atoms/Button/Button';
-import Link from '@atoms/Link/Link';
-import Form from '@molecules/Form/Form';
-import Input from '@molecules/Input/Input';
 import { List, List__item } from '@atoms/List/List';
 import docs from '!!docgen-loader?htmlDescription!./Modal';
 
@@ -31,7 +30,7 @@ export default [{
   docs,
   examples: [
     {
-      name: "Default (large)",
+      name: 'Default (large size, medium padding)',
       description: 'A default modal example that has a default size of large',
       component: (
         <React.Fragment>
@@ -64,18 +63,18 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Small",
-      description: 'A small size modal example',
+      name: 'Small',
+      description: 'A small size modal example (with small padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-02">Click to open</Button>
-          <Modal data-modal="my-modal-id-02" size="small">
+          <Modal data-modal="my-modal-id-02" size="small" padding="small">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
@@ -94,18 +93,18 @@ export default [{
               </List__item>
               <List__item>
                 Sem, volutpat id justo ac, rhoncus congue nibh. Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                     
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Medium",
-      description: 'A medium size modal example',
+      name: 'Medium',
+      description: 'A medium size modal example (with medium padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-03">Click to open</Button>
-          <Modal data-modal="my-modal-id-03" size="medium">
+          <Modal data-modal="my-modal-id-03" size="medium" padding="medium">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
@@ -133,18 +132,18 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Extra large",
-      description: 'A large size modal example',
+      name: 'Extra large',
+      description: 'A large size modal example (with large padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-04">Click to open</Button>
-          <Modal data-modal="my-modal-id-04" size="extraLarge">
+          <Modal data-modal="my-modal-id-04" size="extraLarge" padding="large">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
@@ -172,13 +171,13 @@ export default [{
               </List__item>
               <List__item>
                 Sed eu lacinia ante. Nullam odio sem, volutpat id justo ac, rhoncus congue nibh.
-              </List__item>                                                      
+              </List__item>
             </List>
           </Modal>
         </React.Fragment>
       )
     }, {
-      name: "Modal history example",
+      name: 'Modal history example',
       description: 'In this example, we are going to open a second modal on top of this already open modal.<br/> <strong>Note</strong> that a history of modals is being taken care of for you, so as you close the second modal you will be taken back to first modal.',
       component: (
         <React.Fragment>

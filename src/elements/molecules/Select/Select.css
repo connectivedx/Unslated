@@ -37,4 +37,11 @@
 			outline: none;
 		}
 	}
+
+	/* Style variants */
+	&.field--default {
+		.field__decorator {
+			background-color: var(--color-white);
+		}
+	}
 }

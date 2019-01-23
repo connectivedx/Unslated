@@ -1,8 +1,9 @@
 /*
   OPTIONS:
   The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
+    - No Padding variant (padding: true|false)
+    - Background Image (background: path|blank)
+    - Dark Background variant (brightness: 0.0-1.0)
 
   Example:
     ```
@@ -12,21 +13,22 @@
           <Component>Lorem ipsum</Component>
         ),
         options: {
-          noPadding: true,
-          darkBackground: true
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
         }
       },
     ```
 */
 
-import { 
-  Card, 
-  Card__header, 
-  Card__body, 
-  Card__footer, 
-  Card__group, 
+import {
+  Card,
+  Card__header,
+  Card__body,
+  Card__footer,
+  Card__group,
   Card__deck,
-  Card__grid,
+  Card__grid
 } from './Card';
 import Heading from '@atoms/Heading/Heading';
 import docs from '!!docgen-loader?htmlDescription!./Card';
@@ -36,7 +38,7 @@ export default [{
   examples: [
     {
       name: 'Default styling',
-      description:'As basic a card you can get',
+      description: 'As basic a card you can get',
       component: (
         <Card>
           <Card__body>
@@ -49,7 +51,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card Header, Body, Footer',
-      description:'As basic a card you can get',
+      description: 'As basic a card you can get',
       component: (
         <Card>
           <Card__header>
@@ -69,7 +71,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card group with card colors',
-      description:'A card group is a container for cards that layout cards horizontal with equal height and stack at mobile.',
+      description: 'A card group is a container for cards that layout cards horizontal with equal height and stack at mobile.',
       component: (
         <Card__group>
           <Card>
@@ -97,7 +99,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card deck with card colors',
-      description:'A card deck is the same as a card group, but with spacing between cards.',
+      description: 'A card deck is the same as a card group, but with spacing between cards.',
       component: (
         <Card__deck>
           <Card>
@@ -125,7 +127,7 @@ export default [{
       notes: ''
     }, {
       name: 'Card grid',
-      description:'A card grid is like a desk, but begins to wrap cards after configured number (see Cards.css :root for number).',
+      description: 'A card grid is like a desk, but begins to wrap cards after configured number (see Cards.css :root for number).',
       component: (
         <Card__grid>
           <Card>
@@ -167,7 +169,7 @@ export default [{
             <Card__body>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
             </Card__body>
-          </Card>          
+          </Card>
         </Card__grid>
       ),
       notes: ''

@@ -1,6 +1,6 @@
 export class Table__body extends React.Component {
   static propTypes = {
-    /** Tag overload */ 
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -9,7 +9,7 @@ export class Table__body extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node    
+    children: PropTypes.node
   };
 
   render = () => {

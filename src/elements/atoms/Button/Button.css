@@ -1,11 +1,16 @@
 .button {
-  display: inline-block;
-  padding: 1em 2em;
   cursor: pointer;
+  display: inline-block;
+  line-height: normal;
+  padding: rem(16px) rem(24px);
+
+  & + .button {
+    margin-left: rem(16px);
+  }
 
   /* variants */
   &--default {
-    background-color: color(var(--color-black) alpha(10%));
+    background-color: var(--color-white);
     border: 2px solid var(--color-black);
     color: var(--color-black);
 
@@ -16,7 +21,7 @@
   }
 
   &--cta {
-    background-color: color(var(--color-red) alpha(10%));
+    background-color: var(--color-white);
     border: 2px solid red;
     color: red;
 
@@ -33,7 +38,6 @@
   /* sizes */
   &--auto {
     display: inline-block;
-    vertical-align: middle;
     width: auto;
   }
 

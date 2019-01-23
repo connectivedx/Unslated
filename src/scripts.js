@@ -7,17 +7,20 @@ import Tracking from '@modifiers/Tracking/Tracking.Container';
 import Accordion from '@molecules/Accordion/Accordion.Container';
 
 setTimeout(() => {
-	Utils.initComponent('Form', '.form', Form);
-	Utils.initComponent('Expand', '.expand', Expand);
-	Utils.initComponent('Accordion', '.accordion', Accordion);
-	Utils.initComponent('Tabs', '.tabs', Tabs);
-	Utils.initComponent('Modal', '.modal', Modal);
-	new Tracking({
-	  vendors: [
-	    {
-	      type: 'GoogleTagManager',
-	      id: 'GOOGLE-API-KEY'
-	    }
-	  ]
-	});
+  Utils.initComponent('Expand', '.expand', Expand);
+  Utils.initComponent('Accordion', '.accordion', Accordion);
+  Utils.initComponent('Tabs', '.tabs', Tabs);
+  Utils.initComponent('Modal', '.modal', Modal, () => {
+    // give modals a chance to forms installed
+    Utils.initComponent('Form', '.form', Form);
+  });
+
+  new Tracking({
+    vendors: [
+      {
+        type: 'Google',
+        id: ''
+      }
+    ]
+  });
 }, 1000);

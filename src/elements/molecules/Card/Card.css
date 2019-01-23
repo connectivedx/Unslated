@@ -35,6 +35,10 @@
   }
 
   /* Colors */
+  &--color-none {
+    background-color: transparent;
+  }
+
   &--color-white {
   	background-color: var(--color-white);
   }

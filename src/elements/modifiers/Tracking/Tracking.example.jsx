@@ -6,6 +6,11 @@
         component: (
           <div className=Tracking></div>
         ),
+        options: {
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
+        }
       },
     ```
 */
@@ -128,12 +133,13 @@ export default [{
         </Rhythm>
       )
     }, {
-      name: 'Keydown example',
+      name: 'Keydown example (input)',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false}
+          <Textarea
+            label={false}
             data-tracking="[{
-              'event': 'keydown',
+              'event': 'input',
               'label': 'Keyboard Events',
               'data': 'Element Keydown'
             }]"
@@ -146,7 +152,8 @@ export default [{
       name: 'Keyup example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false}
+          <Textarea
+            label={false}
             data-tracking="[{
               'event': 'keyup',
               'label': 'Keyboard Events',
@@ -161,7 +168,8 @@ export default [{
       name: 'Keypress example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false}
+          <Textarea
+            label={false}
             data-tracking="[{
               'event': 'keypress',
               'label': 'Keyboard Events',
@@ -326,16 +334,32 @@ export default [{
       name: 'Scroll example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false} data-tracking="[{'event': 'scroll', 'label': 'Scroll Event', 'data': 'Element Scrolled'}]" name="example">
+          <Textarea
+            label={false}
+            name="example"
+            data-tracking="[{
+              'event': 'scroll',
+              'label': 'Scroll Event',
+              'data': 'Element Scrolled'
+            }]"
+          >
             Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea
-          </Textarea>          
+          </Textarea>
         </Rhythm>
       )
     }, {
       name: 'Cut example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false} data-tracking="[{'event': 'cut', 'label': 'Clipboard Events', 'data': 'Cut to clipboard'}]" name="example">
+          <Textarea
+            label={false}
+            name="example"
+            data-tracking="[{
+              'event': 'cut',
+              'label': 'Clipboard Events',
+              'data': 'Cut to clipboard'
+             }]"
+          >
             Highlight and cut text from this textarea
           </Textarea>
         </Rhythm>
@@ -344,7 +368,15 @@ export default [{
       name: 'Copy example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false} data-tracking="[{'event': 'copy', 'label': 'Clipboard Events', 'data': 'Copy to clipboard'}]" name="example">
+          <Textarea
+            label={false}
+            name="example"
+            data-tracking="[{
+              'event': 'copy',
+              'label': 'Clipboard Events',
+              'data': 'Copy to clipboard'
+             }]"
+          >
             Highlight and copy text from this textarea
           </Textarea>
         </Rhythm>
@@ -353,7 +385,15 @@ export default [{
       name: 'Paste example',
       component: (
         <Rhythm tagName="ol" className="list list--blank">
-          <Textarea label={false} data-tracking="[{'event': 'paste', 'label': 'Clipboard Events', 'data': 'Paste to clipboard'}]" name="example">
+          <Textarea
+            label={false}
+            name="example"
+            data-tracking="[{
+              'event': 'paste',
+              'label': 'Clipboard Events',
+              'data': 'Paste to clipboard'
+             }]"
+          >
             Paste text here
           </Textarea>
         </Rhythm>
@@ -362,28 +402,85 @@ export default [{
       name: 'Drag example',
       component: (
         <Rhythm>
-          <div data-tracking="[{'event': 'drag', 'label': 'Drag Drop Events', 'data': 'Drag Element'}]" style={{ padding: '2rem', backgroundColor: 'red' }} draggable="true" title="drag element">Drag</div>
+          <div
+            style={{
+              padding: '2rem',
+              backgroundColor: 'red'
+            }}
+            draggable="true"
+            title="drag element"
+            data-tracking="[{
+              'event': 'drag',
+              'label': 'Drag Drop Events',
+              'data': 'Drag Element'
+            }]"
+          >
+            Drag
+          </div>
         </Rhythm>
       )
     }, {
       name: 'Drag end example',
       component: (
         <Rhythm>
-          <div data-tracking="[{'event': 'dragend', 'label': 'Drag Drop Events', 'data': 'Drag End Element'}]" style={{ padding: '2rem', backgroundColor: 'blue', color: 'white' }} draggable="true" title="Drag element, then press esc">Drag End</div>
+          <div
+            style={{
+              padding: '2rem',
+              backgroundColor: 'blue',
+              color: 'white'
+            }}
+            draggable="true"
+            title="Drag element, then press esc"
+            data-tracking="[{
+              'event': 'dragend',
+              'label': 'Drag Drop Events',
+              'data': 'Drag End Element'
+             }]"
+          >
+            Drag End
+          </div>
         </Rhythm>
       )
     }, {
       name: 'Drag over example',
       component: (
         <Rhythm>
-          <div data-tracking="[{'event': 'dragover', 'label': 'Drag Drop Events', 'data': 'Drag Over Element'}]" style={{ padding: '2rem', backgroundColor: 'green' }} draggable="true" title="Drag element over another draggable element">Drag Over</div>
+          <div
+            style={{
+              padding: '2rem',
+              backgroundColor: 'green'
+            }}
+            draggable="true"
+            title="Drag element over another draggable element"
+            data-tracking="[{
+              'event': 'dragover',
+              'label': 'Drag Drop Events',
+              'data': 'Drag Over Element'
+            }]"
+          >
+            Drag Over
+          </div>
         </Rhythm>
       )
     }, {
       name: 'Drag leave example',
       component: (
         <Rhythm>
-          <div data-tracking="[{'event': 'dragleave', 'label': 'Drag Drop Events', 'data': 'Drag Leave Element'}]" style={{ padding: '2rem', backgroundColor: 'yellow' }} draggable="true" title="Drag element out of valid drop zone">Drag Leave</div>
+          <div
+            style={{
+              padding: '2rem',
+              backgroundColor: 'yellow'
+            }}
+            draggable="true"
+            title="Drag element out of valid drop zone"
+            data-tracking="[{
+              'event': 'dragleave',
+              'label': 'Drag Drop Events',
+              'data': 'Drag Leave Element'
+            }]"
+          >
+            Drag Leave
+          </div>
         </Rhythm>
       )
     }, {

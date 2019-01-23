@@ -4,7 +4,7 @@ const path = require('path');
 // all js(x) files get ran through these build processes
 module.exports = {
 	config: [{
-    'test': /\.(jsx|js|css)$/,
+    'test': /\.(jsx|js)$/,
     'exclude': /node_modules/,
     'use': [{
       'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)
@@ -16,6 +16,12 @@ module.exports = {
           'transform-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
           'add-react-displayname' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
         ]
+      }
+    },{
+      'loader': 'eslint-loader',
+      'options': {
+        'formatter': require('eslint-friendly-formatter'),
+        'configFile': path.resolve(__dirname, '.eslintrc')
       }
     }]
   }],

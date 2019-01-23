@@ -27,26 +27,30 @@ const extend = require('./css.postcss-extend.plugin.js');
 const mixins = require('postcss-mixins');
 const variables = require('./css.postcss-vars.plugin.js');
 const minification = require('cssnano');
-const colors = require('./css.postcss-colors.plugin.js');
+const exporting = require('./css.postcss-exports.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
+const rems = require('./css.postcss-rem.plugin.js');
 const mediaPacker = require('css-mqpacker');
 const removeRoots = require('./css.postcss-roots.plugin.js');
+const respondType = require('postcss-responsive-type');
 
 module.exports = {
   plugins: [
-    imports({ // Allows for @import and our entry point for namespace alias config
+    imports({       // Allows for @import and our entry point for namespace alias config
       resolve: (id, basedir) => {
         return resolver.resolveSync({}, basedir, id);
       }
     }),
     media(),        // Allows for custom media queries
-    colors(),       // Pre-parse color variables
+    exporting(),    // Pre-parse color variables
     variables(),    // Allows var(--variables)
+    respondType(),  // Allows for responsive typography
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
     mixins(),       // Allows for CSS @mixins
+    rems(),         // Allows for CSS rem()
     removeRoots(),  // Cleans up leftover :root declarations.
-    mediaPacker(),   // Allows for the consolidation of @media queries
+    mediaPacker(),  // Allows for the consolidation of @media queries
     minification(), // Minification of our final CSS results.
   ]
 };

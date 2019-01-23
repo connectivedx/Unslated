@@ -1,6 +1,6 @@
 /**
-RichText creates a container where our tag CSS styles are added automatically to the appropriate HTML elements.  
-This is used to wrap user editable RTE fields from a CMS source.
+  RichText creates a container where our tag CSS styles are added automatically to the appropriate HTML elements.
+  This is used to wrap user editable RTE fields from a CMS source.
 */
 
 export class RichText extends React.Component {
@@ -16,15 +16,6 @@ export class RichText extends React.Component {
   static defaultProps = {
     variant: 'default'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {

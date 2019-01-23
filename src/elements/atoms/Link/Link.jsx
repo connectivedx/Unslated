@@ -1,4 +1,6 @@
-/** Link should be used in place of the <a> tag. */
+/**
+  Link should be used in place of the <a> tag.
+*/
 
 export class Link extends React.Component {
   static propTypes = {
@@ -14,15 +16,6 @@ export class Link extends React.Component {
     variant: 'default'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       children,
@@ -31,9 +24,9 @@ export class Link extends React.Component {
       ...attrs
     } = this.props;
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'link',
-      `link--${variant}`,,
+      `link--${variant}`,
       className
     ]);
 

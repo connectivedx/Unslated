@@ -6,8 +6,8 @@
 }
 
 body {
+  font-size: var(--type-size--default);
   font-family: var(--font-family--default);
-  font-size: responsive var(--type-responsive-min) var(--type-responsive-max);
   font-range: var(--type-responsive-range);
   line-height: var(--type-line-height);
 }
@@ -15,10 +15,10 @@ body {
 pre,
 code {
   font-family: monospace;
-  line-height: 1.4em;
+  line-height: rem(24px);
 }
 
 button {
   background-color: transparent;
-  font-size: 1em;
+  font-size: rem(16px);
 }

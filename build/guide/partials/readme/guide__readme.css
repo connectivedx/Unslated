@@ -57,6 +57,23 @@
       opacity: 1;
       transition: opacity 0.25s, height 0.25s;
 
+      &__head {
+        background-color: var(--color--alpha05);
+        &er {
+          border-top: 1px solid var(--color-gray);
+          border-bottom: 1px solid var(--color-gray);
+          font-size: 0.95rem;
+
+          &:first-child {
+            border-left: 1px solid var(--color-gray);
+          }
+
+          &:last-child {
+            border-right: 1px solid var(--color-gray);
+          }
+        }
+      }
+
       &.hide {
         display: block;
         height: 0px;

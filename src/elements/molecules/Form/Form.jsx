@@ -1,4 +1,3 @@
-import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
 
@@ -25,12 +24,13 @@ export class Form extends React.Component {
     /** Sets the text of submit button, or allows you to pass/overload with your own element(s). Default is "Submit" */
     submit: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.element
+      PropTypes.element,
+      PropTypes.bool
     ]),
     /** Action is the location to which a form's data will be posted */
-    action: PropTypes.string.isRequired,
+    action: PropTypes.string,
     /** Method sets the request type of the form (POST or GET) */
-    method: PropTypes.oneOf(['get', 'post']).isRequired  
+    method: PropTypes.oneOf(['get', 'GET', 'post', 'POST'])
   };
 
   static defaultProps = {
@@ -65,7 +65,7 @@ export class Form extends React.Component {
         action={action}
         method={method}
         {...attrs}
-      > 
+      >
         <FormFieldset legend={legend} submit={submit}>
           {children}
         </FormFieldset>
@@ -93,7 +93,8 @@ export class FormFieldset extends React.Component {
     /** Sets the text of submit button, or allows you to pass/overload with your own element(s) */
     submit: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.element
+      PropTypes.element,
+      PropTypes.bool
     ])
   };
 
@@ -119,8 +120,10 @@ export class FormFieldset extends React.Component {
       `form-fieldset--${variant}`,
       className
     ]);
-    
+
     const getSubmitButton = () => {
+      if (submit === false) { return false; }
+
       if (typeof submit === 'string') {
         return (
           <li className="list__item list__item--default">
@@ -128,6 +131,7 @@ export class FormFieldset extends React.Component {
           </li>
         );
       }
+
       return (
         <li className="list__item list__item--default">
           {submit}

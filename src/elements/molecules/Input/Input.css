@@ -16,7 +16,7 @@
 
   	.field__label {
   		display: flex;
-  		align-content: center;
+  		align-items: center;
   		justify-content: space-between;
 
 			&:before {
@@ -85,5 +85,16 @@
 				}
 			}
 		}
+  }
+
+  &-hidden { display: none; }
+
+  /* Style variants */
+  &.field--default {
+		&:not(.input-radio):not(.input-checkbox) {
+			.field__native {
+				background-color: var(--color-white);
+			}
+		}  	
   }
 }

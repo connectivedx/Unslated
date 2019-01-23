@@ -1,26 +1,26 @@
 /* Navigation */
-.guide {
-  &__nav {
-    background-color: transparent;
-    height: 100%;
-    transform: rotateY(180deg);
-    transform-origin: left;
-    transition: transform 0.5s, background-color 3s 1s;
-    width: 100%;
+.guide__nav {
+  background-color: transparent;
+  height: 100%;
+  transform: rotateY(180deg);
+  transform-origin: left;
+  transition: transform 0.5s, background-color 3s 1s;
+  width: 100%;
 
-    &.open {
-      background-color: var(--color--alpha25);
-      transform: rotateY(0);
-    }
+  &.open {
+    background-color: var(--color--alpha25);
+    transform: rotateY(0);
+  }
 
-    &:hover {
-      &:after { opacity: 1; }
-    }
+  &:hover {
+    &:after { opacity: 1; }
+  }
 
-    &.close {
-      transition: transform 0.5s 0.25s, background-color 0.25s;
-    }
+  &.close {
+    transition: transform 0.5s 0.25s, background-color 0.25s;
+  }
 
+  .guide-nav__open {
     &:after {
       background-color: var(--color-white);
       border: 1px solid var(--color--alpha25);
@@ -36,16 +36,18 @@
       transition: opacity 1s;     
       width: 2rem;
     }
+  }
 
-    &-inner {
-      background-color: var(--color-white);
-      height: 100%;
-      max-width: 300px;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      padding: 1rem;
-      position: relative;
+  &-inner {
+    background-color: var(--color-white);
+    height: 100%;
+    max-width: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 1rem;
+    position: relative;
 
+    .guide-nav__close {
       &:before {
         content: '';
         background-image: url('assets/close.svg');
@@ -61,48 +63,144 @@
         width: 1.5rem;
       }
     }
+  }
 
-    .list {
-      list-style: none;
-      padding: 0;
+  .list {
+    list-style: none;
+    padding: 0;
 
-      a {
-        color: var(--color-alpha80);
-        display: block;
-        text-decoration: none;
-      }
+    a {
+      color: var(--color-alpha80);
+      display: block;
+      text-decoration: none;
+    }
 
-      & .list__item {
-        &:hover > a {
+    & .list__item {
+      &:hover {
+        > a {
           text-decoration: underline;
         }
 
-        .list {
-          padding: 0 0 0.5rem 1.75rem;
-        }       
+        > .guide__nav-icons { opacity: 1; }
+      }
+
+      .hide {
+        display: none;
+      }
+
+      .list {
+        padding: 0 0 0.5rem 1.75rem;
+      }
+
+      .list__item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .guide__nav-icons {
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+
+        .icon {
+          height: rem(22px);
+          width: rem(22px);
+        }
+
+        [data-modal] {
+          position: relative;
+          margin: 0 rem(10px) 0 0;          
+          &:before {
+            content: '';
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+        }
       }
     }
+  }
 
-    & .heading {
-      background-color: var(--color--alpha05);
-      background-position: 10px center;
-      background-repeat: no-repeat;
-      background-size: 25px;
-      cursor: pointer;
-      padding: 0.5rem 1rem 0.5rem 2.75rem;
+  & .heading {
+    background-color: var(--color--alpha05);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    cursor: pointer;
+    padding: 0.5rem 1rem 0.5rem 2.75rem;
+    display: flex;
+    justify-content: space-between;
 
-      &.atoms       { background-image: url('assets/atoms.svg'); }
-      &.pages       { background-image: url('assets/pages.svg'); }
-      &.molecules   { background-image: url('assets/molecules.svg'); }
-      &.modifiers   { background-image: url('assets/modifiers.svg'); }
-      &.templates   { background-image: url('assets/templates.svg'); }
-      &.organisms   { background-image: url('assets/organisms.svg'); }
-    }
+    &.atoms       { background-image: url('assets/atoms.svg'); }
+    &.pages       { background-image: url('assets/pages.svg'); }
+    &.molecules   { background-image: url('assets/molecules.svg'); }
+    &.modifiers   { background-image: url('assets/modifiers.svg'); }
+    &.templates   { background-image: url('assets/templates.svg'); }
+    &.organisms   { background-image: url('assets/organisms.svg'); }
+    &.home        { background-image: url('assets/home.svg'); }
 
-    & [type="search"] {
-      display: block;
-      padding: 0.25rem 1rem;
-      width: 85%;
+    .link {
+      position: relative;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+      }
+
+      .icon {
+        position: relative;
+        z-index: 1;
+        width: 15px;
+        height: 15px;
+      }
     }
   }
+
+  & .field__native {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    width: 85%;
+    outline: none;
+  }
+
+}
+
+[data-modal] {
+  .icon--close {
+    top: 15px;
+    right: 20px;
+  }
+
+  .modal-inner {
+    &--width {
+      background: transparent;
+      box-shadow: 0 rem(20px) rem(20px) 0 var(--color--alpha25);
+    }    
+  }
+
+  .card {
+    height: 100%;
+
+    &--default {
+      border: none;
+    }
+  }
+
+
+  .field,
+  .field__decorator,
+  .field__native {
+    width: 100%;
+  } 
 }

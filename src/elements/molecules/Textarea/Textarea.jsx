@@ -1,4 +1,4 @@
-/** 
+/**
   Textarea is a simple abstraction of the basic form textarea element.
   This element allows you to configure alignment, labels, validation and type from a single tag.
 */
@@ -12,16 +12,16 @@ export class Textarea extends React.Component {
     ]),
     /** Class stacking */
     className: PropTypes.string,
-    /** Label attribute supplies text label tag (Note you can remove labels by setting this to false)*/
+    /** Label attribute supplies text label tag (Note you can remove labels by setting this to false) */
     label: PropTypes.oneOfType([
-       PropTypes.string,
-       PropTypes.bool
+      PropTypes.string,
+      PropTypes.bool
     ]),
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Name attributes are used as keys when posting data to server */
     name: PropTypes.string.isRequired,
-    /** Alignment allows you set orientation between labels and inputs*/
+    /** Alignment allows you set orientation between labels and inputs */
     align: PropTypes.string,
     /** Flags a field to be put into an error state when pattern attribute's condition(s) are not valid */
     required: PropTypes.bool,
@@ -35,7 +35,7 @@ export class Textarea extends React.Component {
     tagName: 'li',
     variant: 'default',
     align: 'stacked-bottom',
-    required: false,    
+    required: false
   };
 
   render = () => {
@@ -49,7 +49,7 @@ export class Textarea extends React.Component {
       align,
       required,
       pattern,
-      children,     
+      children,
       ...attrs
     } = this.props;
 
@@ -65,10 +65,10 @@ export class Textarea extends React.Component {
         {...attrs}
       >
         {
-          (label !== false) ?
-            <label className="field__label">{label}</label>
-          : ''
-        }      
+          (label !== false)
+            ? <label className="field__label">{label}</label>
+            : ''
+        }
         <textarea className="field__native" name={name} pattern={pattern} required={required} {...attrs} defaultValue={children} />
       </Tag>
     );

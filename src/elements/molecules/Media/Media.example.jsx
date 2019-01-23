@@ -1,8 +1,9 @@
 /*
   OPTIONS:
   The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
+    - No Padding variant (padding: true|false)
+    - Background Image (background: path|blank)
+    - Dark Background variant (brightness: 0.0-1.0)
 
   Example:
     ```
@@ -12,8 +13,9 @@
           <Component>Lorem ipsum</Component>
         ),
         options: {
-          noPadding: true,
-          darkBackground: true
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
         }
       },
     ```
@@ -36,22 +38,22 @@ import docs from '!!docgen-loader?htmlDescription!./Media';
 export default [{
   docs,
   examples: [{
-      name: 'media to the left',
-      component: (
-        <Media>
-          <Media__figure>
-            <Image src={randySavage} alt="Randy Savage" />
-          </Media__figure>
+    name: 'media to the left',
+    component: (
+      <Media>
+        <Media__figure>
+          <Image src={randySavage} alt="Randy Savage" />
+        </Media__figure>
 
-          <Media__body>
-            <Rhythm size="small">
-              <Heading level="h3">Randy Savage Buddy</Heading>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            </Rhythm>
-          </Media__body>
-        </Media>
-      )
+        <Media__body>
+          <Rhythm size="small">
+            <Heading level="h3">Randy Savage Buddy</Heading>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+          </Rhythm>
+        </Media__body>
+      </Media>
+    )
   }, {
     name: 'media to the right',
     component: (

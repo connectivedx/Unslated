@@ -1,7 +1,7 @@
 /** Simple abstraction of a media/figure element combination. */
 export class Media extends React.Component {
   static propTypes = {
-    /* Tag overload*/
+    /* Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -18,10 +18,6 @@ export class Media extends React.Component {
   static defaultProps = {
     tagName: 'div'
   };
-
-  state = {
-    isActive: false
-  }
 
   render = () => {
     const {
@@ -50,7 +46,7 @@ export default Media;
 
 export class Media__figure extends React.Component {
   static propTypes = {
-    /** Tag overload*/
+    /** Tag overload */
     tagName: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -61,16 +57,12 @@ export class Media__figure extends React.Component {
     /** Layout alignment prop */
     align: PropTypes.oneOf(['top', 'middle', 'bottom']),
     /** Children nodes being passed through */
-    children: PropTypes.node.isRequired    
+    children: PropTypes.node.isRequired
   };
 
   static defaultProps = {
     tagName: 'div'
   };
-
-  state = {
-    isActive: false
-  }
 
   render = () => {
     const {
@@ -109,7 +101,7 @@ export class Media__body extends React.Component {
     /** Children nodes being passed through */
     children: PropTypes.node.isRequired,
     /** Class string */
-    className: PropTypes.string    
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -122,6 +114,7 @@ export class Media__body extends React.Component {
       tagName: Tag,
       className,
       variant,
+      children,
       ...attrs
     } = this.props;
 

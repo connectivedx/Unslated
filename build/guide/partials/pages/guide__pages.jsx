@@ -1,29 +1,43 @@
-import ReactDOMServer from 'react-dom/server';
+import Heading from '@atoms/Heading/Heading';
 
 export const Guide__pages = (props) => {
-  const {
-    ...attrs
-  } = props;
-
   const classStack = Utils.createClassStack([
-    'pages'
+    'guide__pages'
   ]);
 
   const pages = GuideUtils.getPages();
-  let page = Object.keys(pages).map((key, index) => {
+  const page = Object.keys(pages).map((key) => {
     if (key.split('.')[1].split('/')[1] === props.match.params.page) {
       return pages[key].default;
     }
-  });
+    return null;
+  }).filter((el) => el);
 
   return (
     <div className={classStack}>
       {
-        page.filter((el) => {
-          return el != null;
-        })[0]()
+        (pages.length) ? page[0]() : null
       }
-      </div>
+    </div>
+  );
+};
+
+// Style guide's 404
+export const BadAddress = () => {
+  const classStack = Utils.createClassStack([
+    'guide__pages',
+    'guide__404'
+  ]);
+
+  return (
+    <div
+      className={classStack}
+      style={{ backgroundImage: 'url(//media.giphy.com/media/SP58bfyWGP1pC/giphy.gif)' }}
+    >
+      <Heading>
+        404<br /> Page not found!
+      </Heading>
+    </div>
   );
 };
 

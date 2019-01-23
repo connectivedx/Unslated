@@ -1,4 +1,6 @@
-/** Image should be used in place of the <img /> tag */
+/**
+  Image should be used in place of the <img /> tag
+*/
 
 export class Image extends React.Component {
   static propTypes = {
@@ -16,15 +18,6 @@ export class Image extends React.Component {
     variant: 'default'
   };
 
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
-
   render = () => {
     const {
       className,
@@ -34,7 +27,7 @@ export class Image extends React.Component {
       ...attrs
     } = this.props;
 
-    let classStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'image',
       `image--${variant}`,
       className

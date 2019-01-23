@@ -1,7 +1,8 @@
 import Expand from '@molecules/Expand/Expand';
 
-/** 
-  Accordions are useful when you want to toggle between hiding and showing large amount of content.
+/**
+  <p>Accordions are useful when you want to toggle between hiding and showing large amount of content.</p>
+  <p>Accordion molecule is a simple re-abstraction of the Expand molecule with supporting UI styles and behavior.</p>
 */
 
 export class Accordion extends React.Component {
@@ -18,7 +19,7 @@ export class Accordion extends React.Component {
     variant: PropTypes.oneOf(['default', 'spread']),
     /** Children passed through */
     children: PropTypes.node,
-    /** Multi allows you specify if accordion allows multiple sections open at once.*/
+    /** Multi allows you specify if accordion allows multiple sections open at once. */
     multi: PropTypes.bool
   };
 
@@ -72,7 +73,7 @@ export class Accordion__section extends React.Component {
     children: PropTypes.node,
     /** Title attribute sets the heading of an accordion section */
     title: PropTypes.string,
-    /** Level attribute overloads the heading tag size of a accordion section (h1-h6)*/
+    /** Level attribute overloads the heading tag size of a accordion section (h1-h6) */
     level: PropTypes.string,
     /** align attribute passes its value down to the expand molecule to align expanded content from top or bottom */
     align: PropTypes.oneOf(['top', 'bottom'])
@@ -102,7 +103,8 @@ export class Accordion__section extends React.Component {
     ]);
 
     return (
-      <Expand tagName={Tag}
+      <Expand
+        tagName={Tag}
         className={classStack}
         title={title}
         align={align}

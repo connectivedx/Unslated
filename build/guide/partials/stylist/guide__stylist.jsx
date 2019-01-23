@@ -1,7 +1,7 @@
 import Icon from '@atoms/Icon/Icon';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
-import breakpoints from '@vars/breakpoints.css';
+import breakpoints from '!!style-loader!css-loader!@vars/breakpoints';
 
 export const Guide__stylist = (props) => {
   const {
@@ -25,22 +25,24 @@ export const Guide__stylist = (props) => {
           <select className="guide__stylist-examples" defaultValue="0">
             <option value="0">All examples</option>
             {
-              Object.keys(examples).map(index => {
-                return <option key={index} value={(parseInt(index, 10) + 1)}>{examples[index].name}</option>;
-              })
+              Object.keys(examples).map((index) => (
+                <option key={index} value={(parseInt(index, 10) + 1)}>
+                  {examples[index].name}
+                </option>
+              ))
             }
           </select>
         </Rhythm>
         <Rhythm>
           <Heading level="h5">Breakpoints</Heading>
-          <div className="guide__breakpoint">
+          <div className="guide__breakpoint guide__stylist__section">
             <div>
               <label>Size</label>
               <select className="guide__stylist-breakpoint-size" defaultValue="1">
                 <option value="none">None</option>
                 {
                   Object.keys(breakpoints).map((key, index) => {
-                    if (key.indexOf('below') !== -1) { return; }
+                    if (key.indexOf('below') !== -1) { return false; }
                     let value = breakpoints[key].replace(/\((.*)\)/g, '$1').split(' ');
                     value = value[value.length - 1].replace('width:', '');
                     return <option key={index} value={value}>{key.replace('--', '')}</option>;
@@ -58,6 +60,13 @@ export const Guide__stylist = (props) => {
                 <option value="10s">10 seconds</option>
               </select>
             </div>
+          </div>
+        </Rhythm>
+        <Rhythm>
+          <Heading level="h5">Stats</Heading>
+          <div className="guide__stats guide__stylist__section">
+            <small className="guide__stylist-js-stat stats"><strong>JS:</strong> 0 Bytes</small>
+            <small className="guide__stylist-css-stat stats"><strong>CSS:</strong> 0 Bytes</small>
           </div>
         </Rhythm>
       </Rhythm>

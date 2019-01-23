@@ -1,6 +1,8 @@
 import Icon from '@atoms/Icon/Icon';
 
-/** It's the brand, man. It can be a brand icon only (compact), or a full brand mark with icon and name label. */
+/**
+  It's the brand, man. It can be a brand icon only (compact), or a full brand mark with icon and name label.
+*/
 export class Brand extends React.Component {
   static propTypes = {
     /** Class stacking */
@@ -12,22 +14,13 @@ export class Brand extends React.Component {
     /** Style variant */
     variant: PropTypes.oneOf(['default', 'compact']),
     /** Children nodes being passed through */
-    className: PropTypes.string    
+    className: PropTypes.string
   };
 
   static defaultProps = {
     tagName: 'div',
     variant: 'default'
   };
-
-  state = {
-    isActive: false
-  }
-
-  /** toggle is a helper method to switch the isActive state between a boolean true or false */
-  toggle = () => {
-    this.setState({ isActive: !this.state.isActive });
-  }
 
   render = () => {
     const {
@@ -47,10 +40,7 @@ export class Brand extends React.Component {
       <Tag className={classStack} {...attrs}>
         <Icon name="close" className="brand__icon" />
         {
-          variant === 'default' &&
-          <span className="brand__label">
-            GenericBrand
-          </span>
+          variant === 'default' && <span className="brand__label">GenericBrand</span>
         }
       </Tag>
     );

@@ -1,6 +1,6 @@
 import Heading from '@atoms/Heading/Heading';
 
-/** 
+/**
   Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.<br/>
   <strong>Mobile friendly:</strong> Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordion experince.
 */
@@ -16,7 +16,7 @@ export class Tabs extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default']),
+    variant: PropTypes.oneOf(['default', 'outline']),
     /** Children passed through */
     children: PropTypes.node,
     /** Alignment of targets within tabs system (top, bottom, left, right). */
@@ -27,7 +27,7 @@ export class Tabs extends React.Component {
     defaultTab: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.bool
-    ])   
+    ])
   };
 
   static defaultProps = {
@@ -35,7 +35,7 @@ export class Tabs extends React.Component {
     variant: 'default',
     align: 'top',
     justify: 'left',
-    defaultTab: '1'   
+    defaultTab: '1'
   };
 
   render = () => {
@@ -46,7 +46,7 @@ export class Tabs extends React.Component {
       children,
       align,
       justify,
-      defaultTab, 
+      defaultTab,
       ...attrs
     } = this.props;
 
@@ -54,7 +54,7 @@ export class Tabs extends React.Component {
       'tabs',
       `tabs--${variant}`,
       `tabs-align--${align}`,
-      `tabs-justify--${justify}`,    
+      `tabs-justify--${justify}`,
       className
     ]);
 
@@ -103,16 +103,10 @@ export class Tabs__section extends React.Component {
       ...attrs
     } = this.props;
 
-    const classStack = Utils.createClassStack([
-      'tabs',
-      `tabs--${variant}`,
-      className
-    ]);
-
     return (
       <React.Fragment>
-        <Heading className="tabs__trigger">{title}</Heading>
-        <div className="tabs__target">
+        {(title) ? <Heading className="tabs__trigger">{title}</Heading> : '' }
+        <div className="tabs__target" {...attrs}>
           {children}
         </div>
       </React.Fragment>
