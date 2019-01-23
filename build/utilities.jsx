@@ -8,6 +8,11 @@
 */
 
 /*
+  Helper: Little method to help reuse a component examples instead of re-crafting the element across pages and templates.
+*/
+const getExample = (examples, id) => examples[0].examples[id].component;
+
+/*
   Helper: Traverses up the dom to a given parent element
 */
 const parents = (obj, parent) => {
@@ -164,6 +169,7 @@ const initComponent = (name, selector, Component, callback) => {
 
 module.exports = {
   parents,
+  getExample,
   createClassStack,
   initComponent,
   toggleClass,
