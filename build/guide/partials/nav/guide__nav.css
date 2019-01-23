@@ -76,17 +76,55 @@
     }
 
     & .list__item {
-      &:hover > a {
-        text-decoration: underline;
+      &:hover {
+        > a {
+          text-decoration: underline;
+        }
+
+        > .guide__nav-icons { opacity: 1; }
+      }
+
+      .hide {
+        display: none;
       }
 
       .list {
         padding: 0 0 0.5rem 1.75rem;
       }
 
-      .hide {
-        display: none;
-      }       
+      .list__item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .guide__nav-icons {
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+
+        .icon {
+          height: rem(22px);
+          width: rem(22px);
+        }
+
+        [data-modal] {
+          position: relative;
+          margin: 0 rem(10px) 0 0;          
+          &:before {
+            content: '';
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+        }
+      }
     }
   }
 
@@ -138,7 +176,31 @@
 
 }
 
-[data-modal] .icon--close {
-  top: 15px;
-  right: 20px;
+[data-modal] {
+  .icon--close {
+    top: 15px;
+    right: 20px;
+  }
+
+  .modal-inner {
+    &--width {
+      background: transparent;
+      box-shadow: 0 rem(20px) rem(20px) 0 var(--color--alpha25);
+    }    
+  }
+
+  .card {
+    height: 100%;
+
+    &--default {
+      border: none;
+    }
+  }
+
+
+  .field,
+  .field__decorator,
+  .field__native {
+    width: 100%;
+  } 
 }

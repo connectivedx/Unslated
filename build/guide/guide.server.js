@@ -37,9 +37,12 @@ app.use(path.resolve(__dirname, '../../src'), (req, res, next) => {
 app.get('/api', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   const query = res.req.query;
   let input = res.req.query.input;
   res.send();
+
+  /* Pass Create Element XHR request to Scaffolding.build.js */
   if (query.new) {
     if ([
         'atoms',
@@ -55,11 +58,35 @@ app.get('/api', (req, res, next) => {
       runNodeScript(
         path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
         [
+          'new',
           query.new, 
           query.name.replace(/(\w)(\w*)/g, (g0,g1,g2) => {return g1.toUpperCase() + g2.toLowerCase();}).trim()
         ]
       );
     }
+  }
+
+  /* Pass Rename Element XHR request to Scaffolding.build.js */
+  if (query.rename) {
+    runNodeScript(
+      path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
+      [
+        'rename',
+        query.path,
+        query.name.replace(/(\w)(\w*)/g, (g0,g1,g2) => {return g1.toUpperCase() + g2.toLowerCase();}).trim()
+      ]
+    );    
+  }
+
+  /* Pass Remove Element XHR request to Scaffolding.build.js */
+  if (query.remove) {
+    runNodeScript(
+      path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
+      [
+        'remove',
+        query.path
+      ]
+    )
   }
 });
 

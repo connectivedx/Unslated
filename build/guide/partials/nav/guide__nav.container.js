@@ -5,7 +5,9 @@ export const GuideNav = (el) => {
     navInner: document.querySelector('.guide__nav-inner'),
     navLists: document.querySelectorAll('.heading + .list'),
     search: el.querySelector('.guide__nav--search .field__native'),
-    newElementForms: el.querySelectorAll('.new-element')
+    newElementForms: el.querySelectorAll('.new-element'),
+    renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.modal)'),
+    removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.modal)')
   };
 
   const init = () => {
@@ -30,6 +32,7 @@ export const GuideNav = (el) => {
 
         // navigation accordion
         if (target.classList.contains('heading')) {
+          if (target.classList.contains('home')) { return; }
           if (target.nextSibling.classList.contains('hide')) {
             target.nextSibling.classList.remove('hide');
           } else {
@@ -37,6 +40,19 @@ export const GuideNav = (el) => {
           }
 
           e.preventDefault();
+        }
+
+        if (target.dataset) {
+          if (target.dataset.modal === 'rename') {
+            const renameElementForm = document.querySelector('[data-modal="rename"] form');
+            renameElementForm.querySelector('[name="name"]').value = target.dataset.name; // eslint-disable-line
+            renameElementForm.querySelector('[name="path"]').value = target.dataset.path; // eslint-disable-line
+          }
+
+          if (target.dataset.modal === 'remove') {
+            const removeElementForm = document.querySelector('[data-modal="remove"] form');
+            removeElementForm.querySelector('[name="path"]').value = target.dataset.path; // eslint-disable-line
+          }
         }
       });
 

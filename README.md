@@ -32,7 +32,7 @@ yarn
 
 ## Getting Started
 
-After you've installed npm depenedencies, FC provides command line scripts to automate usual tasks. Tasks are divided below into common workflows.
+After you've installed npm depenedencies, Unslated provides command line scripts to automate usual tasks. Tasks are divided below into common workflows.
 
 > Use `npm run` or `yarn run` to execute these commands in your favorite terminal.
 
@@ -50,12 +50,17 @@ Command | Description
 ### Scaffolding tasks
 
 Scaffolding tasks are used to quickly create new atoms and molecules while developing a website.
+> Remember that elements names use [PascalCase](https://en.wikipedia.org/wiki/PascalCase)
 
 Command | Description
 --- | ---
-`new:atom [name]` | Creates a new atom component in the `/source/atoms` directory.
-`new:molecule [name]` | Creates a molecule stateless integration molecule in the `/source/molecules` directory.
-`new:organism [name]` | Creates a new stateless integration organism in the `/source/organisms` directory.
+`new:atom [name]` | Creates a new atom component in the `/src/atoms` directory.
+`new:molecule [name]` | Creates a new molecule in the `/src/molecules` directory.
+`new:organism [name]` | Creates a new organism in the `/src/organisms` directory.
+`new:modifier [name]` | Creates a new modifier in the `/src/modifiers` directory.
+`new:template [name]` | Creates a new template in the `/src/templates` directory.
+`new:page [name]` | Creates a new page in the `/src/pages` directory.
+`new:variable [name]` | Creates a new variable in the `/src/variables` directory.
 
 
 ##### Define via build commands
@@ -116,6 +121,12 @@ Found in `/src/elements/organisms`
 
 Organisms are specific arrangments of Atoms and Molecules with minimal styling requirements.
 
+#### Templates
+
+Found in `/src/elements/templates`
+
+Templates are the conglomeration of Atoms, Molecules and or Organisms into a highly reusable parts that are focused on showing off the larger functionality of a site or application feature.
+
 #### Modifiers
 
 Found in `/src/elements/modifiers`
@@ -144,25 +155,6 @@ The web development world is evolving rapidly. A tool that can automate the myri
 
 There are some very helpful command line scripts to help with development and continuous-integration. You can build a static set of files using `npm run production` or `npm run dev` if you are developing, as it creates a server at http://localhost:8080 that updates upon file changes.
 
-#### Scaffolding components
-
-Since you will likely be creating a number of atoms and molecules, there are also some commands to help with that common task.
-
-```
-npm run new:atom [Name]
-npm run new:molecule [Name]
-npm run new:organism [Name]
-npm run new:stateful [Name]
-```
-
-Molecules come in a variety of shapes and sizes!
-
-- Atoms are small, reuseable elements that can be used in many contexts.
-- Molecules are generally more singular purpose elements that are tied to a business requirement, or complex reusuable elmenets that require internal state.
-- Organisms are specific arrangments of Atoms and Molecules with minimal styling requirements.
-
-> Remember that elements names use [PascalCase](https://en.wikipedia.org/wiki/PascalCase)
-
 
 ## FAQ
 
@@ -190,7 +182,6 @@ Was a name that was not already used on NPM, nothing more and is subject to chan
 
 Unslated was developed to work best with Node's [most recent LTS release](https://nodejs.org/en/download/) and above.
 
-
 ## License
 
-MIT Copyright (c) 2018 Connective DX
+MIT Copyright (c) 2019 Connective DX

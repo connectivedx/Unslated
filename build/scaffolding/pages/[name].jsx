@@ -1,6 +1,6 @@
 const page = () => (
   <React.Fragment>
-  /* PAGE MARKUP HERE */
+    {/* PAGE MARKUP HERE */}
   </React.Fragment>
 );
 

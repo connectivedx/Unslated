@@ -57,7 +57,7 @@ export class Select extends React.Component {
 
     const classStack = Utils.createClassStack([
       'select',
-      `field field--${align} select--${variant}`,
+      `field field--${align} field--${variant}`,
       className
     ]);
 

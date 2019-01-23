@@ -29,7 +29,7 @@ export default [{
   examples: [
     {
       name: 'Default styling',
-      description:'',
+      description: '',
       component: (
         <{{name}}>Lorem ipsum</{{name}}>
       ),

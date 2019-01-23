@@ -53,7 +53,7 @@
 		width: 0;
 	}
 
-	& button { margin-top: 1rem; }
+	& .button { margin-top: 1rem; }
 
 	&-visible {
 		display: block;

@@ -15,9 +15,19 @@ import {
 } from '@molecules/Card/Card';
 
 // Navigation element levels
-const getElementListing = (examples) => Object.keys(examples).map((i) => (
+const getElementListing = (examples, level) => Object.keys(examples).map((i) => (
   <List__item key={i} data-search={examples[i].name}>
     <Link href={['../../../', examples[i].url].join('')}>{ examples[i].name }</Link>
+    {
+      (process.env.NODE_ENV === 'development')
+        ? (
+          <span className="guide__nav-icons">
+            <span data-modal="rename" data-path={`src/elements/${level}/${examples[i].name}`} data-name={examples[i].name}><Icon name="pencil" /></span>
+            <span data-modal="remove" data-path={`src/elements/${level}/${examples[i].name}`}><Icon name="trash" /></span>
+          </span>
+        )
+        : ''
+    }
   </List__item>
 ));
 
@@ -46,7 +56,7 @@ const getAtomicListing = () => {
         <Heading level="h3" className={index}>
           {index.charAt(0).toUpperCase() + index.slice(1)}
         </Heading>
-        <List className="hide">{getElementListing(examples)}</List>
+        <List className="hide">{getElementListing(examples, (index.charAt(0).toUpperCase() + index.slice(1)))}</List>
       </List__item>
     );
   });
@@ -65,6 +75,16 @@ const getPageListing = () => {
             return (
               <List__item data-search={pageName} key={index}>
                 <Link href={['../../../pages/', pageName].join('')}>{pageName}</Link>
+                {
+                  (process.env.NODE_ENV === 'development')
+                    ? (
+                      <span className="guide__nav-icons">
+                        <span data-modal="rename" data-path={`pages/${pageName}.jsx`} data-name={pageName}><Icon name="pencil" /></span>
+                        <span data-modal="remove" data-path={`pages/${pageName}.jsx`}><Icon name="trash" /></span>
+                      </span>
+                    )
+                    : ''
+                }
               </List__item>
             );
           })
@@ -107,31 +127,69 @@ export const Guide__nav = (props) => {
       {
       (process.env.NODE_ENV === 'development')
         ? (
-          <Modal data-modal="add" size="small" padding="none">
-            <Card>
-              <Card__header>
-                <Heading level="h3">Create new atomic part</Heading>
-              </Card__header>
-              <Card__body>
-                <Rhythm>
-                  <p>Use this dialog to add new atomic parts to the project. First choose what part, then give it a name.</p>
-                  <Form method="get" data-action="/api" className="new-element" legend="Use the form below to add a new page">
-                    <Select name="new" required label="New:">
-                      <option value="">Choose one</option>
-                      <option value="atoms">Atom</option>
-                      <option value="molecules">Molecule</option>
-                      <option value="organisms">Organism</option>
-                      <option value="templates">Template</option>
-                      <option value="modifiers">Modifier</option>
-                      <option value="pages">Page</option>
-                      <option value="variables">Variable</option>
-                    </Select>
-                    <Input type="text" label="Named:" name="name" required />
-                  </Form>
-                </Rhythm>
-              </Card__body>
-            </Card>
-          </Modal>
+          <React.Fragment>
+            <Modal data-modal="add" size="small" padding="none">
+              <Card>
+                <Card__header>
+                  <Heading level="h3">Add</Heading>
+                </Card__header>
+                <Card__body>
+                  <Rhythm>
+                    <p>Use this dialog to add new atomic parts to the project.<br /> First choose a type, then give it a name.</p>
+                    <Form method="get" data-action="/api" className="new-element" legend="Use the form below to add a new project element">
+                      <Select name="new" required label="New:">
+                        <option value="">Choose one</option>
+                        <option value="atoms">Atom</option>
+                        <option value="molecules">Molecule</option>
+                        <option value="organisms">Organism</option>
+                        <option value="templates">Template</option>
+                        <option value="modifiers">Modifier</option>
+                        <option value="pages">Page</option>
+                        <option value="variables">Variable</option>
+                      </Select>
+                      <Input type="text" label="Named:" name="name" required />
+                    </Form>
+                  </Rhythm>
+                </Card__body>
+              </Card>
+            </Modal>
+
+            <Modal data-modal="rename" size="small" padding="none">
+              <Card>
+                <Card__header>
+                  <Heading level="h3">Rename</Heading>
+                </Card__header>
+                <Card__body>
+                  <Rhythm>
+                    <p>Use this dialog to rename an atomic parts of the project. This will find all use cases of old name and replace it with new name. Case sensitivity is taken into account.</p>
+                    <Form method="get" data-action="/api" submit="Rename" className="rename-element" legend="Use the form below to rename a project element">
+                      <Input type="text" label="New name:" name="name" required />
+                      <Input type="hidden" label={false} name="path" />
+                      <Input type="hidden" label={false} name="rename" value="true" />
+                    </Form>
+                  </Rhythm>
+                </Card__body>
+              </Card>
+            </Modal>
+
+            <Modal data-modal="remove" size="small" padding="none">
+              <Card>
+                <Card__header>
+                  <Heading level="h3">Remove</Heading>
+                </Card__header>
+                <Card__body>
+                  <Rhythm>
+                    <p>You are about to delete an element that may or may not be used in other areas of the project. This action cannot be undone.<br /><br /> Would you like to proceed?</p>
+                    <Form method="get" data-action="/api" submit={<React.Fragment><Button type="submit">Yes</Button><Button href="#/" data-modal-close="true">No</Button></React.Fragment>} className="remove-element" legend="Use the form below to delete an element">
+                      <Input type="hidden" label={false} name="name" required />
+                      <Input type="hidden" label={false} name="path" />
+                      <Input type="hidden" label={false} name="remove" value="true" />
+                    </Form>
+                  </Rhythm>
+                </Card__body>
+              </Card>
+            </Modal>
+          </React.Fragment>
         )
         : ''
       }

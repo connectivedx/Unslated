@@ -1,7 +1,12 @@
 .button {
-  display: inline-block;
-  padding: 1em 2em;
   cursor: pointer;
+  display: inline-block;
+  line-height: normal;
+  padding: rem(16px) rem(24px);
+
+  & + .button {
+    margin-left: rem(16px);
+  }
 
   /* variants */
   &--default {
@@ -33,7 +38,6 @@
   /* sizes */
   &--auto {
     display: inline-block;
-    vertical-align: middle;
     width: auto;
   }
 

@@ -30,9 +30,12 @@ export const Guide__examples = (props) => {
     const prisimData = ReactElementToString(component, {
       displayName: data.name,
       showDefaultProps: false
-    }).replace(/<Unknown>/g, '').replace(/<\/Unknown>/g, '').trim();
+    }).replace(/<Unknown>/g, '')
+      .replace(/<\/Unknown>/g, '')
+      .replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2')
+      .trim();
 
-    return Prism.highlight(prisimData, Prism.languages.jsx);
+    return Prism.highlight(pretty(prisimData), Prism.languages.jsx, 'jsx');
   };
 
   // Props Prisim Code Snips
@@ -44,16 +47,21 @@ export const Guide__examples = (props) => {
       return true;
     });
 
-    return Prism.highlight(['[', JSON.stringify(prisimData, null, 4), ']'].join(''), Prism.languages.json);
+    return Prism.highlight(['[', JSON.stringify(prisimData, null, 4), ']'].join(''), Prism.languages.json, 'javascript');
   };
 
   // HTML Prisim Code Snips
   const getHTMLPrisim = (component) => {
     let prisimData = ReactDOMServer.renderToStaticMarkup(component);
+    let indent = '';
+    prisimData = prisimData.replace(/></g, (x) => {
+      indent += '  ';
+      return x.replace('><', ['>\n', indent, '<'].join(''));
+    }).trim();
     if (component.props.devonly === 'true') {
       prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
     }
-    return Prism.highlight(pretty(prisimData), Prism.languages.html);
+    return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
   };
 
   // Gather data
@@ -95,17 +103,24 @@ export const Guide__examples = (props) => {
         {
           Object.keys(data.examples[0]).map((index) => {
             const example = data.examples[0][index];
+            const exampleConfig = GuideConfig.example.options;
 
             const options = {
-              background: GuideConfig.examples.background,
-              padding: GuideConfig.examples.padding,
-              brightness: GuideConfig.examples.brightness
+              background: exampleConfig.background,
+              padding: exampleConfig.padding,
+              brightness: exampleConfig.brightness
             };
 
             if (example.options) {
-              if (example.options.background) { options.background = example.options.background; }
-              if (example.options.padding) { options.padding = example.options.padding; }
-              if (example.options.brightness) { options.brightness = example.options.brightness; }
+              if (typeof example.options.background !== 'undefined') {
+                if (example.options.background === '') {
+                  options.background = '#ffffff';
+                } else {
+                  options.background = example.options.background;
+                }
+              }
+              if (typeof example.options.padding !== 'undefined') { options.padding = example.options.padding; }
+              if (typeof example.options.brightness !== 'undefined') { options.brightness = example.options.brightness; }
             }
 
             return (
@@ -121,7 +136,7 @@ export const Guide__examples = (props) => {
                       style={{
                         '--speed': '0s',
                         '--brightness': options.brightness,
-                        '--background': ['url(', options.background, ')'].join(''),
+                        '--background': (options.background.match('#') || options.background.match('rgb')) ? options.background : ['url(', options.background, ')'].join(''),
                         '--padding': options.padding
                       }}
                     >

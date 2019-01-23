@@ -18,14 +18,14 @@ export const Modal = (el) => {
 
     elm.classList.remove('overflowing');
     elm.classList[
-      (window.innerHeight <= (ui.innerWidth.clientHeight + 180)) ? 'add' : 'remove'
+      (window.innerHeight <= (ui.innerWidth.clientHeight + 96)) ? 'add' : 'remove'
     ]('overflowing');
   };
 
   // window resize event
   const handleWindowResize = _.debounce(() => {
     checkHeight();
-  }, 250);
+  }, 64);
 
   // Hide instead of close. Usefull in modal history usage.
   const hide = (modal) => {

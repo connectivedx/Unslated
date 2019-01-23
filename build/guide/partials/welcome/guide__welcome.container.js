@@ -7,14 +7,6 @@ const getRandomGray = () => {
   return ['#', grayscale.toString(16)].join('');
 };
 
-// Little helper method to convert raw int into bytes, kb or kb for display.
-const bytesToSize = (bytes) => {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  if (bytes === 0) return '0 Byte';
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-  return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
-};
-
 // Main method to get custom data struct out of webpack-stats object
 const getFilteredData = (data, filters) => {
   if (!data) { return false; }
@@ -78,20 +70,6 @@ export const GuideWelcome = (el) => {
     }
   };
 
-  // Method to fetch our webpack-stats JSON file at page load via XHR.
-  const getPerformanceStats = (callback) => {
-    const XHR = new XMLHttpRequest();
-    XHR.onreadystatechange = () => {
-      if (XHR.readyState === 4 && XHR.status === 200) {
-        if (typeof callback === 'function') {
-          callback(JSON.parse(XHR.responseText));
-        }
-      }
-    };
-    XHR.open('get', './node_modules/.bin/webpack.stats.json', true);
-    XHR.send();
-  };
-
   // Method to use our custom data struct and render a doughnut chart from chart.js module
   const renderDoughnutChart = (element, data, title) => {
     if (!data) { return; }
@@ -145,7 +123,7 @@ export const GuideWelcome = (el) => {
         },
         tooltips: {
           callbacks: {
-            label: (tip, tipData) => ` ${tipData.datasets[tip.datasetIndex].labels[tip.index]} / ${bytesToSize(tipData.datasets[tip.datasetIndex].data[tip.index])}`
+            label: (tip, tipData) => ` ${tipData.datasets[tip.datasetIndex].labels[tip.index]} / ${GuideUtils.bytesToSize(tipData.datasets[tip.datasetIndex].data[tip.index])}`
           }
         }
       }
@@ -169,7 +147,7 @@ export const GuideWelcome = (el) => {
 
         const heading = document.createElement('h3');
         heading.setAttribute('class', 'heading h3--heading');
-        heading.innerHTML = `${atomicLevel.level} - ${bytesToSize(atomicLevel.size)}`;
+        heading.innerHTML = `${atomicLevel.level} - ${GuideUtils.bytesToSize(atomicLevel.size)}`;
 
         const list = document.createElement('ul');
         list.setAttribute('class', `list list--blank guide__welcome__assets-list total-${atomicLevel.level}`);
@@ -180,7 +158,7 @@ export const GuideWelcome = (el) => {
           const files = atomicLevel.files[k];
           const listItem = document.createElement('li');
           listItem.setAttribute('class', 'list__item list__item--default');
-          listItem.innerHTML = `${files.name} / ${bytesToSize(files.size)}`;
+          listItem.innerHTML = `${files.name} / ${GuideUtils.bytesToSize(files.size)}`;
 
           list.appendChild(listItem);
         }
@@ -205,14 +183,14 @@ export const GuideWelcome = (el) => {
     while (i--) {
       size += data[i].size;
     }
-    return `<span>${title}</span> <strong>${bytesToSize(size)}</strong>`;
+    return `<span>${title}</span> <strong>${GuideUtils.bytesToSize(size)}</strong>`;
   };
 
   // Our main install point
   const init = () => {
     // Start by getting webpack-stats JSON file data
     // We use XHR to get this data instaed of a direct import to avoid endless build looping.
-    getPerformanceStats((JSON) => {
+    GuideUtils.getBuildStats((JSON) => {
       // Install JS Size card
       ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.js$']), 'JS Size:');
       createAtomicList(ui.JSAtomicList, getFilteredData(JSON, ['/*.js$']));

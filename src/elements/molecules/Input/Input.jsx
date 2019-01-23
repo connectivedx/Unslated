@@ -69,13 +69,21 @@ export class Input extends React.Component {
       >
         {
           (label !== false && type !== 'radio' && type !== 'checkbox')
-            ? <label className="field__label">{label}</label>
+            ? (
+              <label className="field__label">
+                {label}
+              </label>
+            )
             : ''
         }
         <input className="field__native" type={type} name={name} required={required} pattern={pattern} {...attrs} />
         {
           (type === 'radio' || type === 'checkbox')
-            ? <label className="field__label">{label}</label>
+            ? (
+              <label className="field__label">
+                {label}
+              </label>
+            )
             : ''
         }
       </Tag>

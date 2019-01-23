@@ -60,15 +60,49 @@
       }
     }
 
+    &__section {
+      display: flex;
+      justify-content: space-between;
+
+      &.row {
+        display: block;
+      }
+    }
+
+    .heading {
+      border-bottom: 1px solid var(--color-gray-light);
+      padding-top: rem(10px);
+      padding-bottom: rem(10px);
+    }
+
+    .stats {
+      font-size: rem(12px);
+      width: 100%;
+
+      &:before {
+        content: '';
+        border-radius: rem(100px);
+        display: inline-block;
+        height: 10px;
+        margin-right: rem(5px);
+        width: 10px;        
+      }
+
+      &.guide__stylist-js-stat {
+        &:before { background-color: #f1e05a; }
+      }
+
+      &.guide__stylist-css-stat {
+        &:before { background-color: #563d7c; }
+      }
+    }
+
     select {
       padding: 0.5rem;
       width: calc(100% - 1px);
     }
 
     & .guide__breakpoint {
-      display: flex;
-      justify-content: space-between;
-
       > div {
         margin: 0;
         width: calc(50% - 0.25rem);
