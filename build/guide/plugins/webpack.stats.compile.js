@@ -40,51 +40,59 @@ const buildStats = {
 
 let buildCounts = 0;
 
-class StatsPlugin {
+class StatsCompile {
   // Alex helps track down location of build errors.
   apply(compiler) {    
-    compiler.hooks.done.tap({name:'StatsPlugin'}, stats => {
+    compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
       buildStats.count++;
       buildStats.time = stats.toJson().time;
       if (stats.hasErrors()) {
         buildStats.errors++;
       }
-      fs.writeFile('./node_modules/.bin/webpack.stats.json', 
+
+      if (!fs.existsSync('./dist') ) {
+        fs.mkdirSync('./dist');
+        fs.mkdirSync('./dist/assets');
+        fs.mkdirSync('./dist/assets/js');
+        fs.writeFile('./dist/assets/js/guide.stats.json', {flag: 'wx'}, (err) => {});
+      }
+
+      fs.writeFile('./dist/assets/js/guide.stats.json', 
         JSON.stringify({
-          builds: { ...buildStats },
-          assets: removeParts(stats.toJson().assets, ['chunks', 'chunkNames', 'emitted']),
-          chunks: removeParts(stats.toJson().chunks, [
-            'id',
-            'identifier',
-            'issuer',
-            'issuerName',
-            'issuerPath',
-            'issuerId',
-            'reasons',
-            'chunks',
-            'parents',
-            'siblings',
-            'children',
-            'childrenByOrder',
-            'failed',
-            'depth',
-            'optimizationBailout',
-            'providedExports',
-            'warnings',
-            'errors',
-            'prefetched',
-            'built',
-            'index',
-            'index2',
-            'source',
-            'usedExports',
-            'origins',
-            'filteredModules'
-          ])
+            builds: { ...buildStats },
+            assets: removeParts(stats.toJson().assets, ['chunks', 'chunkNames', 'emitted']),
+            chunks: removeParts(stats.toJson().chunks, [
+              'id',
+              'identifier',
+              'issuer',
+              'issuerName',
+              'issuerPath',
+              'issuerId',
+              'reasons',
+              'chunks',
+              'parents',
+              'siblings',
+              'children',
+              'childrenByOrder',
+              'failed',
+              'depth',
+              'optimizationBailout',
+              'providedExports',
+              'warnings',
+              'errors',
+              'prefetched',
+              'built',
+              'index',
+              'index2',
+              'source',
+              'usedExports',
+              'origins',
+              'filteredModules'
+            ])
         }, null, 4),
       (err) => { if (err) { console.log(err); } });
     });
   }
 }
 
-module.exports = StatsPlugin;
+module.exports = StatsCompile;

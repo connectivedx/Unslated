@@ -81,9 +81,11 @@
     "reset-css": "^4.0.1",
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.0",
+    "virtual-module-webpack-plugin": "^0.4.1",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.11",
+    "webpack-inject-plugin": "^1.0.2",
     "webpack-monitor": "^1.0.14",
     "webpack-node-externals": "^1.7.2",
     "webpack-svgstore-plugin": "^4.1.0"

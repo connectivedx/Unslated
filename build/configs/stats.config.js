@@ -1,10 +1,7 @@
 // Bundling stats config
 // Tune terminal stats, bundle minification and devServer configs.
-
 const path = require('path');
 const Webpack = require('webpack');
-const PerformanceStats = require('../guide/plugins/webpack.performance.stats.js');
-//const Package = require('../../package.json');
 
 module.exports = {
   config: {
@@ -28,7 +25,10 @@ module.exports = {
         }
         return true;
       }     
-    }, 
+    },
+    watchOptions: {
+      ignored: [path.resolve(__dirname, '../../dist/assets/js/guide.stats.json')]
+    },    
     devServer: {
       proxy: {
         '/api': {
@@ -39,7 +39,5 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    new PerformanceStats() // Stats plugin to collect objects for style guide.
-  ]
+  plugins: []
 };

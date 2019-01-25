@@ -190,23 +190,21 @@ export const GuideWelcome = (el) => {
   const init = () => {
     // Start by getting webpack-stats JSON file data
     // We use XHR to get this data instaed of a direct import to avoid endless build looping.
-    GuideUtils.getBuildStats((JSON) => {
-      // Install JS Size card
-      ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.js$']), 'JS Size:');
-      createAtomicList(ui.JSAtomicList, getFilteredData(JSON, ['/*.js$']));
-      renderDoughnutChart(ui.charts.JSChart, getFilteredData(JSON, ['/*.js$']), 'Project JS (files and atomic levels)');
+    // Install JS Size card
+    ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(global.stats, ['/*.js$']), 'JS Size:'); // eslint-disable-line
+    createAtomicList(ui.JSAtomicList, getFilteredData(global.stats, ['/*.js$'])); // eslint-disable-line
+    renderDoughnutChart(ui.charts.JSChart, getFilteredData(global.stats, ['/*.js$']), 'Project JS (files and atomic levels)'); // eslint-disable-line
 
-      // Install CSS Size card
-      ui.cards.cssSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.css']), 'CSS Size:');
-      createAtomicList(ui.CSSAtomicList, getFilteredData(JSON, ['/*.css']));
-      renderDoughnutChart(ui.charts.CSSChart, getFilteredData(JSON, ['/*.css']), 'Project CSS (files and atomic levels)');
+    // Install CSS Size card
+    ui.cards.cssSize.innerHTML = getAssetsTotal(getFilteredData(global.stats, ['/*.css']), 'CSS Size:'); // eslint-disable-line
+    createAtomicList(ui.CSSAtomicList, getFilteredData(global.stats, ['/*.css'])); // eslint-disable-line
+    renderDoughnutChart(ui.charts.CSSChart, getFilteredData(global.stats, ['/*.css']), 'Project CSS (files and atomic levels)'); // eslint-disable-line
 
-      // Install Total Builds card
-      ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${JSON.builds.count} / <small>${JSON.builds.time}ms</small></strong>`;
+    // Install Total Builds card
+    ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${global.stats.builds.count} / <small>${global.stats.builds.time}ms</small></strong>`; // eslint-disable-line
 
-      // Install Total Errors card
-      ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${JSON.builds.errors}</strong>`;
-    });
+    // Install Total Errors card
+    ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${global.stats.builds.errors}</strong>`; // eslint-disable-line
   };
 
   init();

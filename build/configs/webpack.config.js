@@ -3,6 +3,7 @@ const path = require('path');
 const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const StatsCompile = require('../guide/plugins/webpack.stats.compile.js');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -88,6 +89,20 @@ module.exports = (env, argv) => {
     );  
   }
 
+  // inject build stats
+  const stats = {
+    ...config
+  };
+
+  stats.output = {};
+  stats.stats = {};
+  stats.plugins = [
+    ...css.plugins,        // see build/config/css/css.config.js
+    ...js.plugins,         // see build/config/js/js.config.js
+    ...alias.plugins,      // see build/config/alias.config.js
+    new StatsCompile()
+  ];
+
   // finally exports config object
-  return config;
+  return [stats, config];
 };
