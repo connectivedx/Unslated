@@ -1,8 +1,5 @@
 // Bundling stats config
 // Tune terminal stats, bundle minification and devServer configs.
-const path = require('path');
-const Webpack = require('webpack');
-
 module.exports = {
   config: {
     optimization: {
@@ -12,12 +9,12 @@ module.exports = {
     performance: { hints: false }, // disables / enables bundle size warnings
     stats: {
       all: false,
-      modules: true, // enable / disable all module bundle stats
-      maxModules: 2, // limits number of modules stats
-      errors: true, // enable / disable bundle error messages
-      warnings: true, // enable / disable bundle warning messages
-      moduleTrace: true, // enable / disable bundle module tracing
-      errorDetails: true, // enable / disable bundle error details
+      modules: true,            // enable / disable all module bundle stats
+      maxModules: 2,            // limits number of modules stats
+      errors: true,             // enable / disable bundle error messages
+      warnings: true,           // enable / disable bundle warning messages
+      moduleTrace: true,        // enable / disable bundle module tracing
+      errorDetails: true,       // enable / disable bundle error details
       modulesSort: 'issuer',
       warningsFilter: (warning) => {
         if (warning.indexOf('Tapable.plugin is deprecated') !== -1) {
@@ -26,9 +23,6 @@ module.exports = {
         return true;
       }     
     },
-    watchOptions: {
-      ignored: [path.resolve(__dirname, '../../dist/assets/js/guide.stats.json')]
-    },    
     devServer: {
       proxy: {
         '/api': {

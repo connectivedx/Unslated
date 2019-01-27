@@ -42,17 +42,23 @@ export const Guide__welcome = () => {
             </Card__body>
           </Card>
         </Tabs__section>
+        {
+          (process.env.NODE_ENV === 'development')
+            ? (
+              <React.Fragment>
+                <Card className="tabs__trigger fall-flip builds">
+                  <Card__body className="total-builds" tagName="h2" />
+                </Card>
+                <Tabs__section />
 
-
-        <Card className="tabs__trigger fall-flip builds">
-          <Card__body className="total-builds" tagName="h2" />
-        </Card>
-        <Tabs__section />
-
-        <Card color="red" className="tabs__trigger fall-flip errors">
-          <Card__body className="total-errors" tagName="h2" />
-        </Card>
-        <Tabs__section />
+                <Card color="red" className="tabs__trigger fall-flip errors">
+                  <Card__body className="total-errors" tagName="h2" />
+                </Card>
+                <Tabs__section />
+              </React.Fragment>
+            )
+            : ''
+        }
       </Tabs>
       <Heading>Welcome to Unslated!</Heading>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed sem pellentesque, volutpat dolor eget, accumsan quam. Donec ac porta mauris. Suspendisse blandit fringilla viverra. Vivamus sodales nisi et leo gravida, id imperdiet augue tristique. Mauris ultrices eros non sollicitudin finibus. Cras consequat placerat turpis sit amet porttitor. Cras efficitur ligula sit amet nibh convallis feugiat. Integer sem justo, mollis a risus sit amet, mattis venenatis mauris. Morbi rhoncus sem urna, id condimentum elit vehicula ut. Curabitur id nibh ut arcu iaculis convallis nec nec ipsum. Pellentesque feugiat vestibulum feugiat. Phasellus nisl mi, blandit vitae ipsum eu, scelerisque volutpat lorem. Sed condimentum felis nunc, nec commodo purus efficitur non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
