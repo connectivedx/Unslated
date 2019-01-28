@@ -62,6 +62,10 @@
 
     &__header {
       background-color: var(--color--alpha05);
+
+      a {
+        font-size: 0.875rem;
+      }
     }
 
     &__footer {

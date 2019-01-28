@@ -105,6 +105,11 @@ export const Guide__examples = (props) => {
             const example = data.examples[0][index];
             const exampleConfig = GuideConfig.example.options;
 
+            // for permalinks to examples
+            const exampleName = example.name;
+            const exampleNameNoSpace = exampleName.replace(/\s+/g, '');
+            const exampleLink = `#${exampleNameNoSpace}`;
+
             const options = {
               background: exampleConfig.background,
               padding: exampleConfig.padding,
@@ -126,7 +131,8 @@ export const Guide__examples = (props) => {
             return (
               <Card key={index} className="examples">
                 <Card__header className="examples__header">
-                  <Heading level="h5" className="examples__heading">{example.name}</Heading>
+                  <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName}</Heading>
+                  <a href={exampleLink}>Link</a>
                 </Card__header>
                 <Card__body className="examples__body examples__item">
                   <Rhythm>
