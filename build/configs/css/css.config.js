@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const postcss = require('./css.postcss.config.js');
+const package = require('../../../package.json');
 
 // all css files get ran through these processes
 module.exports = {
@@ -25,12 +26,12 @@ module.exports = {
     'loader': 'file-loader',
     'options': {
       'name': '[name].[ext]',
-      'outputPath': 'assets/fonts/'
+      'outputPath': ['.', package.directories.assetPath, '/fonts/'].join('')
     }
   }],
   plugins: [
     new MiniCssExtractPlugin({ // used to compile our css file.
-      filename: './assets/css/[name].css',
+      filename: ['.', package.directories.assetPath, '/css/[name].css'].join(''),
       chunkFilename: './[name].css'
     })
   ]

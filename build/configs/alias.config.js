@@ -3,6 +3,7 @@
 
 const path = require('path');
 const Webpack = require('webpack');
+const package = require('../../package.json');
 
 module.exports = {
   config: {
@@ -28,6 +29,9 @@ module.exports = {
       'PropTypes': 'prop-types',
       Utils: 'Utils',
       GuideUtils: 'GuideUtils'
-    })
+    }),
+    new Webpack.DefinePlugin({
+      'AssetPath': JSON.stringify(package.directories.assetPath)
+    })    
   ]
 };

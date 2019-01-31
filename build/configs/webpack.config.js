@@ -4,6 +4,7 @@ const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StatsCompile = require('../guide/plugins/webpack.stats.js');
+const package = require('../../package.json');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -20,9 +21,9 @@ const config = {
     guide: './build/guide.js'    // entry point for style guide assets
   },
   output: {
-    path: path.resolve(__dirname, '../../dist'),  // sets default location for all compiled files
-    publicPath: '/',                              // sets a default public location (required by react-routes)
-    filename: './assets/js/[name].js'             // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, ['../../',package.directories.dest].join('')),  // sets default location for all compiled files
+    publicPath: package.directories.publicPath,                                       // sets a default public location (required by react-routes)
+    filename: ['.', package.directories.assetPath, '/js/[name].js'].join('')                                             // sets filename of bundled .js file (relative to output.path config)
   },
   module: { 
     rules: [

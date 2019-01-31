@@ -1,7 +1,9 @@
+const config = require('@root/package.json');
+
 export const Icon = () => {
   const init = () => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/assets/img/iconset-[hash].svg', true);
+    xhr.open('GET', [config.directories.assetPath, '/img/iconset-[hash].svg'].join(''), true);
     xhr.onprogress = () => {};
     xhr.onload = () => {
       if (!xhr.responseText || xhr.responseText.substr(0, 4) !== '<svg') {

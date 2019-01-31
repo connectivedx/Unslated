@@ -13,8 +13,8 @@
   "directories": {
     "source": "./src",
     "dest": "./dist",
-    "paths": "/",
-    "assets": "assets"
+    "assetPath": "/assets",
+    "publicPath": "/"
   },
   "scripts": {
     "dev": "npm run dev:gui | npm run dev:server",
