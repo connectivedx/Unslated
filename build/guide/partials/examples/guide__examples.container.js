@@ -2,7 +2,8 @@ export const GuideExamples = (el) => {
   const ui = {
     el,
     examples: document.querySelectorAll('.examples'),
-    examplesCodes: document.querySelectorAll('.examples__code')
+    examplesCodes: document.querySelectorAll('.examples__code'),
+    examplesJumplinks: document.querySelectorAll('.examples__header-jumplink')
   };
 
   // Switch between code samples under a example
@@ -24,7 +25,7 @@ export const GuideExamples = (el) => {
   };
 
   const init = () => {
-    // Sets up events for each example's source code buttons
+    // Setup events for each example's source code buttons
     if (ui.examples) {
       Object.keys(ui.examples).map((index) => {
         const example = ui.examples[index];
@@ -42,6 +43,21 @@ export const GuideExamples = (el) => {
         });
 
         return true;
+      });
+    }
+
+    // Setup events for each example's jump link
+    if (ui.examplesJumplinks) {
+      Object.keys(ui.examplesJumplinks).map((index) => {
+        const hiddenInput = ui.examplesJumplinks[index].querySelector('.examples__header-jumplink-path');
+        hiddenInput.value = ui.examplesJumplinks[index].href;
+
+        ui.examplesJumplinks[index].addEventListener('click', (e) => {
+          hiddenInput.select();
+          document.execCommand('copy');
+          e.preventDefault();
+        });
+        return false;
       });
     }
   };
