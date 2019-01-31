@@ -28,6 +28,6 @@ module.exports = {
       'PropTypes': 'prop-types',
       Utils: 'Utils',
       GuideUtils: 'GuideUtils'
-    })
+    })   
   ]
 };

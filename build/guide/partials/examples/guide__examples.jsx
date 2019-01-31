@@ -3,6 +3,7 @@ import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
 
 import Button from '@atoms/Button/Button';
+import Icon from '@atoms/Icon/Icon';
 import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import {
@@ -131,8 +132,11 @@ export const Guide__examples = (props) => {
             return (
               <Card key={index} className="examples">
                 <Card__header className="examples__header">
-                  <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName}</Heading>
-                  <a href={exampleLink}>Link</a>
+                  <a href={exampleLink} className="examples__header-jumplink">
+                    <Icon name="unlink" />
+                    <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName}</Heading>
+                    <input type="text" className="input input-text examples__header-jumplink-path" />
+                  </a>
                 </Card__header>
                 <Card__body className="examples__body examples__item">
                   <Rhythm>

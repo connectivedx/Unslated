@@ -4,4 +4,4 @@ const page = () => (
   </React.Fragment>
 );
 
-export default page;
+export default page();

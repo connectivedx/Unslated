@@ -4,7 +4,10 @@ export const GuidePages = (el) => {
     colorLevelSelect: el.querySelector('.accessibility__controls-level select'),
     colorWeightSelect: el.querySelector('.accessibility__controls-weight select'),
     colorLevels: el.querySelectorAll('.AccessibilityLevel'),
-    colorBadges: el.querySelectorAll('.AccessibilityLevel__badge')
+    colorBadges: el.querySelectorAll('.AccessibilityLevel__badge'),
+    iconSearch: el.querySelector('.icons__controls-search .field__native'),
+    iconCards: el.querySelectorAll('.card[data-icon]'),
+    iconUtilities: el.querySelectorAll('.icon__utilities')
   };
 
   // Switch between color sample levels & weights
@@ -51,6 +54,50 @@ export const GuidePages = (el) => {
     if (ui.colorWeightSelect) {
       ui.colorWeightSelect.addEventListener('change', () => {
         switchColorSamples();
+      });
+    }
+
+
+    // Helper method to gather icon GUI variables
+    const serializeIconUtilities = (inputs) => Object.keys(inputs).map((i) => ['--icon-', inputs[i].name, ':', inputs[i].value, (inputs[i].type !== 'color') ? 'px;' : ';'].join('')).join('');
+
+    // Sets up events for icon size range sliders
+    if (ui.iconUtilities) {
+      Object.keys(ui.iconUtilities).map((i) => {
+        const natives = ui.iconUtilities[i].querySelectorAll('.field__native');
+
+        Object.keys(natives).map((j) => {
+          const native = natives[j];
+          native.addEventListener('input', () => {
+            const GUIStyles = serializeIconUtilities(natives);
+            Utils.parents(native, '.card').setAttribute('style', GUIStyles);
+          });
+          return false;
+        });
+
+        return false;
+      });
+    }
+
+    if (ui.iconSearch) {
+      ui.iconSearch.addEventListener('keyup', () => {
+        const query = ui.iconSearch.value;
+        if (query.length) {
+          let i = ui.iconCards.length;
+
+          while (i--) {
+            ui.iconCards[i].classList.add('hide');
+            if (ui.iconCards[i].dataset.icon.match(query) !== null) {
+              ui.iconCards[i].classList.remove('hide');
+            }
+          }
+        } else {
+          let i = ui.iconCards.length;
+
+          while (i--) {
+            ui.iconCards[i].classList.remove('hide');
+          }
+        }
       });
     }
   };

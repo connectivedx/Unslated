@@ -4,7 +4,6 @@
 
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
-const path = require('path');
 
 /*
   CORE: Helper method to convert raw int into bytes, kb or kb for display.
@@ -14,22 +13,6 @@ const bytesToSize = (bytes) => {
   if (bytes === 0) return '0 Byte';
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
   return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
-};
-
-/*
-  CORE: Helps get webpack's current build stats
-*/
-const getBuildStats = (callback) => {
-  const XHR = new XMLHttpRequest();
-  XHR.onreadystatechange = () => {
-    if (XHR.readyState === 4 && XHR.status === 200) {
-      if (typeof callback === 'function') {
-        callback(JSON.parse(XHR.responseText));
-      }
-    }
-  };
-  XHR.open('get', path.resolve(__dirname, '../../node_modules/.bin/webpack.stats.json'), true);
-  XHR.send();
 };
 
 /*
@@ -229,6 +212,21 @@ const getPages = () => {
 
 
 /*
+  CORE: Gathering tools
+*/
+
+const getTools = () => {
+  const pages = readDirectory(require.context('./tools/', true, /\.jsx$/));
+
+  if (pages) {
+    return pages;
+  }
+
+  return true;
+};
+
+
+/*
   CORE: Gathering examples from elements directory
 */
 
@@ -261,8 +259,8 @@ const getExamples = () => {
 
 module.exports = {
   getPages,
+  getTools,
   getExamples,
-  getBuildStats,
   bytesToSize,
   WCAGTest,
   getColorUnits,

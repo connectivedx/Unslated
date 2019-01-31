@@ -3,6 +3,8 @@ const path = require('path');
 const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const StatsCompile = require('../guide/plugins/webpack.stats.js');
+const package = require('../../package.json');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -19,9 +21,9 @@ const config = {
     guide: './build/guide.js'    // entry point for style guide assets
   },
   output: {
-    path: path.resolve(__dirname, '../../dist'),  // sets default location for all compiled files
-    publicPath: '/',                              // sets a default public location (required by react-routes)
-    filename: './assets/js/[name].js'             // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, ['../../',package.directories.dest].join('')),  // sets default location for all compiled files
+    publicPath: package.directories.publicPath,                                       // sets a default public location (required by react-routes)
+    filename: ['.', package.directories.assetPath, '/js/[name].js'].join('')                                             // sets filename of bundled .js file (relative to output.path config)
   },
   module: { 
     rules: [
@@ -37,7 +39,7 @@ const config = {
     ...html.plugins,       // see build/configs/htlm/html.config.js
     ...img.plugins,        // see build/config/img/img.config.js
     ...alias.plugins,      // see build/config/alias.config.js
-    ...stats.plugins       // see build/configs/stats.config.js
+    ...stats.plugins       // see build/configs/stats.config.js    
   ],
   resolve: {
     alias: alias.config,                           // resolve alias namespaces (see build/configs/alias.config.js)
@@ -52,10 +54,19 @@ module.exports = (env, argv) => {
 
   // DEV BUILDS
   if (argv.mode === 'development') {
+    // Webpack-dev-server / React Router support
     config.devServer = {
       historyApiFallback: true, // react-routes requirement
       ...config.devServer       // entry point for devServer configus (see: stats.config.js)
     };
+
+    // Dev builds need to have main entries cache poped with hash
+    config.output.filename = config.output.filename.replace('.js', '-[hash].js');
+
+    // Entrypoint for stats plugins
+    config.plugins.push(
+      new StatsCompile(argv.mode)
+    );
   }
 
   // PROD BUILDS
@@ -71,7 +82,8 @@ module.exports = (env, argv) => {
         {
           'root': path.resolve(config.output.path, '../') // focus plugins root out of build/config/
         }
-      )
+      ),
+      new StatsCompile(argv.mode)
     );
 
     // Supporting react-routes rewrite files for hosting guide on remote web server.
@@ -88,6 +100,5 @@ module.exports = (env, argv) => {
     );  
   }
 
-  // finally exports config object
   return config;
 };

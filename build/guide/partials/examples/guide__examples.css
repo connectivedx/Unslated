@@ -65,6 +65,32 @@
 
       a {
         font-size: 0.875rem;
+        display: flex;
+        text-decoration: none;
+        position: relative;
+        padding-left: rem(15px);
+
+        &:hover .icon {
+          display: block;
+        }
+      }
+
+      .icon {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 15px;
+        height: 15px;
+      }
+
+      .input {
+        opacity: 0;
+      }
+
+      .heading {
+        color: var(--color-black);
+        padding-left: rem(5px);
       }
     }
 

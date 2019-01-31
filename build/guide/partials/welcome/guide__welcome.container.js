@@ -190,23 +190,22 @@ export const GuideWelcome = (el) => {
   const init = () => {
     // Start by getting webpack-stats JSON file data
     // We use XHR to get this data instaed of a direct import to avoid endless build looping.
-    GuideUtils.getBuildStats((JSON) => {
-      // Install JS Size card
-      ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.js$']), 'JS Size:');
-      createAtomicList(ui.JSAtomicList, getFilteredData(JSON, ['/*.js$']));
-      renderDoughnutChart(ui.charts.JSChart, getFilteredData(JSON, ['/*.js$']), 'Project JS (files and atomic levels)');
+    // Install JS Size card
+    ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
+    createAtomicList(ui.JSAtomicList, getFilteredData(__stats__, ['/*.js$']));
+    renderDoughnutChart(ui.charts.JSChart, getFilteredData(__stats__, ['/*.js$']), 'Project JS (files and atomic levels)');
 
-      // Install CSS Size card
-      ui.cards.cssSize.innerHTML = getAssetsTotal(getFilteredData(JSON, ['/*.css']), 'CSS Size:');
-      createAtomicList(ui.CSSAtomicList, getFilteredData(JSON, ['/*.css']));
-      renderDoughnutChart(ui.charts.CSSChart, getFilteredData(JSON, ['/*.css']), 'Project CSS (files and atomic levels)');
-
+    // Install CSS Size card
+    ui.cards.cssSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.css']), 'CSS Size:');
+    createAtomicList(ui.CSSAtomicList, getFilteredData(__stats__, ['/*.css']));
+    renderDoughnutChart(ui.charts.CSSChart, getFilteredData(__stats__, ['/*.css']), 'Project CSS (files and atomic levels)');
+    if (process.env.NODE_ENV === 'development') {
       // Install Total Builds card
-      ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${JSON.builds.count} / <small>${JSON.builds.time}ms</small></strong>`;
+      ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${__stats__.builds.count} / <small>${__stats__.builds.time}ms</small></strong>`;
 
       // Install Total Errors card
-      ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${JSON.builds.errors}</strong>`;
-    });
+      ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${__stats__.builds.errors}</strong>`;
+    }
   };
 
   init();

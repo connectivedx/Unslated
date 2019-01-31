@@ -1,4 +1,5 @@
-const SvgStorePlugin = require('webpack-svgstore-plugin');
+const WebpackSvgSpritely = require('./img.svg.plugin.js');
+const package = require('../../../package.json');
 
 // all image types get ran through these process
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)
         'options': {
           'name': '[name].[ext]',
-          'outputPath': 'assets/img/'
+          'outputPath': ['.', package.directories.assetPath, '/img/'].join('')
         }
       },
       {
@@ -62,6 +63,8 @@ module.exports = {
     ]
   }],
   plugins: [
-    new SvgStorePlugin()
+    new WebpackSvgSpritely({
+      filename: ['.', package.directories.assetPath, '/img/iconset-[hash].svg'].join('')
+    })
   ]
 };

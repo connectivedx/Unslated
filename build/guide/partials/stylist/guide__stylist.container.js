@@ -107,23 +107,22 @@ export const GuideStylist = (el) => {
       });
     }
 
-    GuideUtils.getBuildStats((JSON) => {
-      const stats = filterBuildStats(JSON.chunks[0].modules);
-      let i = stats.length;
 
-      while (i--) {
-        const isJS = (stats[i].name.indexOf('.js') !== -1);
-        const isCSS = (stats[i].name.indexOf('.css') !== -1);
+    const stats = filterBuildStats(__stats__.chunks[0].modules); // eslint-disable-line
+    let i = stats.length;
 
-        if (ui.stylistJSStat && isJS) {
-          ui.stylistJSStat.innerHTML = ['<strong>JS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
-        }
+    while (i--) {
+      const isJS = (stats[i].name.indexOf('.js') !== -1);
+      const isCSS = (stats[i].name.indexOf('.css') !== -1);
 
-        if (ui.stylistCSSStat && isCSS) {
-          ui.stylistCSSStat.innerHTML = ['<strong>CSS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
-        }
+      if (ui.stylistJSStat && isJS) {
+        ui.stylistJSStat.innerHTML = ['<strong>JS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
       }
-    });
+
+      if (ui.stylistCSSStat && isCSS) {
+        ui.stylistCSSStat.innerHTML = ['<strong>CSS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
+      }
+    }
   };
 
   init();
