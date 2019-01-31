@@ -7,7 +7,7 @@
 
     &:after {
       content: '';
-      background-image: url('assets/tab-arrow-right.svg');
+      background-image: url('assets/tab-right.svg');
       background-position: center;
       background-repeat: no-repeat;
       display: block;
