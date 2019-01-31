@@ -1,4 +1,4 @@
-import '@atoms/Icon/IconSet'; // see ./src/elements/atoms/Icon/IconSet.js
+import Icon from '@atoms/Icon/Icon.Container';
 import Form from '@molecules/Form/Form.Container';
 import Tabs from '@molecules/Tabs/Tabs.Container';
 import Modal from '@molecules/Modal/Modal.Container';
@@ -11,10 +11,9 @@ setTimeout(() => {
   Utils.initComponent('Accordion', '.accordion', Accordion);
   Utils.initComponent('Tabs', '.tabs', Tabs);
   Utils.initComponent('Modal', '.modal', Modal, () => {
-    // give modals a chance to forms installed
     Utils.initComponent('Form', '.form', Form);
   });
-
+  Utils.initComponent('Icon', 'body', Icon);
   new Tracking({
     vendors: [
       {

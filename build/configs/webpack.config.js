@@ -53,10 +53,16 @@ module.exports = (env, argv) => {
 
   // DEV BUILDS
   if (argv.mode === 'development') {
+    // Webpack-dev-server / React Router support
     config.devServer = {
       historyApiFallback: true, // react-routes requirement
       ...config.devServer       // entry point for devServer configus (see: stats.config.js)
     };
+
+    // Dev builds need to have main entries cache poped with hash
+    config.output.filename = config.output.filename.replace('.js', '-[hash].js');
+
+    // Entrypoint for stats plugins
     config.plugins.push(
       new StatsCompile(argv.mode)
     );

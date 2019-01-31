@@ -1,4 +1,4 @@
-const SvgStorePlugin = require('webpack-svgstore-plugin');
+const WebpackSvgSpritely = require('./img.svg.plugin.js');
 
 // all image types get ran through these process
 module.exports = {
@@ -62,6 +62,8 @@ module.exports = {
     ]
   }],
   plugins: [
-    new SvgStorePlugin()
+    new WebpackSvgSpritely({
+      filename: 'assets/img/iconset-[hash].svg'
+    })
   ]
 };
