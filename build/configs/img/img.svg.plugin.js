@@ -38,11 +38,9 @@ class WebpackSvgSpritely {
             Object.keys(compilation.assets[i]._source.children).map(j => {
               let child = compilation.assets[i]._source.children[j];
               if (typeof child !== 'string') {
-                console.log('Production build?');
                 if (!child._value) { return; }
                 child._value = child._value.replace(/iconset-(.*)\.svg/g, this.newHash);        
               } else {
-                console.log('Dev build?');
                 child = child.replace(/iconset-(.*)\.svg/g, this.newHash);                            
               }
             });
