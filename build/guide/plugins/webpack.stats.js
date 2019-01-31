@@ -20,6 +20,13 @@
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// Global object that continues to be updated across builds until webpack-dev-server has been shut down.
+const buildStats = {
+  time: 0,
+  count: 0,
+  errors: 0
+};
+
 // Helper method used to help filter away large sections of unwanted stats data.
 const filterStats = (object, filters, index, parent) => {
   // simple try catch to prevent killing
@@ -44,20 +51,13 @@ const filterStats = (object, filters, index, parent) => {
     }
   }
   catch (err) { 
-    console.log('Error in webpack performance plugin:');
+    console.log('Error in webpack stats plugin:');
     console.log(err); 
   }
 
   // not all objects in the array are arrays, so object.splice vs. delete object was not an option.
   // so, lets clear out any `null` keys left over from delete usage.
   return JSON.parse(JSON.stringify(object).replace(/null,/g, '').replace(/,null/g, ''));
-};
-
-// Global object that continues to be updated across builds until webpack-dev-server has been shut down.
-const buildStats = {
-  time: 0,
-  count: 0,
-  errors: 0
 };
 
 class StatsCompile {
@@ -69,8 +69,25 @@ class StatsCompile {
     this.chunkFilters = ['id', 'identifier', 'issuer', 'issuerName', 'issuerPath', 'issuerId', 'reasons', 'chunks', 'parents', 'siblings', 'children', 'childrenByOrder', 'failed', 'depth', 'optimizationBailout', 'providedExports', 'warnings', 'errors', 'prefetched', 'built', 'index', 'index2', 'source', 'usedExports', 'origins', 'filteredModules'];
   }
 
+  // Helper method to write our stats into guide.js or middle man webpack.stats.js
+  writeStats(path, stats, source) {
+    buildStats.count++; // increase our global build count
+    buildStats.time = stats.toJson().time; // capture current build's bundle time
+
+    if (stats.hasErrors()) {
+      buildStats.errors++;
+    }
+
+    fs.writeFile(path, 
+      'var __stats__ = ' + JSON.stringify({
+        builds: { ...buildStats },
+        assets: filterStats(stats.toJson().assets, this.assetFilters),
+        chunks: filterStats(stats.toJson().chunks, this.chunkFilters)
+      }) + ';' + source,
+    (err) => { if (err) { console.log(err); } });
+  }
+
   apply(compiler) {
-    
     ///////////////////////
     // PRODUCTION BUILDS //
     ///////////////////////
@@ -85,19 +102,7 @@ class StatsCompile {
       });
       // Injects latest build stats to guide.js
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
-        buildStats.count++;
-        buildStats.time = stats.toJson().time;
-        if (stats.hasErrors()) {
-          buildStats.errors++;
-        }
-
-        fs.writeFile('./dist/assets/js/guide.js', 
-          'var __stats__ = ' + JSON.stringify({
-            builds: { ...buildStats },
-            assets: filterStats(stats.toJson().assets, this.assetFilters),
-            chunks: filterStats(stats.toJson().chunks, this.chunkFilters)
-          }) + ';' + this.guideSource,
-        (err) => { if (err) { console.log(err); } });
+        this.writeStats('./dist/assets/js/guide.js', stats, this.guideSource);
       });      
     }
 
@@ -106,7 +111,7 @@ class StatsCompile {
     ////////////////////////
     if (this.buildType === 'development') {
       // Injects a /webpack.stats.js script block into HtmlWebpackPlugin index.html
-      compiler.hooks.compilation.tap('StatsCompile', (compilation) => {
+      compiler.hooks.compilation.tap({name:'StatsCompile'}, (compilation) => {
         HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
           'StatsCompile',
           (data, cb) => {
@@ -116,21 +121,9 @@ class StatsCompile {
         )
       });
 
-      // Writes latest build stats to static file
+      // Injects stats into middle man webpack.stats.js file
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
-        buildStats.count++;
-        buildStats.time = stats.toJson().time;
-        if (stats.hasErrors()) {
-          buildStats.errors++;
-        }
-
-        fs.writeFile('./node_modules/.bin/webpack.stats.js', 
-          'var __stats__ = ' + JSON.stringify({
-            builds: { ...buildStats },
-            assets: filterStats(stats.toJson().assets, this.assetFilters),
-            chunks: filterStats(stats.toJson().chunks, this.chunkFilters)
-          }) + ';',
-        (err) => { if (err) { console.log(err); } });
+        this.writeStats('./node_modules/.bin/webpack.stats.js', stats);
       });
     }
   }

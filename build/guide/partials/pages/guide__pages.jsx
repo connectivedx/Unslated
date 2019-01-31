@@ -1,27 +1,5 @@
 import Heading from '@atoms/Heading/Heading';
 
-export const Guide__pages = (props) => {
-  const classStack = Utils.createClassStack([
-    'guide__pages'
-  ]);
-
-  const pages = GuideUtils.getPages();
-  const page = Object.keys(pages).map((key) => {
-    if (key.split('.')[1].split('/')[1] === props.match.params.page) {
-      return pages[key].default;
-    }
-    return null;
-  }).filter((el) => el);
-
-  return (
-    <div className={classStack}>
-      {
-        (pages.length) ? page[0]() : null
-      }
-    </div>
-  );
-};
-
 // Style guide's 404
 export const BadAddress = () => {
   const classStack = Utils.createClassStack([
@@ -41,5 +19,40 @@ export const BadAddress = () => {
   );
 };
 
+export const Guide__pages = (props) => {
+  const classStack = Utils.createClassStack([
+    'guide__pages'
+  ]);
+
+  let pages;
+  let pageType;
+  if (props.match.params.page) {
+    pages = GuideUtils.getPages();
+    pageType = 'page';
+  }
+
+  if (props.match.params.tool) {
+    pages = GuideUtils.getTools();
+    pageType = 'tool';
+  }
+
+  let page = Object.keys(pages).map((i) => {
+    if (i.split('.')[1].split('/')[1] === props.match.params[pageType]) {
+      return pages[i].default;
+    }
+    return null;
+  }).filter((el) => el)[0];
+
+  if (!page) {
+    page = <BadAddress />;
+  }
+  return (
+    <div className={classStack}>
+      {
+        page
+      }
+    </div>
+  );
+};
 
 export default Guide__pages;

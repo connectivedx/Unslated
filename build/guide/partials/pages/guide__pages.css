@@ -101,39 +101,6 @@
     }
   }
 
-  & .icons {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-
-    &__card {
-      display: flex;
-      box-shadow: 0 0 var(--color-gray);
-      padding: 1.5rem;
-      border: 1px solid var(--color-gray);
-      justify-content: center;
-      align-content: center;
-      margin: 1rem;
-      .icon {
-        font-size: 2rem;
-      }
-    }
-
-    &__control {
-      display: flex;
-      justify-content: flex-start;
-      align-content: center;
-      font-weight: bold;
-      font-size: 0.75rem;
-      margin-right: 0.8rem;
-
-      &s-search {
-        margin-left: 1rem;
-        padding: 0.4rem 0.5rem;
-      }      
-    }
-  }
-
   .AccessibilityLevel {
     &__wrapper {
       margin: auto;

@@ -14,14 +14,7 @@ module.exports = {
       errors: true,             // enable / disable bundle error messages
       warnings: true,           // enable / disable bundle warning messages
       moduleTrace: true,        // enable / disable bundle module tracing
-      errorDetails: true,       // enable / disable bundle error details
-      modulesSort: 'issuer',
-      warningsFilter: (warning) => {
-        if (warning.indexOf('Tapable.plugin is deprecated') !== -1) {
-          return false;
-        }
-        return true;
-      }     
+      errorDetails: true        // enable / disable bundle error details    
     },
     devServer: {
       proxy: {
@@ -29,7 +22,12 @@ module.exports = {
           target: 'http://localhost:8000',
           changeOrigin: true,
           secure: false
-        }
+        },
+        '/speeds': {
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+          secure: false
+        }        
       }
     }
   },

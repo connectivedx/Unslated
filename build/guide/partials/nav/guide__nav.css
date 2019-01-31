@@ -140,6 +140,7 @@
 
     &.atoms       { background-image: url('assets/atoms.svg'); }
     &.pages       { background-image: url('assets/pages.svg'); }
+    &.utilities   { background-image: url('assets/utilities.svg'); }
     &.molecules   { background-image: url('assets/molecules.svg'); }
     &.modifiers   { background-image: url('assets/modifiers.svg'); }
     &.templates   { background-image: url('assets/templates.svg'); }

@@ -212,6 +212,21 @@ const getPages = () => {
 
 
 /*
+  CORE: Gathering tools
+*/
+
+const getTools = () => {
+  const pages = readDirectory(require.context('./tools/', true, /\.jsx$/));
+
+  if (pages) {
+    return pages;
+  }
+
+  return true;
+};
+
+
+/*
   CORE: Gathering examples from elements directory
 */
 
@@ -244,6 +259,7 @@ const getExamples = () => {
 
 module.exports = {
   getPages,
+  getTools,
   getExamples,
   bytesToSize,
   WCAGTest,

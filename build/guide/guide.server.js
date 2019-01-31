@@ -3,6 +3,58 @@ const path = require('path');
 const childProcess = require('child_process');
 const express = require('express');
 const app = express();
+/*const HeadlessChrome = require('simple-headless-chrome');
+
+const browser = new HeadlessChrome({
+  headless: false,
+  launchChrome: true,
+  chrome: {
+    host: 'localhost',
+    port: 8001, // Chrome Docker default port
+    remote: false,
+  },
+  browserlog: true
+});*/
+
+/*async function navigateWebsite(callback) {
+  let tab;
+  try {
+    await browser.init()
+
+    // Open a new Tab
+    tab = await browser.newTab({ privateTab: false })
+
+    // Navigate to a URL
+    await tab.goTo('http://localhost:8080/examples/atoms/Icon/Icon');
+
+    callback(tab);
+  } catch (err) {
+    console.log('ERROR!', err)
+  }
+
+  return false;
+}*/
+
+/*async function screencapUrl(url, filename) {
+  try {
+    await browser.init()
+
+    tab = await browser.newTab({ privateTab: false })
+
+    // Navigate to a URL
+    await tab.goTo(url);
+
+    // Take a screenshot of the full page
+    tab.saveScreenshot('./'+filename+'-full', {
+      fullPage: true
+    })
+
+    browser.close();
+
+  } catch (err) {
+    console.log('ERROR!', err)
+  }
+}*/
 
 const runNodeScript = (scriptPath, arguments, callback) => {
   let invoked = false;
@@ -88,7 +140,21 @@ app.get('/api', (req, res, next) => {
       ]
     )
   }
+
+  /* Takes screenshot of requested page */
+  if (query.screencap) {
+    screencapUrl('http://localhost:8080/tools/icons', 'icons');
+  }
 });
+
+
+/*app.get('/speeds', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  res.send();
+  next();
+});*/
 
 app.listen(8000, () => {
     console.log('Press Ctrl+C to quit.');

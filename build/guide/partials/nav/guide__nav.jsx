@@ -94,6 +94,30 @@ const getPageListing = () => {
   );
 };
 
+
+// Navigation atomic levels
+const getToolsListing = () => {
+  const pages = GuideUtils.getTools();
+
+  return (
+    <List__item>
+      <Heading level="h3" className="utilities">Tools</Heading>
+      <List className="hide">
+        {
+          Object.keys(pages).map((key, index) => {
+            const pageName = key.split('./')[1].split('.')[0];
+            return (
+              <List__item data-search={pageName} key={index}>
+                <Link href={['../../../tools/', pageName].join('')}>{pageName}</Link>
+              </List__item>
+            );
+          })
+        }
+      </List>
+    </List__item>
+  );
+};
+
 export const Guide__nav = (props) => {
   const {
     children,
@@ -117,6 +141,7 @@ export const Guide__nav = (props) => {
           <Heading level="h3" className="home"><Link href="/">Home</Link></Heading>
           { getAtomicListing() }
           { getPageListing() }
+          { getToolsListing() }
         </Rhythm>
         {
           (process.env.NODE_ENV === 'development')

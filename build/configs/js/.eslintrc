@@ -44,6 +44,7 @@
 		"XMLHttpRequest": true,
 		"XDomainRequest": true,
 		"Utils": true,
-		"GuideUtils": true
+		"GuideUtils": true,
+		"__stats__": true
 	}
 }
