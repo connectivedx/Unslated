@@ -65,6 +65,7 @@ const getAtomicListing = () => {
 // Navigation atomic levels
 const getPageListing = () => {
   const pages = GuideUtils.getPages();
+  if (!Object.keys(pages).length) { return false; }
   return (
     <List__item>
       <Heading level="h3" className="pages">Pages</Heading>
@@ -79,8 +80,8 @@ const getPageListing = () => {
                   (process.env.NODE_ENV === 'development')
                     ? (
                       <span className="guide__nav-icons">
-                        <span data-modal="rename" data-path={`pages/${pageName}.jsx`} data-name={pageName}><Icon name="pencil" /></span>
-                        <span data-modal="remove" data-path={`pages/${pageName}.jsx`}><Icon name="trash" /></span>
+                        <span data-modal="rename" data-path={`src/pages/${pageName}.jsx`} data-name={pageName}><Icon name="pencil" /></span>
+                        <span data-modal="remove" data-path={`src/pages/${pageName}.jsx`}><Icon name="trash" /></span>
                       </span>
                     )
                     : ''
