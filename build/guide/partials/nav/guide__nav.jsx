@@ -75,7 +75,7 @@ const getPageListing = () => {
             const pageName = key.split('./')[1].split('.')[0];
             return (
               <List__item data-search={pageName} key={index}>
-                <Link href={['../../../pages/', pageName].join('')}>{pageName}</Link>
+                <Link href={['../../../pages/', pageName].join('')}>{pageName.charAt(0).toUpperCase() + pageName.slice(1)}</Link>
                 {
                   (process.env.NODE_ENV === 'development')
                     ? (
@@ -109,7 +109,7 @@ const getToolsListing = () => {
             const pageName = key.split('./')[1].split('.')[0];
             return (
               <List__item data-search={pageName} key={index}>
-                <Link href={['../../../tools/', pageName].join('')}>{pageName}</Link>
+                <Link href={['../../../tools/', pageName].join('')}>{pageName.charAt(0).toUpperCase() + pageName.slice(1)}</Link>
               </List__item>
             );
           })

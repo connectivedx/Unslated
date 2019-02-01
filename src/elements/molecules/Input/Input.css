@@ -56,7 +56,7 @@
   	.field__native {
 			& + .field__label {
 				&::before {
-					background-image: url('./assets/radio-unchecked.svg');
+					background-image: url('../../atoms/Icon/assets/radio-unchecked.svg');
 					border-radius: var(--field__radio-size);
 				}
 			}
@@ -64,7 +64,7 @@
 			&:checked {
 				display: block;
 				& + .field__label:before {
-					background-image: url('./assets/radio-checked.svg');
+					background-image: url('../../atoms/Icon/assets/radio-checked.svg');
 				}
 			}
 		}
@@ -74,14 +74,14 @@
   	.field__native {
 			& + .field__label {
 				&::before {
-					background-image: url('./assets/checkbox-unchecked.svg');
+					background-image: url('../../atoms/Icon/assets/checkbox-unchecked.svg');
 				}
 			}
 
 			&:checked {
 				display: block;
 				& + .field__label:before {
-					background-image: url('./assets/checkbox-checked.svg');
+					background-image: url('../../atoms/Icon/assets/checkbox-checked.svg');
 				}
 			}
 		}

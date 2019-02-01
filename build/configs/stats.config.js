@@ -1,5 +1,6 @@
 // Bundling stats config
 // Tune terminal stats, bundle minification and devServer configs.
+
 module.exports = {
   config: {
     optimization: {
@@ -16,19 +17,23 @@ module.exports = {
       moduleTrace: true,        // enable / disable bundle module tracing
       errorDetails: true        // enable / disable bundle error details    
     },
+    watch: true,
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/
+    },
     devServer: {
       proxy: {
         '/api': {
           target: 'http://localhost:8000',
           changeOrigin: true,
           secure: false
-        },
-        '/speeds': {
-          target: 'http://localhost:8000',
-          changeOrigin: true,
-          secure: false
         }        
-      }
+      },
+      watchOptions: {
+        poll: true,
+        ignored: /node_modules/
+      }      
     }
   },
   plugins: []
