@@ -10,7 +10,7 @@
   --type-line-height: 1.4;
 
   /* Base body responsive typography. */
-  --type-responsive-min: 0.85rem;
-  --type-responsive-max: 1rem;
-  --type-responsive-range: 384px 1152px;
+  --type-responsive-min: rem(14px);
+  --type-responsive-max: rem(16px);
+  --type-responsive-range: rem(384px) rem(1152px);
 }
