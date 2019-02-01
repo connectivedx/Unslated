@@ -65,7 +65,6 @@ const page = () => (
               </Card__header>
               <Card__body>
                 <Icon name={icons[i].name} />
-
               </Card__body>
               <Card__footer>
                 <p>{icons[i].size}</p>

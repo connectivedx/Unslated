@@ -11,6 +11,7 @@ import { Guide, Blank, Data } from '@guide/guide';
 import GuideNav from '@guide/partials/nav/guide__nav.container';
 import GuidePages from '@guide/partials/pages/guide__pages.container';
 import GuideReadme from '@guide/partials/readme/guide__readme.container';
+import GuideMetrics from '@guide/partials/metrics/guide__metrics.container';
 import GuideStylist from '@guide/partials/stylist/guide__stylist.container';
 import GuideWelcome from '@guide/partials/welcome/guide__welcome.container';
 import GuideExamples from '@guide/partials/examples/guide__examples.container';
@@ -39,5 +40,6 @@ if (isData) {
     Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
     Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
     Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
+    Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
   });
 }
