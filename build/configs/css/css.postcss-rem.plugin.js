@@ -22,7 +22,9 @@ module.exports = postcss.plugin('postcss-rems', (options) => {
         while (i--) {
           try {
             let rawUnit = parseInt(instances[i].replace(/(.*)\((.*)\)/g, '$2'), 10);
+            console.log(rawUnit);
             decls.value = decls.value.replace(instances[i], `${rawUnit / baseSize}rem`);
+            console.log(decls.value);
           } catch (err) { console.log(err); }
         }
       }

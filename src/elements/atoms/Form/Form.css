@@ -1,0 +1,83 @@
+.form {
+	/* Baseline styles */
+	.field__label {
+		display: block;
+		transition: color 0.15s;
+	}
+
+	.field__native { outline: none; }
+
+	/* Field error */
+	.field__error {
+		.field__native {
+			&, &:--haf {
+				box-shadow: 0 0 0 2px var(--color-red);
+			}
+
+			& + .field__label:before {
+				box-shadow: 0 0 0 2px var(--color-red) inset;
+			}
+		}
+
+		.field__decorator,
+		.field__native {
+			box-shadow: 0 0 0 2px var(--color-red);
+		}
+
+		.field__label,
+		.field__native,
+		.field__native::placeholder {
+			color: var(--color-red);
+		}
+	}
+
+	/* Field alignment */
+  .field {
+		display: flex;
+
+		&--top, &--bottom {
+			align-items: flex-start;
+
+			.field__label {
+				padding-left: 0;
+				padding-right: 0;
+			}		
+		}
+
+		&--top 		{ flex-direction: column-reverse; }
+		&--bottom { flex-direction: column; }
+
+		&--left 	{
+			flex-direction: row-reverse;
+			justify-content: flex-end;
+
+			.field__native + .field__label {
+				flex-direction: row;
+  			align-items: center;
+
+  			&:before {
+  				margin-left: 0;
+  			}
+			}
+		}
+
+		&--right 	{
+			flex-direction: row;
+
+			.field__native + .field__label {
+				flex-direction: row-reverse;
+				justify-content: flex-end;
+				align-items: center;
+
+				&:before {
+					margin-right: 0;
+				}
+			}			
+		}
+  }
+
+  /* Style variants */
+  &--default {
+		padding: 1rem;  	
+  }
+}

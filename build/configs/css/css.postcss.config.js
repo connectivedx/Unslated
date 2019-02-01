@@ -41,6 +41,7 @@ module.exports = {
         return resolver.resolveSync({}, basedir, id);
       }
     }),
+    rems(),         // Allows for CSS rem()
     media(),        // Allows for custom media queries
     exporting(),    // Pre-parse color variables
     variables(),    // Allows var(--variables)
@@ -48,7 +49,6 @@ module.exports = {
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
     mixins(),       // Allows for CSS @mixins
-    rems(),         // Allows for CSS rem()
     removeRoots(),  // Cleans up leftover :root declarations.
     mediaPacker(),  // Allows for the consolidation of @media queries
     minification(), // Minification of our final CSS results.

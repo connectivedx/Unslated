@@ -1,0 +1,134 @@
+/* Select */
+.select {
+	/* Baseline styles */
+	.field__decorator {
+		display: flex;
+		align-items: center;
+		position: relative;
+		z-index: 1;
+
+		&:after {
+			content: '';
+			display: block;
+			z-index: 1;
+		}
+
+		.field__native {
+			cursor: pointer;
+			-webkit-appearance: none;
+			display: block;
+			outline: none;
+			position: relative;
+			width: 100%;
+			z-index: 2;
+			font-family: var(--font-name--default);
+			max-height: 36px;
+			z-index: 1;
+			&:--haf {
+				outline: none;
+				border: none;
+			}
+		}
+	}
+
+	.sub-field__decorator {
+		display: none;
+		position: absolute;
+		top: 5px;
+		left: 0;
+		z-index: 2;
+	}
+
+	&.open {
+		.field__native {
+			box-shadow: 0 0 0 2px var(--color-black);
+		}
+		.sub-field__decorator {
+			display: block;
+		}
+	}
+
+	/* Style variants */
+	&--default {
+		.field__label {
+			padding: 0.25rem 0.5rem;
+		}
+
+		.field__decorator {
+			background-color: var(--color-white);
+			border-radius: 4px;
+			box-shadow: 0 0 0 1px var(--color-pp-light-grey);
+			min-width: 10.25rem;
+
+			&:after {
+				background-image: url('./assets/chevron.svg');
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+				height: 1rem;
+				margin-left: -1.5rem;
+				margin-right: 0.25rem;
+				transform: rotateZ(90deg);
+				width: 1rem;
+				position: relative;
+				z-index: 1;
+			}
+
+			.field__native {
+				border-radius: 4px;
+				border: none;
+				background: transparent;
+				color: black;
+				padding: 0.6rem 0.25rem 0.65rem 0.6rem;
+				padding-right: 1.75rem;
+				transition: box-shadow 0.15s;
+				position: relative;
+				z-index: 2;
+			}
+		}
+
+		.sub-field__decorator {
+			background-color: var(--color-white);
+			width: 100%;
+			box-shadow: 0 5px 5px -3px var(--color--alpha25), 0 8px 10px 1px var(--color--alpha15), 0 3px 14px 2px var(--color--alpha05);
+
+			.list__item {
+				cursor: pointer;
+				padding: 0.25rem 0.5rem;
+				min-height: 30px;
+				transition: all 0.25s;
+
+				&.selected,
+				&:--haf {
+					background-color: var(--color-pp-table-grey);
+				}
+			}
+		}
+	}
+
+	&--inline-label {
+		@extend-all .select--default;
+		position: relative;
+
+		.field__decorator {
+			background-color: var(--color-white);
+		}
+
+  	.field__label {
+			background-color: var(--color-white);
+			color: var(--color-pp-dark-blue);
+			display: block;
+			font-size: 0.85rem;
+			height: auto;
+			left: 10px;
+			line-height: 10px;
+			margin: 0;
+			max-width: 145px;
+			padding: 0 0.5rem !important;
+			position: absolute;
+			top: -5px;
+			width: auto;
+			z-index: 2;
+  	}
+	}
+}
