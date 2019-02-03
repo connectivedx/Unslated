@@ -1,4 +1,4 @@
-// Alias namespace config
+// Alias namespace config (see: https://webpack.js.org/configuration/resolve/#resolve-alias)
 // Used to quickly resolve file paths during imports in JS, JSX and CSS files.
 
 const path = require('path');

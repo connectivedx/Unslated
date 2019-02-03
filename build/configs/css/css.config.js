@@ -21,13 +21,6 @@ module.exports = {
         }
       }
     ]
-  }, {
-    'test': /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-    'loader': 'file-loader',
-    'options': {
-      'name': '[name].[ext]',
-      'outputPath': ['.', package.directories.assetPath, '/fonts/'].join('')
-    }
   }],
   plugins: [
     new MiniCssExtractPlugin({ // used to compile our css file.

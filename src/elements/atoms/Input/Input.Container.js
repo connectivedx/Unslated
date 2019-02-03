@@ -1,41 +1,44 @@
-export const Form = (el) => {
+export const Input = (el) => {
   const ui = {
     el,
-    native: el.querySelector('.field__native')
+    native: el.querySelector('.field__native'),
+    error: el.querySelector('.field__error-message')
+  };
+
+  // Setup validation hook
+  el.validate = () => {
+    Utils.checkValidity(el);
+    if (ui.error) {
+      ui.error.style.left = [ui.native.offsetLeft, 'px'].join('');
+    }
   };
 
   const init = () => {
+    // Radio & Checkbox click validation event listener
+    if (ui.native.type === 'radio' || ui.native.type === 'checkbox') {
+      el.addEventListener('click', () => {
+        setTimeout(() => {
+          el.validate();
+        }, 250);
+      });
+    }
 
-    /** Dynamic placeholders logic */
-    const updateDynamicPlaceholderState = (target, state) => {
-      const parent = target.parentElement;
-      if (parent.classList.contains('input--dynamic-placeholder')) {
-        if (state) {
-          parent.classList.add('focused');
-          ui.native.focus();
-        } else {
-          if (!ui.native.value.length) {
-            parent.classList.remove('focused');
-          }
-        }
-      }
-    };
-
-    el.addEventListener('click', (e) => {
-      updateDynamicPlaceholderState(e.target, true);
+    // All input types blur validation event listener
+    ui.native.addEventListener('blur', () => {
+      setTimeout(() => {
+        el.validate();
+      }, 250);
     });
 
-    ui.native.addEventListener('focus', (e) => {
-      updateDynamicPlaceholderState(e.target, true);
+    // All input types keyup validation event listener
+    ui.native.addEventListener('keyup', () => {
+      setTimeout(() => {
+        el.validate();
+      }, 250);
     });
-
-    ui.native.addEventListener('blur', (e) => {
-      updateDynamicPlaceholderState(e.target, false);
-    });
-    /* end dynamic placeholders */   
-  }
+  };
 
   init();
 };
 
-export default Form;
+export default Input;

@@ -1,5 +1,15 @@
 /* Pages */
 .guide__pages {
+  padding: 6rem 2rem 2rem;
+
+  &.no-nav {
+    .guide_nav { display: none; }
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+
   & .colors {
     display: flex;
     flex-wrap: wrap;

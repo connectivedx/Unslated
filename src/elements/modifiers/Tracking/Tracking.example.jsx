@@ -18,7 +18,7 @@
 import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
-import Textarea from '@molecules/Textarea/Textarea';
+import Textarea from '@atoms/Textarea/Textarea';
 
 export default [{
   examples: [
@@ -83,7 +83,7 @@ export default [{
             data-tracking="[{
               'event': 'click',
               'label': 'Data Spread Example',
-              'data': {'hello': 'world', 'howdy': 'user'}
+              'data': {'hello': '.input-attribute:attr(title)', 'howdy': '.input-attribute:attr(title)'}
             }]"
           >
             Click me
@@ -145,6 +145,7 @@ export default [{
             }]"
             placeholder="Keydown tracking"
             name="example"
+            id="keyboard-keydown"
           />
         </Rhythm>
       )
@@ -161,6 +162,7 @@ export default [{
             }]"
             placeholder="Keyup tracking"
             name="example"
+            id="keyboard-keyup"
           />
         </Rhythm>
       )
@@ -177,6 +179,7 @@ export default [{
             }]"
             placeholder="Keypress tracking"
             name="example"
+            id="keyboard-keypress"
           />
         </Rhythm>
       )
@@ -342,6 +345,7 @@ export default [{
               'label': 'Scroll Event',
               'data': 'Element Scrolled'
             }]"
+            id="scrolling"
           >
             Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea
           </Textarea>
@@ -359,6 +363,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Cut to clipboard'
              }]"
+            id="cut"
           >
             Highlight and cut text from this textarea
           </Textarea>
@@ -376,6 +381,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Copy to clipboard'
              }]"
+            id="copy"
           >
             Highlight and copy text from this textarea
           </Textarea>
@@ -393,6 +399,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Paste to clipboard'
              }]"
+            id="paste"
           >
             Paste text here
           </Textarea>

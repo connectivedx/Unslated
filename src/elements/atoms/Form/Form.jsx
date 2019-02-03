@@ -1,11 +1,7 @@
-import Rhythm from '@atoms/Rhythm/Rhythm';
-import Button from '@atoms/Button/Button';
-
 /**
-  Form element is a re-abstraction of basic form components (input, select, radios and checkboxes).
-  Form elements come primed with fieldsets and legends (for screen readers).
+  Form element is a re-abstraction of basic form element.
+  The <form> tag is used to create an HTML form for user input.
 */
-
 export class Form extends React.Component {
   static propTypes = {
     /** Tag overload */
@@ -20,27 +16,19 @@ export class Form extends React.Component {
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
     children: PropTypes.node,
-    /** Legend is used to denote an opportunity to describe a group of fields to screen readers */
-    legend: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    /** Sets the text of submit button, or allows you to pass/overload with your own element(s). Default is "Submit" */
-    submit: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element
-    ]),
     /** Action is the location to which a form's data will be posted */
     action: PropTypes.string,
+    /** Xaction is end point for when posting a form with XHR (AJAX) */
+    xaction: PropTypes.string,
     /** Method sets the request type of the form (POST or GET) */
-    method: PropTypes.oneOf(['get', 'post']),
-    /** Rhythm allows you to define how much vertical spacing of fields */
-    rhythm: PropTypes.oneOf(['default', 'small', 'large'])
+    method: PropTypes.oneOf(['get', 'post'])
   };
 
   static defaultProps = {
     tagName: 'form',
     variant: 'default',
     action: '#/',
-    method: 'post',
-    rhythm: 'default'
+    method: 'post'
   };
 
   render = () => {
@@ -49,12 +37,13 @@ export class Form extends React.Component {
       className,
       variant,
       children,
-      legend,
-      submit,
-      action,
+      xaction,
       method,
-      rhythm,
       ...attrs
+    } = this.props;
+
+    let {
+      action
     } = this.props;
 
     const classStack = Utils.createClassStack([
@@ -63,6 +52,13 @@ export class Form extends React.Component {
       className
     ]);
 
+    // Transform xaction into data attribute for Form.Container.js
+    if (xaction) {
+      attrs['data-xhr'] = xaction;
+      delete attrs.xaction;
+      action = '/#';
+    }
+
     return (
       <Tag
         className={classStack}
@@ -70,88 +66,7 @@ export class Form extends React.Component {
         method={method}
         {...attrs}
       >
-        <FormFieldset legend={legend} submit={submit} rhythm={rhythm}>
-          {children}
-        </FormFieldset>
-      </Tag>
-    );
-  }
-}
-
-export class FormFieldset extends React.Component {
-  static propTypes = {
-    /** Tag overload */
-    tagName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element,
-      PropTypes.func
-    ]),
-    /** Class stacking */
-    className: PropTypes.string,
-    /** Style variants */
-    variant: PropTypes.oneOf(['default']),
-    /** Children passed through */
-    children: PropTypes.node,
-    /** Legend is used to denote an opportunity to describe a group of fields to screen readers */
-    legend: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-    /** Sets the text of submit button, or allows you to pass/overload with your own element(s) */
-    submit: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element
-    ]),
-    /** Rhythm allows you to define how much vertical spacing of fields */
-    rhythm: PropTypes.oneOf(['default', 'small', 'large'])
-  };
-
-  static defaultProps = {
-    tagName: 'fieldset',
-    variant: 'default',
-    submit: 'Submit'
-  };
-
-  render = () => {
-    const {
-      tagName: Tag,
-      className,
-      variant,
-      children,
-      legend,
-      submit,
-      rhythm,
-      ...attrs
-    } = this.props;
-
-    const classStack = Utils.createClassStack([
-      'form-fieldset',
-      `form-fieldset--${variant}`,
-      className
-    ]);
-
-    const getSubmitButton = () => {
-      if (typeof submit === 'string') {
-        return (
-          <li className="list__item list__item--default">
-            <Button type="submit">{submit}</Button>
-          </li>
-        );
-      }
-      return (
-        <li className="list__item list__item--default">
-          {submit}
-        </li>
-      );
-    };
-
-    return (
-      <Tag
-        className={classStack}
-        {...attrs}
-      >
-        <legend hidden>{legend}</legend>
-        <Rhythm tagName="ol" className="list list--blank" size={rhythm}>
-          {children}
-          {getSubmitButton()}
-        </Rhythm>
+        {children}
       </Tag>
     );
   }

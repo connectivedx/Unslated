@@ -21,19 +21,21 @@ const resolver = ResolverFactory.createResolver({
 // cssnano as your last plugin call is all you need to remember when add new plugins,
 // however always read newly added plugin docs to make sure they don't carry their own order of operation requirements.
 // standard
-const imports = require('postcss-import');
+const rems = require('./css.postcss-rem.plugin.js');
+const media = require('./css.postcss-media.plugin.js');
 const nested = require('postcss-nested');
 const extend = require('./css.postcss-extend.plugin.js');
+const custom = require('postcss-custom-selectors');
 const mixins = require('postcss-mixins');
+const imports = require('postcss-import');
 const variables = require('./css.postcss-vars.plugin.js');
-const minification = require('cssnano');
 const exporting = require('./css.postcss-exports.plugin.js');
-const media = require('./css.postcss-media.plugin.js');
-const rems = require('./css.postcss-rem.plugin.js');
 const mediaPacker = require('css-mqpacker');
 const removeRoots = require('./css.postcss-roots.plugin.js');
 const respondType = require('postcss-responsive-type');
+const minification = require('cssnano');
 
+// Warning: the below methods have an order of operation that matters!!
 module.exports = {
   plugins: [
     imports({       // Allows for @import and our entry point for namespace alias config
@@ -45,6 +47,7 @@ module.exports = {
     media(),        // Allows for custom media queries
     exporting(),    // Pre-parse color variables
     variables(),    // Allows var(--variables)
+    custom(),       // Allows for @custom selectors    
     respondType(),  // Allows for responsive typography
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend

@@ -24,13 +24,13 @@ export const Guide__readme = (props) => {
       <Rhythm tagName="section" className="guide__readme-section" {...attrs}>
         <Heading className="guide__readme-toggler" level="h3">Props</Heading>
         <Rhythm className="guide__readme-togglee hide">
-          <p>Props are predefined inputs that alter or pass-through rendered.</p>
+          <p>Props are predefined attributes used to alter this element, or passed through to rendered children.</p>
           <Table variant="responsive">
             <Table__head>
               <Table__row>
-                <Table__header width="32%">Prop name</Table__header>
-                <Table__header width="32%">Prop types</Table__header>
-                <Table__header width="32%">Description</Table__header>
+                <Table__header width="15%">Name</Table__header>
+                <Table__header width="25%">Types</Table__header>
+                <Table__header width="55%">Description</Table__header>
               </Table__row>
             </Table__head>
             <Table__body>

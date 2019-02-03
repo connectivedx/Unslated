@@ -1,0 +1,40 @@
+/* Editor */
+.editor {
+  width: 100%;
+  &__wrapper {
+    display: flex;
+    position: relative;
+  }
+}
+/* Editor Pallet */
+.editor__pallet {
+  background-image: url('assets/example_bg.png');
+  min-height: 500px;
+  width: 100%;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  z-index: 1
+}
+
+/* Editor Toolbar */
+.editor__toolbar {
+  background-color: var(--color-gray-light);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+/* Editor Sidebar */
+.editor__sidebar {
+  background-color: var(--color-gray-light);
+  width: calc(100% / 8);
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 2;
+  box-shadow: 0 0 5px 0 var(--color-gray-dark);
+}

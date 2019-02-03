@@ -1,7 +1,5 @@
 {
   "name": "Unslated",
-  "host": [],
-  "port": "8080",
   "version": "0.0.1",
   "description": "Boilerplate for component-based UI development",
   "repository": "connectivedx/unslated",
@@ -16,12 +14,20 @@
     "assetPath": "/assets",
     "publicPath": "/"
   },
+  "server": {
+    "port": "8080",
+    "host": "localhost",
+    "allowedHosts": []
+  },
+  "tools": {
+    "performance": "true",
+    "icons": "true",
+    "colors": "true"
+  },
   "scripts": {
-    "dev": "npm run dev:gui | npm run dev:server",
+    "dev": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
     "build": "webpack --config build/configs/webpack.config.js --mode production",
     "watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server",
-    "dev:gui": "node build/guide/guide.server.js",
-    "dev:server": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
     "new:page": "node build/scaffolding/scaffolding.build.js new pages",
     "new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
     "new:molecule": "node build/scaffolding/scaffolding.build.js new molecules",
@@ -58,7 +64,6 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.4",
-    "express": "^4.16.4",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.0.0-beta.5",
@@ -66,6 +71,7 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.4.5",
     "postcss": "^7.0.7",
+    "postcss-custom-selectors": "^5.1.2",
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.6",
     "postcss-mixins": "^6.2.1",

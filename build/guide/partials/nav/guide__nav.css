@@ -1,7 +1,7 @@
 /* Navigation */
 .guide__nav {
   background-color: transparent;
-  height: 100%;
+  height: 100vh;
   transform: rotateY(180deg);
   transform-origin: left;
   transition: transform 0.5s, background-color 3s 1s;
@@ -10,10 +10,6 @@
   &.open {
     background-color: var(--color--alpha25);
     transform: rotateY(0);
-  }
-
-  &:hover {
-    &:after { opacity: 1; }
   }
 
   &.close {
@@ -36,6 +32,10 @@
       transition: opacity 1s;     
       width: 2rem;
     }
+
+    &:--haf {
+      &:after { opacity: 1; }
+    }    
   }
 
   &-inner {
@@ -59,7 +59,7 @@
         height: 1.5rem;
         position: absolute;
         right: 1rem;
-        top: 1rem;
+        top: 1.25rem;
         width: 1.5rem;
       }
     }
@@ -170,7 +170,7 @@
 
   & .field__native {
     display: block;
-    padding: 0.25rem 0.5rem;
+    padding: rem(8px);
     width: 85%;
     outline: none;
   }

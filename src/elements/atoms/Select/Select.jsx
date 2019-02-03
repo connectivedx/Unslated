@@ -1,7 +1,14 @@
 /**
-  Select is a simple abstraction of the basic form select element.
-  This element allows you to configure alignment, labels, validation from a single tag.
-  Please note this element requires <option> tag children to complete the usage of it.
+  <div class="rhythm--default">
+    <p>Select is a simple abstraction of the basic form select element.<br/> This element allows you to configure alignment, labels, validation from a single tag.<br/> Please note this element requires <option> tag children to complete the usage of it.</p>
+
+    <h3 class="heading heading--h3"><strong>Field classes</strong> (classes independent from any specific field type or variant)</h3>
+    <ul>
+      <li><strong>.field</strong> = top level tag</li>
+      <li><strong>.field__label</strong> = field's label tag</li>
+      <li><strong>.field__native</strong> = field's native tag</li>
+    </ul>
+  </div>
 */
 
 export class Select extends React.Component {
@@ -12,9 +19,9 @@ export class Select extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /** Class stacking */
+    /** Class stacking. */
     className: PropTypes.string,
-    /** Label attribute supplies text label tag (Note you can remove labels by setting this to false) */
+    /** Label attribute supplies text label tag. label={false} visually removes labels. */
     label: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.bool
@@ -25,16 +32,20 @@ export class Select extends React.Component {
     children: PropTypes.node.isRequired,
     /** Name attributes are used as keys when posting data to server */
     name: PropTypes.string.isRequired,
+    /** Id attributes are used as accessibility helpers in the for/id label/field relationship */
+    id: PropTypes.string.isRequired,
     /** Alignment allows you set orientation between labels and inputs */
     align: PropTypes.string,
     /** Flags a field to be put into an error state when pattern attribute's condition(s) are not valid */
     required: PropTypes.bool,
     /** Sets the default selected <option value="*"> at load. */
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    /** Error message when field is required but not valid */
+    error: PropTypes.string
   };
 
   static defaultProps = {
-    tagName: 'li',
+    tagName: 'div',
     variant: 'default',
     align: 'bottom',
     required: false
@@ -47,11 +58,13 @@ export class Select extends React.Component {
       variant,
       children,
       type,
+      id,
       name,
       label,
       align,
       required,
       defaultValue,
+      error,
       ...attrs
     } = this.props;
 
@@ -66,9 +79,24 @@ export class Select extends React.Component {
       <Tag
         className={classStack}
       >
-        {label !== false && <label className="field__label">{label}</label>}
+        {
+          (error)
+            ? (
+              <span className="field__error-message field__error-message--error field__error-message--align-top">
+                <span className="field__error-message-inner">
+                  {error}
+                </span>
+              </span>
+            )
+            : ''
+        }
+        {
+          (label !== false)
+            ? <label htmlFor={id} className="field__label">{label}</label>
+            : ''
+        }
         <span className="field__decorator">
-          <select className="field__native" required={required} defaultValue={defaultValue} {...attrs}>
+          <select id={id} className="field__native" required={required} defaultValue={defaultValue} name={name} {...attrs}>
             {children}
           </select>
         </span>

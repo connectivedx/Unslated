@@ -1,52 +1,42 @@
 export const Form = (el) => {
   const ui = {
     el,
-    fields: el.querySelectorAll('.field'),
-    submit: el.querySelector('[type="submit"]')
-  };
-
-  const checkValidity = (field, native) => {
-    if (native.required) {
-      if (native.checkValidity()) {
-        field.classList.remove('field__error');
-      } else {
-        field.classList.add('field__error');
-      }
-    }
-  };
-  const bindValidationEvent = (field, eventType) => {
-    const native = field.querySelector('.field__native');
-
-    native.addEventListener(eventType, () => {
-      checkValidity(field, native);
-    });
+    fields: el.querySelectorAll('.field')
   };
 
   const init = () => {
-    Object.keys(ui.fields).map(index => {
-      const field = ui.fields[index];
+    // With this attribute we overload native browser validation messaging for our own tooltips
+    el.setAttribute('novalidate', 'novalidate');
 
-      if (field.classList.contains('radio') || field.classList.contains('checkbox')) {
-        bindValidationEvent(field, 'click');
-        bindValidationEvent(field, 'blur');
-      } else if (field.classList.contains('select')) {
-        bindValidationEvent(field, 'change');
-        bindValidationEvent(field, 'blur');
-      } else {
-        // all other fields are textual
-        bindValidationEvent(field, 'keyup');
-        bindValidationEvent(field, 'blur');
+    el.addEventListener('submit', (e) => {
+      Object.keys(ui.fields).map((i) => ui.fields[i].validate());
+
+      if (el.querySelector('.field__error')) {
+        e.preventDefault();
+      }
+
+      // xaction xhr method
+      if (el.dataset.xhr) {
+        e.preventDefault(); // prevent default submit
+        const xhttp = new XMLHttpRequest(); // setup new XHR
+        xhttp.onreadystatechange = () => {
+          if (xhttp.status === 200) {
+            console.log(xhttp.responseText); // eslint-disable-line
+          }
+        };
+        xhttp.open(
+          el.method, // post or get method
+          [
+            el.dataset.xhr, // xhr end point
+            Utils.serialize(el, 'urlencode') // serialize form fields into post data
+          ].join('?'), // join end point and post data with ?
+          true
+        );
+
+        xhttp.send(); // fire off request
       }
     });
-
-    ui.submit.addEventListener('click', () => {
-      Object.keys(ui.fields).map(index => {
-        const field = ui.fields[index];
-        const native = field.querySelector('.field__native');
-        checkValidity(field, native);
-      });
-    });
-  }
+  };
 
   init();
 };

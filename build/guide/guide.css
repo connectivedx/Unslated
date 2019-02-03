@@ -5,17 +5,10 @@
 @import './partials/examples/guide__examples.css';
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
+@import './partials/editor/guide__editor.css';
 
 :root {
   --breakpoint-speed: 2s;
-}
-
-html,
-body,
-#index,
-.guide,
-.guide__main {
-  height: 100%;
 }
 
 strong {
@@ -23,9 +16,9 @@ strong {
 }
 
 .guide {
-  display: flex;
+  /* display: flex; */
   perspective: 100rem;
-  height: 100%;
+  height: 100vh;
 
   & .hide { display: none !important; }
 
@@ -36,7 +29,6 @@ strong {
   }
 
   &__main {
-    padding: 6rem 2rem 2rem;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -70,19 +62,19 @@ strong {
     width: 100%;
     margin-top: 2rem;
 
+    @media (--medium-large) {
+      max-width: calc(100% / 2.05);
+    }
+
     @media (--extra-large) {
-      max-width: calc(50% - 1rem);
+      max-width: calc(100% / 3.05);
     }
 
     .heading {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-
-      .field__label {
-        text-transform: uppercase;
-        font-size: rem(12px);
-      }      
+      justify-content: space-between; 
+      font-size: rem(14px);    
     }
 
     &__body {
@@ -108,6 +100,7 @@ strong {
         height: rem(25px);
       }
     }
+
     .input-range {
       .field__native {
         -webkit-appearance: none;
@@ -121,25 +114,31 @@ strong {
         transition: opacity .2s;
         min-height: auto;
         max-width: 45px;
-      }
 
-      .field__native::-webkit-slider-thumb {
-        background-color: var(--color-gray-dark);
-        border-radius: rem(5px);
-        -webkit-appearance: none;
-        appearance: none;
-        width: rem(12px);
-        height: rem(12px);
-        border: 0;
-        cursor: pointer;
-      }
+        &::-webkit-slider-runnable-track {
+          background-color: var(--color-white);
+          border-radius: rem(5px);
+          box-shadow: 0 0 0 1px var(--color-gray);
+        }
 
-      .field__native::-moz-range-thumb {
-        width: 23px;
-        height: rem(6px);
-        border: 0;
-        cursor: pointer;
-      }      
+        &::-webkit-slider-thumb {
+          background-color: var(--color-gray-dark);
+          border-radius: rem(5px);
+          -webkit-appearance: none;
+          appearance: none;
+          width: rem(12px);
+          height: rem(12px);
+          border: 0;
+          cursor: pointer;
+        }
+
+        &::-moz-range-thumb {       
+          width: 23px;
+          height: rem(6px);
+          border: 0;
+          cursor: pointer;
+        }      
+      }
     }
   }
 
@@ -149,6 +148,13 @@ strong {
     stroke: var(--icon-stroke);
     stroke-width: var(--icon-stroke-width);
     fill: var(--icon-fill);
+
+    &__utility .field__label {
+      padding: 0 rem(5px);
+      font-weight: normal;
+      font-size: rem(12px);
+      text-transform: lowercase;
+    }
   }
 
   &__control {
@@ -168,13 +174,16 @@ strong {
       width: 100%;
     }
 
+    & .field__label {
+      padding: 0 0 rem(12px) 0;
+    }
     & .field__native {
       background-image: url('../../src/elements/atoms/Icon/assets/search.svg');
       background-repeat: no-repeat;
       background-position: calc(100% - 10px) center;
       background-size: rem(16px);
-      padding: rem(5px);
-      padding-right: rem(35px);
+      padding: rem(12px);
+      min-height: 40px;
     }
   }
 }

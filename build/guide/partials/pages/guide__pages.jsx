@@ -20,10 +20,6 @@ export const BadAddress = () => {
 };
 
 export const Guide__pages = (props) => {
-  const classStack = Utils.createClassStack([
-    'guide__pages'
-  ]);
-
   let pages;
   let pageType;
   if (props.match.params.page) {
@@ -43,13 +39,20 @@ export const Guide__pages = (props) => {
     return null;
   }).filter((el) => el)[0];
 
+  const classStack = Utils.createClassStack([
+    'guide__pages',
+    (page.options.navless === true) ? 'no-nav' : '',
+    (page.options.headless === true) ? 'no-padding' : ''
+  ]);
+
   if (!page) {
     page = <BadAddress />;
   }
+
   return (
     <div className={classStack}>
       {
-        page
+        page()
       }
     </div>
   );

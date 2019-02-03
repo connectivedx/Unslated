@@ -1,6 +1,6 @@
 /* Examples */
 .guide__examples {
-
+  padding: 6rem 2rem 2rem;
 
   & .examples {
     &__list {
@@ -68,29 +68,47 @@
         display: flex;
         text-decoration: none;
         position: relative;
-        padding-left: rem(15px);
+        padding-right: rem(20px);
 
         &:hover .icon {
-          display: block;
+          opacity: 1;
         }
       }
 
       .icon {
-        display: none;
+        opacity: 0;
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 15px;
-        height: 15px;
+        top: -2px;
+        right: 0;
+        width: 20px;
+        height: 20px;
       }
 
       .input {
         opacity: 0;
+        height: 0;
+        width: 0;
       }
 
       .heading {
         color: var(--color-black);
         padding-left: rem(5px);
+      }
+
+      .examples__header-jumplink {
+        .icon {
+          transition: transform 0.25s, opacity 0.25s 0.5s;
+        }
+      }
+
+      .copied {
+        .icon {
+          display: block;
+          fill: var(--color-generic--green);
+          stroke-width: 2px;
+          opacity: 1;
+          transform: rotateZ(720deg);
+        }
       }
     }
 

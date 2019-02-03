@@ -14,7 +14,7 @@ export const Guide__metrics = () => {
   return (
     <Rhythm tagName="section" className={classStack}>
       <Tabs className="card__deck" defaultTab={false}>
-        <Card className="tabs__trigger fall-flip" color="green">
+        <Card className="tabs__trigger fall-flip tabs-state--open" color="green">
           <Card__body className="js-size" tagName="h2" />
         </Card>
         <Tabs__section>
@@ -41,6 +41,7 @@ export const Guide__metrics = () => {
             </Card__body>
           </Card>
         </Tabs__section>
+
         {
           (process.env.NODE_ENV === 'development')
             ? (

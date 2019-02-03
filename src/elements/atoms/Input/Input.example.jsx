@@ -20,7 +20,6 @@
 */
 
 import Input from './Input';
-import Form from '@molecules/Form/Form';
 import docs from '!!docgen-loader?htmlDescription!./Input';
 
 export default [{
@@ -28,115 +27,74 @@ export default [{
   examples: [
     {
       name: 'Text Input',
-      description: 'Default alignment of input bottom',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Basic input label text" type="text" name="text-input" required={true} />
-        </Form>
+        <Input label="Basic input label text" type="text" name="text-input" id="01" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {
       name: 'Text Input',
-      description: 'Using top align',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Basic input label text" type="text" name="text-input" align="top" required={true} />
-        </Form>
+        <Input label="Basic input label text" type="text" name="text-input" id="02" align="top" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {
       name: 'Text Inputs',
-      description: 'Using left align',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline input label text" type="text" name="text-input" align="left" required={true} />
-        </Form>
+        <Input label="Inline input label text" type="text" name="text-input" id="03" align="left" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {
       name: 'Text Inputs',
-      description: 'Using right align',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline input label text" type="text" name="text-input" align="right" required={true} />
-        </Form>
+        <Input label="Inline input label text" type="text" name="text-input" id="04" align="right" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {
       name: 'Text Inputs (without label, with basic placeholder)',
-      description: 'With label={false} and placeholder attribute',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label={false} type="text" name="text-input" placeholder="Basic placeholder" required={true} />
-        </Form>
-      ),
-      notes: ''
-    }, {
-      name: 'Text Inputs (with label, with basic placeholder)',
-      description: 'With label={false} and placeholder attribute',
-      component: (
-        <Form legend="Fieldset legend">
-          <Input type="text" name="text-input" label="Label inline with field" variant="inline-label" placeholder="Basic placeholder" required={true} />
-        </Form>
-      ),
-      notes: ''
-    }, {
-      name: 'Text Inputs (without label, with dynamic placeholder)',
-      description: 'With label={false} and placeholder attribute',
-      component: (
-        <Form legend="Fieldset legend">
-          <Input type="text" name="text-input" variant="dynamic-placeholder" placeholder="Dynamic placeholder" required={true} />
-        </Form>
+        <Input label={false} type="text" name="text-input" id="05" placeholder="Basic placeholder" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {
       name: 'Radio Inputs',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline radio label text" type="radio" name="radio-inline-left" required={true} />
-        </Form>
+        <Input label="Inline radio label text" type="radio" id="08" name="radio-inline-left" required={true} error="This radio field is required!" />
       ),
       notes: ''
     }, {
       name: 'Radio Inputs (Inline right)',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline radio label text" type="radio" align="right" name="radio-inline-right" required={true} />
-        </Form>
+        <Input label="Inline radio label text" type="radio" id="09" align="right" name="radio-inline-right" required={true} error="This radio field is required!" />
       ),
       notes: ''
     }, {
       name: 'Radio Inputs (Muti field / single selection)',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline radio one label text" type="radio" name="multi-field-same-name" required={true} />
-          <Input label="Inline radio two label text" type="radio" name="multi-field-same-name" required={true} />
-        </Form>
+        <React.Fragment>
+          <Input label="Inline radio one label text" type="radio" id="10" name="multi-field-same-name" required={true} error="This radio field is required!" />
+          <Input label="Inline radio two label text" type="radio" id="11" name="multi-field-same-name" required={true} error="This radio field is required!" />
+        </React.Fragment>
       ),
       notes: ''
     }, {
       name: 'Checkbox Inputs (Default inline left)',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline checkbox label text" type="checkbox" name="checkbox-input" required={true} />
-        </Form>
+        <Input label="Inline checkbox label text" type="checkbox" id="12" name="checkbox-input" required={true} error="This checkbox field is required!" />
       ),
       notes: ''
     }, {
       name: 'Checkbox Inputs (Inline right)',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline checkbox label text" type="checkbox" name="checkbox-input" align="right" required={true} />
-        </Form>
+        <Input label="Inline checkbox label text" type="checkbox" id="13" name="checkbox-input" align="right" required={true} error="This checkbox field is required!" />
       ),
       notes: ''
     }, {
       name: 'Checkbox Inputs (Muti-field)',
       component: (
-        <Form legend="Fieldset legend">
-          <Input label="Inline checkbox one label text" type="checkbox" name="multi-field-one" required={true} />
-          <Input label="Inline checkbox two label text" type="checkbox" name="multi-field-two" required={true} />
-        </Form>
+        <React.Fragment>
+          <Input label="Inline checkbox one label text" type="checkbox" id="14" name="multi-field-one" required={true} error="This checkbox field is required!" />
+          <Input label="Inline checkbox two label text" type="checkbox" id="15" name="multi-field-two" required={true} error="This checkbox field is required!" />
+        </React.Fragment>
       ),
       notes: ''
     }

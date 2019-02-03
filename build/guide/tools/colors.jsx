@@ -123,4 +123,9 @@ const page = () => (
   </div>
 );
 
-export default page();
+page.options = {
+  navless: false,
+  headless: false
+};
+
+export default page;

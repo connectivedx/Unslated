@@ -1,11 +1,8 @@
+/*
+  Please note __stats__ is a global variable injected
+  into workflow via the WebpackStatsPlugin under buid/guide/plugins/webpack.stats.plugin.js
+*/
 const Chart = require('chart.js');
-
-// Helper method to get random gray scale color
-const getRandomGray = () => {
-  const value = Math.random() * 0xFF | 0;
-  const grayscale = (value << 16) | (value << 8) | value;
-  return ['#', grayscale.toString(16)].join('');
-};
 
 // Main method to get custom data struct out of webpack-stats object
 const getFilteredData = (data, filters) => {
@@ -92,12 +89,45 @@ export const GuideMetrics = (el) => {
     for (let i = 0; i < data.length; i++) {
       atomicSet.labels.push(data[i].level);
       atomicSet.data.push(data[i].size);
-      atomicSet.backgroundColor.push(getRandomGray());
+
+      atomicSet.backgroundColor.push();
+
+      if (data[i].level.indexOf('atoms') !== -1) {
+        atomicSet.backgroundColor.push('#ff8080');
+      }
+
+      if (data[i].level.indexOf('molecules') !== -1) {
+        atomicSet.backgroundColor.push('#68b2fe');
+      }
+
+      if (data[i].level.indexOf('organisms') !== -1) {
+        atomicSet.backgroundColor.push('#70ff8e');
+      }
+
+      if (data[i].level.indexOf('modifiers') !== -1) {
+        atomicSet.backgroundColor.push('#feab62');
+      }
+
+      if (data[i].level.indexOf('templates') !== -1) {
+        atomicSet.backgroundColor.push('#bbbbbb');
+      }
+
+      if (data[i].level.indexOf('variable') !== -1) {
+        atomicSet.backgroundColor.push('#00cdbc');
+      }
+
       for (let j = 0; j < data[i].files.length; j++) {
         const file = data[i].files[j];
         fileSet.labels.push(file.name.split('/')[file.name.split('/').length - 1]);
         fileSet.data.push(file.size);
-        fileSet.backgroundColor.push(getRandomGray());
+
+        if (file.name.indexOf('.js') !== -1) {
+          fileSet.backgroundColor.push('#f1e05a');
+        }
+
+        if (file.name.indexOf('.css') !== -1) {
+          fileSet.backgroundColor.push('#563d7c');
+        }
       }
     }
 
@@ -144,8 +174,11 @@ export const GuideMetrics = (el) => {
         const cardBody = document.createElement('div');
         cardBody.setAttribute('class', 'card__body card__body--default');
 
+        const cardHeader = document.createElement('div');
+        cardHeader.setAttribute('class', 'card__header card__header--default');
+
         const heading = document.createElement('h3');
-        heading.setAttribute('class', 'heading h3--heading');
+        heading.setAttribute('class', 'heading heading--h3');
         heading.innerHTML = `${atomicLevel.level} - ${GuideUtils.bytesToSize(atomicLevel.size)}`;
 
         const list = document.createElement('ul');
@@ -161,8 +194,9 @@ export const GuideMetrics = (el) => {
 
           list.appendChild(listItem);
         }
-        cardBody.appendChild(heading);
+        cardHeader.appendChild(heading);
         cardBody.appendChild(list);
+        card.appendChild(cardHeader);
         card.appendChild(cardBody);
         fragment.appendChild(card);
       }
@@ -186,8 +220,6 @@ export const GuideMetrics = (el) => {
   };
 
   const init = () => {
-    // Start by getting webpack-stats JSON file data
-    // We use XHR to get this data instaed of a direct import to avoid endless build looping.
     // Install JS Size card
     ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
     createAtomicList(ui.JSAtomicList, getFilteredData(__stats__, ['/*.js$']));

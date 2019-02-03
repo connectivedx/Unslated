@@ -49,14 +49,22 @@ export const GuideExamples = (el) => {
     // Setup events for each example's jump link
     if (ui.examplesJumplinks) {
       Object.keys(ui.examplesJumplinks).map((index) => {
-        const hiddenInput = ui.examplesJumplinks[index].querySelector('.examples__header-jumplink-path');
+        const hiddenInput = ui.examplesJumplinks[index].querySelector('.field__native');
         hiddenInput.value = ui.examplesJumplinks[index].href;
 
         ui.examplesJumplinks[index].addEventListener('click', (e) => {
+          ui.examplesJumplinks[index].classList.add('copied');
           hiddenInput.select();
           document.execCommand('copy');
+
+          setTimeout(() => {
+            ui.examplesJumplinks[index].classList.remove('copied');
+          }, 2000);
+
           e.preventDefault();
+          return false;
         });
+
         return false;
       });
     }

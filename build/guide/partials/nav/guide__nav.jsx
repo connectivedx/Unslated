@@ -3,9 +3,10 @@ import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import { List, List__item } from '@atoms/List/List';
 import Modal from '@molecules/Modal/Modal';
-import Form from '@molecules/Form/Form';
-import Select from '@molecules/Select/Select';
-import Input from '@molecules/Input/Input';
+import Form from '@atoms/Form/Form';
+import Fieldset from '@atoms/Fieldset/Fieldset';
+import Select from '@atoms/Select/Select';
+import Input from '@atoms/Input/Input';
 import Button from '@atoms/Button/Button';
 import Icon from '@atoms/Icon/Icon';
 import {
@@ -134,8 +135,8 @@ export const Guide__nav = (props) => {
   return (
     <nav className={classStack} {...attrs}>
       <Rhythm className="guide__nav-inner">
-        <Form action="get" method="post" submit={false} legend="Use the form below to search for atomic elements" autoComplete="off">
-          <Input type="search" label={false} name="query" className="guide__nav--search" />
+        <Form action="get" method="post" legend="Use the form below to search for atomic elements" autoComplete="off">
+          <Input type="search" label={false} name="query" id="nav-search" className="guide__nav--search" />
         </Form>
         <span className="guide-nav__close" />
         <Rhythm tagName="ul" deep size="small" className="list">
@@ -162,18 +163,25 @@ export const Guide__nav = (props) => {
                 <Card__body>
                   <Rhythm>
                     <p>Use this dialog to add new atomic parts to the project.<br /> First choose a type, then give it a name.</p>
-                    <Form method="get" data-action="/api" className="new-element" legend="Use the form below to add a new project element">
-                      <Select name="new" required label="New:">
-                        <option value="">Choose one</option>
-                        <option value="atoms">Atom</option>
-                        <option value="molecules">Molecule</option>
-                        <option value="organisms">Organism</option>
-                        <option value="templates">Template</option>
-                        <option value="modifiers">Modifier</option>
-                        <option value="pages">Page</option>
-                        <option value="variables">Variable</option>
-                      </Select>
-                      <Input type="text" label="Named:" name="name" required />
+                    <Form method="get" xaction="/api" className="new-element">
+                      <Fieldset legend="Use the form below to add a new project element">
+                        <Rhythm tagName="ol">
+                          <Select tagName="li" name="new" required label="New:" id="new">
+                            <option value="">Choose one</option>
+                            <option value="atoms">Atom</option>
+                            <option value="molecules">Molecule</option>
+                            <option value="organisms">Organism</option>
+                            <option value="templates">Template</option>
+                            <option value="modifiers">Modifier</option>
+                            <option value="pages">Page</option>
+                            <option value="variables">Variable</option>
+                          </Select>
+                          <Input tagName="li" type="text" label="Named:" name="name" id="name" required />
+                          <li>
+                            <Button type="submit">Create</Button>
+                          </li>
+                        </Rhythm>
+                      </Fieldset>
                     </Form>
                   </Rhythm>
                 </Card__body>
@@ -188,10 +196,17 @@ export const Guide__nav = (props) => {
                 <Card__body>
                   <Rhythm>
                     <p>Use this dialog to rename an atomic parts of the project. This will find all use cases of old name and replace it with new name. Case sensitivity is taken into account.</p>
-                    <Form method="get" data-action="/api" submit="Rename" className="rename-element" legend="Use the form below to rename a project element">
-                      <Input type="text" label="New name:" name="name" required />
-                      <Input type="hidden" label={false} name="path" />
-                      <Input type="hidden" label={false} name="rename" value="true" />
+                    <Form method="get" xaction="/api" className="rename-element">
+                      <Fieldset legend="Use the form below to rename a project element">
+                        <Rhythm tagName="ol">
+                          <Input tagName="li" type="text" label="New name:" name="name" id="rename-name" required />
+                          <Input tagName="li" type="hidden" label={false} name="path" id="rename-path" />
+                          <Input tagName="li" type="hidden" label={false} name="rename" id="rename-new" value="true" />
+                          <li>
+                            <Button type="submit">Rename</Button>
+                          </li>
+                        </Rhythm>
+                      </Fieldset>
                     </Form>
                   </Rhythm>
                 </Card__body>
@@ -206,10 +221,14 @@ export const Guide__nav = (props) => {
                 <Card__body>
                   <Rhythm>
                     <p>You are about to delete an element that may or may not be used in other areas of the project. This action cannot be undone.<br /><br /> Would you like to proceed?</p>
-                    <Form method="get" data-action="/api" submit={<React.Fragment><Button type="submit">Yes</Button><Button href="#/" data-modal-close="true">No</Button></React.Fragment>} className="remove-element" legend="Use the form below to delete an element">
-                      <Input type="hidden" label={false} name="name" required />
-                      <Input type="hidden" label={false} name="path" />
-                      <Input type="hidden" label={false} name="remove" value="true" />
+                    <Form method="get" xaction="/api" className="remove-element">
+                      <Fieldset legend="Use the form below to delete an element">
+                        <Input type="hidden" label={false} name="name" id="delete-name" required />
+                        <Input type="hidden" label={false} name="path" id="delete-path" />
+                        <Input type="hidden" label={false} name="remove" id="delete-remove" value="true" />
+                        <Button type="submit">Yes</Button>
+                        <Button href="#/" data-modal-close="true">No</Button>
+                      </Fieldset>
                     </Form>
                   </Rhythm>
                 </Card__body>

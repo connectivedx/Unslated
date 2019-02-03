@@ -1,56 +1,89 @@
 /*
   OPTIONS:
   The following options are available for Component examples:
-    - No Padding variant (noPadding: true)
-    - Dark Background variant (darkBackground: true)
+    - No Padding variant (padding: true|false)
+    - Background Image (background: path|blank)
+    - Dark Background variant (brightness: 0.0-1.0)
 
   Example:
     ```
-      examples: [{
+      export default [{
         name: 'Default styling',
         component: (
           <Component>Lorem ipsum</Component>
         ),
         options: {
-          noPadding: true,
-          darkBackground: true
+          padding: '1rem',
+          background: 'path/or/url/to/image(.jpg|.gif|.png|.svg)',
+          brightness: 0.5,
         }
       },
     ```
 */
 
 import Form from './Form';
-import Input from '@molecules/Input/Input';
-import Select from '@molecules/Select/Select';
-import Textarea from '@molecules/Textarea/Textarea';
+import Fieldset from '@atoms/Fieldset/Fieldset';
+import Button from '@atoms/Button/Button';
+import Rhythm from '@atoms/Rhythm/Rhythm';
+import Input from '@atoms/Input/Input';
+import Select from '@atoms/Select/Select';
+import Textarea from '@atoms/Textarea/Textarea';
+import List from '@atoms/List/List';
 import docs from '!!docgen-loader?htmlDescription!./Form';
 
 export default [{
   docs,
   examples: [
     {
-      name: 'Form tag (with fields as realworld example)',
+      name: 'Basic form example',
       component: (
-        <Form legend="Use the form below to complete X task">
-          <Input type="text" label="First text input example" name="first-text" align="left" required={true} />
-          <Input type="text" label="Second text input example" name="second-text" align="left" required={true} />
-          <li className="list list__item">
-            <ol className="list list--blank">
-              <Input type="radio" label="Yes" name="yes-no" align="left" required={true} />
-              <Input type="radio" label="No" name="yes-no" align="left" required={true} />
-            </ol>
-          </li>
-          <Input type="checkbox" name="agree" align="right" label="Please check this box to agree to terms." required={true} />
-          <Select label="Inline select label text" align="left" name="select" required={true} defaultValue="1">
-            <option value="0" />
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </Select>
-          <Textarea name="textarea" label="Textarea label" rows="4" cols="50" required={true}>Hello world, this is a textarea text</Textarea>
+        <Form action="#/" method="post">
+          <Fieldset legend="Use the form below as an example on how to construct forms">
+            <Rhythm tagName="ol">
+              <Input tagName="li" type="text" id="01" label="First text input example" name="first-text" required={true} />
+              <Input tagName="li" type="text" id="02" label="Second text input example" name="second-text" required={true} />
+              <List variant="blank">
+                <Fieldset legend="Yes or no?" legendHide={false}>
+                  <Input type="radio" id="03" label="Yes" name="yes-no" align="left" required={true} />
+                  <Input type="radio" id="04" label="No" name="yes-no" align="left" required={true} />
+                </Fieldset>
+              </List>
+              <Input tagName="li" type="checkbox" id="05" name="agree" label="Please check this box to agree to terms." required={true} />
+              <Select tagName="li" label="Inline select label text" id="06" name="select" required={true} defaultValue="0">
+                <option value="0" />
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </Select>
+              <Textarea tagName="li" name="textarea" label="Textarea label" id="07" rows="4" cols="50" required={true} />
+              <li>
+                <Button type="submit">Submit</Button>
+              </li>
+            </Rhythm>
+          </Fieldset>
         </Form>
       ),
-      devNotes: 'Form elements come primed fieldsets, legends (for screen readers), ordered list and submit button. Submit button\'s text can be changed or compleatly overloaded by passing either text or elements to the submit prop. Legends are requried and you use them to describe the form or group of fields associated to them for screen readers. Ordered list matches up to form field molecules who are wrapped in a list item. The ordered list to list item relationship built into forms is for accessibility purposes and promotes easy tabbing experince for handicap users.'
+      options: {
+        background: ''
+      }
+    }, {
+      name: 'XHR form example',
+      component: (
+        <Form xaction="#/" method="get">
+          <Fieldset legend="Use the form below as an example on how to construct forms">
+            <Rhythm tagName="ol">
+              <Input tagName="li" type="text" id="01" label="First text input example" name="first-text" required={true} />
+              <Input tagName="li" type="text" id="02" label="Second text input example" name="second-text" required={true} />
+              <li>
+                <Button type="submit">Submit</Button>
+              </li>
+            </Rhythm>
+          </Fieldset>
+        </Form>
+      ),
+      options: {
+        background: ''
+      }
     }
   ]
 }];

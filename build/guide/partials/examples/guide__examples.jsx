@@ -1,7 +1,7 @@
 
 import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
-
+import Input from '@atoms/Input/Input';
 import Button from '@atoms/Button/Button';
 import Icon from '@atoms/Icon/Icon';
 import Heading from '@atoms/Heading/Heading';
@@ -135,7 +135,7 @@ export const Guide__examples = (props) => {
                   <a href={exampleLink} className="examples__header-jumplink">
                     <Icon name="unlink" />
                     <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName}</Heading>
-                    <input type="text" className="input input-text examples__header-jumplink-path" />
+                    <Input type="text" id={`jumplink-path-${index}`} name="jumplink-path" className="examples__header-jumplink-path" />
                   </a>
                 </Card__header>
                 <Card__body className="examples__body examples__item">
