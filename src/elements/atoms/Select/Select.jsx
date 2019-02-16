@@ -1,6 +1,8 @@
 /**
   <div class="rhythm--default">
-    <p>Select is a simple abstraction of the basic form select element.<br/> This element allows you to configure alignment, labels, validation from a single tag.<br/> Please note this element requires <option> tag children to complete the usage of it.</p>
+    <p>Select is a simple abstraction of the basic form select element.<br/>
+    This element allows you to configure labels, validation from a single tag.<br/>
+    Please note this element requires <option> tag children to complete the usage of it.</p>
 
     <h3 class="heading heading--h3"><strong>Field classes</strong> (classes independent from any specific field type or variant)</h3>
     <ul>
@@ -29,13 +31,11 @@ export class Select extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default', 'inline-label']),
     /** <option value=""></option> */
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     /** Name attributes are used as keys when posting data to server */
     name: PropTypes.string.isRequired,
     /** Id attributes are used as accessibility helpers in the for/id label/field relationship */
     id: PropTypes.string.isRequired,
-    /** Alignment allows you set orientation between labels and inputs */
-    align: PropTypes.string,
     /** Flags a field to be put into an error state when pattern attribute's condition(s) are not valid */
     required: PropTypes.bool,
     /** Sets the default selected <option value="*"> at load. */
@@ -47,7 +47,6 @@ export class Select extends React.Component {
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    align: 'bottom',
     required: false
   };
 
@@ -61,7 +60,6 @@ export class Select extends React.Component {
       id,
       name,
       label,
-      align,
       required,
       defaultValue,
       error,
@@ -71,7 +69,6 @@ export class Select extends React.Component {
     const classStack = Utils.createClassStack([
       'select field',
       `select--${variant}`,
-      `field--${align}`,
       className
     ]);
 

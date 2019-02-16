@@ -44,8 +44,8 @@ export default [{
               <Input tagName="li" type="text" id="02" label="Second text input example" name="second-text" required={true} />
               <List variant="blank">
                 <Fieldset legend="Yes or no?" legendHide={false}>
-                  <Input type="radio" id="03" label="Yes" name="yes-no" align="left" required={true} />
-                  <Input type="radio" id="04" label="No" name="yes-no" align="left" required={true} />
+                  <Input type="radio" id="03" label="Yes" name="yes-no" required={true} />
+                  <Input type="radio" id="04" label="No" name="yes-no" required={true} />
                 </Fieldset>
               </List>
               <Input tagName="li" type="checkbox" id="05" name="agree" label="Please check this box to agree to terms." required={true} />

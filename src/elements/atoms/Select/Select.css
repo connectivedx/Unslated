@@ -4,8 +4,8 @@
 	/* Baseline styles */
 	.field__decorator {
 		display: flex;
-		align-items: center;
 		position: relative;
+		align-items: center;
 
 		&:after {
 			content: '';
@@ -19,8 +19,8 @@
 			outline: none;
 			position: relative;
 			width: 100%;
-			-webkit-appearance: none;
 			z-index: 2;
+			-webkit-appearance: none;
 
 			&:--haf {
 				outline: none;
@@ -32,8 +32,11 @@
 	.sub-field__decorator {
 		display: none;
 		left: 0;
+		max-height: calc(40px * 5);
+		overflow-x: hidden;
+		overflow-y: scroll;
 		position: absolute;
-		top: 0;
+		top: 100%;
 		z-index: 3;
 	}
 
@@ -52,9 +55,6 @@
 	/* Style variants */
 	&--default {
 		.field__label { padding: rem(4px) 0; }
-
-		&.field--left .field__label { padding-left: rem(8px); }
-		&.field--right .field__label { padding-right: rem(8px); }
 
 		.field__decorator {
 			background-color: var(--color-white);
@@ -96,7 +96,7 @@
 				cursor: pointer;
 				font-size: rem(13px);
 				min-height: rem(40px);
-				padding: rem(8px) rem(12px);
+				padding: rem(11px) rem(12px);
 				transition: all 0.25s;
 
 				&:last-child { border-bottom: none; }

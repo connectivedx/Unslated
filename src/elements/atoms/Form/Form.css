@@ -3,11 +3,6 @@
 	--tooltip-tail-size: 1rem;
 }
 
-.form {
-  /* Style variants */
-  &--default {}
-}
-
 /* Baseline general field styles */
 .field__label {
 	display: block;
@@ -46,89 +41,41 @@
 	.field__native::placeholder {
 		color: var(--color-red) !important;
 	}
-}
 
-.field__error-message {
-	display: none;
-  position: absolute;
-  z-index: 1;
-	bottom: calc(100% + var(--tooltip-offset));
+	&-message {
+		display: none;
+	  position: absolute;
+	  z-index: 1;
+		bottom: calc(100% + var(--tooltip-offset));
 
-	& .field__error-message-inner:before {
-		top: calc(100% - calc(var(--tooltip-tail-size) / 2));
-		left: calc(var(--tooltip-tail-size) / 2);
-	}
-
-  &-inner {
-  	position: relative;
-  	z-index: 2;
-    &:before {
-      content: '';
-      position: absolute;
-      width: var(--tooltip-tail-size); 
-      height: var(--tooltip-tail-size);
-      transform: rotateZ(45deg);
-      z-index: -1;
-    }    
-  }
-
-  &--error {
-  	& .field__error-message-inner:before {
-  		background-color: var(--color-red);
-  	}
-
-  	.field__error-message-inner {
-  		background-color: var(--color-red);
-  		color: var(--color-white);
-  		padding: 0.85rem;
-  	}
-  }  
-}
-
-/* Field alignment */
-.field {
-	display: flex;
-
-	&--top, &--bottom {
-		align-items: flex-start;
-
-		.field__label {
-			padding-left: 0;
-			padding-right: 0;
-		}		
-	}
-
-	&--bottom { 
-		flex-direction: column;
-	}
-
-	&--top 		{
-		flex-direction: column-reverse;
-	}
-
-	&--left 	{
-		flex-direction: row-reverse;
-		justify-content: flex-end;
-		.field__native + .field__label {
-			flex-direction: row;
-			align-items: center;
-
-			&:before {
-				margin-left: 0;
-			}
+		& .field__error-message-inner:before {
+			top: calc(100% - calc(var(--tooltip-tail-size) / 2));
+			left: calc(var(--tooltip-tail-size) / 2);
 		}
-	}
 
-	&--right 	{
-		flex-direction: row;
-		.field__native + .field__label {
-			flex-direction: row-reverse;
-			justify-content: flex-end;
-			align-items: center;
+	  &-inner {
+	  	position: relative;
+	  	z-index: 2;
+	    &:before {
+	      content: '';
+	      position: absolute;
+	      width: var(--tooltip-tail-size); 
+	      height: var(--tooltip-tail-size);
+	      transform: rotateZ(45deg);
+	      z-index: -1;
+	    }    
+	  }
 
-			&:before {
-				margin-right: 0;
-			}			
-		}			
+	  &--error {
+	  	& .field__error-message-inner:before {
+	  		background-color: var(--color-red);
+	  	}
+
+	  	.field__error-message-inner {
+	  		background-color: var(--color-red);
+	  		color: var(--color-white);
+	  		padding: 0.85rem;
+	  	}
+	  }  
 	}
 }

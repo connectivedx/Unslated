@@ -1,6 +1,7 @@
 /**
   <div class="rhythm--default">
-    <p>Input is a simple abstraction of the basic form input element.<br /> This element allows you to configure alignment, labels, validation and type from a single tag.</p>
+    <p>Input is a simple abstraction of the basic form input element.<br />
+    This element allows you to configure labels, validation and type from a single tag.</p>
 
     <h3 class="heading heading--h3"><strong>Field classes</strong> (classes independent from any specific field type or variant)</h3>
     <ul>
@@ -33,8 +34,6 @@ export class Input extends React.Component {
     id: PropTypes.string.isRequired,
     /** Name attributes are used as keys when posting data to server */
     name: PropTypes.string.isRequired,
-    /** Alignment allows you set orientation between labels and inputs */
-    align: PropTypes.string,
     /** Placeholder allows you to set input text that clears upon field being focused */
     placeholder: PropTypes.string,
     /** Flags a field to be put into an error state when pattern attribute's condition(s) are not valid */
@@ -67,23 +66,13 @@ export class Input extends React.Component {
     } = this.props;
 
     let {
-      pattern,
-      align
+      pattern
     } = this.props;
-
-    if (!align) {
-      if (type !== 'radio' && type !== 'checkbox') {
-        align = 'bottom';
-      } else {
-        align = 'left';
-      }
-    }
 
     const classStack = Utils.createClassStack([
       'input field',
       `input-${type}`,
       `input--${variant}`,
-      `field--${align}`,
       className
     ]);
 

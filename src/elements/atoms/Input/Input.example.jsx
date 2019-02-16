@@ -32,25 +32,7 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Text Input',
-      component: (
-        <Input label="Basic input label text" type="text" name="text-input" id="02" align="top" required={true} error="This text field is required!" />
-      ),
-      notes: ''
-    }, {
-      name: 'Text Inputs',
-      component: (
-        <Input label="Inline input label text" type="text" name="text-input" id="03" align="left" required={true} error="This text field is required!" />
-      ),
-      notes: ''
-    }, {
-      name: 'Text Inputs',
-      component: (
-        <Input label="Inline input label text" type="text" name="text-input" id="04" align="right" required={true} error="This text field is required!" />
-      ),
-      notes: ''
-    }, {
-      name: 'Text Inputs (without label, with basic placeholder)',
+      name: 'Text Inputs (with placeholder and no label)',
       component: (
         <Input label={false} type="text" name="text-input" id="05" placeholder="Basic placeholder" required={true} error="This text field is required!" />
       ),
@@ -59,12 +41,6 @@ export default [{
       name: 'Radio Inputs',
       component: (
         <Input label="Inline radio label text" type="radio" id="08" name="radio-inline-left" required={true} error="This radio field is required!" />
-      ),
-      notes: ''
-    }, {
-      name: 'Radio Inputs (Inline right)',
-      component: (
-        <Input label="Inline radio label text" type="radio" id="09" align="right" name="radio-inline-right" required={true} error="This radio field is required!" />
       ),
       notes: ''
     }, {
@@ -77,15 +53,9 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Checkbox Inputs (Default inline left)',
+      name: 'Checkbox Inputs',
       component: (
         <Input label="Inline checkbox label text" type="checkbox" id="12" name="checkbox-input" required={true} error="This checkbox field is required!" />
-      ),
-      notes: ''
-    }, {
-      name: 'Checkbox Inputs (Inline right)',
-      component: (
-        <Input label="Inline checkbox label text" type="checkbox" id="13" name="checkbox-input" align="right" required={true} error="This checkbox field is required!" />
       ),
       notes: ''
     }, {

@@ -5,7 +5,7 @@
   	position: relative;
 
   	.field__label {
-  		display: flex;
+  		display: inline-flex;
   		align-content: center;
   		justify-content: space-between;
 
@@ -41,9 +41,6 @@
 				font-size: 1rem;
 			}		
 		}
-
-		&.field--left .field__label  { padding-left: 0.5rem;  }
-		&.field--right .field__label { padding-right: 0.5rem; }
 
 		.field__label {
 			&:before {

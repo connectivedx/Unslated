@@ -1,6 +1,6 @@
 /**
   <div class="rhythm--default">
-    <p>Textarea is a simple abstraction of the basic form textarea element.<br /> This element allows you to configure alignment, labels, validation and type from a single tag.</p>
+    <p>Textarea is a simple abstraction of the basic form textarea element.</p>
 
     <h3 class="heading heading--h3"><strong>Field classes</strong> (classes independent from any specific field type or variant)</h3>
     <ul>
@@ -32,8 +32,6 @@ export class Textarea extends React.Component {
     name: PropTypes.string.isRequired,
     /** Id attributes are used as accessibility helpers in the for/id label/field relationship */
     id: PropTypes.string.isRequired,
-    /** Alignment allows you set orientation between labels and inputs */
-    align: PropTypes.string,
     /** Flags a field to be put into an error state when pattern attribute's condition(s) are not valid */
     required: PropTypes.bool,
     /** Regex patterns to craft validation conditions for fields based on values entered */
@@ -47,7 +45,6 @@ export class Textarea extends React.Component {
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    align: 'bottom',
     required: false
   };
 
@@ -63,7 +60,6 @@ export class Textarea extends React.Component {
       required,
       children,
       error,
-      align,
       ...attrs
     } = this.props;
 
@@ -71,39 +67,36 @@ export class Textarea extends React.Component {
       pattern
     } = this.props;
 
-    const classStack = Utils.createClassStack([
+    const elClassStack = Utils.createClassStack([
       'textarea field',
       `textarea--${variant}`,
-      `field--${align}`,
       className
+    ]);
+
+    const labelClassStack = Utils.createClassStack([
+      'field__label',
+      (label === false) && 'field__label--false'
     ]);
 
     if (!pattern && required) {
       pattern = '.*[^ ].*';
     }
 
+    const errorTemplate = () => (
+      <span className="field__error-message field__error-message--error field__error-message--align-top">
+        <span className="field__error-message-inner">
+          {error}
+        </span>
+      </span>
+    );
+
     return (
       <Tag
-        className={classStack}
+        className={elClassStack}
         {...attrs}
       >
-        {
-          (error)
-            ? (
-              <span className="field__error-message field__error-message--error field__error-message--align-top">
-                <span className="field__error-message-inner">
-                  {error}
-                </span>
-              </span>
-            )
-            : ''
-        }
-        {
-          (label !== false)
-            ? <label htmlFor={id} className="field__label">{label}</label>
-            : ''
-        }
-
+        {error && errorTemplate}
+        <label htmlFor={id} className={labelClassStack}>{label}</label>
         <textarea
           className="field__native"
           name={name}
