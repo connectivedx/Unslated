@@ -20,10 +20,8 @@
 */
 
 import Select from './Select';
-import docs from '!!docgen-loader?htmlDescription!./Select';
 
 export default [{
-  docs,
   examples: [{
     name: 'Default Select Inputs (Stacked bottom)',
     component: (

@@ -119,7 +119,7 @@ class Tracking {
       selector = document.querySelector(attr[0]);
       // if element selector contained a attribute selection
       if (attr[1]) {
-        return selector[attr[1].replace('(', '').replace(')', '')];
+        return selector.getAttribute(attr[1].replace(/\((.*?)\)/g, '$1'));
       }
 
       return selector.innerHTML;

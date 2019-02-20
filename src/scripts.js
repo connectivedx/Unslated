@@ -24,7 +24,7 @@ setTimeout(() => {
     vendors: [
       {
         type: 'Google',
-        id: ''
+        id: '### ANALYTICS KEY HERE ###'
       }
     ]
   });

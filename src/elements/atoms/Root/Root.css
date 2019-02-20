@@ -21,3 +21,7 @@ button {
   background-color: transparent;
   font-size: rem(16px);
 }
+
+i {
+    font-style: italic;
+}

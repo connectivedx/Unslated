@@ -33,6 +33,9 @@ module.exports = {
       port: package.server.port,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
       host: package.server.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
       allowedHosts: package.server.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
+      watchOptions: {
+        ignored: /node_modules/
+      },
       before: (app, server) => {                 // Webpack-dev-server routes (see: https://webpack.js.org/configuration/dev-server/#devserver-before)
         // All unslated GUI /api calls funneled here
         app.get('/api', (req, res) => {

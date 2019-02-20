@@ -1,30 +1,22 @@
-const postcss = require('postcss');
+// Simple little plugin that takes a pixel value and converts it to rem value
+// Usage: rem(px value)
+
 const path = require('path');
+const postcss = require('postcss');
 
 module.exports = postcss.plugin('postcss-rems', (options) => {
-  options = options || {};
-  let baseSize = undefined;
+  options = options || {
+    baseSize: 16
+  };
 
   return root => {
-    root.walkRules(':root', rule => {
-      rule.walkDecls(decl => {
-        if (decl.prop === '--type-size--default') {
-          baseSize = parseInt(decl.value, 10);
-        }
-      })
-    })
-
     root.walkDecls(decls => {
       if (decls.value.indexOf('rem(') !== -1) {
-
-        let instances = decls.value.match(/rem\(.*?\)/g);
-        let i = instances.length;       
-        while (i--) {
-          try {
-            let rawUnit = parseInt(instances[i].replace(/(.*)\((.*)\)/g, '$2'), 10);
-            decls.value = decls.value.replace(instances[i], `${rawUnit / baseSize}rem`);
-          } catch (err) { console.log(err); }
-        }
+        let occurances = decls.value.match(/rem\(.*?\)/g);
+        Object.keys(occurances).map(i => {
+          let unit = parseInt(occurances[i].replace(/rem\((.*?)\)/g, '$1'), 10);
+          decls.value = decls.value.replace(occurances[i], `${unit / options.baseSize}rem`);
+        });
       }
     })
   }

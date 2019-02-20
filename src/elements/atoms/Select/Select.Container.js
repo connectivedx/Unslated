@@ -1,4 +1,8 @@
+/*
+  Select component client side namespace
+*/
 export const Select = (el) => {
+  /** UI obect houses common selected elements within component */
   const ui = {
     el,
     native: el.querySelector('.field__native'),

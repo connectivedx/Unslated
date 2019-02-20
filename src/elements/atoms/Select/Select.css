@@ -59,7 +59,7 @@
 		.field__decorator {
 			background-color: var(--color-white);
 			box-shadow: 0 0 0 rem(1px) var(--color-gray);
-			min-width: 10.25rem;
+      width: 100%;
 
 			&:after {
 				background-image: url('../Icon/assets/chevron.svg');

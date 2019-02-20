@@ -21,7 +21,6 @@
     ```
 */
 
-import Form from './Form';
 import Fieldset from '@atoms/Fieldset/Fieldset';
 import Button from '@atoms/Button/Button';
 import Rhythm from '@atoms/Rhythm/Rhythm';
@@ -29,10 +28,9 @@ import Input from '@atoms/Input/Input';
 import Select from '@atoms/Select/Select';
 import Textarea from '@atoms/Textarea/Textarea';
 import List from '@atoms/List/List';
-import docs from '!!docgen-loader?htmlDescription!./Form';
+import Form from './Form';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Basic form example',

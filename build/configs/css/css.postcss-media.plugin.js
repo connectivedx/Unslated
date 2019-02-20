@@ -29,7 +29,7 @@ module.exports = postcss.plugin('postcss-custom-media', (options) => {
       });
     });
 
-    root.walkAtRules('media', rule => {
+    root.walkAtRules('media', (rule) => {
       const variable = rule.params.replace(/\((.*)\)/g, '$1');
       Object.keys(queries).map(key => {
         if (key === variable) {

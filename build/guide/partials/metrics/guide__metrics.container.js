@@ -41,6 +41,8 @@ const getFilteredData = (data, filters) => {
   return returnedData;
 };
 
+// Lets get font-face names
+
 export const GuideMetrics = (el) => {
   const ui = {
     el,
@@ -236,6 +238,53 @@ export const GuideMetrics = (el) => {
       // Install Total Errors card
       ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${__stats__.builds.errors}</strong>`;
     }
+
+    // Gather Fonts Metrics
+    const rules = document.styleSheets[0].cssRules;
+    const faces = {};
+    // const faceFiles = [];
+    Object.keys(rules).map((index) => {
+      const rule = rules[index];
+      const { type } = rule;
+      if (type === 3) {
+        fetch(rule.href).then((response) => {
+          if (response.status >= 400) {
+            throw new Error('Bad response from server');
+          }
+          return response.text();
+        })
+          .then((text) => {
+            const importRules = text.split('}');
+            Object.keys(importRules).map((j) => {
+              if (!importRules[j].match(/font-family: (.*?);/gm)) { return false; }
+              const name = importRules[j].match(/font-family: (.*?);/gm)[0].replace(/font-family: (.*?);/g, '$1');
+              const file = importRules[j].match(/url\((.*?)\)/gm)[0].replace(/url\((.*?)\)/g, '$1');
+              const weight = importRules[j].match(/local\((.*?)\)/gm)[0].replace(/local\((.*?)\)/g, '$1');
+              const sendTime = (new Date()).getTime();
+
+              fetch(file).then((res) => {
+                if (res.status >= 400) {
+                  throw new Error('Bad response from server');
+                }
+                return res.blob();
+              }).then((fontTest) => {
+                if (!faces[name]) {
+                  const receiveTime = (new Date()).getTime();
+                  faces[name] = {
+                    weight,
+                    file,
+                    size: GuideUtils.bytesToSize(fontTest.size),
+                    type: fontTest.type,
+                    time: [(receiveTime - sendTime), 'ms'].join('')
+                  };
+                }
+              });
+              return false;
+            });
+          });
+      }
+      return false;
+    });
   };
 
   init();

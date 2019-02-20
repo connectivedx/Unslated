@@ -19,10 +19,50 @@ import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
 import Textarea from '@atoms/Textarea/Textarea';
+import Select from '@atoms/Select/Select';
 
 export default [{
   examples: [
     {
+      name: 'Pageload',
+      description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
+      component: (
+        <Rhythm>
+          <div
+            data-tracking="[{
+              'event': 'pageload',
+              'label': 'Page Load Example',
+              'data': '@helloWorld'
+            }]"
+          >
+            Example of page load tracking
+          </div>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
+      name: 'Spread with attr',
+      description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
+      component: (
+        <Rhythm>
+          <Select
+            className="dropdown"
+            data-tracking="[{
+              'event': 'click',
+              'label': 'Complex data spread',
+              'elements': 'select',
+              'data': {'work': '.dropdown option:attr(data-label)',  'working': '.dropdown option + option:attr(data-label)'}
+            }]"
+            id="dropdown"
+            name="dropdown"
+          >
+            <option value="01" data-label="one">click me</option>
+            <option value="02" data-label="two">click me again</option>
+          </Select>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
       name: 'Simple click',
       description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
       component: (

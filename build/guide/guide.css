@@ -6,6 +6,7 @@
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
 @import './partials/editor/guide__editor.css';
+@import './partials/typography/guide__typography.css';
 
 :root {
   --breakpoint-speed: 2s;

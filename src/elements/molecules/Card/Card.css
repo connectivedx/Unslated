@@ -73,7 +73,6 @@
   }
 
   &__deck {
-  	padding: calc(var(--card-spacing) * 2);
   	.card {
   		margin: calc(var(--card-spacing) * 2) 0;
 

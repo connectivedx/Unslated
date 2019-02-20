@@ -5,9 +5,11 @@
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
 
+
 /*
   CORE: Helper method to convert raw int into bytes, kb or kb for display.
 */
+
 const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   if (bytes === 0) return '0 Byte';
@@ -16,8 +18,115 @@ const bytesToSize = (bytes) => {
 };
 
 /*
+  CORE: Helper method to gather local or remote font-file metrics.
+*/
+
+const getFontMetrics = (callback) => {
+  // Gather Fonts Metrics
+  const rules = document.styleSheets[0].cssRules;
+  const faces = [];
+
+  // const faceFiles = [];
+  Object.keys(rules).map((index) => {
+    const rule = rules[index];
+    const { type } = rule;
+
+    // Remotly imported font-face files
+    if (type === 3) {
+      fetch(rule.href).then((response) => {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+        return response.text();
+      })
+        .then((text) => {
+          const importRules = text.split('}');
+
+          Object.keys(importRules).map((j) => {
+            if (!importRules[j].match(/font-family: (.*?);/gm)) { return false; }
+            const name = importRules[j].match(/font-family: (.*?);/gm)[0].replace(/font-family: (.*?);/g, '$1');
+            const file = importRules[j].match(/url\((.*?)\)/gm)[0].replace(/url\((.*?)\)/g, '$1');
+            const weight = importRules[j].match(/local\((.*?)\)/gm)[0].replace(/local\((.*?)\)/g, '$1');
+            const time = (new Date()).getTime();
+
+            faces[name] = {
+              weight,
+              file,
+              time
+            };
+
+            /* fetch(file).then((res) => {
+              if (res.status >= 400) {
+                throw new Error('Bad response from server');
+              }
+              return res.blob();
+            }).then((fontTest) => {
+              if (!faces[name]) {
+                const receiveTime = (new Date()).getTime();
+                faces[name] = {
+                  weight,
+                  file,
+                  size: bytesToSize(fontTest.size),
+                  type: fontTest.type,
+                  time: [(receiveTime - sendTime), 'ms'].join('')
+                };
+              }
+
+              callback(faces);
+            }); */
+
+            return false;
+          });
+
+          const grabContent = (url, key, time) => fetch(url)
+            .then((res) => res.blob())
+            .then((face) => {
+              faces[key].size = bytesToSize(face.size);
+              faces[key].type = face.type;
+              faces[key].time = [((new Date()).getTime() - time), 'ms'].join('');
+            });
+
+          Promise
+            .all(Object.keys(faces).map((key) => grabContent(faces[key].file, key, (new Date()).getTime())))
+            .then(() => callback(faces));
+        });
+    }
+
+    // Locally hosted font-face files
+    if (type === 5) {
+      const name = rule.cssText.replace(/(.*?)font-family:(.*?);(.*?)}/g, '$2').trim();
+      const file = rule.cssText.match(/url\((.*?)\)/gm)[0].replace(/url\((.*?)\)/g, '$1').replace(/"(.*?)"/g, '$1');
+      const weight = rule.cssText.match(/local\((.*?)\)/gm)[0].replace(/local\((.*?)\)/g, '$1');
+      const sendTime = (new Date()).getTime();
+
+      fetch(file).then((res) => {
+        if (res.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+        return res.blob();
+      }).then((fontTest) => {
+        if (!faces[name]) {
+          const receiveTime = (new Date()).getTime();
+          faces[name] = {
+            weight,
+            file,
+            size: bytesToSize(fontTest.size),
+            type: fontTest.type,
+            time: [(receiveTime - sendTime), 'ms'].join('')
+          };
+        }
+
+        callback(faces);
+      });
+    }
+    return false;
+  });
+};
+
+/*
   CORE: Helps clean color variables upon import
 */
+
 const cleanColorVariables = (colors) => {
   Object.keys(colors).map((key) => {
     if (colors[key].indexOf('var') !== -1) {
@@ -32,6 +141,7 @@ const cleanColorVariables = (colors) => {
 /*
   CORE: Converts HEX to RGB
 */
+
 const HexToRGB = (color) => {
   color = color.replace('#', '');
   if (color.length < 6) {
@@ -48,6 +158,7 @@ const HexToRGB = (color) => {
 /*
   CORE: Converts RGB color to HEX
 */
+
 const RGBToHex = (color) => {
   const hexConvert = (rgb) => {
     const hex = rgb.toString(16);
@@ -60,6 +171,7 @@ const RGBToHex = (color) => {
 /*
   CORE: Returns the luminance score of a color (must be rgb value);
 */
+
 const getColorLuminanace = (r, g, b) => {
   const a = [r, g, b].map((v) => {
     v /= 255;
@@ -74,6 +186,7 @@ const getColorLuminanace = (r, g, b) => {
 /*
   CORE: Returns the contrast score of one color against project's primary colors
 */
+
 const getColorContrast = (controlcolor, testcolor) => {
   const controlRGB = HexToRGB(controlcolor);
   const testRGB = HexToRGB(testcolor);
@@ -86,6 +199,7 @@ const getColorContrast = (controlcolor, testcolor) => {
 /*
   CORE: Builds and returns an object that contains hex, and rgb color units of a given color (can supply hex or rgb)
 */
+
 const getColorUnits = (color) => {
   const chromaObj = {
     hex: '',
@@ -134,6 +248,7 @@ const getColorUnits = (color) => {
 /*
   CORE: Flags colors based on WCAG ratio, size and level specs
 */
+
 const WCAGTest = (ratio, size, level) => {
   switch (level) {
     case 'A':
@@ -227,33 +342,76 @@ const getTools = () => {
 
 
 /*
+  CORE: Gathering specific JSX file's documentation
+*/
+const getJSXDocumentation = (name) => {
+  const allJSXDocs = require.context(
+    '!!docgen-loader?htmlDescription!../../src/elements/',
+    true,
+    /\.jsx/
+  );
+  const keys = allJSXDocs.keys();
+  let i = keys.length;
+  while (i--) {
+    if (keys[i].indexOf('test') === -1 || keys[i].indexOf('example') !== -1) {
+      if (keys[i].indexOf(name) !== -1) {
+        return allJSXDocs(keys[i]);
+      }
+    }
+  }
+  return false;
+};
+
+const getJSDocumentation = (name) => {
+  const allJSDocs = require.context(
+    '!!./plugins/webpack.jsdocgen.loader?htmlDescription!../../src/elements/',
+    true,
+    /^.*\.(js)$/
+  );
+
+  const keys = allJSDocs.keys();
+  let i = keys.length;
+  while (i--) {
+    if (keys[i].indexOf(name) !== -1) {
+      return allJSDocs(keys[i]);
+    }
+  }
+  return false;
+};
+
+/*
   CORE: Gathering examples from elements directory
 */
 
-const getExamples = () => {
+const getExamples = (element = false) => {
   const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
-  return [
-    Object.keys(allExamples).map((key) => {
-      const name = key.split('/').slice(-1)[0].split('.')[0];
-      const url = ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join('');
-      const { ...doc } = allExamples[key].default[0].docs;
-      const atomic = key.replace('./', '').split('/')[0];
-      const examples = [...allExamples[key].default][0];
+  return Object.keys(allExamples).map((key) => {
+    const path = ['../../src/elements', key.split('.').slice(0, -1).slice(0, -1).pop(), '.jsx'].join('');
+    // you shall not pass!... without a path.
+    if (!path) { return false; }
 
-      return {
-        url,
-        atomic,
-        name,
-        examples: examples.examples,
-        docs: doc[0] || {
-          displayName: name,
-          description: (atomic === 'modifiers')
-            ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
-            : atomic
-        }
-      };
-    })
-  ];
+    // are we getting all elements examples, or single elements examples?
+    if (element) {
+      if (key.indexOf(element) === -1) { return false; }
+    }
+
+    const data = {
+      name: key.split('/').slice(-1)[0].split('.')[0],
+      atomic: key.replace('./', '').split('/')[0],
+      url: ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join(''),
+      examples: [...allExamples[key].default][0].examples
+    };
+
+    data.jsxdocs = { ...getJSXDocumentation(data.name) } || {
+      displayName: data.name,
+      description: (data.atomic === 'modifiers')
+        ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
+        : data.atomic
+    };
+
+    data.jsdocs = getJSDocumentation(data.name);
+    return data;
+  });
 };
 
 
@@ -261,6 +419,8 @@ module.exports = {
   getPages,
   getTools,
   getExamples,
+  getFontMetrics,
+  getJSXDocumentation,
   bytesToSize,
   WCAGTest,
   getColorUnits,

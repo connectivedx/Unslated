@@ -34,7 +34,7 @@ const getElementListing = (examples, level) => Object.keys(examples).map((i) => 
 
 // Navigation atomic levels
 const getAtomicListing = () => {
-  const elements = GuideUtils.getExamples()[0];
+  const elements = GuideUtils.getExamples();
   const collection = [];
 
   // Create new atomic level collection of elements
@@ -95,7 +95,6 @@ const getPageListing = () => {
     </List__item>
   );
 };
-
 
 // Navigation atomic levels
 const getToolsListing = () => {

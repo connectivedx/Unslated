@@ -38,11 +38,12 @@
 		"window": true,
 		"location": true,
 		"localStorage": true,
+		"MutationObserver": true,
 		"React": true,
-		"FcUtils": true,
 		"PropTypes": true,
 		"XMLHttpRequest": true,
 		"XDomainRequest": true,
+		"fetch": true,
 		"Utils": true,
 		"GuideUtils": true,
 		"__stats__": true

@@ -15,6 +15,11 @@ import GuideMetrics from '@guide/partials/metrics/guide__metrics.container';
 import GuideStylist from '@guide/partials/stylist/guide__stylist.container';
 import GuideWelcome from '@guide/partials/welcome/guide__welcome.container';
 import GuideExamples from '@guide/partials/examples/guide__examples.container';
+import GuideTypography from '@guide/partials/typography/guide__typography.container';
+
+// Fetch support
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 // Guide styles
 require('@guide/guide.css');
@@ -41,5 +46,6 @@ if (isData) {
     Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
     Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
     Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
+    Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
   });
 }

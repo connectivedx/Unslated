@@ -18,6 +18,7 @@
 */
 
 const fs = require('fs');
+const https = require("https");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Global object that continues to be updated across builds until webpack-dev-server has been shut down.
@@ -64,7 +65,7 @@ class StatsCompile {
   constructor (buildType) {
     this.buildType = buildType;
     this.guideSource = {};
-
+    this.fonts = [];
     this.assetFilters = ['chunks', 'chunkNames', 'emitted'];
     this.chunkFilters = ['id', 'identifier', 'issuer', 'issuerName', 'issuerPath', 'issuerId', 'reasons', 'chunks', 'parents', 'siblings', 'children', 'childrenByOrder', 'failed', 'depth', 'optimizationBailout', 'providedExports', 'warnings', 'errors', 'prefetched', 'built', 'index', 'index2', 'source', 'usedExports', 'origins', 'filteredModules'];
   }
@@ -122,7 +123,7 @@ class StatsCompile {
       });
 
       // Injects stats into middle man webpack.stats.js file
-      compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
+      compiler.hooks.done.tap({name:'StatsCompile'}, (stats) => {
         this.writeStats('./node_modules/.bin/webpack.stats.js', stats);
       });
     }

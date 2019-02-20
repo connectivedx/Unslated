@@ -5,13 +5,13 @@ const package = require('../../../package.json');
 // all css files get ran through these processes
 module.exports = {
   config: [{
-    'test': /\.css$/,    
+    'test': /\.css$/,
     'use': [
       MiniCssExtractPlugin.loader, // (see: https://www.npmjs.com/package/mini-css-extract-plugin)
       {
         'loader': 'css-loader', // (see: https://www.npmjs.com/package/css-loader)
         'options': {}
-      }, { 
+      }, {
         'loader': 'postcss-loader', // (see: https://www.npmjs.com/package/postcss-loader)
         'options': {
           'ident': 'postcss',

@@ -5,11 +5,11 @@ module.exports = {
     stats: {
       all: false,
       modules: true,
-      maxModules: 2,
+      maxModules: 40,
       errors: true,
       warnings: true,
       moduleTrace: true,
-      errorDetails: true    
+      errorDetails: true
     }
   },
   plugins: []

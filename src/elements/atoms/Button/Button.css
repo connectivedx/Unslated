@@ -21,7 +21,7 @@
     }
   }
 
-  &--cta { 
+  &--cta {
     background-color: var(--color-white);
     border: 2px solid red;
     color: red;

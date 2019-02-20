@@ -7,7 +7,7 @@ module.exports = {
     'test': /\.(jsx|js)$/,
     'exclude': /node_modules/,
     'use': [{
-      'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)
+      'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
       'options': {
         'compact': false,
         'presets': ['env', 'react'],

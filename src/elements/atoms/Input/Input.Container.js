@@ -1,4 +1,6 @@
+// Input component client side namespace
 export const Input = (el) => {
+  // UI obect houses common selected elements within component
   const ui = {
     el,
     native: el.querySelector('.field__native'),
@@ -13,6 +15,7 @@ export const Input = (el) => {
     }
   };
 
+  // Input component client side main init point
   const init = () => {
     // Radio & Checkbox click validation event listener
     if (ui.native.type === 'radio' || ui.native.type === 'checkbox') {
@@ -38,6 +41,7 @@ export const Input = (el) => {
     });
   };
 
+  // Testing
   init();
 };
 

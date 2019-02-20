@@ -26,10 +26,28 @@ export const Guide__examples = (props) => {
     'guide__examples'
   ]);
 
+  // Gather data
+  const data = {};
+  const examples = GuideUtils.getExamples(props.match.params.element);
+
+  data.examples = Object.keys(examples).map((index) => {
+    const element = examples[index];
+
+    if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
+      data.jsxdocs = element.jsxdocs;
+      data.jsdocs = element.jsdocs;
+      data.atomic = element.atomic;
+      data.name = element.name;
+      return element.examples;
+    }
+
+    return false;
+  }).filter((n) => n[0]);
+
   // JSX Prisim Code Snips
-  const getJSXPrisim = (component, data) => {
+  const getJSXPrisim = (component, object) => {
     const prisimData = ReactElementToString(component, {
-      displayName: data.name,
+      displayName: object.name,
       showDefaultProps: false
     }).replace(/<Unknown>/g, '')
       .replace(/<\/Unknown>/g, '')
@@ -65,14 +83,6 @@ export const Guide__examples = (props) => {
     return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
   };
 
-  // Gather data
-  const data = {
-    docs: undefined,
-    name: undefined,
-    atomic: undefined,
-    examples: GuideUtils.getExamples()[0]
-  };
-
   // C# Prisim Code Snips
   const getCSharpPrisim = (component) => [
     '// https://reactjs.net/getting-started/aspnet.html \n',
@@ -84,22 +94,9 @@ export const Guide__examples = (props) => {
     ' });'
   ].join('');
 
-  data.examples = Object.keys(data.examples).map((index) => {
-    const element = data.examples[index];
-
-    if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
-      data.docs = element.docs;
-      data.atomic = element.atomic;
-      data.name = element.name;
-      return element.examples;
-    }
-
-    return false;
-  }).filter((n) => n[0]);
-
   return (
     <Rhythm tagName="section" className={classStack}>
-      <Readme docs={data.docs} />
+      <Readme jsxdocs={data.jsxdocs[0]} jsdocs={data.jsdocs} />
       <Rhythm className="examples__listing">
         {
           Object.keys(data.examples[0]).map((index) => {
