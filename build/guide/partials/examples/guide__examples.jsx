@@ -161,19 +161,19 @@ export const Guide__examples = (props) => {
                     { (example.component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
                   </div>
                   <div className="examples__codes">
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, data) }} />
                     </pre>
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       <code dangerouslySetInnerHTML={{ __html: getHTMLPrisim(example.component) }} />
                     </pre>
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       {(example.component.props) ? <code dangerouslySetInnerHTML={{ __html: getPropsPrisim(example.component) }} /> : ''}
                     </pre>
                     {
                       (example.component.type.name)
                         ? (
-                          <pre className="examples__code hide">
+                          <pre className="examples__code hidden">
                             {
                               (example.component.props)
                                 ? (

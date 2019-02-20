@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 import { Guide, Blank, Data } from '@guide/guide';
 import GuideNav from '@guide/partials/nav/guide__nav.container';
 import GuidePages from '@guide/partials/pages/guide__pages.container';
+import GuideColors from '@guide/partials/colors/guide__colors.container';
 import GuideReadme from '@guide/partials/readme/guide__readme.container';
 import GuideMetrics from '@guide/partials/metrics/guide__metrics.container';
 import GuideStylist from '@guide/partials/stylist/guide__stylist.container';
@@ -42,6 +43,7 @@ if (isData) {
     Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
     Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
     Utils.initComponent('GuidePages', '.guide__pages', GuidePages);
+    Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
     Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
     Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
     Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);

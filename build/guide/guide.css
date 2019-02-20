@@ -5,6 +5,7 @@
 @import './partials/examples/guide__examples.css';
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
+@import './partials/colors/guide__colors.css';
 @import './partials/typography/guide__typography.css';
 
 :root {
@@ -20,7 +21,7 @@ strong {
   perspective: 100rem;
   height: 100vh;
 
-  & .hide { display: none !important; }
+  & .hidden { display: none !important; }
 
   & .doc-error {
     background-color: red;

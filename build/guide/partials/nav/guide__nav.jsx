@@ -57,7 +57,7 @@ const getAtomicListing = () => {
         <Heading level="h3" className={index}>
           {index.charAt(0).toUpperCase() + index.slice(1)}
         </Heading>
-        <List className="hide">{getElementListing(examples, (index.charAt(0).toUpperCase() + index.slice(1)))}</List>
+        <List className="hidden">{getElementListing(examples, (index.charAt(0).toUpperCase() + index.slice(1)))}</List>
       </List__item>
     );
   });
@@ -70,7 +70,7 @@ const getPageListing = () => {
   return (
     <List__item>
       <Heading level="h3" className="pages">Pages</Heading>
-      <List className="hide">
+      <List className="hidden">
         {
           Object.keys(pages).map((key, index) => {
             const pageName = key.split('./')[1].split('.')[0];
@@ -103,7 +103,7 @@ const getToolsListing = () => {
   return (
     <List__item>
       <Heading level="h3" className="utilities">Tools</Heading>
-      <List className="hide">
+      <List className="hidden">
         {
           Object.keys(pages).map((key, index) => {
             const pageName = key.split('./')[1].split('.')[0];

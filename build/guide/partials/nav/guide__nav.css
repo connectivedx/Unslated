@@ -20,7 +20,7 @@
     &:after {
       background-color: var(--color-white);
       border: 1px solid var(--color--alpha25);
-      box-shadow: 2px 4px 10px 0 var(--color--alpha15);     
+      box-shadow: 2px 4px 10px 0 var(--color--alpha15);
       content: url('assets/menu.svg');
       cursor: pointer;
       display: block;
@@ -29,13 +29,13 @@
       padding: 0.5rem 0.45rem 0.25rem;
       position: absolute;
       top: 0.75rem;
-      transition: opacity 1s;     
+      transition: opacity 1s;
       width: 2rem;
     }
 
     &:--haf {
       &:after { opacity: 1; }
-    }    
+    }
   }
 
   &-inner {
@@ -84,7 +84,7 @@
         > .guide__nav-icons { opacity: 1; }
       }
 
-      .hide {
+      .hidden {
         display: none;
       }
 
@@ -113,7 +113,7 @@
 
         [data-modal] {
           position: relative;
-          margin: 0 rem(10px) 0 0;          
+          margin: 0 rem(10px) 0 0;
           &:before {
             content: '';
             display: block;
@@ -187,7 +187,7 @@
     &--width {
       background: transparent;
       box-shadow: 0 rem(20px) rem(20px) 0 var(--color--alpha25);
-    }    
+    }
   }
 
   .card {
@@ -203,5 +203,5 @@
   .field__decorator,
   .field__native {
     width: 100%;
-  } 
+  }
 }

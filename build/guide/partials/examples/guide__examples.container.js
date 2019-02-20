@@ -11,17 +11,17 @@ export const GuideExamples = (el) => {
     if (!selection) { return; }
 
     const selected = example.querySelectorAll('.examples__code')[selection];
-    if (!selected.classList.contains('hide')) {
-      selected.classList.add('hide');
+    if (!selected.classList.contains('hidden')) {
+      selected.classList.add('hidden');
       return;
     }
 
     Object.keys(ui.examplesCodes).map((index) => {
-      ui.examplesCodes[index].classList.add('hide');
+      ui.examplesCodes[index].classList.add('hidden');
       return true;
     });
 
-    selected.classList.remove('hide');
+    selected.classList.remove('hidden');
   };
 
   const init = () => {
