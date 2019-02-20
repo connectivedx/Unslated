@@ -22,7 +22,6 @@
 */
 
 import Rhythm from '@atoms/Rhythm/Rhythm';
-
 import Heading from './Heading';
 
 export default [{

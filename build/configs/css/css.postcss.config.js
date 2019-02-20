@@ -23,7 +23,6 @@ const resolver = ResolverFactory.createResolver({
 // standard
 const rems = require('./css.postcss-rem.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
-// const fonts = require('./css.postcss-fonts.plugin.js');
 const nested = require('postcss-nested');
 const extend = require('./css.postcss-extend.plugin.js');
 const custom = require('postcss-custom-selectors');
@@ -45,11 +44,10 @@ module.exports = {
       }
     }),
     rems(),         // Allows for CSS rem()
-    // fonts(),        Resolves font imports
     media(),        // Allows for custom media queries
     exporting(),    // Pre-parse color variables
     variables(),    // Allows var(--variables)
-    custom(),       // Allows for @custom selectors    
+    custom(),       // Allows for @custom selectors
     respondType(),  // Allows for responsive typography
     nested(),       // Allows for nested selectors
     extend(),       // Allows for CSS @extend
