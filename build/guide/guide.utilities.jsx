@@ -387,6 +387,7 @@ const getExamples = (element = false) => {
   const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
   return Object.keys(allExamples).map((key) => {
     const path = ['../../src/elements', key.split('.').slice(0, -1).slice(0, -1).pop(), '.jsx'].join('');
+
     // you shall not pass!... without a path.
     if (!path) { return false; }
 
@@ -402,14 +403,9 @@ const getExamples = (element = false) => {
       examples: [...allExamples[key].default][0].examples
     };
 
-    data.jsxdocs = { ...getJSXDocumentation(data.name) } || {
-      displayName: data.name,
-      description: (data.atomic === 'modifiers')
-        ? 'Modifiers are CSS or JS based design patterns that are both simple, and reusable across the project.'
-        : data.atomic
-    };
+    data.jsxdocs = { ...getJSXDocumentation(data.name) } || undefined;
+    data.jsdocs = getJSDocumentation(data.name) || undefined;
 
-    data.jsdocs = getJSDocumentation(data.name);
     return data;
   });
 };

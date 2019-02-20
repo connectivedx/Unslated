@@ -15,6 +15,7 @@
     ```
 */
 
+import Link from '@atoms/Link/Link';
 import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
@@ -162,13 +163,14 @@ export default [{
               'event':'click',
               'label': 'Data Points Example',
               'data': 'A multi-element was clicked',
-              'elements': '.link'
+              'elements': '.button'
             }]"
             className="mult-element-list"
           >
             <li><Button>Click me</Button></li>
             <li><Button>Click me</Button></li>
             <li><Button>Click me</Button></li>
+            <li><Link href="#/">But not me</Link></li>
           </List>
         </Rhythm>
       )

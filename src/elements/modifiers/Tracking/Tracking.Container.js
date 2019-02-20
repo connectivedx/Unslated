@@ -254,16 +254,39 @@ class Tracking {
         const { target } = e;
         const { type } = e;
         const { tracking } = target.dataset;
+        const parent = this.getParent(target);
 
         // if clicked target or parent element has tracking
-        if (tracking || this.getParent(target)) {
-          // finally execute tracking method
-
-          this.execute(
-            (this.getParent(target) ? this.getParent(target) : target),
-            type,
-            (this.debounceList.indexOf(type) !== -1)
-          );
+        if (tracking || parent) {
+          // if parent has tracking using `elements`, and clicked element matches `elements` selector we send off parent
+          if (parent.dataset) {
+            const parsedEvents = JSON.parse(parent.dataset.tracking.replace(/'/g, '"'));
+            let j = parsedEvents.length;
+            while (j--) {
+              const { elements } = parsedEvents[j];
+              if (elements) {
+                const testElements = parent.querySelectorAll(elements);
+                let k = testElements.length;
+                while (k--) {
+                  if (testElements[k] === target) {
+                    // otherwise, we send of target
+                    this.execute(
+                      parent,
+                      type,
+                      (this.debounceList.indexOf(type) !== -1)
+                    );
+                  }
+                }
+              }
+            }
+          } else {
+            // otherwise, we send of target
+            this.execute(
+              target,
+              type,
+              (this.debounceList.indexOf(type) !== -1)
+            );
+          }
         }
       }, true, true);
     }

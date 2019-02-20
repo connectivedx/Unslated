@@ -15,8 +15,8 @@ export const Guide__readme = (props) => {
     children,
     ...attrs
   } = props;
-  const { jsdocs } = props;
-  const { jsxdocs } = props;
+  const { jsdocs } = props.data;
+  const { jsxdocs } = props.data;
 
   const propsSection = () => (
     <Rhythm tagName="section" className="guide__readme-section" {...attrs}>
@@ -159,18 +159,27 @@ export const Guide__readme = (props) => {
     </Rhythm>
   );
 
-  const description = (jsxdocs.description) ? jsxdocs.description : <span className="doc-error">Missing Element description!<br /> Please describe this element in a multi-line comment at the top of it&apos;s JSX file.</span>;
+  let description = `
+    <span className="doc-error">
+      Missing Element description!<br />
+      Please describe this element in a multi-line comment at the top of it&apos;s JSX file.
+    </span>
+  `;
+
+  if (jsxdocs) {
+    description = (jsxdocs.description) ? jsxdocs.description : description;
+  }
 
   return (
     <Rhythm className="guide__readme">
       <Rhythm>
-        <Heading level="h1">{jsxdocs.displayName}</Heading>
+        <Heading level="h1">{props.data.name}</Heading>
         <p dangerouslySetInnerHTML={{ __html: description }} />
       </Rhythm>
 
       <div className="guide__readme-sections">
-        {propsSection()}
-        {methodsSection()}
+        {(props.data.jsxdocs.length) ? propsSection() : ''}
+        {(props.data.jsdocs.length) ? methodsSection() : ''}
       </div>
     </Rhythm>
   );

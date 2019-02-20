@@ -96,7 +96,7 @@ export const Guide__examples = (props) => {
 
   return (
     <Rhythm tagName="section" className={classStack}>
-      <Readme jsxdocs={data.jsxdocs[0]} jsdocs={data.jsdocs} />
+      <Readme data={data} />
       <Rhythm className="examples__listing">
         {
           Object.keys(data.examples[0]).map((index) => {
