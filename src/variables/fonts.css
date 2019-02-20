@@ -1,13 +1,16 @@
 /*
   Define font variables.
+  A default fonts and stacks are typically reserverd for body typography, while accent are for headings and captions.
 */
 
-:root {  
+:root {
   /* Individual font names */
-  --font-name--default: 'Open Sans, Karma';
+  --font-name--default: 'Open Sans';
+  --font-name--accent: 'Merriweather';
 
   /* Base font stacks */
   --font-stack--default: var(--font-name--default), sans-serif;
+  --font-stack--accent: var(--font-name--default), sans-serif;
 
   /* Base body font-family */
   --font-family--default: var(--font-stack--default);

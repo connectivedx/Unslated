@@ -22,10 +22,8 @@
 */
 
 import PlaceholderSvg from './PlaceholderSvg';
-import docs from '!!docgen-loader?htmlDescription!./PlaceholderSvg';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default',

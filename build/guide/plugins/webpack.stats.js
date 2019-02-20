@@ -48,12 +48,12 @@ const filterStats = (object, filters, index, parent) => {
         }
       }else if (typeof object[i] === 'object') {
         filterStats(object[i], filters, i, object); //if after all the above we still find object, we continue.
-      }    
+      }
     }
   }
-  catch (err) { 
+  catch (err) {
     console.log('Error in webpack stats plugin:');
-    console.log(err); 
+    console.log(err);
   }
 
   // not all objects in the array are arrays, so object.splice vs. delete object was not an option.
@@ -65,7 +65,6 @@ class StatsCompile {
   constructor (buildType) {
     this.buildType = buildType;
     this.guideSource = {};
-    this.fonts = [];
     this.assetFilters = ['chunks', 'chunkNames', 'emitted'];
     this.chunkFilters = ['id', 'identifier', 'issuer', 'issuerName', 'issuerPath', 'issuerId', 'reasons', 'chunks', 'parents', 'siblings', 'children', 'childrenByOrder', 'failed', 'depth', 'optimizationBailout', 'providedExports', 'warnings', 'errors', 'prefetched', 'built', 'index', 'index2', 'source', 'usedExports', 'origins', 'filteredModules'];
   }
@@ -79,7 +78,7 @@ class StatsCompile {
       buildStats.errors++;
     }
 
-    fs.writeFile(path, 
+    fs.writeFile(path,
       'var __stats__ = ' + JSON.stringify({
         builds: { ...buildStats },
         assets: filterStats(stats.toJson().assets, this.assetFilters),
@@ -104,7 +103,7 @@ class StatsCompile {
       // Injects latest build stats to guide.js
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
         this.writeStats('./dist/assets/js/guide.js', stats, this.guideSource);
-      });      
+      });
     }
 
     ////////////////////////

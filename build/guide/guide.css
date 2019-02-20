@@ -5,7 +5,6 @@
 @import './partials/examples/guide__examples.css';
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
-@import './partials/editor/guide__editor.css';
 @import './partials/typography/guide__typography.css';
 
 :root {
@@ -74,8 +73,8 @@ strong {
     .heading {
       display: flex;
       align-items: center;
-      justify-content: space-between; 
-      font-size: rem(14px);    
+      justify-content: space-between;
+      font-size: rem(14px);
     }
 
     &__body {
@@ -133,12 +132,12 @@ strong {
           cursor: pointer;
         }
 
-        &::-moz-range-thumb {       
+        &::-moz-range-thumb {
           width: 23px;
           height: rem(6px);
           border: 0;
           cursor: pointer;
-        }      
+        }
       }
     }
   }
@@ -167,7 +166,7 @@ strong {
 
     @media (--medium) {
       max-width: 25%;
-    }   
+    }
 
     &,
     & .form,

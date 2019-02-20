@@ -22,10 +22,8 @@
 */
 
 import Wrapper from './Wrapper';
-import docs from '!!docgen-loader?htmlDescription!./Wrapper';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'normal wrapper',

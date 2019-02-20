@@ -22,10 +22,8 @@
 */
 
 import Expand from './Expand';
-import docs from '!!docgen-loader?htmlDescription!./Expand';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default state (align top)',

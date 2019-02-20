@@ -32,11 +32,8 @@ import {
   Media__body
 } from './Media';
 
-import docs from '!!docgen-loader?htmlDescription!./Media';
-
 
 export default [{
-  docs,
   examples: [{
     name: 'media to the left',
     component: (

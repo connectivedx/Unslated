@@ -137,7 +137,6 @@ export const Guide__readme = (props) => {
                   }
 
                   if (type === 'AssignmentExpression') {
-                    console.log(method);
                     const leftName = (method.expression.left.object) ? [method.expression.left.object.name, '.', method.expression.left.property.name].join('') : '--';
                     const { operator } = method.expression;
                     return (

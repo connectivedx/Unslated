@@ -20,10 +20,8 @@
 */
 
 import Textarea from './Textarea';
-import docs from '!!docgen-loader?htmlDescription!./Textarea';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Textarea',

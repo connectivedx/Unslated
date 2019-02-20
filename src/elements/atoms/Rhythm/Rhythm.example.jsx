@@ -22,7 +22,6 @@
 */
 
 import Rhythm from './Rhythm';
-import docs from '!!docgen-loader?htmlDescription!./Rhythm';
 
 const children = [
   <div key="1">abc</div>,
@@ -36,7 +35,6 @@ const children = [
 
 
 export default [{
-  docs,
   examples: [
     {
       name: 'default',

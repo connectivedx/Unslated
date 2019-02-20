@@ -21,6 +21,7 @@
     ```
 */
 
+import Heading from '@atoms/Heading/Heading';
 import {
   Card,
   Card__header,
@@ -30,11 +31,8 @@ import {
   Card__deck,
   Card__grid
 } from './Card';
-import Heading from '@atoms/Heading/Heading';
-import docs from '!!docgen-loader?htmlDescription!./Card';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default styling',

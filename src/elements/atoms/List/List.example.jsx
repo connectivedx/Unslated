@@ -25,10 +25,8 @@ import {
   List,
   List__item
 } from './List';
-import docs from '!!docgen-loader?htmlDescription!./List';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'default',

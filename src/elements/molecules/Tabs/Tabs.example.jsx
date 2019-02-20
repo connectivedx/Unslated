@@ -23,10 +23,8 @@
 
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import { Tabs, Tabs__section } from './Tabs';
-import docs from '!!docgen-loader?htmlDescription!./Tabs';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Align top, justify left (default)',

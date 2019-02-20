@@ -22,10 +22,8 @@
 */
 
 import RichText from './RichText';
-import docs from '!!docgen-loader?htmlDescription!./RichText';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'default',

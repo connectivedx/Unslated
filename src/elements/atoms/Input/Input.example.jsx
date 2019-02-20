@@ -20,10 +20,8 @@
 */
 
 import Input from './Input';
-import docs from '!!docgen-loader?htmlDescription!./Input';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Text Input',

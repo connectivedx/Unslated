@@ -21,13 +21,11 @@
     ```
 */
 
-import Fieldset from './Fieldset';
 import Input from '@atoms/Input/Input';
 import List from '@atoms/List/List';
-import docs from '!!docgen-loader?htmlDescription!./Fieldset';
+import Fieldset from './Fieldset';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Legend hidden',
