@@ -1,4 +1,3 @@
-
 import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
 import Input from '@atoms/Input/Input';
@@ -33,9 +32,12 @@ export const Guide__examples = (props) => {
   data.examples = Object.keys(examples).map((index) => {
     const element = examples[index];
 
-    if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
-      data.jsxdocs = element.jsxdocs;
-      data.jsdocs = element.jsdocs;
+    if (
+      (element.atomic === props.match.params.category)
+      && (element.name === props.match.params.element)
+    ) {
+      data.propDocs = element.jsxdocs;
+      data.methodDocs = element.jsdocs;
       data.atomic = element.atomic;
       data.name = element.name;
       return element.examples;
@@ -122,8 +124,18 @@ export const Guide__examples = (props) => {
                   options.background = example.options.background;
                 }
               }
-              if (typeof example.options.padding !== 'undefined') { options.padding = example.options.padding; }
-              if (typeof example.options.brightness !== 'undefined') { options.brightness = example.options.brightness; }
+
+              if (
+                typeof example.options.padding !== 'undefined'
+              ) {
+                options.padding = example.options.padding;
+              }
+
+              if (
+                typeof example.options.brightness !== 'undefined'
+              ) {
+                options.brightness = example.options.brightness;
+              }
             }
 
             return (
@@ -143,7 +155,11 @@ export const Guide__examples = (props) => {
                       style={{
                         '--speed': '0s',
                         '--brightness': options.brightness,
-                        '--background': (options.background.match('#') || options.background.match('rgb')) ? options.background : ['url(', options.background, ')'].join(''),
+                        '--background': (
+                          options.background.match('#')
+                          || options.background.match('rgb')
+                        ) ? options.background
+                          : ['url(', options.background, ')'].join(''),
                         '--padding': options.padding
                       }}
                     >

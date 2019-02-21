@@ -7,13 +7,12 @@ export const GuideReadme = (el) => {
   // Toggle open and close example page's "Read me" section
   const toggleExamplesReadmeTable = (target) => {
     const table = target.parentNode.querySelector('.guide__readme-togglee');
-
-    // we don't use classList toggle method due to IE11.
-    if (table.classList.contains('hide')) {
-      table.classList.remove('hide');
+    // we don't use the classList.toggle() method due to IE11.
+    if (table.classList.contains('hidden')) {
+      table.classList.remove('hidden');
       target.classList.add('open');
     } else {
-      table.classList.add('hide');
+      table.classList.add('hidden');
       target.classList.remove('open');
     }
   };

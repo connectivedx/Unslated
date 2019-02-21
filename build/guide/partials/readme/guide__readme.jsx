@@ -1,6 +1,5 @@
 import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
-
 import {
   Table,
   Table__head,
@@ -15,13 +14,17 @@ export const Guide__readme = (props) => {
     children,
     ...attrs
   } = props;
-  const { jsdocs } = props.data;
-  const { jsxdocs } = props.data;
 
+  // jsx prop auto documentation (see: guide/partials/examples.jsx)
+  const { propDocs } = props.data;
+  // js methodology auto documentation (see: guide/partials/examples.jsx)
+  const { methodDocs } = props.data;
+
+  // Displays elements JSX templating props
   const propsSection = () => (
     <Rhythm tagName="section" className="guide__readme-section" {...attrs}>
       <Heading className="guide__readme-toggler" level="h3">Props</Heading>
-      <Rhythm className="guide__readme-togglee hide">
+      <Rhythm className="guide__readme-togglee hidden">
         <p>Props are predefined attributes used to alter this element, or passed through to rendered children.</p>
         <Table variant="responsive">
           <Table__head>
@@ -33,19 +36,17 @@ export const Guide__readme = (props) => {
           </Table__head>
           <Table__body>
             {
-              (jsxdocs)
-                ? Object.keys(jsxdocs.props).map((index) => {
-                  const prop = jsxdocs.props[index];
-                  const propType = prop.type.raw.replace(/\r?\n|\r/g, '').replace(/PropTypes./g, '').replace(/(.*)\(\[(.*)\]\)/g, '$2');
-                  return (
-                    <Table__row key={index}>
-                      <Table__data>{index}</Table__data>
-                      <Table__data>{propType}</Table__data>
-                      <Table__data>{(prop.description) ? prop.description : <div className="doc-error">Missing description</div>}</Table__data>
-                    </Table__row>
-                  );
-                })
-                : <Table__row><Table__data colSpan="4">No props data found on this element</Table__data></Table__row>
+              Object.keys(propDocs.props).map((index) => {
+                const prop = propDocs.props[index];
+                const propType = prop.type.raw.replace(/\r?\n|\r/g, '').replace(/PropTypes./g, '').replace(/(.*)\(\[(.*)\]\)/g, '$2');
+                return (
+                  <Table__row key={index}>
+                    <Table__data>{index}</Table__data>
+                    <Table__data>{propType}</Table__data>
+                    <Table__data>{(prop.description) ? prop.description : <div className="doc-error">Missing description</div>}</Table__data>
+                  </Table__row>
+                );
+              })
             }
           </Table__body>
         </Table>
@@ -53,10 +54,11 @@ export const Guide__readme = (props) => {
     </Rhythm>
   );
 
+  // Displays element logic methodology by AST ESTree
   const methodsSection = () => (
     <Rhythm tagName="section" className="guide__readme-section">
       <Heading className="guide__readme-toggler" level="h3">Methods</Heading>
-      <Rhythm className="guide__readme-togglee hide">
+      <Rhythm className="guide__readme-togglee hidden">
         <p>Methods are private actions that alter element states.</p>
         <Table variant="responsive">
           <Table__head>
@@ -69,8 +71,8 @@ export const Guide__readme = (props) => {
           </Table__head>
           <Table__body>
             {
-              Object.keys(jsdocs).map((index) => {
-                const method = jsdocs[index];
+              Object.keys(methodDocs).map((index) => {
+                const method = methodDocs[index];
                 if (method.type === 'VariableDeclaration') {
                   const { type } = method.declarations[0].init;
 
@@ -159,27 +161,39 @@ export const Guide__readme = (props) => {
     </Rhythm>
   );
 
-  let description = `
-    <span className="doc-error">
-      Missing Element description!<br />
-      Please describe this element in a multi-line comment at the top of it&apos;s JSX file.
-    </span>
-  `;
-
-  if (jsxdocs) {
-    description = (jsxdocs.description) ? jsxdocs.description : description;
+  let description;
+  if (propDocs) {
+    description = `
+      <span className="doc-error">
+        Missing Element description!<br />
+        Please describe this element in a multi-line comment at the top of it&apos;s JSX file.
+      </span>
+    `;
+    description = (propDocs.description) ? propDocs.description : description;
   }
 
   return (
     <Rhythm className="guide__readme">
       <Rhythm>
         <Heading level="h1">{props.data.name}</Heading>
-        <p dangerouslySetInnerHTML={{ __html: description }} />
+        {
+          (description)
+            ? (<p dangerouslySetInnerHTML={{ __html: description }} />)
+            : ''
+        }
       </Rhythm>
 
       <div className="guide__readme-sections">
-        {(props.data.jsxdocs.length) ? propsSection() : ''}
-        {(props.data.jsdocs.length) ? methodsSection() : ''}
+        {
+          (propDocs)
+            ? propsSection()
+            : ''
+        }
+        {
+          (methodDocs)
+            ? methodsSection()
+            : ''
+        }
       </div>
     </Rhythm>
   );

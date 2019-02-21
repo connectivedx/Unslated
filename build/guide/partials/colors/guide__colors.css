@@ -109,23 +109,14 @@
       & > .rhythm {
         padding: 2rem 0 0;
       }
-
-      select {
-        padding: 0.5rem 1rem;
-      }
     }
 
     &__control {
       display: flex;
-      justify-content: center;
-    }
-
-    &__controls {
-      font-weight: bold;
-      font-size: 0.75rem;
-      margin-right: 0.8rem;
-      select {
-        padding: 0.4rem 1rem;
+      .field {
+        font-weight: bold;
+        font-size: 0.75rem;
+        margin-right: 0.8rem;
         margin-left: 0.4rem;
       }
     }

@@ -403,8 +403,21 @@ const getExamples = (element = false) => {
       examples: [...allExamples[key].default][0].examples
     };
 
-    data.jsxdocs = { ...getJSXDocumentation(data.name) } || undefined;
-    data.jsdocs = getJSDocumentation(data.name) || undefined;
+    if (getJSXDocumentation(data.name)) {
+      if (getJSXDocumentation(data.name).length) {
+        data.jsxdocs = { ...getJSXDocumentation(data.name)[0] };
+      }
+    } else {
+      data.jsxdocs = undefined;
+    }
+
+    if (getJSDocumentation(data.name)) {
+      if (getJSDocumentation(data.name).length) {
+        data.jsdocs = getJSDocumentation(data.name);
+      }
+    } else {
+      data.jsdocs = undefined;
+    }
 
     return data;
   });

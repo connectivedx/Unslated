@@ -54,7 +54,6 @@
 
 	/* Style variants */
 	&--default {
-		.field__label { padding: rem(4px) 0; }
 
 		.field__decorator {
 			background-color: var(--color-white);
