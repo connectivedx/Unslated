@@ -4,7 +4,7 @@ import Heading from '@atoms/Heading/Heading';
 
 const page = () => (
   <Rhythm>
-    <Heading>Project Performance:</Heading>
+    <Heading>Project Performance Metrics:</Heading>
     <p>
       Use the tools below to gather a comprehensive view of bundled assets
       broken down by and size and loading times.<br />

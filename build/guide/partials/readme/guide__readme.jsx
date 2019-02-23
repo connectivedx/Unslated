@@ -25,7 +25,7 @@ export const Guide__readme = (props) => {
     <Rhythm tagName="section" className="guide__readme-section" {...attrs}>
       <Heading className="guide__readme-toggler" level="h3">Props</Heading>
       <Rhythm className="guide__readme-togglee hidden">
-        <p>Props are predefined attributes used to alter this element, or passed through to rendered children.</p>
+        <p>Predefined attributes used to alter the template rendering of this element.</p>
         <Table variant="responsive">
           <Table__head>
             <Table__row>
@@ -59,7 +59,7 @@ export const Guide__readme = (props) => {
     <Rhythm tagName="section" className="guide__readme-section">
       <Heading className="guide__readme-toggler" level="h3">Methods</Heading>
       <Rhythm className="guide__readme-togglee hidden">
-        <p>Methods are private actions that alter element states.</p>
+        <p>Private or public methods that alter the state or DOM of this element.</p>
         <Table variant="responsive">
           <Table__head>
             <Table__row>

@@ -39,6 +39,11 @@ export class PlaceholderSvg extends React.Component {
     fontWeight: 'bold'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       width,

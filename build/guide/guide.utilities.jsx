@@ -315,14 +315,22 @@ const readDirectory = (context) => {
   CORE: Gathering pages
 */
 
-const getPages = () => {
-  const pages = readDirectory(require.context('../../src/pages/', true, /\.jsx$/));
+const getPages = (page = false) => {
+  const allPages = readDirectory(require.context('../../src/pages/', true, /\.jsx$/));
+  const collection = [];
+  Object.keys(allPages).map((key) => {
+    if (page) {
+      if (key.indexOf(page) === -1) { return false; }
+    }
+    collection[key] = allPages[key].default;
+    return false;
+  }).filter((n) => n);
 
-  if (pages) {
-    return pages;
+  if (page) {
+    return collection[Object.keys(collection)[0]];
   }
 
-  return true;
+  return collection;
 };
 
 
@@ -330,20 +338,29 @@ const getPages = () => {
   CORE: Gathering tools
 */
 
-const getTools = () => {
-  const pages = readDirectory(require.context('./tools/', true, /\.jsx$/));
+const getTools = (tool = false) => {
+  const allTools = readDirectory(require.context('./tools/', true, /\.jsx$/));
+  const collection = {};
+  Object.keys(allTools).map((key) => {
+    if (tool) {
+      if (key.indexOf(tool) === -1) { return false; }
+    }
+    collection[key] = allTools[key].default;
+    return false;
+  }).filter((n) => n);
 
-  if (pages) {
-    return pages;
+  if (tool) {
+    return collection[Object.keys(collection)[0]];
   }
 
-  return true;
+  return collection;
 };
 
 
 /*
   CORE: Gathering specific JSX file's documentation
 */
+
 const getJSXDocumentation = (name) => {
   const allJSXDocs = require.context(
     '!!docgen-loader?htmlDescription!../../src/elements/',
@@ -380,7 +397,32 @@ const getJSDocumentation = (name) => {
 };
 
 /*
-  CORE: Gathering examples from elements directory
+  CORE: Gathering all or single element from elements directory
+*/
+
+const getElements = (element = false) => {
+  const allElements = readDirectory(require.context(
+    '../../src/elements/',
+    true,
+    /^((?!test|example).)*jsx$/
+  ));
+
+  const collection = {};
+  Object.keys(allElements).map((key) => {
+    if (element) {
+      if (key.indexOf(element) === -1) { return false; }
+    }
+    collection[key] = allElements[key];
+    return false;
+  }).filter((n) => n);
+  if (element) {
+    return collection[Object.keys(collection)[0]];
+  }
+  return collection;
+};
+
+/*
+  CORE: Gathering all or single example from elements directory
 */
 
 const getExamples = (element = false) => {
@@ -400,7 +442,8 @@ const getExamples = (element = false) => {
       name: key.split('/').slice(-1)[0].split('.')[0],
       atomic: key.replace('./', '').split('/')[0],
       url: ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join(''),
-      examples: [...allExamples[key].default][0].examples
+      examples: [...allExamples[key].default][0].examples,
+      element: getElements(key.split('/').slice(-1)[0].split('.')[0])
     };
 
     if (getJSXDocumentation(data.name)) {

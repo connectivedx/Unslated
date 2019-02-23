@@ -31,6 +31,11 @@ export class Form extends React.Component {
     method: 'post'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

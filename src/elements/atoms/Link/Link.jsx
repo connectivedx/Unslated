@@ -16,6 +16,11 @@ export class Link extends React.Component {
     variant: 'default'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       children,

@@ -26,6 +26,11 @@ export class Card extends React.Component {
     color: 'white'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

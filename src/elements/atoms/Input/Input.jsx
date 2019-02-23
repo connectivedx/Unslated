@@ -50,6 +50,11 @@ export class Input extends React.Component {
     required: false
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

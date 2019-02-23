@@ -7,7 +7,7 @@
 
 // Guide JS
 import ReactDOM from 'react-dom';
-import { Guide, Blank, Data } from '@guide/guide';
+import Guide from '@guide/guide';
 import GuideNav from '@guide/partials/nav/guide__nav.container';
 import GuidePages from '@guide/partials/pages/guide__pages.container';
 import GuideColors from '@guide/partials/colors/guide__colors.container';
@@ -17,6 +17,7 @@ import GuideStylist from '@guide/partials/stylist/guide__stylist.container';
 import GuideWelcome from '@guide/partials/welcome/guide__welcome.container';
 import GuideExamples from '@guide/partials/examples/guide__examples.container';
 import GuideTypography from '@guide/partials/typography/guide__typography.container';
+import Package from '@root/package.json';
 
 // Fetch support
 require('es6-promise').polyfill();
@@ -30,24 +31,17 @@ require('prismjs/themes/prism.css');
 const requireAll = (context) => context.keys().map(context);
 requireAll(require.context('@elements/', true, /\.examples.jsx$/));
 
-const isData = (window.location.pathname.indexOf('/data/') !== -1);
-const isBlank = (window.location.pathname.indexOf('/blank/') !== -1);
+document.head.querySelector('title').innerText = [Package.name, ' ', Package.version].join('');
 
 // Mount the guide into DOM and run it's container.js
-if (isData) {
-  ReactDOM.render(<Data />, document.querySelector('html')); // eslint-disable-line
-} else if (isBlank) {
-  ReactDOM.render(<Blank />, document.querySelector('#index'));
-} else {
-  ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
-    Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
-    Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
-    Utils.initComponent('GuidePages', '.guide__pages', GuidePages);
-    Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
-    Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
-    Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
-    Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
-    Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
-    Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
-  });
-}
+ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
+  Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
+  Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
+  Utils.initComponent('GuidePages', '.guide__pages', GuidePages);
+  Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
+  Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
+  Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
+  Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
+  Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
+  Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
+});

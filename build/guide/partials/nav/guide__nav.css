@@ -69,10 +69,11 @@
     list-style: none;
     padding: 0;
 
-    a {
-      color: var(--color-alpha80);
+    .link {
+      color: var(--color-black);
       display: block;
       text-decoration: none;
+      width: 100%;
     }
 
     & .list__item {
@@ -90,6 +91,7 @@
 
       .list {
         padding: 0 0 0.5rem 1.75rem;
+        font-size: rem(16px);
       }
 
       .list__item {
@@ -107,8 +109,8 @@
         transition: opacity 0.5s;
 
         .icon {
-          height: rem(22px);
-          width: rem(22px);
+          height: rem(20px);
+          width: rem(20px);
         }
 
         [data-modal] {
@@ -133,6 +135,7 @@
     background-position: 10px center;
     background-repeat: no-repeat;
     background-size: 25px;
+    color: var(--color-black);
     cursor: pointer;
     padding: 0.5rem 1rem 0.5rem 2.75rem;
     display: flex;

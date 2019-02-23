@@ -22,6 +22,11 @@ export class List extends React.Component {
     variant: 'unordered'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName,

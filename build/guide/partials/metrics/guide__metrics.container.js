@@ -24,7 +24,11 @@ const getFilteredData = (data, filters) => {
 
     Object.keys(collection).map((j) => {
       const file = collection[j];
-      if (file.name.indexOf(atomicLevels[i]) !== -1 && file.name.indexOf('/elements/') !== -1) {
+      if (
+        file.name.indexOf(atomicLevels[i]) !== -1
+        && file.name.indexOf('/elements/') !== -1
+        && file.name.indexOf('.loader') === -1
+      ) {
         let k = filters.length;
         while (k--) {
           if (file.name.match(filters[k])) {

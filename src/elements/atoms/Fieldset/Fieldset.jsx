@@ -31,6 +31,11 @@ export class Fieldset extends React.Component {
     legendHide: true
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

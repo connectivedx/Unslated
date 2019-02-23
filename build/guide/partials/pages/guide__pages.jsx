@@ -20,24 +20,14 @@ export const BadAddress = () => {
 };
 
 export const Guide__pages = (props) => {
-  let pages;
-  let pageType;
+  let page;
   if (props.match.params.page) {
-    pages = GuideUtils.getPages();
-    pageType = 'page';
+    page = GuideUtils.getPages(props.match.params.page);
   }
 
   if (props.match.params.tool) {
-    pages = GuideUtils.getTools();
-    pageType = 'tool';
+    page = GuideUtils.getTools(props.match.params.tool);
   }
-
-  let page = Object.keys(pages).map((i) => {
-    if (i.split('.')[1].split('/')[1] === props.match.params[pageType]) {
-      return pages[i].default;
-    }
-    return null;
-  }).filter((el) => el)[0];
 
   const classStack = Utils.createClassStack([
     'guide__pages',

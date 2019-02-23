@@ -32,6 +32,11 @@ export class Modal extends React.Component {
     padding: 'medium'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

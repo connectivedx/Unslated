@@ -16,25 +16,56 @@ import {
 } from '@molecules/Card/Card';
 
 // Navigation element levels
-const getElementListing = (examples, level) => Object.keys(examples).map((i) => (
-  <List__item key={i} data-search={examples[i].name}>
-    <Link href={['../../../', examples[i].url].join('')}>{ examples[i].name }</Link>
-    {
-      (process.env.NODE_ENV === 'development')
-        ? (
-          <span className="guide__nav-icons">
-            <span data-modal="rename" data-path={`src/elements/${level}/${examples[i].name}`} data-name={examples[i].name}><Icon name="pencil" /></span>
-            <span data-modal="remove" data-path={`src/elements/${level}/${examples[i].name}`}><Icon name="trash" /></span>
-          </span>
-        )
-        : ''
+const getElementListing = (examples, level) => Object.keys(examples).map((i) => {
+  // Core elements are defined as a element optin in element's main .jsx file
+  let isCoreElement = false;
+
+  // Checking for options to overload
+  if (examples[i].element) {
+    if (examples[i].element.default) {
+      if (examples[i].element.default.options) {
+        isCoreElement = examples[i].element.default.options.core;
+      }
     }
-  </List__item>
-));
+  }
+
+  return (
+    <List__item key={i} data-search={examples[i].name}>
+      <Link href={['../../../', examples[i].url].join('')}>{ examples[i].name }</Link>
+      {
+        // we only allow these utilities for development and non-core elements
+        (process.env.NODE_ENV === 'development' && !isCoreElement)
+          ? (
+            <span className="guide__nav-icons">
+              <Link
+                href="#/"
+                title="Rename element"
+                data-modal="rename"
+                data-path={`src/elements/${level}/${examples[i].name}`}
+                data-name={examples[i].name}
+              >
+                <Icon name="pencil" />
+              </Link>
+              <Link
+                href="#/"
+                title="Delete element"
+                data-modal="remove"
+                data-path={`src/elements/${level}/${examples[i].name}`}
+              >
+                <Icon name="trash" />
+              </Link>
+            </span>
+          )
+          : ''
+      }
+    </List__item>
+  );
+});
 
 // Navigation atomic levels
 const getAtomicListing = () => {
   const elements = GuideUtils.getExamples();
+
   const collection = [];
 
   // Create new atomic level collection of elements
@@ -51,13 +82,19 @@ const getAtomicListing = () => {
   // Create sections based on atomic collection from above
   return Object.keys(collection).map((index) => {
     const examples = collection[index];
-
     return (
       <List__item key={index}>
         <Heading level="h3" className={index}>
           {index.charAt(0).toUpperCase() + index.slice(1)}
         </Heading>
-        <List className="hidden">{getElementListing(examples, (index.charAt(0).toUpperCase() + index.slice(1)))}</List>
+        <List className="hidden">
+          {
+            getElementListing(
+              examples,
+              (index.charAt(0).toUpperCase() + index.slice(1))
+            )
+          }
+        </List>
       </List__item>
     );
   });
@@ -100,6 +137,7 @@ const getPageListing = () => {
 const getToolsListing = () => {
   const pages = GuideUtils.getTools();
 
+  if (!Object.keys(pages).length) { return false; }
   return (
     <List__item>
       <Heading level="h3" className="utilities">Tools</Heading>
@@ -109,7 +147,11 @@ const getToolsListing = () => {
             const pageName = key.split('./')[1].split('.')[0];
             return (
               <List__item data-search={pageName} key={index}>
-                <Link href={['../../../tools/', pageName].join('')}>{pageName.charAt(0).toUpperCase() + pageName.slice(1)}</Link>
+                <Link
+                  href={['../../../tools/', pageName].join('')}
+                >
+                  {pageName.charAt(0).toUpperCase() + pageName.slice(1)}
+                </Link>
               </List__item>
             );
           })
@@ -134,10 +176,16 @@ export const Guide__nav = (props) => {
   return (
     <nav className={classStack} {...attrs}>
       <Rhythm className="guide__nav-inner">
-        <Form action="get" method="post" legend="Use the form below to search for atomic elements" autoComplete="off">
+        <Form
+          action="get"
+          method="post"
+          legend="Use the form below to search for atomic elements"
+          autoComplete="off"
+        >
           <Input type="search" label={false} name="query" id="nav-search" className="guide__nav--search" />
         </Form>
         <span className="guide-nav__close" />
+
         <Rhythm tagName="ul" deep size="small" className="list">
           <Heading level="h3" className="home"><Link href="/">Home</Link></Heading>
           { getAtomicListing() }
@@ -161,7 +209,10 @@ export const Guide__nav = (props) => {
                 </Card__header>
                 <Card__body>
                   <Rhythm>
-                    <p>Use this dialog to add new atomic parts to the project.<br /> First choose a type, then give it a name.</p>
+                    <p>
+                      Use this dialog to add new atomic parts to the project.<br />
+                      First choose a type, then give it a name.
+                    </p>
                     <Form method="get" xaction="/api" className="new-element">
                       <Fieldset legend="Use the form below to add a new project element">
                         <Rhythm tagName="ol">
@@ -194,7 +245,11 @@ export const Guide__nav = (props) => {
                 </Card__header>
                 <Card__body>
                   <Rhythm>
-                    <p>Use this dialog to rename an atomic parts of the project. This will find all use cases of old name and replace it with new name. Case sensitivity is taken into account.</p>
+                    <p>
+                      Use this dialog to rename an atomic parts of the project.
+                      This will find all use cases of old name and replace it with new name.
+                      Case sensitivity is taken into account.
+                    </p>
                     <Form method="get" xaction="/api" className="rename-element">
                       <Fieldset legend="Use the form below to rename a project element">
                         <Rhythm tagName="ol">
@@ -219,7 +274,11 @@ export const Guide__nav = (props) => {
                 </Card__header>
                 <Card__body>
                   <Rhythm>
-                    <p>You are about to delete an element that may or may not be used in other areas of the project. This action cannot be undone.<br /><br /> Would you like to proceed?</p>
+                    <p>
+                      You are about to delete an element that may or may not be used in other areas of the project.
+                      This action cannot be undone.<br /><br />
+                      Would you like to proceed?
+                    </p>
                     <Form method="get" xaction="/api" className="remove-element">
                       <Fieldset legend="Use the form below to delete an element">
                         <Input type="hidden" label={false} name="name" id="delete-name" required />

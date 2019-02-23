@@ -19,15 +19,15 @@ const server = require('./server.config.js');   // all webpack-dev-server config
 // main config object
 const config = {
   entry: {
-    assets: './build/assets.js', // entry point for production assets
-    guide: './build/guide.js'    // entry point for style guide assets
+    assets: './build/assets.jsx', // entry point for production assets
+    guide: './build/guide.jsx'    // entry point for style guide assets
   },
   output: {
     path: path.resolve(__dirname, ['../../',package.directories.dest].join('')),  // sets default location for all compiled files
     publicPath: package.directories.publicPath,                                       // sets a default public location (required by react-routes)
     filename: ['.', package.directories.assetPath, '/js/[name].js'].join('')                                             // sets filename of bundled .js file (relative to output.path config)
   },
-  module: { 
+  module: {
     rules: [
       ...css.config,  // see build/config/css/css.config.js
       ...js.config,   // see build/config/js/js.config.js
@@ -43,7 +43,7 @@ const config = {
     ...img.plugins,        // see build/config/img/img.config.js
     ...font.plugins,       // see build/config/font/font.config.js
     ...alias.plugins,      // see build/config/alias.config.js
-    ...stats.plugins       // see build/configs/stats.config.js    
+    ...stats.plugins       // see build/configs/stats.config.js
   ],
   resolve: {
     alias: alias.config,                           // resolve alias namespaces (see build/configs/alias.config.js)
@@ -56,7 +56,7 @@ const config = {
     minimize: false              // minimize output (set to false for dev builds)
   },
   performance: {
-    hints: false                 // bundle size warnings  
+    hints: false                 // bundle size warnings
   }
 };
 
@@ -85,7 +85,7 @@ module.exports = (env, argv) => {
     // Produciton builds turn JS minification on.
     // Remove this line if production builds ought not to be minified.
     config.optimization.minimize = true;
-    
+
     // Cleans our dist folder upon production builds
     config.plugins.push(
       new CleanWebpackPlugin(
@@ -105,7 +105,7 @@ module.exports = (env, argv) => {
           to: config.output.path
         }
       ])
-    );  
+    );
   }
 
   return config;
