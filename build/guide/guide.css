@@ -4,17 +4,13 @@
 @import './partials/pages/guide__pages.css';
 @import './partials/examples/guide__examples.css';
 @import './partials/readme/guide__readme.css';
+@import './partials/metrics/guide__metrics.css';
+@import './partials/colors/guide__colors.css';
+@import './partials/icons/guide__icons.css';
+@import './partials/typography/guide__typography.css';
 
 :root {
   --breakpoint-speed: 2s;
-}
-
-html,
-body,
-#index,
-.guide,
-.guide__main {
-  height: 100%;
 }
 
 strong {
@@ -22,20 +18,19 @@ strong {
 }
 
 .guide {
-  display: flex;
+  /* display: flex; */
   perspective: 100rem;
-  height: 100%;
+  height: 100vh;
 
-  & .hide { display: none; }
+  & .hidden { display: none !important; }
 
   & .doc-error {
-    background-color: red;
-    color: white;
+    background-color: var(--color-red);
+    color: var(--color-white);
     padding: 0.25rem;
   }
 
   &__main {
-    padding: 6rem 2rem 2rem;
     width: 100%;
     position: relative;
     z-index: 1;

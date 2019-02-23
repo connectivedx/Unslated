@@ -38,6 +38,11 @@ export class Tabs extends React.Component {
     defaultTab: '1'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

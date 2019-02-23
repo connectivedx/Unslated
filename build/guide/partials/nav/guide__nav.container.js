@@ -33,10 +33,10 @@ export const GuideNav = (el) => {
         // navigation accordion
         if (target.classList.contains('heading')) {
           if (target.classList.contains('home')) { return; }
-          if (target.nextSibling.classList.contains('hide')) {
-            target.nextSibling.classList.remove('hide');
+          if (target.nextSibling.classList.contains('hidden')) {
+            target.nextSibling.classList.remove('hidden');
           } else {
-            target.nextSibling.classList.add('hide');
+            target.nextSibling.classList.add('hidden');
           }
 
           e.preventDefault();
@@ -68,32 +68,32 @@ export const GuideNav = (el) => {
 
             // toggle list visibility by value length
             if (value.length) {
-              ui.navLists[i].classList.remove('hide');
+              ui.navLists[i].classList.remove('hidden');
             } else {
-              ui.navLists[i].classList.add('hide');
+              ui.navLists[i].classList.add('hidden');
             }
 
             // toggle list__items visibility by value match
             while (j--) {
-              items[j].classList.add('hide');
+              items[j].classList.add('hidden');
               if (items[j].dataset.search.toLowerCase().match(value.toLowerCase())) {
-                items[j].classList.remove('hide');
+                items[j].classList.remove('hidden');
                 hasMatches = true;
               }
             }
 
             // toggle list parent by all list__items being hidden or not.
             if (hasMatches === false) {
-              ui.navLists[i].parentNode.classList.add('hide');
+              ui.navLists[i].parentNode.classList.add('hidden');
             } else {
-              ui.navLists[i].parentNode.classList.remove('hide');
+              ui.navLists[i].parentNode.classList.remove('hidden');
             }
           } else {
             // Clearing
-            ui.navLists[i].classList.add('hide');
+            ui.navLists[i].classList.add('hidden');
             while (j--) {
-              items[j].classList.remove('hide');
-              ui.navLists[i].parentNode.classList.remove('hide');
+              items[j].classList.remove('hidden');
+              ui.navLists[i].parentNode.classList.remove('hidden');
             }
           }
 

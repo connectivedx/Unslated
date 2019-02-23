@@ -27,6 +27,11 @@ export class Heading extends React.Component {
     level: 'h1'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName,

@@ -21,14 +21,12 @@
     ```
 */
 
-import Image from './Image';
 import imageSrc from '@atoms/Image/assets/rancheria-falls.jpg';
 import imageSrcMd from '@atoms/Image/assets/rancheria-falls-md.jpg';
 import imageSrcLg from '@atoms/Image/assets/rancheria-falls-lg.jpg';
-import docs from '!!docgen-loader?htmlDescription!./Image';
+import Image from './Image';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default image behavior',

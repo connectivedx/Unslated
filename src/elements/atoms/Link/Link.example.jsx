@@ -22,10 +22,8 @@
 */
 
 import Link from './Link';
-import docs from '!!docgen-loader?htmlDescription!./Link';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default styling',

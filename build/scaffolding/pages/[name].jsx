@@ -4,4 +4,9 @@ const page = () => (
   </React.Fragment>
 );
 
+page.options = {
+  navless: false,
+  headless: false
+};
+
 export default page;

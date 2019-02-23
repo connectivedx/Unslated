@@ -23,6 +23,11 @@ export class Wrapper extends React.Component {
     size: 'default'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

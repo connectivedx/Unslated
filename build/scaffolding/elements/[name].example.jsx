@@ -22,10 +22,8 @@
 */
 
 import {{name}} from './{{name}}';
-import docs from '!!docgen-loader?htmlDescription!./{{name}}';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default styling',

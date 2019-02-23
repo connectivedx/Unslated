@@ -4,6 +4,7 @@
   --tabs-trigger-padding: 0.5rem;
   --tabs-target-padding: 1rem;
 }
+/* Baseline styles */
 .tabs {
   @media (--medium) {
     display: flex;
@@ -16,13 +17,17 @@
         height: auto;
         opacity: 1;
         visibility: visible;
+        overflow: visible;
       }
     }
   }
 
   &__target {
+    border: none;
     height: 0;
     opacity: 0;
+    margin: 0;
+    overflow: hidden;
     visibility: hidden;
   }
 
@@ -93,16 +98,20 @@
 
   &--outline {
     .tabs__trigger {
-      border: var(--border-style);
+      border: var(--border-styles);
       cursor: pointer;
       font-size: rem(20px);
       padding: var(--tabs-padding);
       position: relative;
       z-index: 2;
-      background-color: var(--color-gray-light);
+      background-color: var(--tabs-bg-color);
 
       @media (--medium) {
         padding: var(--tabs-trigger-padding) 0.85rem;
+      }
+
+      &.tabs-state--open + .tabs__target {
+        border: var(--border-styles);
       }
     }
 
@@ -136,10 +145,13 @@
     }
 
     .tabs__target {
-      border: var(--border-style);
-      padding: var(--tabs-target-padding);
+      background-color: var(--tabs-bg-color);
       position: relative;
       z-index: 1;
+
+      > * {
+        padding: var(--tabs-target-padding);
+      }
     }
   }
 }

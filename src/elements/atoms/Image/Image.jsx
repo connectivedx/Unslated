@@ -18,6 +18,11 @@ export class Image extends React.Component {
     variant: 'default'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       className,

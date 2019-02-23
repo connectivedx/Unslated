@@ -1,8 +1,8 @@
-
 import Stylist from '@guide/partials/stylist/guide__stylist';
 import Readme from '@guide/partials/readme/guide__readme';
-
+import Input from '@atoms/Input/Input';
 import Button from '@atoms/Button/Button';
+import Icon from '@atoms/Icon/Icon';
 import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import {
@@ -25,10 +25,31 @@ export const Guide__examples = (props) => {
     'guide__examples'
   ]);
 
+  // Gather data
+  const data = {};
+  const examples = GuideUtils.getExamples(props.match.params.element);
+
+  data.examples = Object.keys(examples).map((index) => {
+    const element = examples[index];
+
+    if (
+      (element.atomic === props.match.params.category)
+      && (element.name === props.match.params.element)
+    ) {
+      data.propDocs = element.jsxdocs;
+      data.methodDocs = element.jsdocs;
+      data.atomic = element.atomic;
+      data.name = element.name;
+      return element.examples;
+    }
+
+    return false;
+  }).filter((n) => n[0]);
+
   // JSX Prisim Code Snips
-  const getJSXPrisim = (component, data) => {
+  const getJSXPrisim = (component, object) => {
     const prisimData = ReactElementToString(component, {
-      displayName: data.name,
+      displayName: object.name,
       showDefaultProps: false
     }).replace(/<Unknown>/g, '')
       .replace(/<\/Unknown>/g, '')
@@ -64,14 +85,6 @@ export const Guide__examples = (props) => {
     return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
   };
 
-  // Gather data
-  const data = {
-    docs: undefined,
-    name: undefined,
-    atomic: undefined,
-    examples: GuideUtils.getExamples()[0]
-  };
-
   // C# Prisim Code Snips
   const getCSharpPrisim = (component) => [
     '// https://reactjs.net/getting-started/aspnet.html \n',
@@ -83,27 +96,19 @@ export const Guide__examples = (props) => {
     ' });'
   ].join('');
 
-  data.examples = Object.keys(data.examples).map((index) => {
-    const element = data.examples[index];
-
-    if ((element.atomic === props.match.params.category) && (element.name === props.match.params.element)) {
-      data.docs = element.docs;
-      data.atomic = element.atomic;
-      data.name = element.name;
-      return element.examples;
-    }
-
-    return false;
-  }).filter((n) => n[0]);
-
   return (
     <Rhythm tagName="section" className={classStack}>
-      <Readme docs={data.docs} />
+      <Readme data={data} />
       <Rhythm className="examples__listing">
         {
           Object.keys(data.examples[0]).map((index) => {
             const example = data.examples[0][index];
             const exampleConfig = GuideConfig.example.options;
+
+            // for permalinks to examples
+            const exampleName = example.name;
+            const exampleNameNoSpace = exampleName.replace(/\s+/g, '');
+            const exampleLink = `#${exampleNameNoSpace}`;
 
             const options = {
               background: exampleConfig.background,
@@ -119,14 +124,28 @@ export const Guide__examples = (props) => {
                   options.background = example.options.background;
                 }
               }
-              if (typeof example.options.padding !== 'undefined') { options.padding = example.options.padding; }
-              if (typeof example.options.brightness !== 'undefined') { options.brightness = example.options.brightness; }
+
+              if (
+                typeof example.options.padding !== 'undefined'
+              ) {
+                options.padding = example.options.padding;
+              }
+
+              if (
+                typeof example.options.brightness !== 'undefined'
+              ) {
+                options.brightness = example.options.brightness;
+              }
             }
 
             return (
               <Card key={index} className="examples">
                 <Card__header className="examples__header">
-                  <Heading level="h5" className="examples__heading">{example.name}</Heading>
+                  <a href={exampleLink} className="examples__header-jumplink">
+                    <Icon name="unlink" />
+                    <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName}</Heading>
+                    <Input type="text" id={`jumplink-path-${index}`} name="jumplink-path" className="examples__header-jumplink-path" />
+                  </a>
                 </Card__header>
                 <Card__body className="examples__body examples__item">
                   <Rhythm>
@@ -136,7 +155,11 @@ export const Guide__examples = (props) => {
                       style={{
                         '--speed': '0s',
                         '--brightness': options.brightness,
-                        '--background': (options.background.match('#') || options.background.match('rgb')) ? options.background : ['url(', options.background, ')'].join(''),
+                        '--background': (
+                          options.background.match('#')
+                          || options.background.match('rgb')
+                        ) ? options.background
+                          : ['url(', options.background, ')'].join(''),
                         '--padding': options.padding
                       }}
                     >
@@ -154,19 +177,19 @@ export const Guide__examples = (props) => {
                     { (example.component.type.name) ? <Button size="small" data-index="3">C#</Button> : '' }
                   </div>
                   <div className="examples__codes">
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, data) }} />
                     </pre>
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       <code dangerouslySetInnerHTML={{ __html: getHTMLPrisim(example.component) }} />
                     </pre>
-                    <pre className="examples__code hide">
+                    <pre className="examples__code hidden">
                       {(example.component.props) ? <code dangerouslySetInnerHTML={{ __html: getPropsPrisim(example.component) }} /> : ''}
                     </pre>
                     {
                       (example.component.type.name)
                         ? (
-                          <pre className="examples__code hide">
+                          <pre className="examples__code hidden">
                             {
                               (example.component.props)
                                 ? (

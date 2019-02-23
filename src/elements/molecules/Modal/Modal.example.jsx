@@ -21,13 +21,11 @@
     ```
 */
 
-import Modal from './Modal';
 import Button from '@atoms/Button/Button';
 import { List, List__item } from '@atoms/List/List';
-import docs from '!!docgen-loader?htmlDescription!./Modal';
+import Modal from './Modal';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default (large size, medium padding)',

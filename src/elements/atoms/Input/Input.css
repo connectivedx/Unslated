@@ -1,0 +1,95 @@
+.input {
+	/* Baseline styles */
+  &-radio,
+  &-checkbox {
+  	position: relative;
+
+  	.field__label {
+  		display: inline-flex;
+  		align-content: center;
+  		justify-content: space-between;
+
+			&:before { content: ''; }
+  	}
+
+		.field__native {
+			cursor: pointer;
+			height: 100%;
+			left: 0;
+			opacity: 0;
+			padding: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}		
+  }
+
+  /* Style variants */
+  &--default {
+		.field__native {
+			background-color: var(--color-white);
+			border: none;
+			box-shadow: 0 0 0 1px var(--color-gray);
+			outline: none;
+
+			.field__native,
+			&::placeholder,
+			&:-ms-input-placeholder,
+			&::-ms-input-placeholder {
+				color: var(--color-grey-light);
+				font-family: var(--font-name--default);
+				font-size: 1rem;
+			}		
+		}
+
+		.field__label {
+			&:before {
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+				display: inline-block;
+				margin: 0 0.5rem;
+				padding: 0.5rem;				
+			}			
+		}
+
+		&.input-text {
+			.field__native {
+				min-height: rem(40px);
+				padding: rem(12px);
+			}
+		}
+
+		&.input-radio,
+		&.input-checkbox {
+			.field__label {
+				padding: 0;
+
+				&:before {
+					padding: rem(10px);
+				}
+			}			
+		}
+
+		&.input-radio {
+			.field__label:before {
+				border-radius: 2rem;
+				background-image: url('../Icon/assets/radio-unchecked.svg');
+			}
+
+			.field__native:checked + .field__label:before {
+				background-image: url('../Icon/assets/radio-checked.svg');
+			}
+		}
+
+		&.input-checkbox {
+			.field__label:before {
+				background-image: url('../Icon/assets/checkbox-unchecked.svg');
+			}
+
+			.field__native:checked + .field__label:before {
+				background-image: url('../Icon/assets/checkbox-checked.svg');
+			}
+		}
+  } 
+}

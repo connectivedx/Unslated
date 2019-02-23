@@ -1,0 +1,45 @@
+/* Metrics */
+.guide__typography {
+
+	* {
+		font-family: var(--font-family);
+	}
+
+	.size {
+		&--49 {
+			font-size: rem(49px);
+		}
+
+		&--28 {
+			font-size: rem(28px);
+		}
+	}
+
+	.weight {
+		&--light {
+			font-weight: 300;
+		}
+
+		&--regular {
+			font-weight: 400;
+		}
+
+		&--semibold {
+			font-weight: 600;
+		}
+
+		&--bold {
+			font-weight: 700;
+		}
+	}
+
+	.style {
+		&--normal {
+			font-style: normal;
+		}
+
+		&--italic {
+			font-style: italic;
+		}
+	}
+}

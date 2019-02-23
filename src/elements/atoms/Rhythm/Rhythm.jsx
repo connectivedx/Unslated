@@ -27,6 +27,11 @@ export class Rhythm extends React.Component {
     deep: false
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

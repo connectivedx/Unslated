@@ -21,12 +21,10 @@
     ```
 */
 
-import Heading from './Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
-import docs from '!!docgen-loader?htmlDescription!./Heading';
+import Heading from './Heading';
 
 export default [{
-  docs,
   examples: [{
     name: 'Light (h1-h6)',
     component: (

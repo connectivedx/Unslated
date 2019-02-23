@@ -42,6 +42,11 @@ export class Expand extends React.Component {
     align: 'top'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,

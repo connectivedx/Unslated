@@ -1,0 +1,110 @@
+/* Select */
+.select {
+
+	/* Baseline styles */
+	.field__decorator {
+		display: flex;
+		position: relative;
+		align-items: center;
+
+		&:after {
+			content: '';
+			display: block;
+			z-index: 1;
+		}
+
+		.field__native {
+			cursor: pointer;
+			display: block;
+			outline: none;
+			position: relative;
+			width: 100%;
+			z-index: 2;
+			-webkit-appearance: none;
+
+			&:--haf {
+				outline: none;
+				border: none;
+			}
+		}
+	}
+
+	.sub-field__decorator {
+		display: none;
+		left: 0;
+		max-height: calc(40px * 5);
+		overflow-x: hidden;
+		overflow-y: scroll;
+		position: absolute;
+		top: 100%;
+		z-index: 3;
+	}
+
+	&.open {
+		.sub-field__decorator {
+			display: block;
+		}
+
+		.field__decorator {
+			&:after {
+				z-index: 4;
+			}
+		}
+	}
+
+	/* Style variants */
+	&--default {
+
+		.field__decorator {
+			background-color: var(--color-white);
+			box-shadow: 0 0 0 rem(1px) var(--color-gray);
+      width: 100%;
+
+			&:after {
+				background-image: url('../Icon/assets/chevron.svg');
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+				height: rem(16px);
+				margin-left: -1.5rem;
+				margin-right: 0.25rem;
+				transform: rotateZ(90deg);
+				width: rem(16px);
+				position: relative;
+			}
+
+			.field__native {
+				border: none;
+				background: transparent;
+				color: black;
+				min-height: rem(40px);
+				padding: rem(12px);
+				padding-right: rem(32px);
+				transition: box-shadow 0.15s;
+				position: relative;
+			}
+		}
+
+		.sub-field__decorator {
+			background-color: var(--color-white);
+			width: 100%;
+			box-shadow: 0 0 0 rem(1px) var(--color-gray), 0 rem(5px) rem(5px) rem(-3px) var(--color--alpha25), 0 rem(8px) rem(10px) rem(1px) var(--color--alpha15), 0 rem(3px) rem(14px) rem(2px) var(--color--alpha05);
+
+			.list__item {
+				border-bottom: rem(1px) solid var(--color-gray-light);
+				cursor: pointer;
+				font-size: rem(13px);
+				min-height: rem(40px);
+				padding: rem(11px) rem(12px);
+				transition: all 0.25s;
+
+				&:last-child { border-bottom: none; }
+
+				&.selected,
+				&:--haf {
+					background-color: var(--color-gray-light);
+				}
+			}
+		}
+	}
+}

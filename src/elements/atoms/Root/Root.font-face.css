@@ -3,9 +3,12 @@
 If you need @font-face you can add them here
 using this example as a reference.
 
-*/
+----
 
-/*
+@import url('remote/location/to/font-faces');
+
+or
+
 @font-face {
   font-family: var(--font-stack--default);
   font-weight: var(--font-weight--normal);
@@ -14,4 +17,13 @@ using this example as a reference.
     url('./assets/SourceSansPro-Regular.woff') format('woff'),
     url('./assets/SourceSansPro-Regular.woff2') format('woff2');
 }
+
+----
+
+DO NOT FORGET TO ADD ANY NEW FONTS TO BOTH:
+- src/variables/fonts.css
+- build/buide/tools/typography.jsx
+
 */
+
+@import url('//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Merriweather:100,300,400,700');

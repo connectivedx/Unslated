@@ -7,6 +7,47 @@
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
 
+
+/*
+  Helper: Universal method to validate native form fields
+*/
+const checkValidity = (field) => {
+  const native = field.querySelector('.field__native');
+  if (native.required) {
+    if (native.checkValidity()) {
+      field.classList.remove('field__error');
+    } else {
+      field.classList.add('field__error');
+    }
+  }
+};
+
+/*
+  Helper: Chookie get and set methods
+*/
+const getCookie = (cname) => {
+  const name = [cname, '='].join('');
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return false;
+};
+
+const setCookie = (cname, cvalue, exdays) => {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  const expires = ['expires=', d.toUTCString()].join('');
+  document.cookie = [cname, '=', cvalue, ';', expires, ';path=/'].join('');
+};
+
 /*
   Helper: Little method to help reuse a component examples instead of re-crafting the element across pages and templates.
 */
@@ -170,6 +211,9 @@ const initComponent = (name, selector, Component, callback) => {
 module.exports = {
   parents,
   getExample,
+  getCookie,
+  setCookie,
+  checkValidity,
   createClassStack,
   initComponent,
   toggleClass,

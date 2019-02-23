@@ -30,10 +30,8 @@ import {
   Table__header,
   Table__data
 } from './Table';
-import docs from '!!docgen-loader?htmlDescription!./Table';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Table with caption',
