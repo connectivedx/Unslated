@@ -118,11 +118,17 @@ class Tracking {
     try {
       selector = document.querySelector(attr[0]);
       // if element selector contained a attribute selection
-      if (attr[1]) {
-        return selector.getAttribute(attr[1].replace(/\((.*?)\)/g, '$1'));
+      if (selector) {
+        if (attr[1]) {
+          const prop = attr[1].replace(/\((.*?)\)/g, '$1');
+          if (typeof selector[prop] !== 'undefined') {
+            return selector[prop];
+          }
+          return selector.getAttribute(prop);
+        }
+        return selector.innerHTML;
       }
-
-      return selector.innerHTML;
+      return false;
     } catch (e) {
       return false;
     }
@@ -143,7 +149,7 @@ class Tracking {
         let j = keys.length;
 
         while (j--) {
-          if (this.validateSelector(data[keys[j]])) {
+          if (this.validateSelector(data[keys[j]]) !== false) {
             // selector for value of data spread
             collection[keys[j]] = this.validateSelector(data[keys[j]]);
           } else {
