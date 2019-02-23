@@ -23,6 +23,9 @@ export class {{name}} extends React.Component {
     variant: 'default'
   };
 
+  /** Element level options */
+  static options = {};
+
   render = () => {
     const {
       tagName: Tag,

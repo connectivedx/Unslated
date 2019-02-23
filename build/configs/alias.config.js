@@ -1,4 +1,4 @@
-// Alias namespace config
+// Alias namespace config (see: https://webpack.js.org/configuration/resolve/#resolve-alias)
 // Used to quickly resolve file paths during imports in JS, JSX and CSS files.
 
 const path = require('path');
@@ -9,7 +9,7 @@ module.exports = {
     '@root': path.resolve(__dirname, '../../'),
     '@build': path.resolve(__dirname, '../../build/'),
     '@guide': path.resolve(__dirname, '../../build/guide/'),
-    '@src':  path.resolve(__dirname, '../../src/'),
+    '@src': path.resolve(__dirname, '../../src/'),
     '@dest': path.resolve(__dirname, '../../dest/'),
     '@elements': path.resolve(__dirname, '../../src/elements/'),
     '@vars': path.resolve(__dirname, '../../src/variables/'),
@@ -24,10 +24,10 @@ module.exports = {
   },
   plugins: [
     new Webpack.ProvidePlugin({
-      'React': 'react',
-      'PropTypes': 'prop-types',
+      React: 'react',
+      PropTypes: 'prop-types',
       Utils: 'Utils',
       GuideUtils: 'GuideUtils'
-    })   
+    })
   ]
 };

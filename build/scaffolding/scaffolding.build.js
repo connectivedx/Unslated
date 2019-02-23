@@ -62,6 +62,10 @@ class CreateAtomicElement {
         src: path.resolve(__dirname, './variables'),
         target: path.resolve(__dirname, '../../src/variables/')
       },
+      modifiers: {
+        src: path.resolve(__dirname, './modifiers'),
+        target: path.resolve(__dirname, '../../src/elements/modifiers/'+name)
+      },      
       elements: {
         src: path.resolve(__dirname, './elements'),
         target: path.resolve(__dirname, '../../src/elements/'+type+'/'+name)

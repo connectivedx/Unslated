@@ -28,6 +28,11 @@ export class Button extends React.Component {
     width: 'auto'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName,

@@ -25,7 +25,7 @@ export default [{
   examples: [
     {
       name: 'Default styling',
-      description:'',
+      description: '',
       component: (
         <div className="{{name}}">Lorem ipsum</div>
       ),

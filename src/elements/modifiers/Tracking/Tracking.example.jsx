@@ -15,14 +15,55 @@
     ```
 */
 
+import Link from '@atoms/Link/Link';
 import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
-import Textarea from '@molecules/Textarea/Textarea';
+import Textarea from '@atoms/Textarea/Textarea';
+import Select from '@atoms/Select/Select';
 
 export default [{
   examples: [
     {
+      name: 'Pageload',
+      description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
+      component: (
+        <Rhythm>
+          <div
+            data-tracking="[{
+              'event': 'pageload',
+              'label': 'Page Load Example',
+              'data': '@helloWorld'
+            }]"
+          >
+            Example of page load tracking
+          </div>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
+      name: 'Spread with attr',
+      description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
+      component: (
+        <Rhythm>
+          <Select
+            className="dropdown"
+            data-tracking="[{
+              'event': 'click',
+              'label': 'Complex data spread',
+              'elements': 'select',
+              'data': {'work': '.dropdown option:attr(data-label)',  'working': '.dropdown option + option:attr(data-label)'}
+            }]"
+            id="dropdown"
+            name="dropdown"
+          >
+            <option value="01" data-label="one">click me</option>
+            <option value="02" data-label="two">click me again</option>
+          </Select>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
       name: 'Simple click',
       description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
       component: (
@@ -83,7 +124,7 @@ export default [{
             data-tracking="[{
               'event': 'click',
               'label': 'Data Spread Example',
-              'data': {'hello': 'world', 'howdy': 'user'}
+              'data': {'hello': '.input-attribute:attr(title)', 'howdy': '.input-attribute:attr(title)'}
             }]"
           >
             Click me
@@ -122,13 +163,14 @@ export default [{
               'event':'click',
               'label': 'Data Points Example',
               'data': 'A multi-element was clicked',
-              'elements': '.link'
+              'elements': '.button'
             }]"
             className="mult-element-list"
           >
             <li><Button>Click me</Button></li>
             <li><Button>Click me</Button></li>
             <li><Button>Click me</Button></li>
+            <li><Link href="#/">But not me</Link></li>
           </List>
         </Rhythm>
       )
@@ -145,6 +187,7 @@ export default [{
             }]"
             placeholder="Keydown tracking"
             name="example"
+            id="keyboard-keydown"
           />
         </Rhythm>
       )
@@ -161,6 +204,7 @@ export default [{
             }]"
             placeholder="Keyup tracking"
             name="example"
+            id="keyboard-keyup"
           />
         </Rhythm>
       )
@@ -177,6 +221,7 @@ export default [{
             }]"
             placeholder="Keypress tracking"
             name="example"
+            id="keyboard-keypress"
           />
         </Rhythm>
       )
@@ -342,6 +387,7 @@ export default [{
               'label': 'Scroll Event',
               'data': 'Element Scrolled'
             }]"
+            id="scrolling"
           >
             Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll Textarea Scroll TextareaScroll Textarea Scroll Textarea
           </Textarea>
@@ -359,6 +405,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Cut to clipboard'
              }]"
+            id="cut"
           >
             Highlight and cut text from this textarea
           </Textarea>
@@ -376,6 +423,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Copy to clipboard'
              }]"
+            id="copy"
           >
             Highlight and copy text from this textarea
           </Textarea>
@@ -393,6 +441,7 @@ export default [{
               'label': 'Clipboard Events',
               'data': 'Paste to clipboard'
              }]"
+            id="paste"
           >
             Paste text here
           </Textarea>

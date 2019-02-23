@@ -5,17 +5,12 @@
 @import './partials/examples/guide__examples.css';
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
+@import './partials/colors/guide__colors.css';
+@import './partials/icons/guide__icons.css';
+@import './partials/typography/guide__typography.css';
 
 :root {
   --breakpoint-speed: 2s;
-}
-
-html,
-body,
-#index,
-.guide,
-.guide__main {
-  height: 100%;
 }
 
 strong {
@@ -23,20 +18,19 @@ strong {
 }
 
 .guide {
-  display: flex;
+  /* display: flex; */
   perspective: 100rem;
-  height: 100%;
+  height: 100vh;
 
-  & .hide { display: none !important; }
+  & .hidden { display: none !important; }
 
   & .doc-error {
-    background-color: red;
-    color: white;
+    background-color: var(--color-red);
+    color: var(--color-white);
     padding: 0.25rem;
   }
 
   &__main {
-    padding: 6rem 2rem 2rem;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -54,127 +48,6 @@ strong {
     &--top-right {
       top: 0;
       right: 0;
-    }
-  }
-}
-
-/* Tools */
-.icons {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 2rem;
-
-    @media (--extra-large) {
-      max-width: calc(50% - 1rem);
-    }
-
-    .heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .field__label {
-        text-transform: uppercase;
-        font-size: rem(12px);
-      }      
-    }
-
-    &__body {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      height: 100%;
-    }
-
-    .list,
-    .input-range,
-    .input-color {
-      display: flex;
-      align-items: center;
-    }
-
-    .input { margin-top: 0; }
-
-    .input-color {
-      .field__native {
-        width: rem(25px);
-        min-height: rem(25px);
-        height: rem(25px);
-      }
-    }
-    .input-range {
-      .field__native {
-        -webkit-appearance: none;
-        width: 100%;
-        height: rem(5px);
-        border-radius: rem(5px);
-        background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-        min-height: auto;
-        max-width: 45px;
-      }
-
-      .field__native::-webkit-slider-thumb {
-        background-color: var(--color-gray-dark);
-        border-radius: rem(5px);
-        -webkit-appearance: none;
-        appearance: none;
-        width: rem(12px);
-        height: rem(12px);
-        border: 0;
-        cursor: pointer;
-      }
-
-      .field__native::-moz-range-thumb {
-        width: 23px;
-        height: rem(6px);
-        border: 0;
-        cursor: pointer;
-      }      
-    }
-  }
-
-  .icon {
-    margin: 0;
-    font-size: var(--icon-font-size);
-    stroke: var(--icon-stroke);
-    stroke-width: var(--icon-stroke-width);
-    fill: var(--icon-fill);
-  }
-
-  &__control {
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
-    font-weight: bold;
-    margin-right: rem(12px);
-
-    @media (--medium) {
-      max-width: 25%;
-    }   
-
-    &,
-    & .form,
-    & .field__native {
-      width: 100%;
-    }
-
-    & .field__native {
-      background-image: url('../../src/elements/atoms/Icon/assets/search.svg');
-      background-repeat: no-repeat;
-      background-position: calc(100% - 10px) center;
-      background-size: rem(16px);
-      padding: rem(5px);
-      padding-right: rem(35px);
     }
   }
 }

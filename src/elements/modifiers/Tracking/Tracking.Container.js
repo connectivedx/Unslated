@@ -118,11 +118,17 @@ class Tracking {
     try {
       selector = document.querySelector(attr[0]);
       // if element selector contained a attribute selection
-      if (attr[1]) {
-        return selector[attr[1].replace('(', '').replace(')', '')];
+      if (selector) {
+        if (attr[1]) {
+          const prop = attr[1].replace(/\((.*?)\)/g, '$1');
+          if (typeof selector[prop] !== 'undefined') {
+            return selector[prop];
+          }
+          return selector.getAttribute(prop);
+        }
+        return selector.innerHTML;
       }
-
-      return selector.innerHTML;
+      return false;
     } catch (e) {
       return false;
     }
@@ -143,7 +149,7 @@ class Tracking {
         let j = keys.length;
 
         while (j--) {
-          if (this.validateSelector(data[keys[j]])) {
+          if (this.validateSelector(data[keys[j]]) !== false) {
             // selector for value of data spread
             collection[keys[j]] = this.validateSelector(data[keys[j]]);
           } else {
@@ -254,16 +260,39 @@ class Tracking {
         const { target } = e;
         const { type } = e;
         const { tracking } = target.dataset;
+        const parent = this.getParent(target);
 
         // if clicked target or parent element has tracking
-        if (tracking || this.getParent(target)) {
-          // finally execute tracking method
-
-          this.execute(
-            (this.getParent(target) ? this.getParent(target) : target),
-            type,
-            (this.debounceList.indexOf(type) !== -1)
-          );
+        if (tracking || parent) {
+          // if parent has tracking using `elements`, and clicked element matches `elements` selector we send off parent
+          if (parent.dataset) {
+            const parsedEvents = JSON.parse(parent.dataset.tracking.replace(/'/g, '"'));
+            let j = parsedEvents.length;
+            while (j--) {
+              const { elements } = parsedEvents[j];
+              if (elements) {
+                const testElements = parent.querySelectorAll(elements);
+                let k = testElements.length;
+                while (k--) {
+                  if (testElements[k] === target) {
+                    // otherwise, we send of target
+                    this.execute(
+                      parent,
+                      type,
+                      (this.debounceList.indexOf(type) !== -1)
+                    );
+                  }
+                }
+              }
+            }
+          } else {
+            // otherwise, we send of target
+            this.execute(
+              target,
+              type,
+              (this.debounceList.indexOf(type) !== -1)
+            );
+          }
         }
       }, true, true);
     }

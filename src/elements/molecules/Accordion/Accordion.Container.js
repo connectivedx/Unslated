@@ -1,4 +1,6 @@
+/** Accordion component client side namespace */
 export const Accordion = (el) => {
+  /** UI obect houses common selected elements within component */
   const ui = {
     el,
     sections: el.querySelectorAll('.accordion__section'),

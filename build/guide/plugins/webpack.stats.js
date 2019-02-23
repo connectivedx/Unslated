@@ -18,6 +18,7 @@
 */
 
 const fs = require('fs');
+const https = require("https");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Global object that continues to be updated across builds until webpack-dev-server has been shut down.
@@ -47,12 +48,12 @@ const filterStats = (object, filters, index, parent) => {
         }
       }else if (typeof object[i] === 'object') {
         filterStats(object[i], filters, i, object); //if after all the above we still find object, we continue.
-      }    
+      }
     }
   }
-  catch (err) { 
+  catch (err) {
     console.log('Error in webpack stats plugin:');
-    console.log(err); 
+    console.log(err);
   }
 
   // not all objects in the array are arrays, so object.splice vs. delete object was not an option.
@@ -64,7 +65,6 @@ class StatsCompile {
   constructor (buildType) {
     this.buildType = buildType;
     this.guideSource = {};
-
     this.assetFilters = ['chunks', 'chunkNames', 'emitted'];
     this.chunkFilters = ['id', 'identifier', 'issuer', 'issuerName', 'issuerPath', 'issuerId', 'reasons', 'chunks', 'parents', 'siblings', 'children', 'childrenByOrder', 'failed', 'depth', 'optimizationBailout', 'providedExports', 'warnings', 'errors', 'prefetched', 'built', 'index', 'index2', 'source', 'usedExports', 'origins', 'filteredModules'];
   }
@@ -78,7 +78,7 @@ class StatsCompile {
       buildStats.errors++;
     }
 
-    fs.writeFile(path, 
+    fs.writeFile(path,
       'var __stats__ = ' + JSON.stringify({
         builds: { ...buildStats },
         assets: filterStats(stats.toJson().assets, this.assetFilters),
@@ -103,7 +103,7 @@ class StatsCompile {
       // Injects latest build stats to guide.js
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
         this.writeStats('./dist/assets/js/guide.js', stats, this.guideSource);
-      });      
+      });
     }
 
     ////////////////////////
@@ -122,7 +122,7 @@ class StatsCompile {
       });
 
       // Injects stats into middle man webpack.stats.js file
-      compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
+      compiler.hooks.done.tap({name:'StatsCompile'}, (stats) => {
         this.writeStats('./node_modules/.bin/webpack.stats.js', stats);
       });
     }

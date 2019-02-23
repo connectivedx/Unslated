@@ -86,16 +86,16 @@ export const GuidePages = (el) => {
           let i = ui.iconCards.length;
 
           while (i--) {
-            ui.iconCards[i].classList.add('hide');
+            ui.iconCards[i].classList.add('hidden');
             if (ui.iconCards[i].dataset.icon.match(query) !== null) {
-              ui.iconCards[i].classList.remove('hide');
+              ui.iconCards[i].classList.remove('hidden');
             }
           }
         } else {
           let i = ui.iconCards.length;
 
           while (i--) {
-            ui.iconCards[i].classList.remove('hide');
+            ui.iconCards[i].classList.remove('hidden');
           }
         }
       });

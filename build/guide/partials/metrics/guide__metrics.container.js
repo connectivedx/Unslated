@@ -1,11 +1,8 @@
+/*
+  Please note __stats__ is a global variable injected
+  into workflow via the WebpackStatsPlugin under buid/guide/plugins/webpack.stats.plugin.js
+*/
 const Chart = require('chart.js');
-
-// Helper method to get random gray scale color
-const getRandomGray = () => {
-  const value = Math.random() * 0xFF | 0;
-  const grayscale = (value << 16) | (value << 8) | value;
-  return ['#', grayscale.toString(16)].join('');
-};
 
 // Main method to get custom data struct out of webpack-stats object
 const getFilteredData = (data, filters) => {
@@ -27,7 +24,11 @@ const getFilteredData = (data, filters) => {
 
     Object.keys(collection).map((j) => {
       const file = collection[j];
-      if (file.name.indexOf(atomicLevels[i]) !== -1 && file.name.indexOf('/elements/') !== -1) {
+      if (
+        file.name.indexOf(atomicLevels[i]) !== -1
+        && file.name.indexOf('/elements/') !== -1
+        && file.name.indexOf('.loader') === -1
+      ) {
         let k = filters.length;
         while (k--) {
           if (file.name.match(filters[k])) {
@@ -43,6 +44,8 @@ const getFilteredData = (data, filters) => {
   });
   return returnedData;
 };
+
+// Lets get font-face names
 
 export const GuideMetrics = (el) => {
   const ui = {
@@ -92,12 +95,45 @@ export const GuideMetrics = (el) => {
     for (let i = 0; i < data.length; i++) {
       atomicSet.labels.push(data[i].level);
       atomicSet.data.push(data[i].size);
-      atomicSet.backgroundColor.push(getRandomGray());
+
+      atomicSet.backgroundColor.push();
+
+      if (data[i].level.indexOf('atoms') !== -1) {
+        atomicSet.backgroundColor.push('#ff8080');
+      }
+
+      if (data[i].level.indexOf('molecules') !== -1) {
+        atomicSet.backgroundColor.push('#68b2fe');
+      }
+
+      if (data[i].level.indexOf('organisms') !== -1) {
+        atomicSet.backgroundColor.push('#70ff8e');
+      }
+
+      if (data[i].level.indexOf('modifiers') !== -1) {
+        atomicSet.backgroundColor.push('#feab62');
+      }
+
+      if (data[i].level.indexOf('templates') !== -1) {
+        atomicSet.backgroundColor.push('#bbbbbb');
+      }
+
+      if (data[i].level.indexOf('variable') !== -1) {
+        atomicSet.backgroundColor.push('#00cdbc');
+      }
+
       for (let j = 0; j < data[i].files.length; j++) {
         const file = data[i].files[j];
         fileSet.labels.push(file.name.split('/')[file.name.split('/').length - 1]);
         fileSet.data.push(file.size);
-        fileSet.backgroundColor.push(getRandomGray());
+
+        if (file.name.indexOf('.js') !== -1) {
+          fileSet.backgroundColor.push('#f1e05a');
+        }
+
+        if (file.name.indexOf('.css') !== -1) {
+          fileSet.backgroundColor.push('#563d7c');
+        }
       }
     }
 
@@ -144,8 +180,11 @@ export const GuideMetrics = (el) => {
         const cardBody = document.createElement('div');
         cardBody.setAttribute('class', 'card__body card__body--default');
 
+        const cardHeader = document.createElement('div');
+        cardHeader.setAttribute('class', 'card__header card__header--default');
+
         const heading = document.createElement('h3');
-        heading.setAttribute('class', 'heading h3--heading');
+        heading.setAttribute('class', 'heading heading--h3');
         heading.innerHTML = `${atomicLevel.level} - ${GuideUtils.bytesToSize(atomicLevel.size)}`;
 
         const list = document.createElement('ul');
@@ -161,8 +200,9 @@ export const GuideMetrics = (el) => {
 
           list.appendChild(listItem);
         }
-        cardBody.appendChild(heading);
+        cardHeader.appendChild(heading);
         cardBody.appendChild(list);
+        card.appendChild(cardHeader);
         card.appendChild(cardBody);
         fragment.appendChild(card);
       }
@@ -186,8 +226,6 @@ export const GuideMetrics = (el) => {
   };
 
   const init = () => {
-    // Start by getting webpack-stats JSON file data
-    // We use XHR to get this data instaed of a direct import to avoid endless build looping.
     // Install JS Size card
     ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
     createAtomicList(ui.JSAtomicList, getFilteredData(__stats__, ['/*.js$']));
@@ -204,6 +242,53 @@ export const GuideMetrics = (el) => {
       // Install Total Errors card
       ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${__stats__.builds.errors}</strong>`;
     }
+
+    // Gather Fonts Metrics
+    const rules = document.styleSheets[0].cssRules;
+    const faces = {};
+    // const faceFiles = [];
+    Object.keys(rules).map((index) => {
+      const rule = rules[index];
+      const { type } = rule;
+      if (type === 3) {
+        fetch(rule.href).then((response) => {
+          if (response.status >= 400) {
+            throw new Error('Bad response from server');
+          }
+          return response.text();
+        })
+          .then((text) => {
+            const importRules = text.split('}');
+            Object.keys(importRules).map((j) => {
+              if (!importRules[j].match(/font-family: (.*?);/gm)) { return false; }
+              const name = importRules[j].match(/font-family: (.*?);/gm)[0].replace(/font-family: (.*?);/g, '$1');
+              const file = importRules[j].match(/url\((.*?)\)/gm)[0].replace(/url\((.*?)\)/g, '$1');
+              const weight = importRules[j].match(/local\((.*?)\)/gm)[0].replace(/local\((.*?)\)/g, '$1');
+              const sendTime = (new Date()).getTime();
+
+              fetch(file).then((res) => {
+                if (res.status >= 400) {
+                  throw new Error('Bad response from server');
+                }
+                return res.blob();
+              }).then((fontTest) => {
+                if (!faces[name]) {
+                  const receiveTime = (new Date()).getTime();
+                  faces[name] = {
+                    weight,
+                    file,
+                    size: GuideUtils.bytesToSize(fontTest.size),
+                    type: fontTest.type,
+                    time: [(receiveTime - sendTime), 'ms'].join('')
+                  };
+                }
+              });
+              return false;
+            });
+          });
+      }
+      return false;
+    });
   };
 
   init();

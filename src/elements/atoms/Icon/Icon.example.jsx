@@ -23,10 +23,7 @@
 
 import Icon from './Icon';
 
-const docs = require('!!docgen-loader?htmlDescription!./Icon');
-
 export default [{
-  docs,
   examples: [
     {
       name: 'default',

@@ -22,10 +22,8 @@
 */
 
 import Button from './Button';
-import docs from '!!docgen-loader?htmlDescription!./Button';
 
 export default [{
-  docs,
   examples: [{
     name: 'Default styling',
     component: (

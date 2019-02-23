@@ -22,10 +22,8 @@
 */
 
 import { Accordion, Accordion__section } from './Accordion';
-import docs from '!!docgen-loader?htmlDescription!./Accordion';
 
 export default [{
-  docs,
   examples: [
     {
       name: 'Default styling',

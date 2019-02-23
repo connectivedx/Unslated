@@ -19,6 +19,11 @@ export class Media extends React.Component {
     tagName: 'div'
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,
@@ -41,8 +46,6 @@ export class Media extends React.Component {
     );
   }
 }
-
-export default Media;
 
 export class Media__figure extends React.Component {
   static propTypes = {
@@ -87,7 +90,6 @@ export class Media__figure extends React.Component {
   }
 }
 
-
 export class Media__body extends React.Component {
   static propTypes = {
     /** Class stacking */
@@ -131,3 +133,5 @@ export class Media__body extends React.Component {
     );
   }
 }
+
+export default Media;

@@ -8,7 +8,6 @@
 body {
   font-size: var(--type-size--default);
   font-family: var(--font-family--default);
-  font-range: var(--type-responsive-range);
   line-height: var(--type-line-height);
 }
 
@@ -21,4 +20,8 @@ code {
 button {
   background-color: transparent;
   font-size: rem(16px);
+}
+
+i {
+    font-style: italic;
 }

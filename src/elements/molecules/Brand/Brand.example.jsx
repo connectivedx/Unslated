@@ -22,10 +22,8 @@
 */
 
 import Brand from './Brand';
-import docs from '!!docgen-loader?htmlDescription!./Brand';
 
 export default [{
-  docs,
   examples: [{
     name: 'Default variant',
     component: (

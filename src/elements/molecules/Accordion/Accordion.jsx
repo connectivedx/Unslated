@@ -29,6 +29,11 @@ export class Accordion extends React.Component {
     multi: true
   };
 
+  /** Element level options */
+  static options = {
+    core: true
+  };
+
   render = () => {
     const {
       tagName: Tag,
