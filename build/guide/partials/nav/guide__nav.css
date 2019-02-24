@@ -8,7 +8,7 @@
   width: 100%;
 
   &.open {
-    background-color: var(--color--alpha25);
+    background-color: rgba(0, 0, 0, 0.25);
     transform: rotateY(0);
   }
 
@@ -19,8 +19,8 @@
   .guide-nav__open {
     &:after {
       background-color: var(--color-white);
-      border: 1px solid var(--color--alpha25);
-      box-shadow: 2px 4px 10px 0 var(--color--alpha15);
+      border: 1px solid color(var(--color-black), 75%);
+      box-shadow: 2px 4px 10px 0 color(var(--color-black), 85%);
       content: url('assets/menu.svg');
       cursor: pointer;
       display: block;
@@ -131,7 +131,7 @@
   }
 
   & .heading {
-    background-color: var(--color--alpha05);
+    background-color: color(var(--color-black), 95%);
     background-position: 10px center;
     background-repeat: no-repeat;
     background-size: 25px;
@@ -189,7 +189,7 @@
   .modal-inner {
     &--width {
       background: transparent;
-      box-shadow: 0 rem(20px) rem(20px) 0 var(--color--alpha25);
+      box-shadow: 0 rem(20px) rem(20px) 0 color(var(--color-black), 75%);
     }
   }
 

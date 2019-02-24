@@ -4,7 +4,7 @@
 
   & .examples {
     &__list {
-      & > div { 
+      & > div {
         display: inline-block;
         width: 100%;
       }
@@ -24,13 +24,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 1;        
+        z-index: 1;
       }
 
       &:before {
         background: var(--background);
         opacity: var(--brightness);
-      }      
+      }
 
       &-inner {
         position: relative;
@@ -51,7 +51,7 @@
 
     &__codes {
       pre {
-        background-color: var(--color--alpha05);
+        background-color: color(var(--color-black), 95%);
         margin-top: 1rem;
         max-height: 320px;
         overflow-x: scroll;
@@ -61,7 +61,7 @@
     }
 
     &__header {
-      background-color: var(--color--alpha05);
+      background-color: color(var(--color-black), 95%);
 
       a {
         font-size: 0.875rem;
@@ -115,12 +115,12 @@
     &__footer {
       display: flex;
       flex-direction: column;
-      
+
       .button {
         margin: 0 0.5rem;
         &:first-child { margin-left: 0; }
         &:last-child { margin-right: 0; }
       }
-    }  
+    }
   }
 }
