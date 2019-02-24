@@ -24,18 +24,9 @@
   --color-gray-light: #dcdcdc;
   --color-gray: #8c8c8c;
   --color-gray-dark: #4c4c4c;
-  --color-black: #000;
+  --color-black: #000000;
 
   /* text colors */
   --color-text--primary: var(--color-black);
   --color-text--secondary: var(--color-white);
-
-  /* translucents */
-  --color--alpha100: rgb(0, 0, 0, 1);
-  --color--alpha80: rgb(0, 0, 0, 0.8);
-  --color--alpha50: rgb(0, 0, 0, 0.5);
-  --color--alpha25: rgb(0, 0, 0, 0.25);
-  --color--alpha15: rgb(0, 0, 0, 0.15);
-  --color--alpha05: rgb(0, 0, 0, 0.05);
-  --color--alpha00: rgb(0, 0, 0, 0.00);
 }

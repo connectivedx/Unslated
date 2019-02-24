@@ -6,7 +6,7 @@
 }
 
 .modal {
-	background: var(--color--alpha25);
+	background: rgba(0, 0, 0, 0.25);
 	bottom: 0;
 	display: none;
 	left: 0;
@@ -66,8 +66,8 @@
 			transform: scale(1);
 			transition: opacity 0.2s, transform 0.2s;
 			z-index: 100;
-		}		
-	}	
+		}
+	}
 
 	&-inner {
 		padding: 4rem 1rem 2rem;
@@ -83,7 +83,7 @@
 			transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
 			width: 100%;
 		  justify-content: center;
-			z-index: -1;	
+			z-index: -1;
 			@media (--large) {
 				margin: 0;
 			}

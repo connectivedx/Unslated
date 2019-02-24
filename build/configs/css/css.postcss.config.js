@@ -22,6 +22,7 @@ const resolver = ResolverFactory.createResolver({
 // however always read newly added plugin docs to make sure they don't carry their own order of operation requirements.
 // standard
 const rems = require('./css.postcss-rem.plugin.js');
+const color = require('./css.postcss-color.plugin.js');
 const media = require('./css.postcss-media.plugin.js');
 const nested = require('postcss-nested');
 const extend = require('./css.postcss-extend.plugin.js');
@@ -47,6 +48,7 @@ module.exports = {
     media(),        // Allows for custom media queries
     exporting(),    // Pre-parse color variables
     variables(),    // Allows var(--variables)
+    color(),        // Allows for color(hex or var(), darken | lighten)
     custom(),       // Allows for @custom selectors
     respondType(),  // Allows for responsive typography
     nested(),       // Allows for nested selectors
