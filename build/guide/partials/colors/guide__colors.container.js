@@ -1,10 +1,12 @@
 export const GuideColors = (el) => {
   const ui = {
     el,
+    colorCards: el.querySelectorAll('li.card'),
+    colorSearch: el.querySelector('.AccessibilityLevel__control .input-text .field__native'),
     colorLevelSelect: el.querySelector('.accessibility__controls-level'),
-    colorLevelSelectNative: el.querySelector('.accessibility__controls-level select'),
+    colorLevelSelectNative: el.querySelector('.accessibility__controls-level .field__native'),
     colorWeightSelect: el.querySelector('.accessibility__controls-weight'),
-    colorWeightSelectNative: el.querySelector('.accessibility__controls-weight select'),
+    colorWeightSelectNative: el.querySelector('.accessibility__controls-weight .field__native'),
     colorLevels: el.querySelectorAll('.AccessibilityLevel'),
     colorBadges: el.querySelectorAll('.AccessibilityLevel__badge')
   };
@@ -54,6 +56,29 @@ export const GuideColors = (el) => {
     if (ui.colorWeightSelect) {
       ui.colorWeightSelect.addEventListener('change', () => {
         switchColorSamples();
+      });
+    }
+
+    // Search colors setup
+    if (ui.colorSearch) {
+      ui.colorSearch.addEventListener('keyup', () => {
+        const query = ui.colorSearch.value;
+        if (query.length) {
+          let i = ui.colorCards.length;
+
+          while (i--) {
+            ui.colorCards[i].style.opacity = 0.05;
+            if (ui.colorCards[i].dataset.color.match(query) !== null) {
+              ui.colorCards[i].removeAttribute('style');
+            }
+          }
+        } else {
+          let i = ui.colorCards.length;
+
+          while (i--) {
+            ui.colorCards[i].removeAttribute('style');
+          }
+        }
       });
     }
   };

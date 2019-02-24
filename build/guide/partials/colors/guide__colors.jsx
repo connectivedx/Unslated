@@ -1,3 +1,10 @@
+import {
+  Card,
+  Card__header,
+  Card__body,
+  Card__footer
+} from '@molecules/Card/Card';
+
 // Guide Colors
 export class Guide__colors extends React.Component {
   static propTypes = {
@@ -93,8 +100,23 @@ export class Guide__colors_level extends React.Component {
 
     const createBadges = (type) => (
       Object.keys(weights).map((key) => (
-        <div key={key} className={`AccessibilityLevel__badge AccessibilityLevel__badge--${type} ${((weights[key] !== 'normal' || level !== 'AA') ? 'hide' : '')} AccessibilityLevel__badge--${weights[key]}`}>
-          {GuideUtils.WCAGTest((type === 'secondary') ? contrastSecondary : contrastPrimary, weights[key].split('--')[0], level)}
+        <div
+          key={key}
+          className={
+            `AccessibilityLevel__badge AccessibilityLevel__badge--${type}
+            ${
+              (weights[key] !== 'normal' || level !== 'AA')
+                ? 'hide'
+                : ''
+            }
+            AccessibilityLevel__badge--${weights[key]}`
+          }
+        >
+          {
+            GuideUtils.WCAGTest((type === 'secondary')
+              ? contrastSecondary
+              : contrastPrimary, weights[key].split('--')[0], level)
+          }
         </div>
       ))
     );
@@ -162,54 +184,58 @@ export class Guide__colors_card extends React.Component {
 
     return (
       <React.Fragment>
-        <Tag
+        <Card
           className={classStack}
+          tagName="li"
           {...attrs}
         >
-          <Guide__colors_level
-            contrastPrimary={
-              GuideUtils.getColorContrast(
-                primary,
-                unit
-              )
-            }
-            contrastSecondary={
-              GuideUtils.getColorContrast(
-                secondary,
-                unit
-              )
-            }
-            level="AA"
-          />
-          <Guide__colors_level
-            contrastPrimary={
-              GuideUtils.getColorContrast(
-                primary,
-                unit
-              )
-            }
-            contrastSecondary={
-              GuideUtils.getColorContrast(
-                secondary,
-                unit
-              )
-            }
-            level="AAA"
-          />
+          <Card__header>
+            {name}
 
-          <div
-            style={{
-              backgroundColor: color,
-              height: '120px'
-            }}
-          />
-          <div>
+            <Guide__colors_level
+              contrastPrimary={
+                GuideUtils.getColorContrast(
+                  primary,
+                  unit
+                )
+              }
+              contrastSecondary={
+                GuideUtils.getColorContrast(
+                  secondary,
+                  unit
+                )
+              }
+              level="AA"
+            />
+            <Guide__colors_level
+              contrastPrimary={
+                GuideUtils.getColorContrast(
+                  primary,
+                  unit
+                )
+              }
+              contrastSecondary={
+                GuideUtils.getColorContrast(
+                  secondary,
+                  unit
+                )
+              }
+              level="AAA"
+            />
+          </Card__header>
+          <Card__body>
+            <div
+              className="guide__colors-pallet"
+              style={{
+                backgroundColor: color,
+                height: '120px'
+              }}
+            />
+          </Card__body>
+          <Card__footer>
             {unit}
-          </div>
-        </Tag>
-        <div>
-          {name}
-        </div>
+          </Card__footer>
+        </Card>
       </React.Fragment>
     );
   }

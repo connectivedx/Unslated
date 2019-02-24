@@ -39,11 +39,11 @@ const page = () => (
         The Icon example page better demonstraits icon style variations,
         while this page simply lists all project icons without variations.
       </p>
-      <div className="icons__control">
+      <div className="guide__icons__control">
         <Form legend="Use the form below to search over project icons">
           <Input
             type="text"
-            label="Filter project icon(s):"
+            label="Search"
             className="icons__controls-search"
             id="icon-search"
             name="query"
