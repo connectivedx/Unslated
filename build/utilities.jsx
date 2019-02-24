@@ -9,6 +9,33 @@
 
 
 /*
+  Helper: Universal method to perform XHTTP requests
+*/
+const XHR = (url, options, callback) => {
+  options = {} || options;
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      if (typeof callback === 'function') {
+        callback(xhttp);
+      }
+    }
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
+};
+
+/*
+  Helper: Universal method to perform XHTTP requests using a promisse
+*/
+const Fetch = (url, options) => new Promise((resolve) => {
+  options = {} || options;
+  XHR(url, options, (request) => {
+    resolve(request.responseText);
+  });
+}).catch((err) => console.error(err));
+
+/*
   Helper: Universal method to validate native form fields
 */
 const checkValidity = (field) => {
@@ -211,6 +238,8 @@ const initComponent = (name, selector, Component, callback) => {
 module.exports = {
   parents,
   getExample,
+  XHR,
+  Fetch,
   getCookie,
   setCookie,
   checkValidity,
