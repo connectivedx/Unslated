@@ -40,7 +40,7 @@
       &s {
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         @media (--medium) {
           flex-wrap: nowrap;
         }
@@ -48,7 +48,7 @@
 
       & .heading {
         border: 1px solid var(--color-gray);
-        padding: 1rem;      
+        padding: 1rem;
       }
     }
 
@@ -58,7 +58,7 @@
       transition: opacity 0.25s, height 0.25s;
 
       &__head {
-        background-color: var(--color--alpha05);
+        background-color: color(var(--color-black), 95%);
         &er {
           border-top: 1px solid var(--color-gray);
           border-bottom: 1px solid var(--color-gray);

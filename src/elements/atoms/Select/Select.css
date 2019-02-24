@@ -88,7 +88,11 @@
 		.sub-field__decorator {
 			background-color: var(--color-white);
 			width: 100%;
-			box-shadow: 0 0 0 rem(1px) var(--color-gray), 0 rem(5px) rem(5px) rem(-3px) var(--color--alpha25), 0 rem(8px) rem(10px) rem(1px) var(--color--alpha15), 0 rem(3px) rem(14px) rem(2px) var(--color--alpha05);
+			box-shadow:
+        0 0 0 rem(1px) var(--color-gray),
+        0 rem(5px) rem(5px) rem(-3px) color(var(--color-black), 75%),
+        0 rem(8px) rem(10px) rem(1px) color(var(--color-black), 85%),
+        0 rem(3px) rem(14px) rem(2px) color(var(--color-black), 95%);
 
 			.list__item {
 				border-bottom: rem(1px) solid var(--color-gray-light);

@@ -2,8 +2,8 @@
 .guide {
   &__stylist {
     background-color: var(--color-white);
-    border: 1px var(--color--alpha25) solid;
-    box-shadow: 2px 4px 10px 0px var(--color--alpha25);
+    border: 1px vcolor(var(--color-black), 75%) solid;
+    box-shadow: 2px 4px 10px 0px color(var(--color-black), 75%);
     max-width: 320px;
     position: fixed;
     right: 2rem;
@@ -49,7 +49,7 @@
             display: block;
           }
         }
-      }       
+      }
     }
 
     &-inner {
@@ -85,7 +85,7 @@
         display: inline-block;
         height: 10px;
         margin-right: rem(5px);
-        width: 10px;        
+        width: 10px;
       }
 
       &.guide__stylist-js-stat {
