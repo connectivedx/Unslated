@@ -1,6 +1,6 @@
 import colors from '!!style-loader!css-loader!@vars/colors';
 import { Guide__colors, Guide__colors_card } from '@guide/partials/colors/guide__colors';
-import { List, List__item } from '@atoms/List/List';
+import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import Select from '@atoms/Select/Select';
@@ -15,15 +15,15 @@ const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
   if (!colorUnits.hex) { return false; }
 
   return (
-    <List__item key={key}>
-      <Guide__colors_card
-        name={key.replace('--color-', '')}
-        color={colors[key]}
-        primary={colors['--color-text--primary']}
-        secondary={colors['--color-text--secondary']}
-        unit={colorUnits.hex}
-      />
-    </List__item>
+    <Guide__colors_card
+      key={key}
+      name={key.replace('--color-', '')}
+      color={colors[key]}
+      data-color={key.replace('--color-', '')}
+      primary={colors['--color-text--primary']}
+      secondary={colors['--color-text--secondary']}
+      unit={colorUnits.hex}
+    />
   );
 });
 
@@ -51,9 +51,9 @@ const page = () => (
           id="weight"
           label="Font Size / Weight"
         >
-          <option value="AccessibilityLevel__badge--normal" defaultValue>normal (14pt)</option>
-          <option value="AccessibilityLevel__badge--large--bold">large-bold (18pt)</option>
-          <option value="AccessibilityLevel__badge--large">large (18pt)</option>
+          <option value="AccessibilityLevel__badge--normal" defaultValue>normal (14px)</option>
+          <option value="AccessibilityLevel__badge--large--bold">large-bold (18px)</option>
+          <option value="AccessibilityLevel__badge--large">large (18px)</option>
         </Select>
       </div>
     </Rhythm>

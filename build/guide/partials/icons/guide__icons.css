@@ -10,6 +10,7 @@
     flex-direction: column;
     width: 100%;
     margin-top: 2rem;
+    transition: opacity 1s;
 
     @media (--medium-large) {
       max-width: calc(100% / 2.05);
@@ -118,15 +119,18 @@
     }
 
     &,
-    & .form,
-    & .field__native {
+    .form,
+    .field__native {
       width: 100%;
     }
 
-    & .field__label {
-      padding: 0 0 rem(12px) 0;
+    .field__label {
+      font-weight: 800;
+      font-size: rem(14px);
+      padding: 0 0 rem(8px) 0;
     }
-    & .field__native {
+
+    .field__native {
       background-image: url('../../src/elements/atoms/Icon/assets/search.svg');
       background-repeat: no-repeat;
       background-position: calc(100% - 10px) center;
