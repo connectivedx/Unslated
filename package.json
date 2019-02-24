@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"dev": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
-		"build": "webpack --config build/configs/webpack.config.js --mode production",
+		"build": "npm install && webpack --config build/configs/webpack.config.js --mode production",
 		"watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server",
 		"new:page": "node build/scaffolding/scaffolding.build.js new pages",
 		"new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
