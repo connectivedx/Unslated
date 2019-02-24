@@ -76,7 +76,7 @@
 			.field__native {
 				border: none;
 				background: transparent;
-				color: black;
+				color: var(--color-black);
 				min-height: rem(40px);
 				padding: rem(12px);
 				padding-right: rem(32px);
