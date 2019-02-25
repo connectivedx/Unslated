@@ -19,10 +19,6 @@ import GuideExamples from '@guide/partials/examples/guide__examples.container';
 import GuideTypography from '@guide/partials/typography/guide__typography.container';
 import Package from '@root/package.json';
 
-// Fetch support
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
-
 // Guide styles
 require('@guide/guide.css');
 require('prismjs/themes/prism.css');

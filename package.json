@@ -37,7 +37,7 @@
 		"new:variable": "node build/scaffolding/scaffolding.build.js new variables"
 	},
 	"engines": {
-		"node": ">=8.10.0"
+		"node": ">=10.15.0"
 	},
 	"devDependencies": {
 		"abstract-syntax-tree": "^2.1.1",
@@ -50,7 +50,6 @@
 		"babel-preset-env": "^1.7.0",
 		"babel-preset-react": "^6.24.1",
 		"chart.js": "^2.7.3",
-		"cherow": "^1.6.9",
 		"clean-webpack-plugin": "^0.1.19",
 		"copy-webpack-plugin": "^4.6.0",
 		"css-loader": "^1.0.1",
@@ -95,6 +94,5 @@
 		"webpack-cli": "^3.2.1",
 		"webpack-dev-server": "^3.1.11",
 		"webpack-node-externals": "^1.7.2"
-	},
-	"dependencies": {}
+	}
 }
