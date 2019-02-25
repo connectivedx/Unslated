@@ -7,7 +7,3 @@
 
 import '@src/styles'; // see ./src/styles.js
 import '@src/scripts'; // see ./src/scripts.js
-
-// Fetch support
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
