@@ -94,8 +94,5 @@
 		"webpack-cli": "^3.2.1",
 		"webpack-dev-server": "^3.1.11",
 		"webpack-node-externals": "^1.7.2"
-	},
-	"dependencies": {
-		"yarn": "^1.13.0"
 	}
 }
