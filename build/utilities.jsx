@@ -33,7 +33,7 @@ const Fetch = (url, options) => new Promise((resolve) => {
   XHR(url, options, (request) => {
     resolve(request.responseText);
   });
-}).catch((err) => console.error(err));
+}).catch((err) => console.error(err)); // eslint-disable-line no-console
 
 /*
   Helper: Universal method to validate native form fields
