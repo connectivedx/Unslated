@@ -226,7 +226,8 @@ export const Guide__nav = (props) => {
                             <option value="pages">Page</option>
                             <option value="variables">Variable</option>
                           </Select>
-                          <Input tagName="li" type="text" label="Named:" name="name" id="name" required />
+                          <Input tagName="li" type="text" label={<React.Fragment>Name:&nbsp;<Link href="//tinyurl.com/yxqx93j8" target="_blank">(pascal case)</Link></React.Fragment>} name="name" id="name" pattern="^(\d|\w)+$" required />
+                          <Input className="hidden" tagName="li" type="checkbox" label={<React.Fragment>Include a&nbsp;<Link href="https://github.com/drolsen/Unslated/wiki/Elements#containerjs-files" target="_blank">Container.js?</Link></React.Fragment>} name="container" id="container" />
                           <li>
                             <Button type="submit">Create</Button>
                           </li>

@@ -186,9 +186,14 @@ const serialize = (elm, type) => {
     const element = elements[i];
     const { name } = element;
     const { value } = element;
+    const { checked } = element;
 
     if (name) {
-      obj[name] = value;
+      if (element.type === 'radio' || element.type === 'checkbox') {
+        obj[name] = checked;
+      } else {
+        obj[name] = value;
+      }
     }
   }
 

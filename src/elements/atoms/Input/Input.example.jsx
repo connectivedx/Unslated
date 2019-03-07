@@ -18,7 +18,7 @@
       },
     ```
 */
-
+import Link from '@atoms/Link/Link';
 import Input from './Input';
 
 export default [{
@@ -33,6 +33,12 @@ export default [{
       name: 'Text Inputs (with placeholder and no label)',
       component: (
         <Input label={false} type="text" name="text-input" id="05" placeholder="Basic placeholder" required={true} error="This text field is required!" />
+      ),
+      notes: ''
+    }, {
+      name: 'Text Inputs (with custom label)',
+      component: (
+        <Input label={<React.Fragment>Custom label&nbsp;<Link href="#/">with link</Link></React.Fragment>} type="text" name="text-input" id="01" required={true} error="This text field is required!" />
       ),
       notes: ''
     }, {

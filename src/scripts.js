@@ -1,15 +1,15 @@
-import Icon from '@atoms/Icon/Icon.Container';
-import Form from '@atoms/Form/Form.Container';
-import Input from '@atoms/Input/Input.Container';
-import Tabs from '@molecules/Tabs/Tabs.Container';
-import Select from '@atoms/Select/Select.Container';
-import Modal from '@molecules/Modal/Modal.Container';
-import Expand from '@molecules/Expand/Expand.Container';
-import Textarea from '@atoms/Textarea/Textarea.Container';
-import Tracking from '@modifiers/Tracking/Tracking.Container';
-import Accordion from '@molecules/Accordion/Accordion.Container';
+import Icon from '@atoms/Icon/Icon.container';
+import Form from '@atoms/Form/Form.container';
+import Input from '@atoms/Input/Input.container';
+import Tabs from '@molecules/Tabs/Tabs.container';
+import Select from '@atoms/Select/Select.container';
+import Modal from '@molecules/Modal/Modal.container';
+import Expand from '@molecules/Expand/Expand.container';
+import Textarea from '@atoms/Textarea/Textarea.container';
+import Tracking from '@modifiers/Tracking/Tracking.container';
+import Accordion from '@molecules/Accordion/Accordion.container';
 
-setTimeout(() => {
+document.addEventListener('DOMContentLoaded', () => {
   Utils.initComponent('Expand', '.expand', Expand);
   Utils.initComponent('Accordion', '.accordion', Accordion);
   Utils.initComponent('Tabs', '.tabs', Tabs);
@@ -28,4 +28,4 @@ setTimeout(() => {
       }
     ]
   });
-}, 1000);
+}, false);

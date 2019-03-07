@@ -24,10 +24,12 @@ export class Input extends React.Component {
     /** Label attribute supplies text label tag. label={false} visually removes labels. */
     label: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.bool
+      PropTypes.bool,
+      PropTypes.node,
+      PropTypes.element
     ]),
     /** Style variants */
-    variant: PropTypes.oneOf(['default', 'dynamic-placeholder', 'inline-label']),
+    variant: PropTypes.oneOf(['default']),
     /** Input type (text, radio, checkbox, date, number etc.). Type attribute dictates the element's base class. */
     type: PropTypes.string,
     /** Id attributes are used as accessibility helpers in the for/id label/field relationship */
@@ -101,14 +103,39 @@ export class Input extends React.Component {
             : ''
         }
         {
-          (label !== false && type !== 'radio' && type !== 'checkbox')
-            ? <label htmlFor={id} className="field__label" dangerouslySetInnerHTML={{ __html: (placeholder && variant === 'dynamic-placeholder') ? placeholder : label }} />
+          (type !== 'radio' && type !== 'checkbox')
+            ? (
+              <label
+                htmlFor={id}
+                className="field__label"
+              >
+                {label}
+              </label>
+            )
             : ''
         }
-        <input id={id} className="field__native" type={type} name={name} required={required} pattern={pattern} placeholder={(variant !== 'dynamic-placeholder') ? placeholder : ''} {...attrs} />
+        <input
+          id={id}
+          className="field__native"
+          type={type}
+          name={name}
+          required={required}
+          pattern={pattern}
+          placeholder={(variant !== 'dynamic-placeholder') ? placeholder : ''}
+          {...attrs}
+        />
+
         {
+          // label for radios and checkboxes must come after native field
           (type === 'radio' || type === 'checkbox')
-            ? <label htmlFor={id} className="field__label" dangerouslySetInnerHTML={{ __html: label }} />
+            ? (
+              <label
+                htmlFor={id}
+                className="field__label"
+              >
+                {label}
+              </label>
+            )
             : ''
         }
       </Tag>

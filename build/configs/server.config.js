@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
 const package = require('../../package.json');
- 
+
 // Helper method to pass requests to scaffolding.build.js node scripts
 const runNodeScript = (scriptPath, arguments, callback) => {
   let invoked = false;
@@ -41,7 +41,7 @@ module.exports = {
         app.get('/api', (req, res) => {
           const query = res.req.query;
           const input = res.req.query.input;
-          
+
           // Create new element
           if (query.new) {
             if ([
@@ -59,8 +59,12 @@ module.exports = {
                 path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
                 [
                   'new',
-                  query.new, 
-                  query.name.replace(/(\w)(\w*)/g, (g0,g1,g2) => {return g1.toUpperCase() + g2.toLowerCase();}).trim()
+                  query.new,
+                  query.name.replace(/_/g, ' ').replace(/-/g, ' ').replace(
+                    /(\w)(\w*)/g,
+                    (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
+                  ).trim(),
+                  query.container
                 ]
               );
             }
@@ -76,7 +80,7 @@ module.exports = {
                 query.path,
                 query.name.replace(/(\w)(\w*)/g, (g0,g1,g2) => {return g1.toUpperCase() + g2.toLowerCase();}).trim()
               ]
-            );   
+            );
           }
 
           // Add new element

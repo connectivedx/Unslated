@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const GuideNav = (el) => {
   const ui = {
     el,
@@ -5,7 +7,6 @@ export const GuideNav = (el) => {
     navInner: document.querySelector('.guide__nav-inner'),
     navLists: document.querySelectorAll('.heading + .list'),
     search: el.querySelector('.guide__nav--search .field__native'),
-    newElementForms: el.querySelectorAll('.new-element'),
     renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.modal)'),
     removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.modal)')
   };
@@ -115,6 +116,32 @@ export const GuideNav = (el) => {
         e.preventDefault();
       });
     }
+
+    ui.newElement = document.querySelector('.new-element .input-text .field__native');
+    ui.newElementType = document.querySelector('.new-element .select');
+    ui.newElementTypeNative = ui.newElementType.querySelector('.field__native');
+    ui.newElementContainerOption = document.querySelector('.new-element .input-checkbox');
+
+    ui.newElementType.addEventListener('change', () => {
+      if (['atoms', 'molecules', 'organisms', 'modifiers', 'templates'].indexOf(ui.newElementTypeNative.value) === -1) {
+        ui.newElementContainerOption.classList.add('hidden');
+      } else {
+        ui.newElementContainerOption.classList.remove('hidden');
+      }
+    });
+
+    ui.newElement.addEventListener('keyup', _.debounce(() => {
+      ui.newElement.value = ui.newElement.value
+        .replace(/[A-Z]/g, (g0) => [' ', g0].join(''))
+        .replace(
+          /(\w)(\w*)/g,
+          (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
+        )
+        .replace(/ /g, '')
+        .replace(/'/g, '')
+        .replace(/-/g, '')
+        .replace(/_/g, '');
+    }, 512));
   };
 
   init();
