@@ -196,7 +196,7 @@ const serialize = (elm, type) => {
       }
     }
   }
-  console.log(obj);
+
   if (type === 'urlencode') {
     return jsonToQueryString(obj);
   }
