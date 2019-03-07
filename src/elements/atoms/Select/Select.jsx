@@ -26,7 +26,8 @@ export class Select extends React.Component {
     /** Label attribute supplies text label tag. label={false} visually removes labels. */
     label: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.bool
+      PropTypes.bool,
+      PropTypes.node
     ]),
     /** Style variants */
     variant: PropTypes.oneOf(['default', 'inline-label']),

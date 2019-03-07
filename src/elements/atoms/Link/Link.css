@@ -3,18 +3,18 @@
 
   /* variants */
   &--default {
-    color: var(--color-blue);
+    color: var(--color-black);
 
-    &:--enter {
-      color: var(--color-blue);
+    &:--haf {
+      color: var(--color-black);
     }
   }
 
   &--cta {
-    color: var(--color-blue);
+    color: var(--color-black);
 
-    &:--enter {
-      color: var(--color-blue);
+    &:--haf {
+      color: var(--color-black);
     }
   }
 }

@@ -31,13 +31,15 @@ document.head.querySelector('title').innerText = [Package.name, ' ', Package.ver
 
 // Mount the guide into DOM and run it's container.js
 ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
-  Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
-  Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
-  Utils.initComponent('GuideIcons', '.guide__icons', GuideIcons);
-  Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
-  Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
-  Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
-  Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
-  Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
-  Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
+  document.addEventListener('DOMContentLoaded', () => {
+    Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
+    Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
+    Utils.initComponent('GuideIcons', '.guide__icons', GuideIcons);
+    Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
+    Utils.initComponent('GuideStylist', '.guide__stylist', GuideStylist);
+    Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
+    Utils.initComponent('GuideWelcome', '.guide__welcome', GuideWelcome);
+    Utils.initComponent('GuideMetrics', '.guide__metrics', GuideMetrics);
+    Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
+  }, false);
 });
