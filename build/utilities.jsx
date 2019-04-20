@@ -75,6 +75,12 @@ const setCookie = (cname, cvalue, exdays) => {
   document.cookie = [cname, '=', cvalue, ';', expires, ';path=/'].join('');
 };
 
+const deleteCookie = (cname, path, domain) => {
+  if (getCookie(cname)) {
+    document.cookie = `${cname} = ${path ? `;path="${path}:"` : ''} ${domain ? `;domain="${domain}:"` : ''};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+  }
+};
+
 /*
   Helper: Little method to help reuse a component examples instead of re-crafting the element across pages and templates.
 */
@@ -247,6 +253,7 @@ module.exports = {
   Fetch,
   getCookie,
   setCookie,
+  deleteCookie,
   checkValidity,
   createClassStack,
   initComponent,
