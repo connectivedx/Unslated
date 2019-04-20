@@ -10,7 +10,7 @@ module.exports = {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)
         'options': {
           'name': '[name].[ext]',
-          'outputPath': ['.', package.directories.assetPath, '/img/'].join('')
+          'outputPath': `.${package.directories.assetPath}/img/` // see package.json
         }
       },
       {
@@ -25,7 +25,7 @@ module.exports = {
           },
           'svgo': {
             'options': {
-              'output': './dist/img/'
+              'output': `${package.directories.dest}${package.directories.assetPath}/img/` // see package.json
             },
             'plugins': [
               { 'cleanupAttrs': true },
@@ -64,7 +64,7 @@ module.exports = {
   }],
   plugins: [
     new WebpackSvgSpritely({
-      filename: ['.', package.directories.assetPath, '/img/iconset-[hash].svg'].join('')
+      filename: `.${package.directories.assetPath}/img/iconset-[hash].svg` // see package.json
     })
   ]
 };
