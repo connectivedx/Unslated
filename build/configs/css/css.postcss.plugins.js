@@ -1,6 +1,5 @@
 const postcss = require('postcss');
 
-
 const colors = postcss.plugin('postcss-color', (options) => {
   options = options || {};
 
@@ -160,7 +159,8 @@ const roots =postcss.plugin('postcss-vars', (options) => {
   return root => {
     root.walkRules(':root', rule => {
       // we never remove color root for guide purposes
-      if (rule.parent.source.input.file.indexOf('colors.css') !== -1) { return; }
+      // if (typeof rule === 'undefined') { return false; }
+      // if (rule.parent.source.input.file.indexOf('colors.css') !== -1) { return; }
       rule.remove();
     });
   };

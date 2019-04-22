@@ -46,6 +46,6 @@ module.exports = {
     mixins(),                       // Allows for CSS @mixins
     Plugins.roots(),         // Cleans up leftover :root declarations.
     mediaPacker(),                  // Allows for the consolidation of @media queries
-    minification()                  // Minification of our final CSS results.
+    // minification()                  // Minification of our final CSS results.
   ]
 };

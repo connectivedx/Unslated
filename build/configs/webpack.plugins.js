@@ -2,11 +2,8 @@
   Here lives all of Unslated's core webpack custom plugins.
   Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks. (see: https://webpack.js.org/api/compiler-hooks/)
 */
-const fs = require('fs');
-const _package = require('../../package.json');
-const path = require('path');
-const postcss = require('postcss');
-const POSTCSSConfig = require('./css/css.postcss.config.js');
+const POSTCSS = require('postcss');
+const POSTCSSPlugins = require('./css/css.postcss.config.js');
 
 
 /*
@@ -16,25 +13,34 @@ class ProcessCSSPostBundle {
   constructor () {
   }
 
-  process(file) {
-    const path = `${_package.directories.dest}${_package.directories.assetPath}/css/${file}.css`;
-    fs.readFile(path, {encoding: 'utf8'}, (err, contents) => {
-      contents = contents.replace(/\\/g, '');
-      postcss([...POSTCSSConfig.postBundle])
-        .process(contents, {
-          from: path,
-          to: path
-        })
-        .then(result => {
-          fs.writeFile(path, result.css, () => true)
-        })
-    });
+  process(children, callback) {
+    const collection = Object.keys(children).map((j) => {
+      let child = children[j];
+      if (typeof child === 'object') {
+        return child._value;
+      }
+      return child;
+    }).join('');
+
+    return POSTCSS([...POSTCSSPlugins.postBundle])
+      .process(collection, {
+        from: '',
+        to: ''
+      })
+      .then(result => {
+        callback(result.css);
+      })
   }
 
   apply(compiler) {
-    compiler.hooks.afterEmit.tap('ProcessCSSPostBundle', compilation => {
-      this.process('assets');
-      this.process('guide');
+    compiler.hooks.emit.tap('ProcessCSSPostBundle', compilation => {
+      Object.keys(compilation.assets).map((i) => {
+        if (i.indexOf('assets.css') !== -1 || i.indexOf('guide.css') !== -1) {
+          this.process(compilation.assets[i]._source.children, (results) => {
+            compilation.assets[i]._source.children = [results];
+          });
+        }
+      });
     });
   }
 }
