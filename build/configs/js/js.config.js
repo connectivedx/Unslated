@@ -8,6 +8,10 @@ module.exports = {
 	config: [{
     'test': /\.(jsx|js)$/,
     'exclude': /node_modules/,
+    'include': [
+      path.resolve(__dirname, '../../../src'),
+      path.resolve(__dirname, '../../../build'),
+    ],
     'use': [
       {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
@@ -23,6 +27,7 @@ module.exports = {
       },{
         'loader': 'eslint-loader',
         'options': {
+          'cache': true,
           'formatter': require('eslint-friendly-formatter'),
           'configFile': path.resolve(__dirname, '.eslintrc')
         }

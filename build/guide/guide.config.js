@@ -1,10 +1,10 @@
 // Style guide config
-const path = require('path');
+import ExampleBG from '@guide/assets/example_bg.png';
 
 module.exports = {
   example: {
     options: {
-      background: path.resolve(__dirname, './build/guide/assets/example_bg.png'),
+      background: ExampleBG,
       padding: '1rem',
       brightness: 1
     }

@@ -1,61 +1,51 @@
-// start enhanced-resolve setup (alias namespaces within postcss)
-const alias = require('../alias.config.js'); // get alias namespaces (@src, @dist, @atoms etc.)
-const postcss = require('postcss');
-const ResolverFactory = require('enhanced-resolve/lib/ResolverFactory');
-const NodeJsInputFileSystem = require('enhanced-resolve/lib/NodeJsInputFileSystem');
-const CachedInputFileSystem = require('enhanced-resolve/lib/CachedInputFileSystem');
-
-const CACHED_DURATION = 60000;
-const fileSystem = new CachedInputFileSystem(new NodeJsInputFileSystem(), CACHED_DURATION);
-
-const resolver = ResolverFactory.createResolver({
-  alias: alias.config,
-  useSyncFileSystemCalls: true,
-  fileSystem
-});
-// end enhanced-resolve setup
-
-// Add / Remove POSTCSS plugins below:
-
-// The plugins listed below have order of operation! In most cases, making sure you leave
-// cssnano as your last plugin call is all you need to remember when add new plugins,
-// however always read newly added plugin docs to make sure they don't carry their own order of operation requirements.
-// standard
-const rems = require('./css.postcss-rem.plugin.js');
-const color = require('./css.postcss-color.plugin.js');
-const media = require('./css.postcss-media.plugin.js');
+const Alias = require('../alias.config.js');
+const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
-const extend = require('./css.postcss-extend.plugin.js');
 const custom = require('postcss-custom-selectors');
 const mixins = require('postcss-mixins');
 const imports = require('postcss-import');
-const variables = require('./css.postcss-vars.plugin.js');
-const exporting = require('./css.postcss-exports.plugin.js');
 const mediaPacker = require('css-mqpacker');
-const removeRoots = require('./css.postcss-roots.plugin.js');
-const respondType = require('postcss-responsive-type');
 const minification = require('cssnano');
+
+// start enhanced-resolve setup DO NOT CHANGE! (allows alias namespaces within postcss)
+const ResolverFactory = require('enhanced-resolve/lib/ResolverFactory');
+const NodeJsInputFileSystem = require('enhanced-resolve/lib/NodeJsInputFileSystem');
+const CachedInputFileSystem = require('enhanced-resolve/lib/CachedInputFileSystem');
+const fileSystem = new CachedInputFileSystem(new NodeJsInputFileSystem(), 60000);
+
+/*
+  No native support to combine css files before POSTCSS plugins.
+  Because of this, we split the plugin usage into pre and post bundle sets of pluins.
+
+  Using a custom webpack plugin (afterEmit hook), we perform postBundle plugin set on combined css
+  (see: build/config/webpack.plugins.js for more information)
+*/
 
 // Warning: the below methods have an order of operation that matters!!
 module.exports = {
-  plugins: [
-    imports({       // Allows for @import and our entry point for namespace alias config
+  preBundle: [
+    imports({                       // Bring resolve context to @import / url() usage (see: build/config/alias.config.js)
       resolve: (id, basedir) => {
-        return resolver.resolveSync({}, basedir, id);
+        return ResolverFactory.createResolver({
+          alias: Alias.config,
+          useSyncFileSystemCalls: true,
+          fileSystem
+        }).resolveSync({}, basedir, id);
       }
     }),
-    rems(),         // Allows for CSS rem()
-    media(),        // Allows for custom media queries
-    exporting(),    // Pre-parse color variables
-    variables(),    // Allows var(--variables)
-    color(),        // Allows for color(hex or var(), darken | lighten)
-    custom(),       // Allows for @custom selectors
-    respondType(),  // Allows for responsive typography
-    nested(),       // Allows for nested selectors
-    extend(),       // Allows for CSS @extend
-    mixins(),       // Allows for CSS @mixins
-    removeRoots(),  // Cleans up leftover :root declarations.
-    mediaPacker(),  // Allows for the consolidation of @media queries
-    minification(), // Minification of our final CSS results.
+    Plugins.exporting(),     // Pre-parse color variables
+    nested()                        // Allows for nested selectors
+  ],
+  postBundle: [
+    Plugins.rems(),          // Allows for CSS rem()
+    Plugins.media(),         // Allows for custom media queries
+    Plugins.variables(),     // Allows var(--variables)
+    Plugins.colors(),         // Allows for color(hex or var(), darken | lighten)
+    custom(),                       // Allows for @custom selectors
+    Plugins.extend(),        // Allows for CSS @extend
+    mixins(),                       // Allows for CSS @mixins
+    Plugins.roots(),         // Cleans up leftover :root declarations.
+    mediaPacker(),                  // Allows for the consolidation of @media queries
+    minification()                  // Minification of our final CSS results.
   ]
 };

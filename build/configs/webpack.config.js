@@ -4,7 +4,7 @@ const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WebpackStatsPlugin = require('../guide/plugins/webpack.stats.js');
-const package = require('../../package.json');
+const Package = require('../../package.json');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -23,9 +23,10 @@ const config = {
     guide: './build/guide.jsx'    // entry point for style guide assets
   },
   output: {
-    path: path.resolve(__dirname, ['../../',package.directories.dest].join('')),  // sets default location for all compiled files
-    publicPath: package.directories.publicPath,                                       // sets a default public location (required by react-routes)
-    filename: ['.', package.directories.assetPath, '/js/[name].js'].join('')                                             // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../${Package.directories.dest}`),   // sets default location for all compiled files
+    publicPath: Package.directories.publicPath,                           // sets a default public location (required by react-routes)
+    filename: `.${Package.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
+    pathinfo: false
   },
   module: {
     rules: [
@@ -53,7 +54,7 @@ const config = {
   ...stats.config,               // see build/configs/stats.config.js
   ...server.config,              // see build/configs/server.config.js
   optimization: {
-    minimize: false              // minimize output (set to false for dev builds)
+    minimize: false,             // minimize output (set to false for dev builds)
   },
   performance: {
     hints: false                 // bundle size warnings

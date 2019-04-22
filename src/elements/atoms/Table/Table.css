@@ -93,7 +93,7 @@
           content: attr(data-heading);
           color: var(--label-color);
           display: var(--td-value--display);
-          font-weight: var(--font-weight--normal);
+          font-weight: var(--font-weight--medium);
           margin-bottom: 0.5em;
         }
       }
@@ -109,7 +109,7 @@
           content: attr(data-heading);
           color: var(--label-color);
           display: var(--td-value--display);
-          font-weight: var(--font-weight--normal);
+          font-weight: var(--font-weight--medium);
           margin-bottom: 0.5em;
         }
       }

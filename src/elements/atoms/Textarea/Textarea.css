@@ -25,7 +25,7 @@
       border:none;
       box-shadow: 0 0 0 1px var(--color-gray);
       padding: rem(13px);
-    }   
+    }
   }
 
   &--inline-label {
@@ -33,7 +33,6 @@
 
     .field__label {
       background-color: var(--color-white);
-      color: var(--color-pp-dark-blue);
       display: block;
       font-size: 0.85rem;
       height: auto;

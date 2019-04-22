@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"dev": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
-		"build": "npm install && webpack --config build/configs/webpack.config.js --mode production",
+		"build": "node build/modules.js && webpack --config build/configs/webpack.config.js --mode production",
 		"watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server",
 		"new:page": "node build/scaffolding/scaffolding.build.js new pages",
 		"new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
@@ -78,7 +78,6 @@
 		"postcss-loader": "^2.1.6",
 		"postcss-mixins": "^6.2.1",
 		"postcss-nested": "^3.0.0",
-		"postcss-responsive-type": "^1.0.0",
 		"pretty": "^2.0.0",
 		"prismjs": "^1.15.0",
 		"react": "^16.7.0",

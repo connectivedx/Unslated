@@ -1,3 +1,4 @@
+const path = require('path');
 const WebpackSvgSpritely = require('./img.svg.plugin.js');
 const package = require('../../../package.json');
 
@@ -5,6 +6,11 @@ const package = require('../../../package.json');
 module.exports = {
   config: [{
     'test': /\.(jpe?g|png|gif|svg)$/i,
+    'exclude': /node_modules/,
+    'include': [
+      path.resolve(__dirname, '../../../src'),
+      path.resolve(__dirname, '../../../build'),
+    ],
     'use': [
       {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)

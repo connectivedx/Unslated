@@ -21,7 +21,7 @@
 			position: absolute;
 			top: 0;
 			width: 100%;
-		}		
+		}
   }
 
   /* Style variants */
@@ -36,10 +36,10 @@
 			&::placeholder,
 			&:-ms-input-placeholder,
 			&::-ms-input-placeholder {
-				color: var(--color-grey-light);
+				color: var(--color-gray-light);
 				font-family: var(--font-name--default);
 				font-size: 1rem;
-			}		
+			}
 		}
 
 		.field__label {
@@ -49,8 +49,8 @@
 				background-size: contain;
 				display: inline-block;
 				margin: 0 0.5rem;
-				padding: 0.5rem;				
-			}			
+				padding: 0.5rem;
+			}
 		}
 
 		&.input-text {
@@ -68,7 +68,7 @@
 				&:before {
 					padding: rem(10px);
 				}
-			}			
+			}
 		}
 
 		&.input-radio {
@@ -91,5 +91,5 @@
 				background-image: url('../Icon/assets/checkbox-checked.svg');
 			}
 		}
-  } 
+  }
 }

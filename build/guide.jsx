@@ -20,6 +20,7 @@ import GuideTypography from '@guide/partials/typography/guide__typography.contai
 import Package from '@root/package.json';
 
 // Guide styles
+require('@vars/index.css');
 require('@guide/guide.css');
 require('prismjs/themes/prism.css');
 

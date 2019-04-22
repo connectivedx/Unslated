@@ -106,13 +106,11 @@ class Tracking {
         'gtm.start': new Date().getTime(),
         event: 'gtm.js'
       });
-      console.log(s);
       const f = d.querySelector('head');
       if (!f) { return; }
       const j = d.createElement(s);
       const dl = (l !== 'dataLayer') ? `&l=${l}` : '';
       j.async = true;
-      console.log(i);
       j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
       // j.src = ['//www.googletagmanager.com/gtm.js?id=', i, dl].join('');
       f.appendChild(j, f);

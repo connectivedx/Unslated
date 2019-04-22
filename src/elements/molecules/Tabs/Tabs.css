@@ -13,7 +13,7 @@
 
   &__trigger {
     &.tabs-state--open {
-      & + .tabs__target { 
+      & + .tabs__target {
         height: auto;
         opacity: 1;
         visibility: visible;
@@ -40,7 +40,7 @@
       .tabs__target {
         grid-row-start: 20;
         grid-row-end: 1;
-      }     
+      }
     }
 
     &--left {
@@ -59,7 +59,7 @@
 
     /* Order is controlled via JS Containre with the CSS order: X; prop */
     &--top,
-    &--bottom { flex-flow: row wrap; } 
+    &--bottom { flex-flow: row wrap; }
 
     &--top {
       .tabs__trigger { order: 1; }
@@ -68,7 +68,7 @@
 
     &--bottom {
       .tabs__trigger { order: 2;  }
-      .tabs__target  { order: 1; }      
+      .tabs__target  { order: 1; }
     }
   }
 
@@ -82,14 +82,14 @@
     /* Justify horizontal tab systems to right  */
     &--right { justify-content: flex-end; }
 
-    &--bottom { 
+    &--bottom {
       &,
       .tabs__trigger,
       .tabs__target {
         @media (--medium) {
           transform: rotateX(180deg); /* Justify vertical aligned tab systems to bottom */
         }
-      }      
+      }
     }
   }
 
@@ -101,7 +101,7 @@
       border: var(--border-styles);
       cursor: pointer;
       font-size: rem(20px);
-      padding: var(--tabs-padding);
+      padding: var(--tabs-trigger-padding);
       position: relative;
       z-index: 2;
       background-color: var(--tabs-bg-color);
@@ -119,7 +119,7 @@
       .tabs__target {
         border-top: none;
         border-bottom: none;
-      }      
+      }
     }
 
     @media (--medium) {
@@ -136,11 +136,11 @@
       &.tabs-align--left {
         .tabs-state--open { border-right: 1px solid var(--tabs-bg-color); }
         .tabs__target     { margin-left: -1px; }
-      } 
+      }
 
       &.tabs-align--right {
         .tabs-state--open { border-left: 1px solid var(--tabs-bg-color); }
-        .tabs__target     { margin-right: -1px; }      
+        .tabs__target     { margin-right: -1px; }
       }
     }
 
