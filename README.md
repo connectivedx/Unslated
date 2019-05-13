@@ -1,4 +1,4 @@
-# Unslated
+![Unslated](https://ibin.co/4gwUCNSUUmgQ.png)
 
 [Unslated](https://github.com/drolsen/Unslated) is a frontend oriented tool-set for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
 
