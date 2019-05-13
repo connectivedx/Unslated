@@ -1,6 +1,6 @@
 # Unslated
 
-[Unslated](https://github.com/drolsen/Unslated) is a frontend oriented toolset for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
+[Unslated](https://github.com/drolsen/Unslated) is a frontend oriented tool-set for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
 
 > To get started, download a copy of this repository from github and read Install section below.
 
@@ -23,7 +23,7 @@ npm install
 
 __Using Yarn instead__
 
-[Yarn](https://github.com/yarnpkg/yarn) is an alterntive package manager that offers great performance and predictability.  If you'd like to install dependencies using Yarn, do:
+[Yarn](https://github.com/yarnpkg/yarn) is an alternative package manager that offers great performance and predictability.  If you'd like to install dependencies using Yarn, do:
 
 ```
 yarn
@@ -32,19 +32,19 @@ yarn
 
 ## Getting Started
 
-After you've installed npm depenedencies, Unslated provides command line scripts to automate common tasks. Tasks are divided below into common workflows.
+After you've installed npm dependencies, Unslated provides command line scripts to automate common tasks. Tasks are divided below into common work flows.
 
-> Use `npm run` or `yarn run` to execute these commands in your favorite terminal.
+> Use `npm run` or `yarn` to execute these commands in your favorite terminal.
 
 
 
 ### Configuration
 
-Unslated has rolled up a number of common configurable points within itspackage.json file. This allows a high level of project configuration and ultimatly unslated more portable across platforms it might be used under.
+Unslated has rolled up a number of common configurable points within its package.json file. This allows a high level of project configuration and ultimately unslated more portable across platforms it might be used under.
 
 ### Directories
 
-Here you get to define the most inportant part of an Unslated build, the input and the output.
+Here you get to define the most important part of an Unslated build, the input and the output.
 
 Prop | Description
 --- | ---
@@ -55,7 +55,7 @@ Prop | Description
 
 In production, assets that are requested from the server from bundled CSS/JS get their pathing information from both assetPath and publicPath, NOT dest (`{publicPath}{assetPath}`).
 
-If you are using Unslated in a larger system that requires URL_Rewrite endpoints for assets that differes from the default `/assets/**/*.*`, you want to use publicPath and possibly assetPath.
+If you are using Unslated in a larger system that requires URL_Rewrite endpoints for assets that differs from the default `/assets/**/*.*`, you want to use publicPath and possibly assetPath.
 
 For instance, if you have need for assets to be physically bundled to:
 `/dist/system/assets/**/*.*`
@@ -85,27 +85,28 @@ Prop | Description
 --- | ---
 `port` | what system port should dev build's localhost server run on. (default: 8080)
 `host` | what hostname should dev build's localhost sever use. (default: localhost)
-`allowedHosts` | grant a remote IP/hostname taccess to dev build's localhost server. (default: [])
+`allowedHosts` | grant a remote IP/hostname access to dev build's localhost server. (default: [])
 
 ### Optimization
 
 Here live minification options for both JavaScript and CSS bundles (production builds only).
-This is useful if you are using Unslated within a much larger system who needs to take Unslated's built files off to another minificaiton process.
+This is useful if you are using Unslated within a much larger system who needs to take Unslated's built files off to another minification process.
 
 Prop | Description
 --- | ---
 `CSS` | "true" or "false". (default: true)
 `JS` | "true" or "false". (default: true)
 
-For much finer levels of configuation, you can always dig direcly into the build configuraiton files of Unslated. Build configurations can be found under `build/configs/` under their respect folders.
+For much finer levels of configuration, you can always dig directly into the build configuration files of Unslated. Build configurations can be found under `build/configs/` under their respect folders.
 
 
 ### Build commands
 
 Command | Description
 --- | ---
-`production` | runs `production` build
+`build` | runs `production` build
 `dev` | runs a local `development` instance that starts a webpack-dev-server at http://localhost:8080
+`static` | if configured to be enabled in package.json, this will export JSX examples out as `static` .html files
 
 
 ### Scaffolding commands
@@ -145,7 +146,7 @@ We have tried to be thoughtful in our architectural decisions, and drive based o
 
 - Emphasize modular development
 - Atomic based Architecture
-- Reuseability between projects
+- Reuse-ability between projects
 - Reduce development friction
 
 ### Emphasize module development
@@ -162,19 +163,19 @@ Unslated projects are written using React JSX, which provides a great model for 
 
 Found in `/src/elements/atoms`
 
-Atoms are small, reuseable elements that can be used in many contexts.
+Atoms are small, reusable elements that can be used in many contexts.
 
 #### Molecules
 
 Found in `/src/elements/molecules`
 
-Molecules are generally more singular purpose elements that are tied to a business requirement, or complex reusuable elmenets that require internal state.
+Molecules are generally more singular purpose elements that are tied to a business requirement, or complex reusable elements that require internal state.
 
 #### Organisms
 
 Found in `/src/elements/organisms`
 
-Organisms are specific arrangments of Atoms and Molecules with minimal styling requirements.
+Organisms are specific arrangements of Atoms and Molecules with minimal styling requirements.
 
 #### Templates
 
@@ -186,12 +187,12 @@ Templates are the conglomeration of Atoms, Molecules and or Organisms into a hig
 
 Found in `/src/elements/modifiers`
 
-Modifiers are css styles and/or javascript containers that don't require specific html be defined.
+Modifiers are CSS styles and/or JavaScript containers that don't require specific html be defined.
 
 
-### Reuseability between projects
+### Reuse-ability between projects
 
-Using work between projects has historically been a difficult nut to crack. We've selected technologies that have proven to be easily portable, and used an opionated folder and file naming scheme that self contains molecules.
+Using work between projects has historically been a difficult nut to crack. We've selected technologies that have proven to be easily portable, and used an opinionated folder and file naming scheme that self contains molecules.
 
 #### Naming conventions
 
@@ -204,7 +205,7 @@ All atoms and molecules share a similar set of files. Once you learn how one mol
 
 ### Reduce development friction
 
-The web development world is evolving rapidly. A tool that can automate the myriad tasks we regularly perform can redirect our focus on business decisions instead of trival tasks. We've provided a few different tools on your development adventures.
+The web development world is evolving rapidly. A tool that can automate the myriad tasks we regularly perform can redirect our focus on business decisions instead of trivial tasks. We've provided a few different tools on your development adventures.
 
 #### Building and watching
 
@@ -215,7 +216,7 @@ There are some very helpful command line scripts to help with development and co
 
 ### What is this?
 
-A front-end toolset.
+A frontend tool-set.
 
 ### What technologies are used?
 
@@ -229,7 +230,7 @@ It's a slow and steady trek to writing great documentation. We are doing our bes
 
 Was a name that was not already used on NPM, nothing more and is subject to change.
 
-### What verisons of Node are supported?
+### What versions of Node are supported?
 
 Unslated was developed to work best with Node's [most recent LTS release](https://nodejs.org/en/download/) and above.
 
