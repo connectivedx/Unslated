@@ -73,35 +73,92 @@ const extend = postcss.plugin('postcss-extend', (options) => {
   };
 
   return (root) => {
-    // Shared method to do the actual work of extending one selector(s) onto another
-    const extendSelectors = (extendRule, lookupRule, lookupSelector, matchingSelector) => {
-      // CSS can have comma delminated selectors.
-      // We must split them up into unique selectors prior to extending.
-      const selectors = extendRule.parent.selector.split(',');
-      Object.keys(selectors).map(index => {
-        lookupRule.selector += (',' + matchingSelector.replace(lookupSelector, selectors[index].trim()));
-      });
-    };
+    // loop over @extend rules
+    root.walkAtRules(atRule => {
+      if(atRule.name.indexOf('extend') === -1) { return; }
 
-    root.walkAtRules(extendRule => {
-      if(extendRule.name.indexOf('extend') === -1) { return; }
-      const lookupSelector = extendRule.params.trim();
-      root.walkRules(lookupRule => {
-        const matchingSelector = lookupRule.selector.trim();
-        if (extendRule.name.indexOf('extend-all') === -1) {
-          // extend
-          if (matchingSelector === lookupSelector) {
-            extendSelectors(extendRule, lookupRule, lookupSelector, matchingSelector);
+      const extendStyles = (to, from) => {
+        from.walkDecls(decl => {
+          const clone = decl.clone();
+          to.append(clone);
+        });
+      };
+
+      const data = {
+        type: (atRule.name.indexOf('extend-all') === -1) ? 'extend' : 'extend-all',
+        extender: atRule.parent.selector,
+        extending: atRule.params.trim()
+      };
+
+      // loop over selectors
+      root.walkRules(normalRule => {
+        // basic extend
+        if (normalRule.selector.trim() === atRule.params.trim()) {
+          extendStyles(atRule.parent, normalRule);
+        }
+
+        // deep extend
+        if (data.type === 'extend-all'
+          && normalRule.selector.indexOf(data.extending) !== -1
+          && normalRule.selector.indexOf(data.extender) === -1
+        ) {
+
+          const toSelectors = data.extender.split(',');
+          const fromSelectors = normalRule.selector.split(',');
+
+          // Make sure we check for previously extended mathces across both to and from selectors.
+          const alreadyExtended = () => {
+            let flag = false;
+            Object.keys(fromSelectors).map((i) => {
+              const selector = fromSelectors[i].replace(/\\n\\n/g, '').trim();
+              fromSelectors[i] = selector;
+              if (selector.indexOf(atRule.params.trim()) > 0) {
+                flag = true;
+              }
+            });
+
+            Object.keys(toSelectors).map((i) => {
+              const selector = toSelectors[i].replace(/\\n\\n/g, '').trim();
+              toSelectors[i] = selector;
+              if (selector.indexOf(atRule.params.trim()) > 0) {
+                flag = true;
+              }
+            });
+            return flag;
+          };
+
+          if (alreadyExtended()) { return false; } // prevents matching already extended matches
+
+          let styles = '';
+          normalRule.walkDecls(decl => {
+            styles += `${decl.prop}: ${decl.value};`;
+          });
+
+
+          // Build new selectors off to and from selectors
+          let i = fromSelectors.length;
+          let newSelector = '';
+          while (i--) {
+            let j = toSelectors.length;
+            while (j--) {
+              newSelector += `${fromSelectors[i].replace(new RegExp(`${atRule.params.trim()}(.*?)`, 'g'), ` ${toSelectors[j]}$1`)},`;
+            }
           }
-        } else {
-          // extend-all
-          if (matchingSelector.indexOf(lookupSelector) !== -1) {
-            extendSelectors(extendRule, lookupRule, lookupSelector, matchingSelector);
-          }
+
+          // Combine new extended selectors and styles
+          newSelector = `
+            ${
+              newSelector
+            } {
+              ${styles}
+            }
+          `.replace(', {', ' {'); // <- little clean up catching
+
+          root.append(newSelector);
         }
       });
 
-      extendRule.remove(); // once we are done extending, we already remove the extend rule
+      atRule.remove(); // once we are done extending, we already remove the extend rule
     });
   };
 });
@@ -112,8 +169,10 @@ const media = postcss.plugin('postcss-custom-media', (options) => {
   };
 
   const queries = [];
+  const packs = [];
 
   return (root) => {
+    // collect all possible breakpoints
     root.walkDecls(decl => {
       const value = decl.value;
       if (value.indexOf('only screen and') !== -1 ||
@@ -121,16 +180,52 @@ const media = postcss.plugin('postcss-custom-media', (options) => {
         value.indexOf('only print and') !== -1 ||
         value.indexOf('print and') !== -1) {
         queries[decl.prop] = value;
+        packs[value] = '';
       }
     });
 
+    // replace @mediavariable declirations, with values from collected queries above
     root.walkAtRules('media', (rule) => {
       const variable = rule.params.replace(/\((.*)\)/g, '$1');
       Object.keys(queries).map(key => {
         if (key === variable) {
           rule.params = queries[key];
+
+          // gather meida queries inners
+          rule.walkRules(innerRules => {
+            let stringSelector = `  ${innerRules.selector} {\n`;
+            innerRules.walkDecls(innerDecl => {
+                stringSelector += `    ${innerDecl.prop}: ${innerDecl.value};\n`;
+            });
+            stringSelector += '  }\n';
+
+            packs[queries[key]] += stringSelector;
+          });
         }
       });
+
+      rule.remove(); // remove this query, to re-append a packed set down below.
+    });
+
+    // append compressed media quries to end of sheet
+    const objectReverse = (object) => {
+      const newObject = {};
+      const keys = [];
+
+      Object.keys(object).map((key) => keys.push(key));
+
+      for (let i = keys.length - 1; i >= 0; i--) {
+        const value = object[keys[i]];
+        newObject[keys[i]] = value;
+      }
+
+      return newObject;
+    };
+
+    Object.keys(objectReverse(packs)).map((i) => {
+      if (packs[i].length) {
+        root.append(`@media ${i} {\n${packs[i]}\n}`);
+      }
     });
   };
 });
@@ -221,12 +316,22 @@ const variables = postcss.plugin('postcss-vars', (options) => {
   };
 });
 
+const comments = postcss.plugin('postcss-comments', (options) => {
+  options = options || {};
+  return root => {
+    root.walkComments(comment => {
+      comment.remove();
+    });
+  };
+});
+
 module.exports = {
-  exporting: exporting,
-  variables: variables,
-  extend: extend,
-  colors: colors,
-  media: media,
-  roots: roots,
-  rems: rems
+  exporting,
+  variables,
+  comments,
+  extend,
+  colors,
+  media,
+  roots,
+  rems
 };

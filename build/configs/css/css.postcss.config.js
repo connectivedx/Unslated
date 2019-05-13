@@ -1,11 +1,10 @@
+const Package = require('../../../package.json');
 const Alias = require('../alias.config.js');
 const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
 const custom = require('postcss-custom-selectors');
 const mixins = require('postcss-mixins');
 const imports = require('postcss-import');
-const mediaPacker = require('css-mqpacker');
-const minification = require('cssnano');
 
 // start enhanced-resolve setup DO NOT CHANGE! (allows alias namespaces within postcss)
 const ResolverFactory = require('enhanced-resolve/lib/ResolverFactory');
@@ -34,18 +33,20 @@ module.exports = {
       }
     }),
     Plugins.exporting(),     // Pre-parse color variables
-    nested()                        // Allows for nested selectors
+    nested(),                // Allows for nested selectors
+    custom()                 // Allows for @custom selectors
   ],
   postBundle: [
     Plugins.rems(),          // Allows for CSS rem()
-    Plugins.media(),         // Allows for custom media queries
     Plugins.variables(),     // Allows var(--variables)
-    Plugins.colors(),         // Allows for color(hex or var(), darken | lighten)
-    custom(),                       // Allows for @custom selectors
+    Plugins.colors(),        // Allows for color(hex or var(), darken | lighten)
     Plugins.extend(),        // Allows for CSS @extend
-    mixins(),                       // Allows for CSS @mixins
+    Plugins.media(),         // Allows for custom media queries
+    mixins(),                // Allows for CSS @mixins
     Plugins.roots(),         // Cleans up leftover :root declarations.
-    mediaPacker(),                  // Allows for the consolidation of @media queries
-    // minification()                  // Minification of our final CSS results.
+    Plugins.comments(),      // Cleans up comments.
+    (Package.optimize.css)   // Minification of our final CSS results.
+      ? require('cssnano')({preset: 'default'})
+      : () => {}
   ]
 };

@@ -1,4 +1,5 @@
 .textarea {
+
   /* Baseline styles */
   .field__native {
     min-width: 200px;
@@ -22,7 +23,7 @@
     }
 
     .field__native {
-      border:none;
+      border: none;
       box-shadow: 0 0 0 1px var(--color-gray);
       padding: rem(13px);
     }
