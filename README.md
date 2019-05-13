@@ -34,7 +34,7 @@ yarn
 
 After you've installed npm depenedencies, Unslated provides command line scripts to automate common tasks. Tasks are divided below into common workflows.
 
-> Use `npm run` or `yarn run` to execute these commands in your favorite terminal.
+> Use `npm run` or `yarn` to execute these commands in your favorite terminal.
 
 
 
@@ -104,8 +104,9 @@ For much finer levels of configuation, you can always dig direcly into the build
 
 Command | Description
 --- | ---
-`production` | runs `production` build
+`build` | runs `production` build
 `dev` | runs a local `development` instance that starts a webpack-dev-server at http://localhost:8080
+`static` | if configured to be enabled in package.json, this will export JSX examples out as `static` .html files
 
 
 ### Scaffolding commands
