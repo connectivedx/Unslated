@@ -1,30 +1,26 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const Webpack = require('webpack');
 const path = require('path');
-const package = require('../../../package.json');
+const Webpack = require('webpack');
+const Package = require('../../../package.json');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // all js(x) files get ran through these build processes
 module.exports = {
 	config: [{
     'test': /\.(jsx|js)$/,
-    'exclude': /node_modules/,
-    'include': [
-      path.resolve(__dirname, '../../../src'),
-      path.resolve(__dirname, '../../../build'),
-    ],
+    'exclude': [path.resolve(__dirname, '../../node_modules')],
     'use': [
       {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
         'options': {
           'compact': false,
-          'presets': ['env', 'react'],
+          'presets': ['@babel/preset-env', '@babel/preset-react'],
           'plugins': [
-            'transform-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
-            'transform-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
-            'add-react-displayname' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
+            '@babel/plugin-proposal-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
+            '@babel/plugin-proposal-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
+            '@babel/plugin-transform-react-display-name' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
           ]
         }
-      },{
+      }, {
         'loader': 'eslint-loader',
         'options': {
           'cache': true,
@@ -35,16 +31,11 @@ module.exports = {
     ]
   }],
 	plugins: [
-    new Webpack.ProvidePlugin({
-      'React': 'react', // (see: https://reactjs.org/)
-      'ReactDOM': 'react-dom', // (see: https://reactjs.org/docs/react-dom.html)
-      'PropTypes': 'prop-types' // (see: https://reactjs.org/docs/render-props.html)
-    }),
     new CopyWebpackPlugin([
       {
         context: path.resolve(__dirname, '../../../src/data/'),
         from: path.resolve(__dirname, '../../../src/data/*.*'), // for IIS servers
-        to: ['.', package.directories.assetPath, '/data/'].join('')
+        to: `.${Package.directories.assetPath}/data/`
       }
     ])
   ]

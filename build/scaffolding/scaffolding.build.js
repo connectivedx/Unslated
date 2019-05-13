@@ -1,3 +1,10 @@
+/*
+  This file holds helper methods used by Unslated's package.json script configurations.
+  These methods help abstract common build tasks off of the package.json file and ultimatly the end user's terminal.
+
+  Please note that this file is a node.js file, so no exporting happens here, but instead arguments are sent to this file via command line scripts setup in package.json
+*/
+
 const fs = require('fs');
 const path = require('path');
 const rimraf = require("rimraf");

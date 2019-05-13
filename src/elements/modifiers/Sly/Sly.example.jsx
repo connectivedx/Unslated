@@ -20,7 +20,7 @@
       },
     ```
 */
-import Sly from './Sly';
+import Sly from '@sly';
 
 export default [{
   examples: [

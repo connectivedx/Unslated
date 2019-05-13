@@ -82,6 +82,10 @@ export const Guide__examples = (props) => {
     if (component.props.devonly === 'true') {
       prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
     }
+    prisimData = prisimData.replace(/&gt;/g, '>');
+    prisimData = prisimData.replace(/&lt;/g, '<');
+    prisimData = prisimData.replace(/&#x27;/g, "'");
+    prisimData = prisimData.replace(/is="sly"/g, '');
     return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
   };
 

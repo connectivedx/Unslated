@@ -11,6 +11,7 @@
 		"no-param-reassign": 0,
 		"no-plusplus": 0,
 		"linebreak-style": 0,
+		"no-template-curly-in-string": 0,
 		"jsx-a11y/no-static-element-interactions": 0,
 		"jsx-a11y/label-has-associated-control": 0,
 		"jsx-a11y/label-has-for": 0,
@@ -40,12 +41,15 @@
 		"localStorage": true,
 		"MutationObserver": true,
 		"React": true,
+		"ReactDOM": true,
+		"ReactDOMServer": true,
 		"PropTypes": true,
 		"XMLHttpRequest": true,
 		"XDomainRequest": true,
 		"fetch": true,
 		"Utils": true,
 		"GuideUtils": true,
-		"__stats__": true
+		"__stats__": true,
+		'sly': true
 	}
 }

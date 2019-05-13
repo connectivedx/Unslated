@@ -1,13 +1,22 @@
+@import 'prismjs/themes/prism.css';
+@import '@vars/breakpoints.css';
+@import '@vars/colors.css';
+@import '@vars/custom-selectors.css';
+@import '@vars/fonts.css';
+@import '@vars/type.css';
+@import '@vars/zindex.css';
+
 @import './partials/nav/guide__nav.css';
-@import './partials/stylist/guide__stylist.css';
-@import './partials/welcome/guide__welcome.css';
+@import './partials/icons/guide__icons.css';
 @import './partials/pages/guide__pages.css';
-@import './partials/examples/guide__examples.css';
+@import './partials/colors/guide__colors.css';
 @import './partials/readme/guide__readme.css';
 @import './partials/metrics/guide__metrics.css';
-@import './partials/colors/guide__colors.css';
-@import './partials/icons/guide__icons.css';
+@import './partials/stylist/guide__stylist.css';
+@import './partials/welcome/guide__welcome.css';
+@import './partials/examples/guide__examples.css';
 @import './partials/typography/guide__typography.css';
+
 
 :root {
   --breakpoint-speed: 2s;

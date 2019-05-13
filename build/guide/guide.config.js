@@ -1,7 +1,7 @@
 // Style guide config
 import ExampleBG from '@guide/assets/example_bg.png';
 
-module.exports = {
+const config = {
   example: {
     options: {
       background: ExampleBG,
@@ -10,3 +10,5 @@ module.exports = {
     }
   }
 };
+
+export default config;

@@ -14,6 +14,31 @@ const triggerRebuild = () => {
   });
 };
 
+const recursiveSubStringReplace = (source, pattern, replacement) => {
+  const recursiveReplace = (objSource) => {
+    if (typeof objSource === 'string') {
+      return objSource.replace(pattern, replacement);
+    }
+    if (typeof objSource === 'object') {
+      if (objSource === null) {
+        return null;
+      }
+      Object.keys(objSource).forEach(function (property) {
+        objSource[property] = recursiveReplace(objSource[property]);
+      });
+      return objSource;
+    }
+  }
+
+  return recursiveReplace(source);
+};
+
+// this.options.filename.replace(/iconset-(.*)\.svg/g, this.newHash)
+const bundleResults = (compilation, filename, symbols) => compilation.assets[filename] = {
+  source: () => `<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width: 0; height: 0">${symbols}</svg>`,
+  size: () => symbols.length
+};
+
 class WebpackSvgSpritely {
   constructor(options) {
     this.options = options;
@@ -27,53 +52,42 @@ class WebpackSvgSpritely {
     compiler.hooks.emit.tap('WebpackSvgSpritely', compilation => {
       // reset variables
       this.newHash = ['iconset-', generateHash(), '.svg'].join(''); // in with the new
-      this.icons = [];
       this.symbols = '';
 
       // Grab a collection of icons based on filters option
-      Object.keys(compilation.modules).map(j => {
+      this.icons = Object.keys(compilation.modules).map(j => {
         const path = compilation.modules[j].resource;
         if (!path) { return; }
-        let name = path.replace(/\\/g, '/');
-        if (name.indexOf('Icon/assets') !== -1 && name.indexOf('.svg') !== -1) {
-          name = name.split('/')[name.split('/').length - 1];
+        if (path.indexOf('Icon') !== -1
+          && path.indexOf('assets') !== -1
+          && path.indexOf('.svg') !== -1
+        ) {
+          let name = path.replace(/\\/g, '/');
+          const parts = name.split('/');
+          name = parts[parts.length - 1];
           name = name.split('.')[0];
-          this.icons.push({
+          return {
             name,
             path
-          });
+          };
         }
       }).filter((n) => n);
 
       // Use found icons above to collect svg into symbols
-      Object.keys(compilation.assets).map(i => {
+      this.symbols = Object.keys(compilation.assets).map(i => {
         // update hash in assets.js (replaces hash used in src/elements/atoms/Icon/Icon.Container.js)
         if(i.indexOf('assets-') !== -1 || i.indexOf('assets.js') !== -1) {
-          // Production builds runs with ._value
-          if (compilation.assets[i]._value) {
-            compilation.assets[i]._value = compilation.assets[i]._value.replace(/iconset-(.*)\.svg/g, this.newHash);
-          }
+          // Reach into bundle and replace instance of iconset-[hash] with actual bundle hash (works under both dev and prod builds)
+          recursiveSubStringReplace(compilation.assets[i], /iconset-(.*)\.svg/g, this.newHash);
 
-          // Development builds runs with ._source
-          if (compilation.assets[i]._source) {
-            Object.keys(compilation.assets[i]._source.children).map(j => {
-              let child = compilation.assets[i]._source.children[j];
-              if (typeof child !== 'string') {
-                if (!child._value) { return; }
-                child._value = child._value.replace(/iconset-(.*)\.svg/g, this.newHash);
-              } else {
-                child = child.replace(/iconset-(.*)\.svg/g, this.newHash);
-              }
-            }).filter((n) => n);
-          }
-
-          // We have cached development source ._cachedSource... not in my house!
+          // We have cached development source ._cachedSource. (not in my house!)
           if (compilation.assets[i]._cachedSource) {
             triggerRebuild();
           }
         }
 
         // Convert raw svg source into symbols for sprite
+        let collection = '';
         Object.keys(this.icons).map(k => {
           if (i.indexOf('.svg') === -1) { return; } // only intrested in svg assets
           const iconName = this.icons[k].name;
@@ -81,25 +95,23 @@ class WebpackSvgSpritely {
           if (assetName === iconName) {
             if (!compilation.assets[i]._value) { return; }
             let contents = compilation.assets[i]._value.toString('utf8');
-            if (contents.indexOf('<style') !== -1) {
-              console.warn('\x1b[40m');
-              console.warn('\x1b[41m', `WARNING src/elements/atoms/Icons/assets/${assetName}.svg:\n<style> block found in this SVG file. Please relocate class based styles to inline attribute within svg file.`)
-              console.warn('\x1b[40m');
-            }
             contents = contents.replace(/<svg/g, '<symbol id="icon-'+this.icons[k].name+'"');
             contents = contents.replace(/<\/svg>/g, '</symbol>');
             contents = contents.replace('xmlns="http://www.w3.org/2000/svg"', '');
             contents = contents.replace(/<style>(.*)<\/style>/g, '<style><![CDATA[$1]]></style>');
             if (!contents) { return; }
-            this.symbols += contents;
+            collection += contents;
           }
-        });
+        }).filter((n) => n);
+
+        return collection;
       }).filter((n) => n);
 
-      compilation.assets[this.options.filename.replace(/iconset-(.*)\.svg/g, this.newHash)] = {
-        source: () => `<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width: 0; height: 0">${this.symbols}</svg>`,
-        size: () => this.symbols.length
-      };
+      bundleResults(
+        compilation,
+        this.options.filename.replace(/iconset-(.*)\.svg/g, this.newHash),
+        this.symbols
+      );
     });
   }
 }

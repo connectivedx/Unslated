@@ -10,11 +10,15 @@ module.exports = {
       path.resolve(__dirname, '../../../src'),
       path.resolve(__dirname, '../../../build'),
     ],
-    'loader': 'file-loader',
-    'options': {
-      'name': '[name].[ext]',
-      'outputPath': `.${package.directories.assetPath}/fonts/`
-    }
+    'use': [
+      {
+        'loader': 'file-loader',
+        'options': {
+          'name': '[name].[ext]',
+          'outputPath': `.${package.directories.assetPath}/fonts/`
+        }
+      }
+    ]
   }],
   plugins: []
 };

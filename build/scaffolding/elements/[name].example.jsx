@@ -28,6 +28,7 @@ export default [{
     {
       name: 'Default styling',
       description: '',
+      staticPath: '',
       component: (
         <{{name}}>Lorem ipsum</{{name}}>
       ),
