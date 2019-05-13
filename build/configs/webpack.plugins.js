@@ -12,7 +12,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const pretty = require('pretty');
 const docgen = require('react-docgen');
 const ReactDOMServer = require('react-dom/server');
-const glob = require('glob-fs')({ gitignore: true });
 
 let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
 if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
