@@ -1,4 +1,4 @@
-# Unslated
+![Unslated](https://ibin.co/4gwUCNSUUmgQ.png)
 
 [Unslated](https://github.com/drolsen/Unslated) is a frontend oriented tool-set for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
 
@@ -77,10 +77,12 @@ Note: There is no way to make assetPath value be different from dest location an
 
 Here live all server configuration points around development builds. Development builds tap into the the webpack-dev-server for a whole host of development needs, one of which is a simulated server to build / test our bundled files realtime.
 
+```
+"port": "8080",
+"host": "localhost",
+"allowedHosts": []
+```
 
-		"port": "8080",
-		"host": "localhost",
-		"allowedHosts": []
 Prop | Description
 --- | ---
 `port` | what system port should dev build's localhost server run on. (default: 8080)
