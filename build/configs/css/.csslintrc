@@ -1,0 +1,21 @@
+{
+	"rules": {
+		"block-no-empty": null,
+		"color-no-invalid-hex": true,
+		"comment-empty-line-before": [ "always", {
+			"ignore": ["stylelint-commands", "after-comment"]
+		} ],
+		"declaration-colon-space-after": "always",
+		"indentation": [2, {
+			"except": ["value"],
+			"message": "Please use 2 spaces for indentation.",
+			"severity": "warning"
+		}],
+		"max-empty-lines": 2,
+		"rule-empty-line-before": [ "always", {
+			"except": ["first-nested"],
+			"ignore": ["after-comment"]
+		} ],
+		"unit-whitelist": ["px", "em", "rem", "%", "deg", "vmin", "vmax", "vw", "vh", "ex", "ch", "in", "pt", "s"]
+	}
+}

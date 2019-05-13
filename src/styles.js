@@ -1,7 +1,12 @@
 const requireAll = (context) => context.keys().map(context);
 
 // Import variables CSS
-requireAll(require.context('@vars/', true, /\.css$/));
+require('@vars/breakpoints.css');
+require('@vars/colors.css');
+require('@vars/custom-selectors.css');
+require('@vars/fonts.css');
+require('@vars/type.css');
+require('@vars/zindex.css');
 
 // Import root and richtext CSS
 require('@atoms/Root/Root.css');

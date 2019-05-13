@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     Utils.initComponent('Textarea', '.Textarea', Textarea);
   });
   Utils.initComponent('Icon', 'body', Icon);
+
   new Tracking({
     vendors: [
       {
         type: 'Google',
-        id: '### ANALYTICS KEY HERE ###'
+        id: 'GTM KEY'
       }
     ]
   });

@@ -11,7 +11,7 @@ or
 
 @font-face {
   font-family: var(--font-stack--default);
-  font-weight: var(--font-weight--normal);
+  font-weight: var(--font-weight--medium);
   src:
     url('./assets/SourceSansPro-Regular.ttf') format('ttf'),
     url('./assets/SourceSansPro-Regular.woff') format('woff'),

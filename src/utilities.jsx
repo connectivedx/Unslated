@@ -50,6 +50,11 @@ const checkValidity = (field) => {
 };
 
 /*
+  Helper: Quick method to capatalize the first character of a string of text
+*/
+const titleCapitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+/*
   Helper: Chookie get and set methods
 */
 const getCookie = (cname) => {
@@ -73,6 +78,12 @@ const setCookie = (cname, cvalue, exdays) => {
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
   const expires = ['expires=', d.toUTCString()].join('');
   document.cookie = [cname, '=', cvalue, ';', expires, ';path=/'].join('');
+};
+
+const deleteCookie = (cname, path, domain) => {
+  if (getCookie(cname)) {
+    document.cookie = `${cname} = ${path ? `;path="${path}:"` : ''} ${domain ? `;domain="${domain}:"` : ''};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+  }
 };
 
 /*
@@ -208,6 +219,24 @@ const serialize = (elm, type) => {
   return false;
 };
 
+
+/*
+  Helper: Like array .reverse() method, this will reverse an entire object.
+*/
+const objectReverse = (object) => {
+  const newObject = {};
+  const keys = [];
+
+  Object.keys(object).map((key) => keys.push(key));
+
+  for (let i = keys.length - 1; i >= 0; i--) {
+    const value = object[keys[i]];
+    newObject[keys[i]] = value;
+  }
+
+  return newObject;
+};
+
 /*
   CORE: Creating a nice className from an array of unknown values
 */
@@ -247,7 +276,10 @@ module.exports = {
   Fetch,
   getCookie,
   setCookie,
+  deleteCookie,
+  titleCapitalize,
   checkValidity,
+  objectReverse,
   createClassStack,
   initComponent,
   toggleClass,

@@ -3,7 +3,9 @@
 
   /* media variants */
   &--top { align-items: flex-start; }
+
   &--middle { align-items: center; }
+
   &--bottom { align-items: flex-end; }
 
   &__figure {
@@ -21,6 +23,8 @@
 
   /* figure variants */
   &__figure--top { align-self: flex-start; }
+
   &__figure--middle { align-self: center; }
+
   &__figure--bottom { align-self: flex-end; }
 }

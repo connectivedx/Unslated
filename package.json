@@ -1,12 +1,12 @@
 {
 	"name": "Unslated",
 	"version": "0.0.1",
-	"description": "Boilerplate for component-based UI development",
-	"repository": "connectivedx/unslated",
+	"description": "Boilerplate++ (component-based UI development)",
+	"repository": "drolsen/unslated",
 	"bugs": {
-		"url": "https://github.com/connectivedx/unslated/issues"
+		"url": "https://github.com/drolsen/unslated/issues"
 	},
-	"author": "Connective DX",
+	"author": "Devin Olsen",
 	"license": "MIT",
 	"directories": {
 		"source": "./src",
@@ -14,20 +14,26 @@
 		"assetPath": "/assets",
 		"publicPath": "/"
 	},
-	"server": {
+	"statics": {
+		"enable": true,
+		"dest": "./dist/statics"
+	},
+	"remote": {
+		"type": "IIS"
+	},
+	"local": {
 		"port": "8080",
 		"host": "localhost",
 		"allowedHosts": []
 	},
-	"tools": {
-		"performance": "true",
-		"icons": "true",
-		"colors": "true"
+	"optimize": {
+		"js": true,
+		"css": false
 	},
 	"scripts": {
-		"dev": "webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
-		"build": "npm install && webpack --config build/configs/webpack.config.js --mode production",
-		"watch": "webpack --config build/configs/webpack.confg.js --watch && webpack-dev-server",
+		"dev": "node build/scaffolding/node.build.js sync && webpack-dev-server --config build/configs/webpack.config.js --mode development --open",
+		"build": "node build/scaffolding/node.build.js sync && webpack --config build/configs/webpack.config.js --mode production && npm run static",
+		"static": "node build/scaffolding/node.build.js static",
 		"new:page": "node build/scaffolding/scaffolding.build.js new pages",
 		"new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
 		"new:molecule": "node build/scaffolding/scaffolding.build.js new molecules",
@@ -37,23 +43,24 @@
 		"new:variable": "node build/scaffolding/scaffolding.build.js new variables"
 	},
 	"engines": {
-		"node": ">=10.15.0"
+		"node": ">=10.15.1"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.4.3",
+		"@babel/parser": "^7.4.4",
+		"@babel/plugin-proposal-class-properties": "^7.4.0",
+		"@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+		"@babel/plugin-transform-react-display-name": "^7.2.0",
+		"@babel/preset-env": "^7.4.3",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/register": "^7.4.0",
 		"abstract-syntax-tree": "^2.1.1",
-		"babel-core": "^6.26.3",
 		"babel-eslint": "^10.0.1",
-		"babel-loader": "^7.1.5",
-		"babel-plugin-add-react-displayname": "0.0.5",
-		"babel-plugin-transform-class-properties": "^6.24.1",
-		"babel-plugin-transform-object-rest-spread": "^6.26.0",
-		"babel-preset-env": "^1.7.0",
-		"babel-preset-react": "^6.24.1",
+		"babel-loader": "^8.0.5",
 		"chart.js": "^2.7.3",
 		"clean-webpack-plugin": "^0.1.19",
 		"copy-webpack-plugin": "^4.6.0",
 		"css-loader": "^1.0.1",
-		"css-mqpacker": "^7.0.0",
 		"cssnano": "^4.0.4",
 		"docgen-loader": "^1.3.4",
 		"enhanced-resolve": "^4.1.0",
@@ -66,6 +73,7 @@
 		"eslint-plugin-react": "^7.12.4",
 		"extract-comment": "^1.1.1",
 		"file-loader": "^1.1.11",
+		"hard-source-webpack-plugin": "^0.13.1",
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^4.0.0-beta.5",
 		"image-webpack-loader": "^4.6.0",
@@ -78,7 +86,6 @@
 		"postcss-loader": "^2.1.6",
 		"postcss-mixins": "^6.2.1",
 		"postcss-nested": "^3.0.0",
-		"postcss-responsive-type": "^1.0.0",
 		"pretty": "^2.0.0",
 		"prismjs": "^1.15.0",
 		"react": "^16.7.0",
@@ -90,9 +97,11 @@
 		"reset-css": "^4.0.1",
 		"rimraf": "^2.6.3",
 		"style-loader": "^0.23.0",
+		"stylelint": "^10.0.1",
+		"stylelint-webpack-plugin": "^0.10.5",
 		"webpack": "^4.28.1",
 		"webpack-cli": "^3.2.1",
-		"webpack-dev-server": "^3.1.11",
+		"webpack-dev-server": "^3.3.1",
 		"webpack-node-externals": "^1.7.2"
 	}
 }

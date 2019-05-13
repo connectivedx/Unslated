@@ -4,6 +4,7 @@
   --tabs-trigger-padding: 0.5rem;
   --tabs-target-padding: 1rem;
 }
+
 /* Baseline styles */
 .tabs {
   @media (--medium) {
@@ -13,7 +14,7 @@
 
   &__trigger {
     &.tabs-state--open {
-      & + .tabs__target { 
+      & + .tabs__target {
         height: auto;
         opacity: 1;
         visibility: visible;
@@ -40,39 +41,44 @@
       .tabs__target {
         grid-row-start: 20;
         grid-row-end: 1;
-      }     
+      }
     }
 
     &--left {
       grid-template-columns: 15% 85%;
 
-       .tabs__trigger { grid-column-start: 1; }
+      .tabs__trigger { grid-column-start: 1; }
+
       .tabs__target   { grid-column-start: 2; }
     }
 
     &--right {
       grid-template-columns: 85% 15%;
 
-       .tabs__trigger { grid-column-start: 2; }
+      .tabs__trigger { grid-column-start: 2; }
+
       .tabs__target   { grid-column-start: 1; }
     }
 
     /* Order is controlled via JS Containre with the CSS order: X; prop */
     &--top,
-    &--bottom { flex-flow: row wrap; } 
+    &--bottom { flex-flow: row wrap; }
 
     &--top {
       .tabs__trigger { order: 1; }
+
       .tabs__target  { order: 2; }
     }
 
     &--bottom {
-      .tabs__trigger { order: 2;  }
-      .tabs__target  { order: 1; }      
+      .tabs__trigger { order: 2; }
+
+      .tabs__target  { order: 1; }
     }
   }
 
   &-justify {
+
     /* Justify horizontal tabs system to left */
     &--left { justify-content: flex-start; }
 
@@ -82,14 +88,14 @@
     /* Justify horizontal tab systems to right  */
     &--right { justify-content: flex-end; }
 
-    &--bottom { 
+    &--bottom {
       &,
       .tabs__trigger,
       .tabs__target {
         @media (--medium) {
           transform: rotateX(180deg); /* Justify vertical aligned tab systems to bottom */
         }
-      }      
+      }
     }
   }
 
@@ -101,7 +107,7 @@
       border: var(--border-styles);
       cursor: pointer;
       font-size: rem(20px);
-      padding: var(--tabs-padding);
+      padding: var(--tabs-trigger-padding);
       position: relative;
       z-index: 2;
       background-color: var(--tabs-bg-color);
@@ -119,28 +125,32 @@
       .tabs__target {
         border-top: none;
         border-bottom: none;
-      }      
+      }
     }
 
     @media (--medium) {
       &.tabs-align--top {
         .tabs-state--open { border-bottom: 1px solid var(--tabs-bg-color); }
+
         .tabs__target     { margin-top: -1px; }
       }
 
       &.tabs-align--bottom {
         .tabs-state--open { border-top: 1px solid var(--tabs-bg-color); }
+
         .tabs__target     { margin-bottom: -1px; }
       }
 
       &.tabs-align--left {
         .tabs-state--open { border-right: 1px solid var(--tabs-bg-color); }
+
         .tabs__target     { margin-left: -1px; }
-      } 
+      }
 
       &.tabs-align--right {
         .tabs-state--open { border-left: 1px solid var(--tabs-bg-color); }
-        .tabs__target     { margin-right: -1px; }      
+
+        .tabs__target     { margin-right: -1px; }
       }
     }
 

@@ -17,6 +17,7 @@
 
 import Link from '@atoms/Link/Link';
 import List from '@atoms/List/List';
+import Input from '@atoms/Input/Input';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Button from '@atoms/Button/Button';
 import Textarea from '@atoms/Textarea/Textarea';
@@ -76,6 +77,47 @@ export default [{
             }]"
           >
             click me
+          </Button>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
+      name: 'Session tracking',
+      description: 'Event specifies what client-side event will perform a tracking. Label allows you to customize our tracking entry identity. Data allows you to pass custom data along with our tracking entry.',
+      component: (
+        <Rhythm>
+          <Input type="text" id="fxb_a7e6c692-1a5b-42aa-8839-639e50c4db0f_Fields_10f6d537-c0b9-4053-9039-d97778d1e1c8__Value" name="testOne" />
+          <Button
+            data-tracking="[{
+              'event': 'click',
+              'session': 'testSession',
+              'label': 'Simple Example',
+              'data': {'one': '#fxb_a7e6c692-1a5b-42aa-8839-639e50c4db0f_Fields_10f6d537-c0b9-4053-9039-d97778d1e1c8__Value:attr(value)', 'two': ''}
+            }]"
+          >
+            Click to capture into session
+          </Button>
+          <Input type="text" id="fxb_a7e6c692-1a5b-42aa-8839-639e50c4db0f_Fields_c9dd62c7-3c34-46be-9f30-0e17e7f04e62__Value" name="testTwo" />
+          <Button
+            data-tracking="[{
+              'event': 'click',
+              'session': 'testSession',
+              'label': 'Simple Example',
+              'data': {'one': '', 'two': '#fxb_a7e6c692-1a5b-42aa-8839-639e50c4db0f_Fields_c9dd62c7-3c34-46be-9f30-0e17e7f04e62__Value:attr(value)'}
+            }]"
+          >
+            Click to capture into session
+          </Button>
+
+          <Button
+            data-tracking="[{
+              'event': 'pageload',
+              'sessionEnd': 'testSession',
+              'label': 'Simple Example',
+              'data': {'ended': 'session ended'}
+            }]"
+          >
+            Send session off
           </Button>
         </Rhythm>
       ),

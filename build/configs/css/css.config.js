@@ -1,6 +1,9 @@
+const path = require('path');
+const Package = require('../../../package.json');
+const POSTCSSConfig = require('./css.postcss.config.js');
+const WebpackPlugins = require('../webpack.plugins.js');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const postcss = require('./css.postcss.config.js');
-const package = require('../../../package.json');
 
 // all css files get ran through these processes
 module.exports = {
@@ -16,15 +19,20 @@ module.exports = {
         'options': {
           'ident': 'postcss',
           'plugins': (loader) => [
-            ...postcss.plugins
+            ...POSTCSSConfig.preBundle
           ]
         }
       }
     ]
   }],
   plugins: [
-    new MiniCssExtractPlugin({ // used to compile our css file.
-      filename: ['.', package.directories.assetPath, '/css/[name].css'].join(''),
+    new StyleLintPlugin({
+      files: `./src/elements/**/**/*.css`,
+      configFile: path.resolve(__dirname, '.csslintrc')
+    }),
+    new WebpackPlugins.ProcessCSSPostBundle(),  // after bundle created, run postcss plugins.
+    new MiniCssExtractPlugin({                  // used to compile our css file.
+      filename: `.${Package.directories.assetPath}/css/[name].css`,
       chunkFilename: './[name].css'
     })
   ]

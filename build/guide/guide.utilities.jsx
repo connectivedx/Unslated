@@ -14,7 +14,7 @@ const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   if (bytes === 0) return '0 Byte';
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-  return [Math.round(bytes / (1024 ** i), 2), ' ', sizes[i]].join('');
+  return `${Math.round(bytes / (1024 ** i), 2)} ${sizes[i]}`;
 };
 
 /*
@@ -55,26 +55,6 @@ const getFontMetrics = (callback) => {
               time
             };
 
-            /* fetch(file).then((res) => {
-              if (res.status >= 400) {
-                throw new Error('Bad response from server');
-              }
-              return res.blob();
-            }).then((fontTest) => {
-              if (!faces[name]) {
-                const receiveTime = (new Date()).getTime();
-                faces[name] = {
-                  weight,
-                  file,
-                  size: bytesToSize(fontTest.size),
-                  type: fontTest.type,
-                  time: [(receiveTime - sendTime), 'ms'].join('')
-                };
-              }
-
-              callback(faces);
-            }); */
-
             return false;
           });
 
@@ -83,7 +63,7 @@ const getFontMetrics = (callback) => {
             .then((face) => {
               faces[key].size = bytesToSize(face.size);
               faces[key].type = face.type;
-              faces[key].time = [((new Date()).getTime() - time), 'ms'].join('');
+              faces[key].time = `${((new Date()).getTime() - time)}ms`;
             });
 
           Promise
@@ -112,7 +92,7 @@ const getFontMetrics = (callback) => {
             file,
             size: bytesToSize(fontTest.size),
             type: fontTest.type,
-            time: [(receiveTime - sendTime), 'ms'].join('')
+            time: `${(receiveTime - sendTime)}ms`
           };
         }
 
@@ -162,10 +142,10 @@ const HexToRGB = (color) => {
 const RGBToHex = (color) => {
   const hexConvert = (rgb) => {
     const hex = rgb.toString(16);
-    return hex.length === 1 ? ['0', hex].join('') : hex;
+    return hex.length === 1 ? `0${hex}` : hex;
   };
 
-  return ['#', hexConvert(color[0]), hexConvert(color[1]), hexConvert(color[2])].join('');
+  return `#${hexConvert(color[0])}${hexConvert(color[1])}${hexConvert(color[2])}`;
 };
 
 /*
@@ -428,7 +408,7 @@ const getElements = (element = false) => {
 const getExamples = (element = false) => {
   const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
   return Object.keys(allExamples).map((key) => {
-    const path = ['../../src/elements', key.split('.').slice(0, -1).slice(0, -1).pop(), '.jsx'].join('');
+    const path = `../../src/elements${key.split('.').slice(0, -1).slice(0, -1).pop()}.jsx`;
 
     // you shall not pass!... without a path.
     if (!path) { return false; }
@@ -441,7 +421,7 @@ const getExamples = (element = false) => {
     const data = {
       name: key.split('/').slice(-1)[0].split('.')[0],
       atomic: key.replace('./', '').split('/')[0],
-      url: ['examples', key.split('.').slice(0, -1).slice(0, -1).pop()].join(''),
+      url: `examples${key.split('.').slice(0, -1).slice(0, -1).pop()}`,
       examples: [...allExamples[key].default][0].examples,
       element: getElements(key.split('/').slice(-1)[0].split('.')[0])
     };
@@ -472,7 +452,6 @@ module.exports = {
   getTools,
   getExamples,
   getFontMetrics,
-  getJSXDocumentation,
   bytesToSize,
   WCAGTest,
   getColorUnits,
