@@ -4,6 +4,7 @@
 
 .flex {
   @media (--large) {
+
     /* Baseline styles */
     display: flex;
 
@@ -15,6 +16,7 @@
     /* .flex--column */
     &--column {
       flex-direction: column;
+
       &-reverse {
         flex-direction: column-reverse;
       }
@@ -23,6 +25,7 @@
     /* .flex--row  */
     &--row {
       flex-direction: row;
+
       &-reverse {
         flex-direction: row-reverse;
       }
@@ -30,23 +33,28 @@
 
     &--justify-content,
     &--justify-items {
+
       /* .flex--justify-content-between or .flex--justify-items-between */
-      &-between { 
+      &-between {
         justify-content: space-between;
       }
+
       /* .flex--justify-content-around or .flex--justify-items-around */
       &-around {
         justify-content: space-around;
       }
-       /* .flex--justify-content-even or .flex--justify-items-even */
+
+      /* .flex--justify-content-even or .flex--justify-items-even */
       &-even {
         justify-content: space-evenly;
       }
-       /* .flex--justify-content-start or .flex--justify-items-start */
+
+      /* .flex--justify-content-start or .flex--justify-items-start */
       &-start {
         justify-content: flex-start;
       }
-       /* .flex--justify-content-end or .flex--justify-items-end */
+
+      /* .flex--justify-content-end or .flex--justify-items-end */
       &-end {
         justify-content: flex-end;
       }
@@ -54,22 +62,27 @@
 
     &--align-content,
     &--align-items {
+
       /* .flex--align-content-between or .flex--align-items-between */
       &-between {
         align-content: space-between;
       }
+
       /* .flex--align-content-around or .flex--align-items-around */
       &-around {
         align-content: space-around;
       }
+
       /* .flex--align-content-even or .flex--align-items-even */
       &-even {
         align-content: space-evenly;
       }
+
       /* .flex--align-content-start or .flex--align-items-start */
       &-start {
         align-content: flex-start;
       }
+
       /* .flex--align-content-end or .flex--align-items-end */
       &-end {
         align-content: flex-end;

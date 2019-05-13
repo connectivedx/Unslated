@@ -3,14 +3,18 @@
   &,
   &--default,
   &--medium { & > * + * { margin-top: 1em; } }
+
   &--small { & > * + * { margin-top: 0.5em; } }
+
   &--large { & > * + * { margin-top: 2em; } }
 
   &--deep {
     &,
     &-default,
     &-medium { & * + * { margin-top: 1em; } }
+
     &-small { & * + * { margin-top: 0.5em; } }
+
     &-large { & * + * { margin-top: 2em; } }
   }
 }

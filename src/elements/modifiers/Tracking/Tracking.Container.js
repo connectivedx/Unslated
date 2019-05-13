@@ -1,3 +1,26 @@
+const getCookie = (cname) => {
+  const name = [cname, '='].join('');
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return false;
+};
+
+const setCookie = (cname, cvalue, exdays) => {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  const expires = ['expires=', d.toUTCString()].join('');
+  document.cookie = [cname, '=', cvalue, ';', expires, ';path=/'].join('');
+};
+
 class Tracking {
   constructor(options) {
     this.settings = {
@@ -78,20 +101,27 @@ class Tracking {
 
     // Google Tag Manager Setup Code
     ((w, d, s, l, i) => {
-      const f = d.querySelector('body');
-      if (!f) { return; }
-      const j = d.createElement(s);
-      const dl = l !== 'dataLayer' ? ['&l=', l].join('') : '';
-
       w[l] = w[l] || [];
       w[l].push({
         'gtm.start': new Date().getTime(),
         event: 'gtm.js'
       });
+      const f = d.querySelector('head');
+      if (!f) { return; }
+      const j = d.createElement(s);
+      const dl = (l !== 'dataLayer') ? `&l=${l}` : '';
       j.async = true;
-      j.src = ['//www.googletagmanager.com/gtm.js?id=', i, dl].join('');
+      j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
+      // j.src = ['//www.googletagmanager.com/gtm.js?id=', i, dl].join('');
       f.appendChild(j, f);
     })(window, document, 'script', 'dataLayer', id);
+
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('src', `https://www.googletagmanager.com/ns.html?id=${id}`);
+    iframe.setAttribute('width', '0');
+    iframe.setAttribute('height', '0');
+    iframe.setAttribute('style', 'display:none;visibility:hidden');
+    document.body.insertBefore(iframe, document.body.firstChild);
   }
 
   setupVendors = (vendors) => {
@@ -127,6 +157,13 @@ class Tracking {
           return selector.getAttribute(prop);
         }
         return selector.innerHTML;
+      }
+
+      // if element selector failed double check to see if its just a missing element on page
+      if (attr[0].indexOf('#') === 0 || attr[0].indexOf('.') === 0 || attr[1].length) {
+        // if any of these conditions are true, we know we have selector based tracking, but missing element on page.
+        // so we continue to treat this as a element tracking, not string data tracking.
+        return '';
       }
       return false;
     } catch (e) {
@@ -189,6 +226,8 @@ class Tracking {
     // mutli-event track looping
     let i = dataset.length;
     while (i--) {
+      const { session } = dataset[i];
+      const { sessionEnd } = dataset[i];
       const { elements } = dataset[i];
       const { event } = dataset[i];
       let { label } = dataset[i];
@@ -211,11 +250,49 @@ class Tracking {
         }
       }
 
-      // if we don't have do tracking
       if (event === type) {
         if (global.dataLayer) { // Google Tag Manager
           // when no data is supplied we only push out event
           data = this.validateDate(data);
+
+          // Session based tracking
+          if (session) {
+            const trackingData = {};
+            if (getCookie(session)) { // we already have this cookie
+              Object.keys(data).map((index) => { // eslint-disable-line
+                trackingData[index] = data[index];
+                return false;
+              });
+
+              const cookieData = JSON.parse(getCookie(session));
+              Object.keys(trackingData).map((jdex) => {
+                if (cookieData[jdex]) {
+                  if (trackingData[jdex] !== '') {
+                    cookieData[jdex] = trackingData[jdex];
+                  }
+                } else {
+                  cookieData[jdex] = trackingData[jdex];
+                }
+                return false;
+              });
+
+              setCookie(session, JSON.stringify(cookieData), 300);
+            } else {
+              Object.keys(data).map((index) => { // eslint-disable-line\
+                trackingData[index] = data[index];
+                return false;
+              });
+
+              setCookie(session, JSON.stringify(trackingData), 300);
+            }
+            continue; // eslint-disable-line
+          }
+
+          if (sessionEnd) {
+            // take data from session and put it into the tracking that is ending the session now.
+            data = Object.assign(data, JSON.parse(getCookie(sessionEnd)));
+          }
+
           if (typeof data === 'string') {
             global.dataLayer.push({
               event: label,
@@ -297,14 +374,22 @@ class Tracking {
       }, true, true);
     }
 
-    // Performs pageload tracking by locating them and executing them without user interaction
-    Object.keys(this.ui.trackingAttrs).map((elmIndex) => {
+    // Allows for direct data layer pushing from API.
+    this.send = (data) => {
+      global.dataLayer.push(data);
+    };
+
+    this.sent = global.dataLayer;
+
+    // Performs pageload tracking setup
+    const pageloadTrack = (elm) => {
       // Validate prior to parsing
-      if (!this.validateFormatting(this.ui.trackingAttrs[elmIndex].dataset.tracking)) {
+      if (!this.validateFormatting(elm.dataset.tracking)) {
         return null;
       }
+
       // Parse tracking attribute into object
-      const trackingAttr = JSON.parse(this.ui.trackingAttrs[elmIndex].dataset.tracking.replace(/'/g, '"'));
+      const trackingAttr = JSON.parse(elm.dataset.tracking.replace(/'/g, '"'));
       // Because we can have more multiple tracking events in a single tracking attribute, we must loop over each event entry
       Object.keys(trackingAttr).map((attrIndex) => {
         // Now that we are down to a single tracking entry, lets condition for only pageload events
@@ -313,19 +398,46 @@ class Tracking {
 
         if (trackingEvent === 'pageload') {
           // finally we return the execute method with our found pageload tracking record to perform tracking.
-          return (this.execute(this.ui.trackingAttrs[elmIndex], trackingEvent, (this.debounceList.indexOf(trackingEvent) !== -1)));
+          return (this.execute(elm, trackingEvent, (this.debounceList.indexOf(trackingEvent) !== -1)));
         }
         return null;
       });
+
+      return false;
+    };
+
+    Object.keys(this.ui.trackingAttrs).map((elmIndex) => {
+      pageloadTrack(this.ui.trackingAttrs[elmIndex]);
       return null;
     });
 
-    // Allows for direct data layer pushing from API.
-    this.send = (data) => {
-      global.dataLayer.push(data);
-    };
+    // Mutation observer for XHR loaded DOM to check for pageload tracking
+    document.body.addEventListener('DOMNodeInserted', (event) => {
+      const elm = event.path[0];
+      if (elm.dataset) {
+        if (elm.dataset.tracking) {
+          if (elm.dataset.tracking.indexOf('pageload') !== -1) {
+            pageloadTrack(elm);
+          }
+        }
+      }
 
-    this.sent = global.dataLayer;
+      // search for tracking within new element now
+      if (elm) {
+        try {
+          const children = elm.querySelectorAll('[data-tracking]');
+          let k = children.length;
+          while (k--) {
+            const child = children[k];
+            if (child.dataset.tracking.indexOf('pageload') !== -1) {
+              pageloadTrack(child);
+            }
+          }
+        } catch (e) {
+          // no error to return
+        }
+      }
+    }, false);
   }
 }
 

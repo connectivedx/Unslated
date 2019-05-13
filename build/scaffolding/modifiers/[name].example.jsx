@@ -26,6 +26,7 @@ export default [{
     {
       name: 'Default styling',
       description: '',
+      staticPath: '',
       component: (
         <div className="{{name}}">Lorem ipsum</div>
       ),

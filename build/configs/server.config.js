@@ -1,8 +1,8 @@
 // Dev server configuration
 const fs = require('fs');
 const path = require('path');
+const Package = require('../../package.json');
 const childProcess = require('child_process');
-const package = require('../../package.json');
 
 // Helper method to pass requests to scaffolding.build.js node scripts
 const runNodeScript = (scriptPath, arguments, callback) => {
@@ -30,9 +30,9 @@ const runNodeScript = (scriptPath, arguments, callback) => {
 module.exports = {
   config: {
     devServer: {
-      port: package.server.port,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
-      host: package.server.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
-      allowedHosts: package.server.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
+      port: Package.local.port,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
+      host: Package.local.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
+      allowedHosts: Package.local.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
       watchOptions: {
         ignored: /node_modules/
       },

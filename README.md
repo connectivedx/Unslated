@@ -1,6 +1,6 @@
 # Unslated
 
-[Unslated](https://github.com/drolsen/Unslated) is [Connective DX](https://www.connectivedx.com)'s in-house toolset for making static websites and atomic styleguides.  It's great for producing static web assets with an emphasis on atomic driven architecture.
+[Unslated](https://github.com/drolsen/Unslated) is a frontend oriented toolset for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
 
 > To get started, download a copy of this repository from github and read Install section below.
 
@@ -32,22 +32,83 @@ yarn
 
 ## Getting Started
 
-After you've installed npm depenedencies, Unslated provides command line scripts to automate usual tasks. Tasks are divided below into common workflows.
+After you've installed npm depenedencies, Unslated provides command line scripts to automate common tasks. Tasks are divided below into common workflows.
 
 > Use `npm run` or `yarn run` to execute these commands in your favorite terminal.
 
 
-### Builds
 
-Use these task to build a full copy of the website, including the DLL generation.
+### Configuration
+
+Unslated has rolled up a number of common configurable points within itspackage.json file. This allows a high level of project configuration and ultimatly unslated more portable across platforms it might be used under.
+
+### Directories
+
+Here you get to define the most inportant part of an Unslated build, the input and the output.
+
+Prop | Description
+--- | ---
+`source` | location of where Unslated source files live. (default: ./src)
+`dest` | destination of Unslated production built files. (default: ./dist)
+`assetPath` | context path for all asset requests. (default: /assets)
+`publicPath` | overload path request for all asset requests. (default: /)
+
+In production, assets that are requested from the server from bundled CSS/JS get their pathing information from both assetPath and publicPath, NOT dest (`{publicPath}{assetPath}`).
+
+If you are using Unslated in a larger system that requires URL_Rewrite endpoints for assets that differes from the default `/assets/**/*.*`, you want to use publicPath and possibly assetPath.
+
+For instance, if you have need for assets to be physically bundled to:
+`/dist/system/assets/**/*.*`
+
+But when requested from server, you need this pathing:
+`/some/system/region/team/assets/**/*.*`
+
+Your configuration would be:
+```
+"dest": "./dist/system",
+"assetPath": "/assets",
+"publicPath": "/some/system/region/team"
+```
+
+Note: There is no way to make assetPath value be different from dest location and server request path. For instance, if you want files to be built out to `./dist/_resoureces/**/*.*`, but all requests to the server made to `./dist/assets/**/*.*`, you can't. You anything you configure in the assetPath will be used in both bundled destination and server requests.
+
+
+### Server
+
+Here live all server configuration points around development builds. Development builds tap into the the webpack-dev-server for a whole host of development needs, one of which is a simulated server to build / test our bundled files realtime.
+
+
+		"port": "8080",
+		"host": "localhost",
+		"allowedHosts": []
+Prop | Description
+--- | ---
+`port` | what system port should dev build's localhost server run on. (default: 8080)
+`host` | what hostname should dev build's localhost sever use. (default: localhost)
+`allowedHosts` | grant a remote IP/hostname taccess to dev build's localhost server. (default: [])
+
+### Optimization
+
+Here live minification options for both JavaScript and CSS bundles (production builds only).
+This is useful if you are using Unslated within a much larger system who needs to take Unslated's built files off to another minificaiton process.
+
+Prop | Description
+--- | ---
+`CSS` | "true" or "false". (default: true)
+`JS` | "true" or "false". (default: true)
+
+For much finer levels of configuation, you can always dig direcly into the build configuraiton files of Unslated. Build configurations can be found under `build/configs/` under their respect folders.
+
+
+### Build commands
 
 Command | Description
 --- | ---
 `production` | runs `production` build
-`dev` | runs a `development` instance that starts a webpack-dev-server at http://localhost:8080
+`dev` | runs a local `development` instance that starts a webpack-dev-server at http://localhost:8080
 
 
-### Scaffolding tasks
+### Scaffolding commands
 
 Scaffolding tasks are used to quickly create new atoms and molecules while developing a website.
 > Remember that elements names use [PascalCase](https://en.wikipedia.org/wiki/PascalCase)
@@ -76,12 +137,6 @@ BASE_URL=/this-path/ npm run build
 ```
 
 _Note: `BASE_URL` should always have a leading and trailing slash._
-
-
-## Configuration
-
-
-Build configurations can be found under build/configs/ under their respect folders. Please note that CSS config has been divided up between standard webpack config and all things POSTCSS. POSTCSS items are either a .config.js or a .plugin.js file under build/configs/css/ directory.
 
 
 ## Goals
@@ -160,15 +215,11 @@ There are some very helpful command line scripts to help with development and co
 
 ### What is this?
 
-Connective DX’s front-end toolset.
+A front-end toolset.
 
 ### What technologies are used?
 
 Web assets (html, js, css, images, svgs) are built with [Webpack](https://webpack.github.io).  [React](https://facebook.github.io/react) is used to rendering static html for CMS integration and render for browsers, using [Babel](https://babeljs.io) to transpile ES6 to ES5.  [Enzyme](https://github.com/airbnb/enzyme) is used to unit-test React components.  [PostCSS](https://github.com/postcss/postcss) is used to transform CSS. [SVG Symbols](https://css-tricks.com/svg-symbol-good-choice-icons) are used to easily define and use vector icons.
-
-### Is it any good?
-
-It depends.  It's a great tool for the way we build projects at [Connective DX](https://www.connectivedx.com), but may not align with your project's goals.  It is more focused on integrating with a back end system than application development.
 
 ### Where’s the documentation?
 
@@ -182,6 +233,3 @@ Was a name that was not already used on NPM, nothing more and is subject to chan
 
 Unslated was developed to work best with Node's [most recent LTS release](https://nodejs.org/en/download/) and above.
 
-## License
-
-MIT Copyright (c) 2019 Connective DX

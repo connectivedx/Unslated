@@ -1,81 +1,82 @@
 :root {
-	--tooltip-offset: 2rem;
-	--tooltip-tail-size: 1rem;
+  --tooltip-offset: 2rem;
+  --tooltip-tail-size: 1rem;
 }
 
 /* Baseline general field styles */
 .field__label {
-	display: block;
-	transition: color 0.15s;
-	display: flex;
-	align-items: center;
+  display: block;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
 }
 
 .field__native { outline: none; }
 
 /* Field error */
 .field__error {
-	position: relative;
+  position: relative;
 
-	&:--haf .field__error-message {
-		display: block;
-	}
+  &:--haf .field__error-message {
+    display: block;
+  }
 
-	.field__native {
-		&, &:--haf {
-			box-shadow: 0 0 0 2px var(--color-red) !important;
-		}
+  .field__native {
+    &, &:--haf {
+      box-shadow: 0 0 0 2px var(--color-red) !important;
+    }
 
-		& + .field__label:before {
-			box-shadow: 0 0 0 2px var(--color-red) inset !important;
-		}
-	}
+    & + .field__label:before {
+      box-shadow: 0 0 0 2px var(--color-red) inset !important;
+    }
+  }
 
-	.field__decorator,
-	.field__native {
-		box-shadow: 0 0 0 2px var(--color-red);
-	}
+  .field__decorator,
+  .field__native {
+    box-shadow: 0 0 0 2px var(--color-red);
+  }
 
-	.field__label,
-	.field__native,
-	.field__native::placeholder {
-		color: var(--color-red) !important;
-	}
+  .field__label,
+  .field__native,
+  .field__native::placeholder {
+    color: var(--color-red) !important;
+  }
 
-	&-message {
-		display: none;
-	  position: absolute;
-	  z-index: 1;
-		bottom: calc(100% + var(--tooltip-offset));
+  &-message {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    bottom: calc(100% + var(--tooltip-offset));
 
-		& .field__error-message-inner:before {
-			top: calc(100% - calc(var(--tooltip-tail-size) / 2));
-			left: calc(var(--tooltip-tail-size) / 2);
-		}
+    & .field__error-message-inner:before {
+      top: calc(100% - calc(var(--tooltip-tail-size) / 2));
+      left: calc(var(--tooltip-tail-size) / 2);
+    }
 
-	  &-inner {
-	  	position: relative;
-	  	z-index: 2;
-	    &:before {
-	      content: '';
-	      position: absolute;
-	      width: var(--tooltip-tail-size); 
-	      height: var(--tooltip-tail-size);
-	      transform: rotateZ(45deg);
-	      z-index: -1;
-	    }    
-	  }
+    &-inner {
+      position: relative;
+      z-index: 2;
 
-	  &--error {
-	  	& .field__error-message-inner:before {
-	  		background-color: var(--color-red);
-	  	}
+      &:before {
+        content: '';
+        position: absolute;
+        width: var(--tooltip-tail-size);
+        height: var(--tooltip-tail-size);
+        transform: rotateZ(45deg);
+        z-index: -1;
+      }
+    }
 
-	  	.field__error-message-inner {
-	  		background-color: var(--color-red);
-	  		color: var(--color-white);
-	  		padding: 0.85rem;
-	  	}
-	  }  
-	}
+    &--error {
+      & .field__error-message-inner:before {
+        background-color: var(--color-red);
+      }
+
+      .field__error-message-inner {
+        background-color: var(--color-red);
+        color: var(--color-white);
+        padding: 0.85rem;
+      }
+    }
+  }
 }

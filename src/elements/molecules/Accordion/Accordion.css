@@ -8,7 +8,7 @@
 
 .accordion {
   .expand__trigger {
-    cursor: pointer;  
+    cursor: pointer;
   }
 
   .expand__target {
@@ -18,6 +18,7 @@
   /* Style Variants */
   &--default {
     border: var(--border-style);
+
     .expand:first-child {
       .expand__trigger {
         border-top: 0;
@@ -26,11 +27,11 @@
 
     .expand__trigger {
       background-color: var(--trigger-bg-color);
-      border-top: var(--border-style);      
+      border-top: var(--border-style);
       color: var(--color-gray);
       font-size: rem(16px);
       font-weight: normal;
-      padding: var(--trigger-padding);    
+      padding: var(--trigger-padding);
     }
 
     .expand__target {
@@ -49,6 +50,7 @@
       .expand__trigger {
         border-bottom: var(--border-style);
       }
+
       .expand__target {
         transition: padding-top 0.5s, padding-bottom 0.5s, max-height 0.1s 0.1s ease;
       }
@@ -83,7 +85,7 @@
       &.expand-align--bottom {
         .expand__target {
           border-bottom: none;
-        }       
+        }
       }
     }
 

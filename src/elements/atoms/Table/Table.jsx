@@ -1,11 +1,214 @@
-import Tbody from '@atoms/Table/partials/Tbody.jsx';
-import Tdata from '@atoms/Table/partials/Tdata.jsx';
-import Tfoot from '@atoms/Table/partials/Tfoot.jsx';
-import Thead from '@atoms/Table/partials/Thead.jsx';
-import Theader from '@atoms/Table/partials/Theader.jsx';
-import Trow from '@atoms/Table/partials/Trow.jsx';
-
 /** Table should be used in place of <table> and comes with Thead, Tbody, Tfoot, Theader, Trow and Tdata. */
+
+export class Table__head extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__head',
+      className
+    ]);
+
+    return (
+      <thead className={classStack} {...attrs}>
+        {children}
+      </thead>
+    );
+  }
+}
+
+export class Table__header extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__header',
+      className
+    ]);
+
+    return (
+      <th className={classStack} {...attrs}>
+        {children}
+      </th>
+    );
+  }
+}
+
+export class Table__body extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__body',
+      className
+    ]);
+
+    return (
+      <tbody className={classStack} {...attrs}>
+        {children}
+      </tbody>
+    );
+  }
+}
+
+export class Table__foot extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__foot',
+      className
+    ]);
+
+    return (
+      <tfoot className={classStack} {...attrs}>
+        {children}
+      </tfoot>
+    );
+  }
+}
+
+export class Table__data extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__data',
+      className
+    ]);
+
+    return (
+      <td className={classStack} {...attrs}>
+        {children}
+      </td>
+    );
+  }
+}
+
+export class Table__row extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    /** Class stacking */
+    className: PropTypes.string,
+    /** Children nodes being passed through */
+    children: PropTypes.node
+  };
+
+  render = () => {
+    const {
+      tagName: Tag,
+      className,
+      children,
+      ...attrs
+    } = this.props;
+
+    const classStack = Utils.createClassStack([
+      'table__row',
+      className
+    ]);
+
+    return (
+      <tr className={classStack} {...attrs}>
+        {children}
+      </tr>
+    );
+  }
+}
 
 export class Table extends React.Component {
   static propTypes = {
@@ -57,13 +260,5 @@ export class Table extends React.Component {
     );
   }
 }
-
-export const Table__body = Tbody;
-export const Table__data = Tdata;
-export const Table__foot = Tfoot;
-export const Table__head = Thead;
-export const Table__header = Theader;
-export const Table__row = Trow;
-
 
 export default Table;

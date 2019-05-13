@@ -118,30 +118,32 @@ export const GuideNav = (el) => {
     }
 
     ui.newElement = document.querySelector('.new-element .input-text .field__native');
-    ui.newElementType = document.querySelector('.new-element .select');
-    ui.newElementTypeNative = ui.newElementType.querySelector('.field__native');
-    ui.newElementContainerOption = document.querySelector('.new-element .input-checkbox');
+    if (ui.newElement) {
+      ui.newElementType = document.querySelector('.new-element .select');
+      ui.newElementTypeNative = ui.newElementType.querySelector('.field__native');
+      ui.newElementContainerOption = document.querySelector('.new-element .input-checkbox');
 
-    ui.newElementType.addEventListener('change', () => {
-      if (['atoms', 'molecules', 'organisms', 'modifiers', 'templates'].indexOf(ui.newElementTypeNative.value) === -1) {
-        ui.newElementContainerOption.classList.add('hidden');
-      } else {
-        ui.newElementContainerOption.classList.remove('hidden');
-      }
-    });
+      ui.newElementType.addEventListener('change', () => {
+        if (['atoms', 'molecules', 'organisms', 'modifiers', 'templates'].indexOf(ui.newElementTypeNative.value) === -1) {
+          ui.newElementContainerOption.classList.add('hidden');
+        } else {
+          ui.newElementContainerOption.classList.remove('hidden');
+        }
+      });
 
-    ui.newElement.addEventListener('keyup', _.debounce(() => {
-      ui.newElement.value = ui.newElement.value
-        .replace(/[A-Z]/g, (g0) => [' ', g0].join(''))
-        .replace(
-          /(\w)(\w*)/g,
-          (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
-        )
-        .replace(/ /g, '')
-        .replace(/'/g, '')
-        .replace(/-/g, '')
-        .replace(/_/g, '');
-    }, 512));
+      ui.newElement.addEventListener('keyup', _.debounce(() => {
+        ui.newElement.value = ui.newElement.value
+          .replace(/[A-Z]/g, (g0) => [' ', g0].join(''))
+          .replace(
+            /(\w)(\w*)/g,
+            (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
+          )
+          .replace(/ /g, '')
+          .replace(/'/g, '')
+          .replace(/-/g, '')
+          .replace(/_/g, '');
+      }, 512));
+    }
   };
 
   init();
