@@ -1,4 +1,5 @@
 // config dependencies
+require('./paths.config');
 const path = require('path');
 const Webpack = require('webpack');
 const Package = require('../../package.json');
@@ -24,9 +25,9 @@ const config = {
     guide: './build/guide.jsx'    // entry point for style guide assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${Package.directories.dest}`),   // sets default location for all compiled files
-    publicPath: Package.directories.publicPath,                           // sets a default public location (required by react-routes)
-    filename: `.${Package.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
+    publicPath: global.directories.publicPath,                           // sets a default public location (required by react-routes)
+    filename: `.${global.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   module: {
@@ -63,7 +64,7 @@ const config = {
 module.exports = (env, argv) => {
   // ALL BUILDS
   config.plugins.push(
-    new WebpackPlugins.StatsBundle(argv.mode), // Capture webpack bundling stats object into guide.
+    new WebpackPlugins.StatsBundle(argv.mode) // Capture webpack bundling stats object into guide.
   );
 
   // DEV BUILDS
@@ -84,7 +85,7 @@ module.exports = (env, argv) => {
 
     // Cleans our dist folder upon production builds
     config.plugins.push(
-      new HardSourceWebpackPlugin(),
+      // new HardSourceWebpackPlugin(),
       new CleanWebpackPlugin(
         [config.output.path], // reuse config output path from above
         {

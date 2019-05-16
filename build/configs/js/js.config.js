@@ -1,6 +1,5 @@
 const path = require('path');
 const Webpack = require('webpack');
-const Package = require('../../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // all js(x) files get ran through these build processes
@@ -35,7 +34,7 @@ module.exports = {
       {
         context: path.resolve(__dirname, '../../../src/data/'),
         from: path.resolve(__dirname, '../../../src/data/*.*'), // for IIS servers
-        to: `.${Package.directories.assetPath}/data/`
+        to: `.${global.directories.assetPath}/data/`
       }
     ])
   ]

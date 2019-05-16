@@ -1,7 +1,6 @@
 const path = require('path');
 const Webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const package = require('../../../package.json');
 
 // all html files get ran through these processes
 module.exports = {

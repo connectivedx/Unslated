@@ -1,6 +1,5 @@
 const path = require('path');
 const WebpackSvgSpritely = require('./img.svg.plugin.js');
-const package = require('../../../package.json');
 
 // all image types get ran through these process
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)
         'options': {
           'name': '[name].[ext]',
-          'outputPath': `.${package.directories.assetPath}/img/` // see package.json
+          'outputPath': `.${global.directories.assetPath}/img/` // see package.json
         }
       },
       {
@@ -31,7 +30,7 @@ module.exports = {
           },
           'svgo': {
             'options': {
-              'output': `${package.directories.dest}${package.directories.assetPath}/img/` // see package.json
+              'output': `${global.directories.dest}${global.directories.assetPath}/img/` // see package.json
             },
             'plugins': [
               { 'cleanupAttrs': true },
@@ -70,7 +69,7 @@ module.exports = {
   }],
   plugins: [
     new WebpackSvgSpritely({
-      filename: `.${package.directories.assetPath}/img/iconset-[hash].svg` // see package.json
+      filename: `.${global.directories.assetPath}/img/iconset-[hash].svg` // see package.json
     })
   ]
 };

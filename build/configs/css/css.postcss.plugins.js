@@ -222,7 +222,7 @@ const media = postcss.plugin('postcss-custom-media', (options) => {
       return newObject;
     };
 
-    Object.keys(objectReverse(packs)).map((i) => {
+    Object.keys(packs).map((i) => {
       if (packs[i].length) {
         root.append(`@media ${i} {\n${packs[i]}\n}`);
       }

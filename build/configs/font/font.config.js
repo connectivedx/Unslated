@@ -1,6 +1,5 @@
 // all font files get ran through these processes
 const path = require('path');
-const package = require('../../../package.json');
 
 module.exports = {
   config: [{
@@ -15,7 +14,7 @@ module.exports = {
         'loader': 'file-loader',
         'options': {
           'name': '[name].[ext]',
-          'outputPath': `.${package.directories.assetPath}/fonts/`
+          'outputPath': `.${global.directories.assetPath}/fonts/`
         }
       }
     ]
