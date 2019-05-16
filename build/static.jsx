@@ -12,6 +12,7 @@ Object.keys(components).map((i) => {
     const { component } = examples[j];
     const { name } = component.type;
     global.components.push({
+      name,
       source: component,
       staticPath: (examples[j].staticPath) ? examples[j].staticPath : false
     });

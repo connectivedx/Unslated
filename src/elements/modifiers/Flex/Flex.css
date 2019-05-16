@@ -10,7 +10,7 @@
 
     /* .flex-inline */
     &-inline {
-      display: flex-inline;
+      display: inline-flex;
     }
 
     /* .flex--column */

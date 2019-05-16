@@ -73,7 +73,7 @@
 
     .expand-state--open {
       .expand__target {
-        border: 1px solid var(--border-style);
+        border: var(--border-style);
       }
 
       &.expand-align--top {

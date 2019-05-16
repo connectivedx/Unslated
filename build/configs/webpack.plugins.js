@@ -4,14 +4,15 @@
 */
 const fs = require('fs');
 const path = require('path');
+const rimraf = require("rimraf");
+const pretty = require('pretty');
+const docgen = require('react-docgen');
 const Package = require('../../package.json');
 const POSTCSS = require('postcss');
 const POSTCSSPlugins = require('./css/css.postcss.config.js');
+const ReactDOMServer = require('react-dom/server');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const pretty = require('pretty');
-const docgen = require('react-docgen');
-const ReactDOMServer = require('react-dom/server');
 
 let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
 if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
@@ -61,6 +62,18 @@ class StaticBundle {
   constructor() {
   }
 
+  getSourcePath(name, compilation) {
+    const modules = compilation.modules;
+    let path = '';
+    Object.keys(modules).map((i) => {
+      if (!modules[i].resource) { return false; }
+      if (modules[i].resource.indexOf(name) !== -1) {
+        path = modules[i].resource;
+      }
+    });
+    return path.replace(/\\/g, '/');
+  }
+
   apply(compiler) {
     // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
@@ -75,8 +88,14 @@ class StaticBundle {
           const pathArray = path.resolve(__dirname, `../../${Package.statics.dest}/${filelessPath}`).split('/');
           let pathBuildup = '';
 
+          // makes output folder for overall static files
+          if (!fs.existsSync(path.resolve(__dirname, `../../${Package.statics.dest}`))){
+            fs.mkdirSync(path.resolve(__dirname, `../../${Package.statics.dest}`));
+          }
+
+          // makes output folders for each component
           for (let i = 0; i < pathArray.length; i++) {
-            pathBuildup += `/${pathArray[i]}`;
+            pathBuildup += (i === 0) ? pathArray[i] : `/${pathArray[i]}`;
             if (!fs.existsSync(pathBuildup)){
               fs.mkdirSync(pathBuildup);
             }
@@ -87,8 +106,9 @@ class StaticBundle {
             `${Package.statics.dest}/${example.staticPath}`,
             pretty(`
               <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
+              <!-- (see: ${this.getSourcePath(example.name, compilation).split('/src')[1]}) -->
 
-              ${ReactDOMServer.renderToStaticMarkup(example.source)}
+              ${ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/></g, '>\r<')}
             `),
             (e) => {
               if (e) {
@@ -99,10 +119,11 @@ class StaticBundle {
       });
     });
 
-    // Cleanup ./dist/static.js bundle leftover file
+    // Cleanup bundle leftover files / folders
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       if (this.buildType === 'production') {
-        fs.unlink(path.resolve(__dirname, '../../dist/static.js'), (err) => { if (err) { console.log(err); }});
+        fs.unlink(path.resolve(__dirname, `./${Package.statics.dest}/static.js`), (err) => { if (err) { console.log(err); }});
+        rimraf(path.resolve(__dirname, `./${Package.statics.dest}/img/`), () => { });
       }
     });
   }
