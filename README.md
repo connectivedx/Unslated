@@ -48,8 +48,8 @@ Here you get to define the most important part of an Unslated build, the input a
 
 Prop | Description
 --- | ---
-`source` | location of where Unslated source files live. (default: ./src)
 `dest` | destination of Unslated production built files. (default: ./dist)
+`source` | location of where Unslated source files live. (default: ./src)
 `assetPath` | context path for all asset requests. (default: /assets)
 `publicPath` | overload path request for all asset requests. (default: /)
 
