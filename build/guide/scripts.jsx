@@ -8,6 +8,7 @@
 // Guide JS
 import Guide from '@guide/guide.router';
 import Package from '@root/package.json';
+import Sly from '@modifiers/Sly/Sly.container';
 import GuideNav from '@guide/partials/nav/guide__nav.container';
 import GuideIcons from '@guide/partials/icons/guide__icons.container';
 import GuideColors from '@guide/partials/colors/guide__colors.container';
@@ -25,6 +26,7 @@ document.body.append(document.createElement('sly'));
 // Mount the guide into DOM and run it's container.js
 ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
   document.addEventListener('DOMContentLoaded', () => {
+    Utils.initComponent('Sly', 'sly', Sly);
     Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
     Utils.initComponent('GuideExamples', '.guide__examples', GuideExamples);
     Utils.initComponent('GuideIcons', '.guide__icons', GuideIcons);

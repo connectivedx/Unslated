@@ -1,4 +1,5 @@
 // config dependencies
+require('./paths.config');
 const path = require('path');
 const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -16,9 +17,9 @@ const config = {
     static: './build/static.jsx', // entry point for production assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${Package.directories.dest}`),   // sets default location for all compiled files
-    publicPath: Package.directories.publicPath,                           // sets a default public location (required by react-routes)
-    filename: `.${Package.directories.dest}/[name].js`,                   // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
+    publicPath: global.directories.publicPath,                           // sets a default public location (required by react-routes)
+    filename: `.${global.directories.dest}/[name].js`,                   // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   node: {
@@ -47,8 +48,7 @@ const config = {
     ]
   },
   plugins: [
-    ...alias.plugins,                      // see build/configs/alias.config.js
-    new WebpackPlugins.StaticBundle()      // see build/configs/webpack.plugins.js
+    ...alias.plugins                      // see build/configs/alias.config.js
   ],
   resolve: {
     alias: alias.config,                   // resolve alias namespaces (see build/configs/alias.config.js)
@@ -65,5 +65,9 @@ const config = {
 
 module.exports = (env, argv) => {
   /* Here we have the opportunity to alter the config as needed prior to sending it off to webpack */
+  config.plugins.push(
+    new WebpackPlugins.StaticBundle(argv.mode)      // see build/configs/webpack.plugins.js
+  );
+
   return config;
 };
