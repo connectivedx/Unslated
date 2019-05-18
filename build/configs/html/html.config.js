@@ -1,5 +1,4 @@
 const path = require('path');
-const Webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 // all html files get ran through these processes

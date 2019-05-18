@@ -22,7 +22,7 @@
 		"type": "IIS"
 	},
 	"local": {
-		"port": "8080",
+		"port": "",
 		"host": "localhost",
 		"allowedHosts": []
 	},
