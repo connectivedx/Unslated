@@ -2,7 +2,7 @@
   Here lives all of Unslated's core custom webpack plugins.
   Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks. (see: https://webpack.js.org/api/compiler-hooks/)
 */
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const rimraf = require("rimraf");
 const pretty = require('pretty');
@@ -71,60 +71,63 @@ class StaticBundle {
         path = modules[i].resource;
       }
     });
-    return path.replace(/\\/g, '/');
+
+    return path.replace(/\\/g, '/').split('/src')[1];
+  }
+
+  writeHtmlFile(example, compilation) {
+    const Html = ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/data-sly-unwrap=""/g, 'data-sly-unwrap').replace(/></g, '>\r<');
+
+    fs.writeFile(
+      path.resolve(__dirname, `${Package.statics.dest}/${example.staticPath}`),
+      pretty(`
+        <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
+        <!-- (see: ${this.getSourcePath(example.name, compilation)}) -->
+
+        ${Html}
+      `),
+      (e) => {
+        if (e) {
+          return false;
+        }
+      }
+    );
   }
 
   apply(compiler) {
     // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require('../../dist/static.js'); // require bundled version of entry file
-      const components = global.components; // grab global compontents object we hoisted in our entry file (see: build/static.jsx)
+      require(path.resolve(__dirname, `${Package.statics.dest}/static.js`)); // require bundled version of entry file
 
-      Object.keys(components).map((i) => {
-        const example = components[i];
+      Object.keys(global.components).map((i) => {
+        const example = global.components[i];
         if (example.staticPath) {
           // first make static dest directories (if not already)
-          const filelessPath = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
-          const pathArray = path.resolve(__dirname, `../../${Package.statics.dest}/${filelessPath}`).split('/');
-          let pathBuildup = '';
+          example.staticPath = example.staticPath.replace(/\\/g, '/');
 
-          // makes output folder for overall static files
-          if (!fs.existsSync(path.resolve(__dirname, `../../${Package.statics.dest}`))){
-            fs.mkdirSync(path.resolve(__dirname, `../../${Package.statics.dest}`));
-          }
-
-          // makes output folders for each component
-          for (let i = 0; i < pathArray.length; i++) {
-            pathBuildup += (i === 0) ? pathArray[i] : `/${pathArray[i]}`;
-            if (!fs.existsSync(pathBuildup)){
-              fs.mkdirSync(pathBuildup);
-            }
-          }
+          const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
+          const dest = path.resolve(__dirname, `${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
+          console.log(dest);
+          fs.ensureDirSync(dest);
 
           // second write files to newly created dest directories
-          fs.writeFile(
-            `${Package.statics.dest}/${example.staticPath}`,
-            pretty(`
-              <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
-              <!-- (see: ${this.getSourcePath(example.name, compilation).split('/src')[1]}) -->
-
-              ${ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/></g, '>\r<')}
-            `),
-            (e) => {
-              if (e) {
-                return false;
-              }
-          });
+          this.writeHtmlFile(example, compilation);
         }
       });
     });
 
-    // Cleanup bundle leftover files / folders
+    // Cleanup ./dist/static.js bundle leftover file
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
-      if (this.buildType === 'production') {
-        fs.unlink(path.resolve(__dirname, `./${Package.statics.dest}/static.js`), (err) => { if (err) { console.log(err); }});
-        rimraf(path.resolve(__dirname, `./${Package.statics.dest}/img/`), () => { });
-      }
+      fs.unlink(
+        path.resolve(__dirname,
+        `./${Package.statics.dest}/static.js`),
+        (staticErr) => {
+          if (staticErr) { console.log(staticErr); }
+          rimraf(path.resolve(__dirname, `./${Package.statics.dest}/img/`), (imgErr) => {
+            if (imgErr) { console.log(imgErr); }
+          });
+        }
+      );
     });
   }
 }
