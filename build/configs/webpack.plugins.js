@@ -107,7 +107,7 @@ class StaticBundle {
 
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
           const dest = path.resolve(__dirname, `${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
-          console.log(dest);
+
           fs.ensureDirSync(dest);
 
           // second write files to newly created dest directories
