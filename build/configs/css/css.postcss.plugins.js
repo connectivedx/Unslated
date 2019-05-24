@@ -1,4 +1,5 @@
 const postcss = require('postcss');
+const nested = require('postcss-nested');
 
 const colors = postcss.plugin('postcss-color', (options) => {
   options = options || {};
@@ -187,6 +188,7 @@ const media = postcss.plugin('postcss-custom-media', (options) => {
     // replace @mediavariable declirations, with values from collected queries above
     root.walkAtRules('media', (rule) => {
       const variable = rule.params.replace(/\((.*)\)/g, '$1');
+      let removeFlag = false;
       Object.keys(queries).map(key => {
         if (key === variable) {
           rule.params = queries[key];
@@ -201,27 +203,17 @@ const media = postcss.plugin('postcss-custom-media', (options) => {
 
             packs[queries[key]] += stringSelector;
           });
+
+          removeFlag = true;
         }
       });
 
-      rule.remove(); // remove this query, to re-append a packed set down below.
+      if (removeFlag) {
+        rule.remove(); // remove this query, to re-append a packed set down below.
+      }
     });
 
     // append compressed media quries to end of sheet
-    const objectReverse = (object) => {
-      const newObject = {};
-      const keys = [];
-
-      Object.keys(object).map((key) => keys.push(key));
-
-      for (let i = keys.length - 1; i >= 0; i--) {
-        const value = object[keys[i]];
-        newObject[keys[i]] = value;
-      }
-
-      return newObject;
-    };
-
     Object.keys(packs).map((i) => {
       if (packs[i].length) {
         root.append(`@media ${i} {\n${packs[i]}\n}`);
@@ -325,10 +317,82 @@ const comments = postcss.plugin('postcss-comments', (options) => {
   };
 });
 
+
+const mixins = postcss.plugin('postcss-mixins', (options) => {
+  let definitions = [];
+
+  return root => {
+    // loop mixin definitions
+    root.walkAtRules(atRule => {
+      if(atRule.name !== 'define-mixin') { return; }
+      let params = atRule.params.replace(/,/g, '').split(' ');
+      const name = params[0].trim();
+      params.shift();
+
+      if (!definitions[name]) {
+        definitions[name] = {
+          rule: atRule,
+          params
+        };
+      }
+
+      atRule.remove();
+    });
+
+    root.walkAtRules(atRule => {
+      if (atRule.name !== 'mixin') { return; }
+      let mixinParams = atRule.params.replace(/,/g, '').split(' ');
+      const mixinName = mixinParams[0].trim();
+      const mixinSelector = atRule.parent.selector;
+      mixinParams.shift();
+
+      if (definitions[mixinName]) {
+        const def = definitions[mixinName];
+        const { rule } = def;
+        const { params } = def;
+
+        let nodes = rule.nodes.join(';\n\r').toString();
+
+        Object.keys(params).map((i) => {
+          let param = params[i].replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+          const reg = new RegExp(param, 'g');
+          if (mixinParams[i]) {
+            nodes = nodes.replace(reg, mixinParams[i]);
+          }
+        });
+
+        atRule.parent.append(`\n\r${nodes}\n\r`);
+        atRule.remove();
+      }
+    });
+  }
+});
+
+/*
+  This plugin allows developers to reduce down a calc to a percentage.
+  percentage(calc(400px / 3)) becomes
+*/
+const percentage = postcss.plugin('postcss-percentage', (options) => {
+  return root => {
+    root.walkDecls(decls => {
+      if (root.name === 'define-mixin') { return; }
+      if (decls.value.indexOf('percentage(') !== -1) {
+        let occurances = decls.value.match(/percentage\(.*?\)/g);
+        Object.keys(occurances).map((i) => {
+          let units = occurances[i].replace(/percentage\((.*?)\)/g, '$1');
+          decls.value = `${eval(units) * 100}%`;
+        });
+      }
+    })
+  }
+});
+
 module.exports = {
+  percentage,
   exporting,
   variables,
   comments,
+  mixins,
   extend,
   colors,
   media,

@@ -30,7 +30,7 @@ const runNodeScript = (scriptPath, arguments, callback) => {
 module.exports = {
   config: {
     devServer: {
-      port: Package.local.port,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
+      port: (Package.local.port.length) ? Package.local.port : '',                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
       host: Package.local.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
       allowedHosts: Package.local.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
       watchOptions: {

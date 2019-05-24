@@ -197,7 +197,7 @@ class RemoveAtomicElement {
   }
 
   removeElement() {
-    rimraf(path.resolve(__dirname, ['../../', type].join('')), () => {
+    rimraf(path.resolve(__dirname, `../../${type}`), () => {
       triggerRebuild();
     });
   }

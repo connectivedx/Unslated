@@ -1,5 +1,4 @@
 const path = require('path');
-const Webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // all js(x) files get ran through these build processes

@@ -29,14 +29,12 @@ import Image from './Image';
 export default [{
   examples: [
     {
-      name: 'Default image behavior',
+      name: 'Default Image',
       component: (
-        <Image src={imageSrc} alt="Rancheria Falls" />
-      )
-    }, {
-      name: 'Auto sizing variant',
-      component: (
-        <Image src={imageSrc} variant="auto" alt="Rancheria Falls" />
+        <Image
+          src={imageSrc}
+          alt="Rancheria Falls"
+        />
       )
     }, {
       name: 'Default Image with srcset',
@@ -44,9 +42,13 @@ export default [{
         <Image
           src={imageSrc}
           srcSet={`${imageSrcMd} 720w, ${imageSrcLg} 1440w`}
-          variant="auto"
           alt="Rancheria Falls"
         />
+      )
+    }, {
+      name: 'Auto size Image behavior',
+      component: (
+        <Image src={imageSrc} alt="Rancheria Falls" variant="auto" />
       )
     }
   ]

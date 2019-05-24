@@ -7,6 +7,7 @@ export const GuideNav = (el) => {
     navInner: document.querySelector('.guide__nav-inner'),
     navLists: document.querySelectorAll('.heading + .list'),
     search: el.querySelector('.guide__nav--search .field__native'),
+    newElement: document.querySelector('.new-element .input-text .field__native'),
     renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.modal)'),
     removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.modal)')
   };
@@ -34,15 +35,11 @@ export const GuideNav = (el) => {
         // navigation accordion
         if (target.classList.contains('heading')) {
           if (target.classList.contains('home')) { return; }
-          if (target.nextSibling.classList.contains('hidden')) {
-            target.nextSibling.classList.remove('hidden');
-          } else {
-            target.nextSibling.classList.add('hidden');
-          }
-
+          Utils.toggleClass(target.nextSibling, 'hidden');
           e.preventDefault();
         }
 
+        // rename / remove element
         if (target.dataset) {
           if (target.dataset.modal === 'rename') {
             const renameElementForm = document.querySelector('[data-modal="rename"] form');
@@ -53,6 +50,7 @@ export const GuideNav = (el) => {
           if (target.dataset.modal === 'remove') {
             const removeElementForm = document.querySelector('[data-modal="remove"] form');
             removeElementForm.querySelector('[name="path"]').value = target.dataset.path; // eslint-disable-line
+            renameElementForm.querySelector('[name="location"]').value = target.dataset.location; // eslint-disable-line
           }
         }
       });
@@ -117,7 +115,6 @@ export const GuideNav = (el) => {
       });
     }
 
-    ui.newElement = document.querySelector('.new-element .input-text .field__native');
     if (ui.newElement) {
       ui.newElementType = document.querySelector('.new-element .select');
       ui.newElementTypeNative = ui.newElementType.querySelector('.field__native');

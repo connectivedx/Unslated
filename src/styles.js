@@ -4,6 +4,7 @@ const requireAll = (context) => context.keys().map(context);
 require('@vars/breakpoints.css');
 require('@vars/colors.css');
 require('@vars/custom-selectors.css');
+require('@vars/mixins.css');
 require('@vars/fonts.css');
 require('@vars/type.css');
 require('@vars/zindex.css');

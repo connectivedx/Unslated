@@ -51,6 +51,7 @@ const getElementListing = (examples, level) => Object.keys(examples).map((i) => 
                 title="Delete element"
                 data-modal="remove"
                 data-path={`src/elements/${level}/${examples[i].name}`}
+                data-location={(window.location.pathname.indexOf(examples[i].name)) ? '/' : window.location.pathname}
               >
                 <Icon name="trash" />
               </Link>
@@ -284,6 +285,7 @@ export const Guide__nav = (props) => {
                       <Fieldset legend="Use the form below to delete an element">
                         <Input type="hidden" label={false} name="name" id="delete-name" required />
                         <Input type="hidden" label={false} name="path" id="delete-path" />
+                        <Input type="hidden" label={false} name="location" id="delete-location" />
                         <Input type="hidden" label={false} name="remove" id="delete-remove" value="true" />
                         <Button type="submit">Yes</Button>
                         <Button href="#/" data-modal-close="true">No</Button>
