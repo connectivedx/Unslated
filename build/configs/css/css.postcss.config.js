@@ -3,7 +3,6 @@ const Alias = require('../alias.config.js');
 const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
 const custom = require('postcss-custom-selectors');
-const mixins = require('postcss-mixins');
 const imports = require('postcss-import');
 
 // start enhanced-resolve setup DO NOT CHANGE! (allows alias namespaces within postcss)
@@ -33,16 +32,17 @@ module.exports = {
       }
     }),
     Plugins.exporting(),     // Pre-parse color variables
-    nested(),                // Allows for nested selectors
-    custom()                 // Allows for @custom selectors
+    custom()                // Allows for @custom selectors
   ],
   postBundle: [
+    Plugins.mixins(),        // Allows for CSS @mixins
+    nested(),                // Allows for nested selectors
     Plugins.rems(),          // Allows for CSS rem()
     Plugins.variables(),     // Allows var(--variables)
+    Plugins.percentage(),    // Allows quick conversion of number to percentage
     Plugins.colors(),        // Allows for color(hex or var(), darken | lighten)
     Plugins.extend(),        // Allows for CSS @extend
     Plugins.media(),         // Allows for custom media queries
-    mixins(),                // Allows for CSS @mixins
     Plugins.roots(),         // Cleans up leftover :root declarations.
     Plugins.comments(),      // Cleans up comments.
     (Package.optimize.css)   // Minification of our final CSS results.

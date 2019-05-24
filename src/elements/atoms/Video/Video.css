@@ -1,0 +1,32 @@
+:root {
+
+  /* CSS variables */
+}
+
+.video {
+
+  /* Baseline styles */
+  &__player {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  /* Style variants */
+
+  /* Ratio variants */
+  &--default {
+    @mixin aspect-ratio 16, 9;
+  }
+
+  &--wide {
+    @mixin aspect-ratio 21, 9;
+  }
+
+  &--tall {
+    @mixin aspect-ratio 4, 3;
+  }
+}
