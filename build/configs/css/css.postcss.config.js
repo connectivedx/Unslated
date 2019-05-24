@@ -32,7 +32,6 @@ module.exports = {
       }
     }),
     Plugins.exporting(),     // Pre-parse color variables
-    nested(),                // Allows for nested selectors
     custom()                // Allows for @custom selectors
   ],
   postBundle: [
