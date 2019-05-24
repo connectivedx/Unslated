@@ -3,7 +3,6 @@ const Alias = require('../alias.config.js');
 const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
 const custom = require('postcss-custom-selectors');
-const mixins = require('postcss-mixins');
 const imports = require('postcss-import');
 
 // start enhanced-resolve setup DO NOT CHANGE! (allows alias namespaces within postcss)
