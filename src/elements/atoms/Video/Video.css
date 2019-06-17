@@ -19,14 +19,14 @@
 
   /* Ratio variants */
   &--default {
-    @mixin aspect-ratio 16, 9;
+    @mixin aspect-ratio(16, 9);
   }
 
   &--wide {
-    @mixin aspect-ratio 21, 9;
+    @mixin aspect-ratio(21, 9);
   }
 
   &--tall {
-    @mixin aspect-ratio 4, 3;
+    @mixin aspect-ratio(4, 3);
   }
 }

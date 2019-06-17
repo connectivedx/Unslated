@@ -1,67 +1,73 @@
-/*
-  Select component client side namespace
-*/
 export const Select = (el) => {
-  /** UI obect houses common selected elements within component */
   const ui = {
     el,
+    error: el.querySelector('.field__error-message'),
     native: el.querySelector('.field__native'),
-    error: el.querySelector('.field__error-message')
+    decorator: el.querySelector('.select__decorator')
   };
 
-  // custom events
   const events = {
     change: document.createEvent('Event'),
     close: document.createEvent('Event'),
     open: document.createEvent('Event')
   };
 
-  // mutation observer config
-  const mutations = {
-    childList: true,
-    subTree: true
-  };
-
-  // closing of sub-field__decorator
+  // select.close()
   const close = () => {
     ui.el.classList.remove('open');
-    document.body.removeEventListener('click', close, true);
     ui.el.dispatchEvent(events.close);
-    setTimeout(() => {
-      el.validate();
-    }, 250);
+    el.validate();
   };
 
-  // opening of sub-field__decorator
+  // select.open()
   const open = () => {
     ui.native.blur();
     ui.el.classList.add('open');
-    document.body.addEventListener('click', close, true);
     ui.el.dispatchEvent(events.open);
   };
 
-  // make selection (accepts e.target, option value string or option index)
+  const makeSelection = (index, value) => {
+    const isMulti = ui.native.hasAttribute('multiple');
+    const oldSelection = ui.decorator.querySelector('.selected');
+    const newSelection = ui.decorator.querySelectorAll('li')[index];
+
+    if (isMulti) {
+      Utils.toggleClass(newSelection, 'selected');
+
+      const items = ui.decorator.querySelectorAll('li');
+      Object.keys(items).map((i) => {
+        if (items[i].classList.contains('selected')) {
+          ui.native.options[i].setAttribute('selected', 'selected');
+        } else {
+          ui.native.options[i].removeAttribute('selected');
+        }
+
+        return false;
+      });
+    } else {
+      ui.native.value = value;
+      ui.native.selectedIndex = index;
+    }
+
+    if (!isMulti) {
+      if (oldSelection) {
+        oldSelection.classList.remove('selected');
+      }
+      newSelection.classList.add('selected');
+    }
+
+    ui.el.classList.remove('open');
+    ui.decorator.dataset.placeholder = newSelection.innerText;
+    ui.el.dispatchEvent(events.change);
+  };
+
+  // select.choose(int|string|node)
   const choose = (target) => {
     if (typeof target === 'undefined') { return; }
 
-    // univeral method to make the actual selection
-    const makeSelection = (index, value) => {
-      ui.native.value = value;
-      ui.native.options.selectedIndex = index;
-      ui.decorator.querySelectorAll('li')[index].classList.add('selected');
-      ui.el.classList.remove('open');
-      ui.el.dispatchEvent(events.change);
-    };
-
-    // removes .selected decorator class
-    const hasSelection = el.querySelector('.selected');
-    if (hasSelection) {
-      hasSelection.classList.remove('selected');
-    }
-
-    // by value
+    // make selection by value string
     if (typeof target === 'string') {
-      target = ui.native.querySelector(['[value="', target, '"'].join(''));
+      target = ui.native.querySelector(`[value="${target}"]`);
       if (!target) { return; }
 
       makeSelection(
@@ -71,7 +77,7 @@ export const Select = (el) => {
       return;
     }
 
-    // by index
+    // make selection by index int
     if (typeof target === 'number') {
       const option = ui.native.options[target];
       if (!option) { return; }
@@ -82,8 +88,8 @@ export const Select = (el) => {
       return;
     }
 
-    // by element
-    if (target.dataset.value) {
+    // make selection by element element node
+    if (target.hasAttribute('data-value')) {
       makeSelection(
         [...target.parentElement.children].indexOf(target),
         target.dataset.value
@@ -91,78 +97,48 @@ export const Select = (el) => {
     }
   };
 
-  // build decorator list items
-  const buildDecorator = () => {
-    const fragment = document.createDocumentFragment();
+  // select.update()
+  const update = () => {
+    let collection = '';
     const { options } = ui.native;
 
-    for (let i = 0; i < options.length; i++) {
-      const option = options[i];
-      option.setAttribute('hidden', true);
-
-      const item = document.createElement('li');
-      item.classList.add('list__item');
-      item.innerHTML = option.innerHTML;
-      item.dataset.value = (option.value) ? option.value : 0;
-
-      fragment.appendChild(item);
-    }
-    ui.decorator.innerHTML = '';
-    ui.decorator.appendChild(fragment);
+    collection += Object.keys(options).map((i) => `
+      <li
+        class="list__item"
+        data-value="${(options[i].value) ? options[i].value : 0}"
+        hidden
+      >
+        ${options[i].innerHTML}
+      </li>
+    `).join('');
+    console.log(ui.decorator);
+    ui.decorator.innerHTML = collection;
   };
 
-  // setup method
   const init = () => {
-    // install custom events
-    events.change.initEvent('change', true, true);
-    events.close.initEvent('close', true, true);
     events.open.initEvent('open', true, true);
+    events.close.initEvent('close', true, true);
+    events.change.initEvent('change', true, true);
 
-    // Build decorator
-    const decorator = document.createElement('ul');
-    decorator.classList.add('sub-field__decorator');
-    decorator.setAttribute('tabindex', 1);
-    ui.decorator = decorator;
-
-    // Append decorator list, making native and list as siblings
-    ui.native.parentElement.appendChild(decorator);
-
-    // Build out newly appended decorator list
-    buildDecorator();
-
-    // Click event listeners
     ui.el.addEventListener('click', (e) => {
-      const { target } = e;
-
-      // When have clicked native field
-      if (target.classList.contains('field__native')) {
-        if (ui.el.classList.contains('open')) {
-          close();
-        } else {
-          open();
-        }
+      if (!ui.el.classList.contains('select--multiple')) {
+        Utils.toggleClass(ui.el, 'open');
       }
-
-      // Making a selection with clicked
-      choose(target);
+      if (e.target.classList.contains('list__item')) {
+        choose(e.target);
+      }
     });
 
-    // Blur event listener
     ui.el.addEventListener('onblur', () => {
       close();
-      setTimeout(() => {
-        el.validate();
-      }, 250);
+      el.validate();
     });
 
-    // Mutation observer (for when programmatically adding or removing <options>)
-    const observer = new MutationObserver(buildDecorator);
-    observer.observe(ui.native, mutations);
-
-    // DOM access to methods
     ui.el.open = open;
     ui.el.close = close;
     ui.el.choose = choose;
+    ui.el.update = update;
+
     ui.el.validate = () => {
       Utils.checkValidity(el);
       if (ui.error) {
@@ -171,7 +147,6 @@ export const Select = (el) => {
     };
   };
 
-  // begin setup
   init();
 };
 
