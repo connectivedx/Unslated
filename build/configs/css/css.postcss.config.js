@@ -32,13 +32,14 @@ module.exports = {
       }
     }),
     Plugins.exporting(),     // Pre-parse color variables
-    custom()                // Allows for @custom selectors
+    custom()                 // Allows for @custom selectors
   ],
   postBundle: [
-    Plugins.mixins(),        // Allows for CSS @mixins
     nested(),                // Allows for nested selectors
     Plugins.rems(),          // Allows for CSS rem()
     Plugins.variables(),     // Allows var(--variables)
+    Plugins.mixins(),        // Allows for CSS @mixins
+    nested(),                // Allows for nested mixin selected to be fixed up
     Plugins.percentage(),    // Allows quick conversion of number to percentage
     Plugins.colors(),        // Allows for color(hex or var(), darken | lighten)
     Plugins.extend(),        // Allows for CSS @extend
@@ -46,7 +47,7 @@ module.exports = {
     Plugins.roots(),         // Cleans up leftover :root declarations.
     Plugins.comments(),      // Cleans up comments.
     (Package.optimize.css)   // Minification of our final CSS results.
-      ? require('cssnano')({preset: 'default'})
+      ? Plugins.minify()
       : () => {}
   ]
 };

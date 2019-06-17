@@ -1,5 +1,8 @@
 const postcss = require('postcss');
 const nested = require('postcss-nested');
+const cssclean = require('clean-css');
+const fs = require('fs');
+const path = require('path');
 
 const colors = postcss.plugin('postcss-color', (options) => {
   options = options || {};
@@ -45,6 +48,7 @@ const colors = postcss.plugin('postcss-color', (options) => {
     root.walkDecls(decl => {
       if (decl.value.indexOf('color(') !== -1) {
         const colors = decl.value.match(/color\((.*?)\)/g);
+
         Object.keys(colors).map((index) => {
           const arguments = colors[index].replace(/^color\((.*?)\)$/, '$1').split(',');
           const color = (arguments[0].length < 7) ? (arguments[0] + arguments[0].replace('#', '')) : arguments[0];
@@ -240,7 +244,7 @@ const rems = postcss.plugin('postcss-rems', (options) => {
   }
 });
 
-const roots =postcss.plugin('postcss-vars', (options) => {
+const roots = postcss.plugin('postcss-vars', (options) => {
   options = options || {};
 
   return root => {
@@ -305,6 +309,17 @@ const variables = postcss.plugin('postcss-vars', (options) => {
         });
       });
     });
+
+    // Finally, we allow variable usage in the useage of mixins
+    root.walkAtRules(rule => {
+      if (rule.name === 'mixin') {
+        Object.keys(variables).map(index => {
+          if (rule.params.indexOf('var('+index+')') !== -1) {
+            rule.params = rule.params.replace(/var\((.*?)\)/, variables[index]);
+          }
+        });
+      }
+    });
   };
 });
 
@@ -314,64 +329,67 @@ const comments = postcss.plugin('postcss-comments', (options) => {
     root.walkComments(comment => {
       comment.remove();
     });
+    fs.writeFile(path.resolve(__dirname, '../../../dump.txt'), root.toString(), (err) => { });
   };
 });
 
-
 const mixins = postcss.plugin('postcss-mixins', (options) => {
-  let definitions = [];
+  let collection = [];
+  const getParts = (string) => string.replace(/ /g, '').replace('(', ' (').split(' ');
+  const getParams = (string) => string.replace(/\((.*)\)/g, '$1').split(',');
 
   return root => {
-    // loop mixin definitions
+    // loop mixin definitions and rules, name and params
     root.walkAtRules(atRule => {
       if(atRule.name !== 'define-mixin') { return; }
-      let params = atRule.params.replace(/,/g, '').split(' ');
-      const name = params[0].trim();
-      params.shift();
 
-      if (!definitions[name]) {
-        definitions[name] = {
+      const definition = getParts(atRule.params);
+      const definitionName = definition[0].trim();
+      const definitionParams = getParams(definition[1]);
+
+      if (!collection[definitionName]) {
+        collection[definitionName] = {
           rule: atRule,
-          params
+          params: definitionParams
         };
       }
 
+      // remove definition
       atRule.remove();
     });
 
+    // loop mixin usage
     root.walkAtRules(atRule => {
       if (atRule.name !== 'mixin') { return; }
-      let mixinParams = atRule.params.replace(/,/g, '').split(' ');
-      const mixinName = mixinParams[0].trim();
-      const mixinSelector = atRule.parent.selector;
-      mixinParams.shift();
+      const mixin = getParts(atRule.params);
+      const mixinName = mixin[0].trim();
+      const mixinParams = getParams(mixin[1]);
+      if (collection[mixinName]) {
+        const definition = collection[mixinName];
+        const { rule } = definition;
+        const { params } = definition;
 
-      if (definitions[mixinName]) {
-        const def = definitions[mixinName];
-        const { rule } = def;
-        const { params } = def;
-
-        let nodes = rule.nodes.join(';\n\r').toString();
+        let nodes = rule.nodes.join(';').toString();
 
         Object.keys(params).map((i) => {
-          let param = params[i].replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
-          const reg = new RegExp(param, 'g');
+          const reg = new RegExp(params[i], 'g');
           if (mixinParams[i]) {
-            nodes = nodes.replace(reg, mixinParams[i]);
+            nodes = nodes.replace(reg, mixinParams[i]).replace(/var\((.*?)\)/g, '$1');
           }
         });
 
-        atRule.parent.append(`\n\r${nodes}\n\r`);
+        atRule.parent.append(`${nodes}`);
         atRule.remove();
       }
+    });
+
+    // little clean up help
+    root.walkRules(rule => {
+      rule.selector = rule.selector.replace(/\\--/g, '--');
     });
   }
 });
 
-/*
-  This plugin allows developers to reduce down a calc to a percentage.
-  percentage(calc(400px / 3)) becomes
-*/
 const percentage = postcss.plugin('postcss-percentage', (options) => {
   return root => {
     root.walkDecls(decls => {
@@ -387,6 +405,16 @@ const percentage = postcss.plugin('postcss-percentage', (options) => {
   }
 });
 
+const minify = postcss.plugin('postcss-minify', (options) => {
+  return root => {
+    const css = root.toString();
+    root.removeAll(); // out with the old
+    root.append(      // in with the new
+      new cssclean({}).minify(css).styles
+    );
+  }
+});
+
 module.exports = {
   percentage,
   exporting,
@@ -394,6 +422,7 @@ module.exports = {
   comments,
   mixins,
   extend,
+  minify,
   colors,
   media,
   roots,
