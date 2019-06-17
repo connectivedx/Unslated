@@ -1,5 +1,13 @@
+/*
+  Main configuration for both preBundle and postBundle CSS phases.
+  It is here we get to determin what phases and order Unslated PostCSS plugins should be ran.
+
+  preBunde === file by file parsing context
+  postBundle === bundled sheet parsing context
+*/
+
 const Package = require('../../../package.json');
-const Alias = require('../alias.config.js');
+const Alias = require('../webpack/alias.config.js');
 const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
 const custom = require('postcss-custom-selectors');
@@ -32,13 +40,14 @@ module.exports = {
       }
     }),
     Plugins.exporting(),     // Pre-parse color variables
-    custom()                // Allows for @custom selectors
+    custom()                 // Allows for @custom selectors
   ],
   postBundle: [
-    Plugins.mixins(),        // Allows for CSS @mixins
     nested(),                // Allows for nested selectors
     Plugins.rems(),          // Allows for CSS rem()
     Plugins.variables(),     // Allows var(--variables)
+    Plugins.mixins(),        // Allows for CSS @mixins
+    nested(),                // Allows for nested mixin selected to be fixed up
     Plugins.percentage(),    // Allows quick conversion of number to percentage
     Plugins.colors(),        // Allows for color(hex or var(), darken | lighten)
     Plugins.extend(),        // Allows for CSS @extend
@@ -46,7 +55,7 @@ module.exports = {
     Plugins.roots(),         // Cleans up leftover :root declarations.
     Plugins.comments(),      // Cleans up comments.
     (Package.optimize.css)   // Minification of our final CSS results.
-      ? require('cssnano')({preset: 'default'})
+      ? Plugins.minify()
       : () => {}
   ]
 };

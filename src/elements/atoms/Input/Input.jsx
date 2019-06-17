@@ -31,7 +31,7 @@ export class Input extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Input type (text, radio, checkbox, date, number etc.). Type attribute dictates the element's base class. */
-    type: PropTypes.string,
+    type: PropTypes.string.isRequired,
     /** Id attributes are used as accessibility helpers in the for/id label/field relationship */
     id: PropTypes.string.isRequired,
     /** Name attributes are used as keys when posting data to server */

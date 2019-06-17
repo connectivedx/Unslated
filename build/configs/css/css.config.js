@@ -1,6 +1,14 @@
+/*
+  Main configuration entry for all CSS files.
+  Please note, all CSS code is ran through postcss and postcss plugins.
+
+  Two phases to CSS bundling, preBundle and postBundle. Some postcss plugins like importing and exporting
+  happen at preBundle (file by file), while other postcss plugins get ran at the postBundle phase (bundled sheet).
+*/
+
 const path = require('path');
 const POSTCSSConfig = require('./css.postcss.config.js');
-const WebpackPlugins = require('../webpack.plugins.js');
+const WebpackPlugins = require('../webpack/webpack.plugins.js');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 

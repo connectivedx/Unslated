@@ -1,7 +1,11 @@
-// Dev server configuration
+/*
+  Development server build configuration
+  (see: https://webpack.js.org/configuration/dev-server/)
+*/
+
 const fs = require('fs');
 const path = require('path');
-const Package = require('../../package.json');
+const Package = require('../../../package.json');
 const childProcess = require('child_process');
 
 // Helper method to pass requests to scaffolding.build.js node scripts

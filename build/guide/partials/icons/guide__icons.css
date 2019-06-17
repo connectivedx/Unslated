@@ -39,6 +39,10 @@
     .input-color {
       display: flex;
       align-items: center;
+
+      .field__native {
+        padding: 0;
+      }
     }
 
     .icon {

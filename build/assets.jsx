@@ -7,3 +7,5 @@
 
 import '@src/styles'; // see ./src/styles.js
 import '@src/scripts'; // see ./src/scripts.js
+
+require('es6-object-assign').polyfill();

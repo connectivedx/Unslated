@@ -1,4 +1,7 @@
-// all font files get ran through these processes
+/*
+  Main configuration entry for all font files.
+*/
+
 const path = require('path');
 
 module.exports = {

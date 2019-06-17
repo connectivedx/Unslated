@@ -1,3 +1,7 @@
+/*
+  Main configuration entry for all image and svg files.
+*/
+
 const path = require('path');
 const WebpackSvgSpritely = require('./img.svg.plugin.js');
 

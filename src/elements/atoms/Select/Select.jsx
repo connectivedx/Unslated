@@ -4,7 +4,10 @@
     This element allows you to configure labels, validation from a single tag.<br/>
     Please note this element requires <option> tag children to complete the usage of it.</p>
 
-    <h3 class="heading heading--h3"><strong>Field classes</strong> (classes independent from any specific field type or variant)</h3>
+    <h3 class="heading heading--h3">
+      <strong>Field classes</strong> (classes independent from any specific field type or variant)
+    </h3>
+
     <ul>
       <li><strong>.field</strong> = top level tag</li>
       <li><strong>.field__label</strong> = field's label tag</li>
@@ -12,6 +15,11 @@
     </ul>
   </div>
 */
+
+import {
+  List,
+  List__item
+} from '@atoms/List/List';
 
 export class Select extends React.Component {
   static propTypes = {
@@ -29,6 +37,8 @@ export class Select extends React.Component {
       PropTypes.bool,
       PropTypes.node
     ]),
+    /** Defines if select is drop down select or multi-select */
+    multiple: PropTypes.bool,
     /** Style variants */
     variant: PropTypes.oneOf(['default', 'inline-label']),
     /** <option value=""></option> */
@@ -48,7 +58,8 @@ export class Select extends React.Component {
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    required: false
+    required: false,
+    multiple: false
   };
 
   /** Element level options */
@@ -68,6 +79,7 @@ export class Select extends React.Component {
       label,
       required,
       defaultValue,
+      multiple,
       error,
       ...attrs
     } = this.props;
@@ -75,8 +87,13 @@ export class Select extends React.Component {
     const classStack = Utils.createClassStack([
       'select field',
       `select--${variant}`,
+      (multiple) ? 'select--multiple' : '',
       className
     ]);
+
+    if (multiple) {
+      attrs.multiple = true;
+    }
 
     return (
       <Tag
@@ -98,11 +115,38 @@ export class Select extends React.Component {
             ? <label htmlFor={id} className="field__label">{label}</label>
             : ''
         }
-        <span className="field__decorator">
-          <select id={id} className="field__native" required={required} defaultValue={defaultValue} name={name} {...attrs}>
-            {children}
-          </select>
-        </span>
+
+        {/* Native field */}
+        <select
+          id={id}
+          className="field__native"
+          required={required}
+          defaultValue={defaultValue}
+          name={name}
+          {...attrs}
+        >
+          {children}
+        </select>
+
+        {/* Builds unorder list for cross browser style control */}
+        <List className="select__decorator">
+          {
+            Object.keys(children).map((i) => {
+              if (children[i].props) {
+                return (
+                  <List__item
+                    key={i}
+                    data-value={children[i].props.value}
+                  >
+                    { (children[i].props.children) ? children[i].props.children : '' }
+                  </List__item>
+                );
+              }
+
+              return false;
+            })
+          }
+        </List>
       </Tag>
     );
   }

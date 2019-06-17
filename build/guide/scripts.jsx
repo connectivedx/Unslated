@@ -21,7 +21,7 @@ import GuideTypography from '@guide/partials/typography/guide__typography.contai
 
 // Set page title based on package config
 document.head.querySelector('title').innerText = `${Package.name} ${Package.version}`;
-document.body.append(document.createElement('sly'));
+document.body.appendChild(document.createElement('sly'));
 
 // Mount the guide into DOM and run it's container.js
 ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
