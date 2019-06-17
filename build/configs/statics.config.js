@@ -1,15 +1,22 @@
+/*
+  Main configuration entry for exporting JSX examples.
+  This configuration entry does not bundle any assets, instead it is a entry point to export custom code
+  out of a normal production build process.
+*/
+
 // config dependencies
-require('./paths.config');
+require('./webpack/paths.config');
 const path = require('path');
 const Webpack = require('webpack');
+const Package = require('../../package.json');
+const WebpackPlugins = require('./webpack/webpack.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const WebpackPlugins = require('./webpack.plugins.js');
-const Package = require('../../package.json');
 
 // config files
-const alias = require('./alias.config.js');     // all file path alias helper configurations
-const img = require('./img/img.config.js');     // all image related build configurations
+const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
+let img = require('./img/img.config.js');       // all image related build configurations
+img.config[0].use[0].options.emitFile = false;  //disable the output of image files
 
 // main config object
 const config = {
@@ -17,9 +24,8 @@ const config = {
     static: './build/static.jsx', // entry point for production assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
-    publicPath: global.directories.publicPath,                           // sets a default public location (required by react-routes)
-    filename: `.${global.directories.dest}/[name].js`,                   // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../${global.statics.dest}`),   // sets default location for all compiled files
+    filename: `../[name].js`,                                        // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   node: {
@@ -31,7 +37,7 @@ const config = {
         'exclude': [path.resolve(__dirname, '../../node_modules')],
         'use': [
           {
-            'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
+            'loader': 'babel-loader', // (see: https://www.npmjs.com/package/babel-loader)
             'options': {
               'compact': false,
               'presets': ['@babel/preset-env', '@babel/preset-react'],
@@ -60,7 +66,9 @@ const config = {
   },
   performance: {
     hints: false                           // bundle size warnings
-  }
+  },
+  stats: false,
+  devtool: false
 };
 
 module.exports = (env, argv) => {

@@ -5,5 +5,8 @@
   Both guide.js and guide.css are not intended to be use in production.
 */
 
+
 import '@guide/styles'; // see ./build/guide/styles.css
 import '@guide/scripts.jsx'; // see ./guide/guide/scripts.jsx
+
+require('es6-object-assign').polyfill();

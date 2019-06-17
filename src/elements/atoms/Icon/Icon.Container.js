@@ -1,10 +1,19 @@
-const config = require('@root/package.json');
+/*
+  All svg files in Icon/assets/ get bundled into a iconset.svg file.
+  This script will request iconset file at page load, and inject results in the document body for sprite usage.
+*/
 
 export const Icon = () => {
   const init = () => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', [config.directories.assetPath, '/img/iconset-[hash].svg'].join(''), true);
+    xhr.open(
+      'GET',
+      '[publicPath]img/iconset-[hash].svg',
+      true
+    );
+
     xhr.onprogress = () => {};
+
     xhr.onload = () => {
       if (!xhr.responseText || xhr.responseText.substr(0, 4) !== '<svg') {
         throw Error('Invalid SVG Response');
@@ -16,6 +25,7 @@ export const Icon = () => {
       div.innerHTML = xhr.responseText;
       document.body.insertBefore(div, document.body.childNodes[0]);
     };
+
     xhr.send();
   };
 

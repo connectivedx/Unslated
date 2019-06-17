@@ -1,4 +1,7 @@
-// Terminal stats config (see: https://webpack.js.org/configuration/stats/)
+/*
+  Build terminal statistics configuration
+  (see: https://webpack.js.org/configuration/stats/)
+*/
 
 module.exports = {
   config: {

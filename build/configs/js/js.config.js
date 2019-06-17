@@ -1,3 +1,7 @@
+/*
+  Main configuration entry for all js(x) files.
+*/
+
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 

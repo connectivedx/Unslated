@@ -42,6 +42,30 @@ export default [{
       ),
       notes: ''
     }, {
+      name: 'Date Inputs',
+      component: (
+        <Input label="Date input" type="date" name="date-input" id="01" required={true} error="This date field is required!" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+      ),
+      notes: ''
+    }, {
+      name: 'Tel Inputs',
+      component: (
+        <Input label="Telephone input" type="tel" name="date-input" id="01" required={true} error="This telephone field is required! (555-555-5555)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+      ),
+      notes: ''
+    }, {
+      name: 'Email Inputs',
+      component: (
+        <Input label="Email input" type="email" name="date-input" id="01" required={true} error="This email field is required! (email@email.com)" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+      ),
+      notes: ''
+    }, {
+      name: 'Number Inputs',
+      component: (
+        <Input label="Number input" type="number" name="number-input" id="01" required={true} error="This number field is required!" />
+      ),
+      notes: ''
+    }, {
       name: 'Radio Inputs',
       component: (
         <Input label="Inline radio label text" type="radio" id="08" name="radio-inline-left" required={true} error="This radio field is required!" />

@@ -268,7 +268,6 @@ const initComponent = (name, selector, Component, callback) => {
   }
 };
 
-
 module.exports = {
   parents,
   getExample,

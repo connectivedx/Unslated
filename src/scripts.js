@@ -6,7 +6,6 @@ import Select from '@atoms/Select/Select.container';
 import Modal from '@molecules/Modal/Modal.container';
 import Expand from '@molecules/Expand/Expand.container';
 import Textarea from '@atoms/Textarea/Textarea.container';
-import Tracking from '@modifiers/Tracking/Tracking.container';
 import Accordion from '@molecules/Accordion/Accordion.container';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,13 +19,4 @@ document.addEventListener('DOMContentLoaded', () => {
     Utils.initComponent('Textarea', '.Textarea', Textarea);
   });
   Utils.initComponent('Icon', 'body', Icon);
-
-  new Tracking({
-    vendors: [
-      {
-        type: 'Google',
-        id: 'GTM KEY'
-      }
-    ]
-  });
 }, false);

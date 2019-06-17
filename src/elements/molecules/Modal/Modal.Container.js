@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 // Private functions
 export const Modal = (el) => {
   const ui = {
@@ -23,9 +21,9 @@ export const Modal = (el) => {
   };
 
   // window resize event
-  const handleWindowResize = _.debounce(() => {
+  const handleWindowResize = () => {
     checkHeight();
-  }, 64);
+  };
 
   // Hide instead of close. Usefull in modal history usage.
   const hide = (modal) => {

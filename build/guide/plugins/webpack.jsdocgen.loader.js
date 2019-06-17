@@ -1,4 +1,4 @@
-const extract = require("extract-comment");
+const extract = require('extract-comment');
 const { parse, walk } = require('abstract-syntax-tree');
 
 module.exports = function ( source ) {

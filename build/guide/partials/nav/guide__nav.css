@@ -24,13 +24,14 @@
       content: url('assets/menu.svg');
       cursor: pointer;
       display: block;
-      left: -5rem;
+      left: -rem(80px);
       opacity: 0.25;
-      padding: 0.5rem 0.45rem 0.25rem;
+      padding: rem(8px) rem(7px) rem(4px);
       position: absolute;
       top: 0.75rem;
       transition: opacity 1s;
-      width: 2rem;
+      width: 32px;
+      height: 24px;
     }
 
     &:--haf {
@@ -44,23 +45,23 @@
     max-width: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 1rem;
+    padding: rem(16px);
     position: relative;
 
     .guide-nav__close {
       &:before {
         content: '';
         background-image: url('assets/close.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
         background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
         cursor: pointer;
         display: block;
-        height: 1.5rem;
+        height: 24px;
         position: absolute;
-        right: 1rem;
-        top: 1.25rem;
-        width: 1.5rem;
+        right: rem(16px);
+        top: 20px;
+        width: 24px;
       }
     }
   }
@@ -134,7 +135,7 @@
     background-color: color(var(--color-black), 95%);
     background-position: 10px center;
     background-repeat: no-repeat;
-    background-size: 25px;
+    background-size: 25px 25px;
     color: var(--color-black);
     cursor: pointer;
     padding: 0.5rem 1rem 0.5rem 2.75rem;
