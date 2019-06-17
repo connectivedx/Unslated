@@ -1,5 +1,13 @@
+/*
+  Main configuration for both preBundle and postBundle CSS phases.
+  It is here we get to determin what phases and order Unslated PostCSS plugins should be ran.
+
+  preBunde === file by file parsing context
+  postBundle === bundled sheet parsing context
+*/
+
 const Package = require('../../../package.json');
-const Alias = require('../alias.config.js');
+const Alias = require('../webpack/alias.config.js');
 const Plugins = require('./css.postcss.plugins.js');
 const nested = require('postcss-nested');
 const custom = require('postcss-custom-selectors');

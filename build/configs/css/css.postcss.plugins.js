@@ -1,3 +1,11 @@
+/*
+  Here lives all of Unslated's custom PostCSS plugins.
+  Please note, the majority of plugins have been hand crafted to be ran under postBundle phase to:
+  - Overcome community driven plugin limitations or bugs
+  - Reduce bundle size for production builds
+  - Enhance CSS authoring features and expedite development processes
+*/
+
 const postcss = require('postcss');
 const nested = require('postcss-nested');
 const cssclean = require('clean-css');

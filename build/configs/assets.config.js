@@ -1,9 +1,14 @@
+/*
+  Main configuration entry for bundling CSS, Fonts, HTML, Images and JavaScript.
+  This main configuration entry is responsible for both production assets and component guide assets.
+*/
+
 // config dependencies
-require('./paths.config');
+require('./webpack/paths.config');
 const path = require('path');
 const Webpack = require('webpack');
 const Package = require('../../package.json');
-const WebpackPlugins = require('./webpack.plugins.js');
+const WebpackPlugins = require('./webpack/webpack.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
@@ -14,9 +19,9 @@ const css = require('./css/css.config.js');     // all css file related build co
 const img = require('./img/img.config.js');     // all img/svg related build configurations
 const html = require('./html/html.config.js');  // all html related build configurations
 const font = require('./font/font.config.js');  // all font related build configurations
-const alias = require('./alias.config.js');     // all file path alias helper configurations
-const stats = require('./stats.config.js');     // all terminal stats configurations
-const server = require('./server.config.js');   // all webpack-dev-server configurations
+const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
+const stats = require('./webpack/stats.config.js');     // all terminal stats configurations
+const server = require('./webpack/server.config.js');   // all webpack-dev-server configurations
 
 // main config object
 const config = {
@@ -56,17 +61,15 @@ const config = {
   ...stats.config,               // see build/configs/stats.config.js
   ...server.config,              // see build/configs/server.config.js
   performance: {
-    hints: false                 // bundle size warnings
+    maxAssetSize: 170000,
+    assetFilter: (asset) => {
+      return asset.match('assets.js');
+    }
   }
 };
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
-  // ALL BUILDS
-  config.plugins.push(
-    new WebpackPlugins.StatsBundle(argv.mode) // Capture webpack bundling stats object into guide.
-  );
-
   // DEV BUILDS
   if (argv.mode === 'development') {
     config.devServer.historyApiFallback = true; // Webpack-dev-server & react-routes requirement
@@ -75,6 +78,14 @@ module.exports = (env, argv) => {
 
   // PRODUCTION BUILDS
   if (argv.mode === 'production') {
+    if (!argv.guide) {
+      // Remove guide from production builds
+      delete config.entry.guide;
+    } else {
+      // Remove assets from guide builds
+      delete config.entry.assets;
+    }
+
     // Production builds do not need devtool support
     config.devtool = false;
 
@@ -85,19 +96,31 @@ module.exports = (env, argv) => {
 
     // Cleans our dist folder upon production builds
     config.plugins.push(
-      // new HardSourceWebpackPlugin(),
-      new CleanWebpackPlugin(
-        [config.output.path], // reuse config output path from above
-        {
-          'root': path.resolve(config.output.path, '../') // focus plugins root out of build/config/
-        }
-      ),
+      new HardSourceWebpackPlugin(),
       new CopyWebpackPlugin([ // react-routes rewrite files for hosting guide on remote a web server.
         {
           from: path.resolve(__dirname, `../scaffolding/${(Package.remote.type !== 'IIS') ? '.htaccess' : 'web.config'}`), // for IIS servers
           to: config.output.path
         }
       ])
+    );
+
+    if (argv.guide !== 'true') {
+      config.plugins.push(
+        new CleanWebpackPlugin(
+          [config.output.path], // reuse config output path from above
+          {
+            'root': path.resolve(config.output.path, '../') // focus plugins root out of build/config/
+          }
+        )
+      );
+    }
+  }
+
+  // GUIDE BUILDS
+  if (argv.guide || argv.mode === 'development') {
+    config.plugins.push(
+      new WebpackPlugins.StatsBundle(argv.mode) // Capture webpack bundling stats object into guide.
     );
   }
 

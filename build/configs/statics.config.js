@@ -1,14 +1,20 @@
+/*
+  Main configuration entry for exporting JSX examples.
+  This configuration entry does not bundle any assets, instead it is a entry point to export custom code
+  out of a normal production build process.
+*/
+
 // config dependencies
-require('./paths.config');
+require('./webpack/paths.config');
 const path = require('path');
 const Webpack = require('webpack');
+const Package = require('../../package.json');
+const WebpackPlugins = require('./webpack/webpack.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const WebpackPlugins = require('./webpack.plugins.js');
-const Package = require('../../package.json');
 
 // config files
-const alias = require('./alias.config.js');     // all file path alias helper configurations
+const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
 let img = require('./img/img.config.js');       // all image related build configurations
 img.config[0].use[0].options.emitFile = false;  //disable the output of image files
 

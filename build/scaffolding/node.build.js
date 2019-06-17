@@ -68,7 +68,7 @@ const sync = () => {
 */
 const static = () => {
   if (Package.statics.enable === true) {
-    exec('webpack --config ./build/configs/static.config.js --mode production');
+    exec('webpack --config ./build/configs/statics.config.js --mode production');
   }
 };
 

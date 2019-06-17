@@ -1,3 +1,11 @@
+/*
+  WebpackSvgSpritly is a custom Unslated plugin to export out a iconset.svg file based on all svg files
+  found in src/elements/atoms/Icons/assets.
+
+  This plugin helps not only bundle a iconset for production assets, but also overcome cache limitaions
+  during development builds within the component guide.
+*/
+
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');

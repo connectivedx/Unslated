@@ -1,15 +1,17 @@
 /*
-  Here lives all of Unslated's core custom webpack plugins.
-  Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks. (see: https://webpack.js.org/api/compiler-hooks/)
+  Custom webpack plugins
+  Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks.
+  (see: https://webpack.js.org/api/compiler-hooks/)
 */
+
 const fs = require('fs-extra');
 const path = require('path');
 const rimraf = require("rimraf");
 const pretty = require('pretty');
 const docgen = require('react-docgen');
-const Package = require('../../package.json');
+const Package = require('../../../package.json');
 const POSTCSS = require('postcss');
-const POSTCSSPlugins = require('./css/css.postcss.config.js');
+const POSTCSSPlugins = require('../css/css.postcss.config.js');
 const ReactDOMServer = require('react-dom/server');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -83,7 +85,7 @@ class StaticBundle {
     const Html = ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/data-sly-unwrap=""/g, 'data-sly-unwrap').replace(/></g, '>\r<');
 
     fs.writeFile(
-      path.resolve(__dirname, `../../${Package.statics.dest}/${example.staticPath}`),
+      path.resolve(__dirname, `../../../${Package.statics.dest}/${example.staticPath}`),
       pretty(`
         <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
         <!-- (see: ${this.getSourcePath(example.name, compilation)}) -->
@@ -102,7 +104,7 @@ class StaticBundle {
   apply(compiler) {
     // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require(path.resolve(__dirname, `../../${Package.statics.dest}/../static.js`)); // require bundled version of entry file
+      require(path.resolve(__dirname, `../../../${Package.statics.dest}/../static.js`)); // require bundled version of entry file
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
@@ -111,7 +113,7 @@ class StaticBundle {
           example.staticPath = example.staticPath.replace(/\\/g, '/');
 
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
-          const dest = path.resolve(__dirname, `../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
+          const dest = path.resolve(__dirname, `../../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);
           // second write files to newly created dest directories
@@ -124,7 +126,7 @@ class StaticBundle {
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       fs.unlink(
         path.resolve(__dirname,
-        `../../${Package.statics.dest}/../static.js`),
+        `../../../${Package.statics.dest}/../static.js`),
         (staticErr) => {
           if (staticErr) { console.log(staticErr); }
         }

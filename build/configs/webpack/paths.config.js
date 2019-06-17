@@ -4,7 +4,7 @@
   Note: global object is only available to the build system, not any guide or assets being rendered by browser.
 */
 
-const Package = require('../../package.json');
+const Package = require('../../../package.json');
 
 global.buildType = (process.argv.indexOf('development') !== -1) ? 'development' : 'production';
 
