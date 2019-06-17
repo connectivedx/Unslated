@@ -58,6 +58,10 @@ class ProcessCSSPostBundle {
   }
 }
 
+/*
+  Helper plugin to perform static JSX example exporting to standalone html fragments.
+  Configured in both package.json file and per example options.
+*/
 class StaticBundle {
   constructor() {
   }
@@ -79,15 +83,16 @@ class StaticBundle {
     const Html = ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/data-sly-unwrap=""/g, 'data-sly-unwrap').replace(/></g, '>\r<');
 
     fs.writeFile(
-      path.resolve(__dirname, `${Package.statics.dest}/${example.staticPath}`),
+      path.resolve(__dirname, `../../${Package.statics.dest}/${example.staticPath}`),
       pretty(`
         <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
         <!-- (see: ${this.getSourcePath(example.name, compilation)}) -->
 
         ${Html}
       `),
-      (e) => {
-        if (e) {
+      (err) => {
+        if (err) {
+          console.log(err);
           return false;
         }
       }
@@ -97,7 +102,7 @@ class StaticBundle {
   apply(compiler) {
     // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require(path.resolve(__dirname, `${Package.statics.dest}/static.js`)); // require bundled version of entry file
+      require(path.resolve(__dirname, `../../${Package.statics.dest}/../static.js`)); // require bundled version of entry file
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
@@ -106,10 +111,9 @@ class StaticBundle {
           example.staticPath = example.staticPath.replace(/\\/g, '/');
 
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
-          const dest = path.resolve(__dirname, `${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
+          const dest = path.resolve(__dirname, `../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);
-
           // second write files to newly created dest directories
           this.writeHtmlFile(example, compilation);
         }
@@ -120,12 +124,9 @@ class StaticBundle {
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       fs.unlink(
         path.resolve(__dirname,
-        `./${Package.statics.dest}/static.js`),
+        `../../${Package.statics.dest}/../static.js`),
         (staticErr) => {
           if (staticErr) { console.log(staticErr); }
-          rimraf(path.resolve(__dirname, `./${Package.statics.dest}/img/`), (imgErr) => {
-            if (imgErr) { console.log(imgErr); }
-          });
         }
       );
     });

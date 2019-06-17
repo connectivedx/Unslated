@@ -329,7 +329,6 @@ const comments = postcss.plugin('postcss-comments', (options) => {
     root.walkComments(comment => {
       comment.remove();
     });
-    fs.writeFile(path.resolve(__dirname, '../../../dump.txt'), root.toString(), (err) => { });
   };
 });
 
