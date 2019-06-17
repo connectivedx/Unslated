@@ -111,7 +111,7 @@ export const Select = (el) => {
         ${options[i].innerHTML}
       </li>
     `).join('');
-    console.log(ui.decorator);
+
     ui.decorator.innerHTML = collection;
   };
 
