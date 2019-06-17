@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const Package = require('../../../package.json');
 
 const generateHash = () => crypto.createHash('md5').update(new Date().toLocaleTimeString()).digest('hex');
 
@@ -51,7 +52,7 @@ class WebpackSvgSpritely {
   apply(compiler) {
     compiler.hooks.emit.tap('WebpackSvgSpritely', compilation => {
       // reset variables
-      this.newHash = ['iconset-', generateHash(), '.svg'].join(''); // in with the new
+      this.newHash = `iconset-${generateHash()}.svg`; // in with the new
       this.symbols = '';
 
       // Grab a collection of icons based on filters option
@@ -80,6 +81,16 @@ class WebpackSvgSpritely {
           // Reach into bundle and replace instance of iconset-[hash] with actual bundle hash (works under both dev and prod builds)
           recursiveSubStringReplace(compilation.assets[i], /iconset-(.*)\.svg/g, this.newHash);
 
+          // Replace Icon.container.js pathing with production configuration
+          if (process.argv.indexOf('production') !== -1) {
+            recursiveSubStringReplace(compilation.assets[i], /\[publicPath\]/g, Package.directories.publicPath);
+          }
+
+          // Replace Icon.container.js pathing with development configuration
+          if (process.argv.indexOf('development') !== -1) {
+            recursiveSubStringReplace(compilation.assets[i], /\[publicPath\]/g, '/assets/');
+          }
+
           // We have cached development source ._cachedSource. (not in my house!)
           if (compilation.assets[i]._cachedSource) {
             triggerRebuild();
@@ -95,7 +106,7 @@ class WebpackSvgSpritely {
           if (assetName === iconName) {
             if (!compilation.assets[i]._value) { return; }
             let contents = compilation.assets[i]._value.toString('utf8');
-            contents = contents.replace(/<svg/g, '<symbol id="icon-'+this.icons[k].name+'"');
+            contents = contents.replace(/<svg/g, `<symbol id="icon-${this.icons[k].name}"`);
             contents = contents.replace(/<\/svg>/g, '</symbol>');
             contents = contents.replace('xmlns="http://www.w3.org/2000/svg"', '');
             contents = contents.replace(/<style>(.*)<\/style>/g, '<style><![CDATA[$1]]></style>');
