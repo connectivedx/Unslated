@@ -20,7 +20,7 @@ export const Guide = (props) => {
   return (
     <Tag className={classStack} {...attrs}>
       <BrowserRouter>
-        <main className="guide__main">
+        <div className="guide__main">
           <Switch>
             <Route exact path="/" component={Welcome} />
             <Route exact path="/examples" component={Welcome} />
@@ -30,14 +30,14 @@ export const Guide = (props) => {
             <Route component={BadAddress} />
           </Switch>
           <Nav />
-        </main>
+        </div>
       </BrowserRouter>
     </Tag>
   );
 };
 
 Guide.defaultProps = {
-  tagName: 'main'
+  tagName: 'div'
 };
 
 Guide.propTypes = {

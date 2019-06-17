@@ -17,19 +17,38 @@ const cmd = params[2];
   node module dependencies that need to be downloaded prior to running a build.
 */
 const sync = () => {
+  let needsSyncing = false;
   if (fs.existsSync(path.resolve(__dirname, `../../node_modules`))){
     console.log('Checking dependencies . . .');
     fs.stat(Package.directories.dest, function(err, dstats){
       if (err) {
+        console.log(err);
         return false;
       }
       const destLastModifiedTime = new Date(dstats.mtime).getTime();
-      fs.stat(path.resolve(__dirname, '../package.json'), function(err, pstats){
+
+      fs.stat(path.resolve(__dirname, '../../package.json'), function(err, pstats){
         if (err) {
+          console.log(err);
           return false;
         }
+
         const packageLastModifiedTime = new Date(pstats.mtime).getTime();
         if (packageLastModifiedTime >= destLastModifiedTime) {
+          needsSyncing = true;
+        } else {
+          deps = { ...Package.devDependencies, ...Package.dependencies };
+
+          if (deps) {
+            Object.keys(deps).map((i) => {
+              if (!fs.existsSync(path.resolve(__dirname, `../../node_modules/${i}`))) {
+                needsSyncing = true;
+              }
+            });
+          }
+        }
+
+        if (needsSyncing === true) {
           console.log('Updating dependencies! This may effect cache, please hold . . .');
           exec('npm install');
         }
