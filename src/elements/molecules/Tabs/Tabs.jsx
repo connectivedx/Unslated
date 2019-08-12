@@ -1,5 +1,3 @@
-import Heading from '@atoms/Heading/Heading';
-
 /**
   Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.<br/>
   <strong>Mobile friendly:</strong> Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordion experince.
@@ -16,7 +14,7 @@ export class Tabs extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default', 'outline']),
+    variant: PropTypes.oneOf(['default']),
     /** Children passed through */
     children: PropTypes.node,
     /** Alignment of targets within tabs system (top, bottom, left, right). */
@@ -75,7 +73,7 @@ export class Tabs extends React.Component {
   }
 }
 
-export class Tabs__section extends React.Component {
+export class Tabs__triggers extends React.Component {
   static propTypes = {
     /** Tag overload */
     tagName: PropTypes.oneOfType([
@@ -83,8 +81,49 @@ export class Tabs__section extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /** Class stacking */
-    className: PropTypes.string,
+    /** Style variants */
+    variant: PropTypes.oneOf(['default']),
+    /** Children passed through */
+    children: PropTypes.node
+  };
+
+  static defaultProps = {
+    tagName: 'div',
+    variant: 'default'
+  };
+
+
+  render = () => {
+    const {
+      tagName: Tag,
+      variant,
+      ...attrs
+    } = this.props;
+
+    let { children } = this.props;
+
+    children = Object.keys(children).map((i) => {
+      children[i].props['data-tabs-trigger'] = i;
+
+      return children[i];
+    });
+
+    return (
+      <Tag className="tabs__triggers" {...attrs}>
+        {children}
+      </Tag>
+    );
+  }
+}
+
+export class Tabs__targets extends React.Component {
+  static propTypes = {
+    /** Tag overload */
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
@@ -98,23 +137,27 @@ export class Tabs__section extends React.Component {
     variant: 'default'
   };
 
+
   render = () => {
     const {
       tagName: Tag,
-      className,
       variant,
-      children,
       title,
       ...attrs
     } = this.props;
 
+    let { children } = this.props;
+
+    children = Object.keys(children).map((i) => {
+      children[i].props['data-tabs-target'] = i;
+      children[i].props.className = 'hide';
+      return children[i];
+    });
+
     return (
-      <React.Fragment>
-        {(title) ? <Heading className="tabs__trigger">{title}</Heading> : '' }
-        <div className="tabs__target" {...attrs}>
-          {children}
-        </div>
-      </React.Fragment>
+      <Tag className="tabs__targets" {...attrs}>
+        {children}
+      </Tag>
     );
   }
 }

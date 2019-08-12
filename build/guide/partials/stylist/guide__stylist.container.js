@@ -122,7 +122,7 @@ export const GuideStylist = (el) => {
     }
 
 
-    const stats = filterBuildStats(__stats__.chunks[0].modules); // eslint-disable-line
+    const stats = filterBuildStats(__stats__.chunks.modules); // eslint-disable-line
     let i = stats.length;
 
     while (i--) {

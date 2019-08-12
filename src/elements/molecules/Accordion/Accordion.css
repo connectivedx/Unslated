@@ -1,6 +1,6 @@
 :root {
-  --target-padding: 1rem;
-  --trigger-padding: 0.65rem var(--target-padding);
+  --target-padding: rem(16px);
+  --trigger-padding: rem(10px) var(--target-padding);
   --border-style: 1px solid var(--color-gray);
   --trigger-bg-color: var(--color-gray-light);
   --target-bg-color: var(--color-white);
@@ -17,20 +17,13 @@
 
   /* Style Variants */
   &--default {
-    border: var(--border-style);
-
-    .expand:first-child {
-      .expand__trigger {
-        border-top: 0;
-      }
-    }
-
     .expand__trigger {
       background-color: var(--trigger-bg-color);
-      border-top: var(--border-style);
+      border: var(--border-style);
       color: var(--color-gray);
       font-size: rem(16px);
       font-weight: normal;
+      margin-top: rem(-1px);
       padding: var(--trigger-padding);
     }
 
@@ -41,17 +34,14 @@
 
     .expand-state--closed {
       .expand__target {
-        padding-bottom: 0;
-        padding-top: 0;
+        padding: 0;
       }
     }
 
     .expand-state--open {
-      .expand__trigger {
-        border-bottom: var(--border-style);
-      }
-
       .expand__target {
+        border: var(--border-style);
+        margin-top: rem(-1px);
         transition: padding-top 0.5s, padding-bottom 0.5s, max-height 0.1s 0.1s ease;
       }
     }
@@ -59,38 +49,9 @@
 
   &--spread {
     @extend-all .accordion--default;
-    border: none;
-
-    .expand:first-child {
-      .expand__trigger {
-        border-top: var(--border-style);
-      }
-    }
-
-    .expand__trigger {
-      border: var(--border-style);
-    }
-
-    .expand-state--open {
-      .expand__target {
-        border: var(--border-style);
-      }
-
-      &.expand-align--top {
-        .expand__target {
-          border-top: none;
-        }
-      }
-
-      &.expand-align--bottom {
-        .expand__target {
-          border-bottom: none;
-        }
-      }
-    }
 
     .expand:not(:last-child) {
-      margin-bottom: 1rem;
+      margin-bottom: rem(16px);
     }
   }
 }

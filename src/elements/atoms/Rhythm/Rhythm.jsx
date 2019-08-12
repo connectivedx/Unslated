@@ -1,6 +1,6 @@
 /**
   Rhythm is used to define vertical spacing between elements because CSS reset is used.
-  Adds `margin-top` to child elements, except for the first element.
+  Adds margin-top to child elements, except for the first element.
 */
 
 export class Rhythm extends React.Component {

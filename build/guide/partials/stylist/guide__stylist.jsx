@@ -6,8 +6,8 @@ import breakpoints from '!!style-loader!css-loader!@vars/breakpoints';
 
 export const Guide__stylist = (props) => {
   const {
+    data,
     children,
-    examples,
     ...attrs
   } = props;
 
@@ -26,9 +26,9 @@ export const Guide__stylist = (props) => {
           <Select label={false} className="guide__stylist-examples" defaultValue="0" id="examples" name="examples">
             <option value="0">All examples</option>
             {
-              Object.keys(examples).map((index) => (
+              Object.keys(data).map((index) => (
                 <option key={index} value={(parseInt(index, 10) + 1)}>
-                  {examples[index].name}
+                  {data[index].name}
                 </option>
               ))
             }

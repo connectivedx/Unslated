@@ -32,7 +32,7 @@ export default [{
       description: '',
       component: (
         <Fieldset legend="This is a fieldset legend">
-          <List tagName="ol">
+          <List tagName="ol" variant="blank">
             <Input tagName="li" type="radio" label="yes" id="example1-answer-yes" name="yes-no-01" value="yes" />
             <Input tagName="li" type="radio" label="no" id="example1-answer-yes" name="yes-no-01" value="no" />
           </List>
@@ -44,7 +44,7 @@ export default [{
       description: '',
       component: (
         <Fieldset legend="This is a fieldset legend" legendHide={false}>
-          <List tagName="ol">
+          <List tagName="ol" variant="blank">
             <Input tagName="li" type="radio" label="yes" id="example2-answer-yes" name="yes-no-02" value="yes" />
             <Input tagName="li" type="radio" label="no" id="example2-answer-no" name="yes-no-02" value="no" />
           </List>

@@ -17,7 +17,19 @@ const cmd = params[2];
   node module dependencies that need to be downloaded prior to running a build.
 */
 const sync = () => {
+  // First lets check to make sure end user has correct version of NODEJS installed on machine!
+  const systemNode = process.version.replace('v', '');
+  const neededNode = Package.engines.node.replace('>', '').replace('=', '');
+
+  console.log('\x1b[33mChecking system node version . . .\x1b[37m');
+  if (systemNode !== neededNode) {
+    console.log(`\x1b[31mError: System NodeJS version is \x1b[33m${systemNode}\x1b[31m, while this project requires \x1b[33m${neededNode}\x1b[31m!\nPlease use the recommended version and try again.\x1b[37m`);
+    process.exit(1);
+    return false;
+  }
+
   let needsSyncing = false;
+
   if (fs.existsSync(path.resolve(__dirname, `../../node_modules`))){
     console.log('Checking dependencies . . .');
     fs.stat(Package.directories.dest, function(err, dstats){
@@ -25,7 +37,6 @@ const sync = () => {
         console.log(err);
         return false;
       }
-      const destLastModifiedTime = new Date(dstats.mtime).getTime();
 
       fs.stat(path.resolve(__dirname, '../../package.json'), function(err, pstats){
         if (err) {
@@ -33,7 +44,9 @@ const sync = () => {
           return false;
         }
 
+        const destLastModifiedTime = new Date(dstats.mtime).getTime();
         const packageLastModifiedTime = new Date(pstats.mtime).getTime();
+
         if (packageLastModifiedTime >= destLastModifiedTime) {
           needsSyncing = true;
         } else {
@@ -49,8 +62,10 @@ const sync = () => {
         }
 
         if (needsSyncing === true) {
-          console.log('Updating dependencies! This may effect cache, please hold . . .');
+          console.log('\x1b[33mUpdating dependencies! This may effect cache, please hold . . .\x1b[37m');
           exec('npm install');
+        } else {
+          console.log('\x1b[32mNo dependencies changed.\nBuild is now starting . . .\x1b[37m')
         }
       });
     });
@@ -58,7 +73,7 @@ const sync = () => {
     console.log('Welcome to Unslated!');
     console.log('Installing dependencies . . .');
     exec('npm install');
-    console.log('Running build! Please allow time for cache to be built for first time. . . .');
+    console.log('\x1b[32mBuild is now starting . . .\x1b[37m');
   }
 };
 

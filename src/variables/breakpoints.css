@@ -7,20 +7,20 @@
 */
 
 :export {
-  --extra-small: only screen and (min-width: rem(384px));
-  --small: only screen and (min-width: rem(512px));
-  --medium-small: only screen and (min-width: rem(640px));
-  --medium: only screen and (min-width: rem(768px));
-  --medium-large: only screen and (min-width: rem(896px));
-  --large: only screen and (min-width: rem(1024px));
-  --extra-large: only screen and (min-width: rem(1152px));
+  --extra-small: only screen and (min-width: 384px);
+  --small: only screen and (min-width: 512px);
+  --medium-small: only screen and (min-width: 640px);
+  --medium: only screen and (min-width: 768px);
+  --medium-large: only screen and (min-width: 896px);
+  --large: only screen and (min-width: 1024px);
+  --extra-large: only screen and (min-width: 1152px);
 
   /* mobile only breakpoint */
-  --below-extra-small: only screen and (max-width: rem(384px));
-  --below-small: only screen and (max-width: rem(512px));
-  --below-medium-small: only screen and (max-width: rem(640px));
-  --below-medium: only screen and (max-width: rem(768px));
-  --below-medium-large: only screen and (max-width: rem(896px));
-  --below-large: only screen and (max-width: rem(1024px));
-  --below-extra-large: only screen and (max-width: rem(1152px));
+  --below-extra-small: only screen and (max-width: 384px);
+  --below-small: only screen and (max-width: 512px);
+  --below-medium-small: only screen and (max-width: 640px);
+  --below-medium: only screen and (max-width: 768px);
+  --below-medium-large: only screen and (max-width: 896px);
+  --below-large: only screen and (max-width: 1024px);
+  --below-extra-large: only screen and (max-width: 1152px);
 }

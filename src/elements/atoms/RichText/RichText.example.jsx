@@ -36,7 +36,7 @@ export default [{
           <h5>Heading 5</h5>
           <h6>Heading 6</h6>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. In culpa vitae atque nesciunt error cum numquam sit facere. Quidem aut quibusdam consequuntur dolore sed perspiciatis exercitationem hic a eligendi alias autem sunt itaque ea fugit voluptatem maiores, eaque corporis numquam debitis. Obcaecati omnis non libero architecto deleniti autem adipisci alias.
+            {Utils.ipsum('sentence', 2)}
           </p>
           <ul>
             <li>apple</li>
@@ -49,7 +49,7 @@ export default [{
             <li>Kim</li>
           </ol>
           <p>
-            Lorem ipsum dolor sit amet, <a href="#/">consectetur adipisicing elit.</a> Sit ipsum sed, nesciunt earum quas molestiae nam repudiandae voluptas deserunt vitae.
+            {Utils.ipsum('sentence', 5)}, <a href="#/">{Utils.ipsum('word', 3)}</a> {Utils.ipsum('sentence', 1)}
           </p>
           <button type="button">This button</button>
         </RichText>

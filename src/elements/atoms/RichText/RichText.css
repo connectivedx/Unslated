@@ -1,8 +1,3 @@
-@import "@atoms/Rhythm/Rhythm.css";
-@import "@atoms/Heading/Heading.css";
-@import "@atoms/Button/Button.css";
-@import "@atoms/List/List.css";
-
 .rich-text {
   @extend-all .rhythm--deep;
 

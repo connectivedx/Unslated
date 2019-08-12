@@ -45,8 +45,8 @@ export default [{
         <Media__body>
           <Rhythm size="small">
             <Heading level="h3">Randy Savage Buddy</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Rhythm>
         </Media__body>
       </Media>
@@ -58,8 +58,8 @@ export default [{
         <Media__body>
           <Rhythm size="small">
             <Heading level="h3">Randy Savage Buddy</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Rhythm>
         </Media__body>
 
@@ -79,8 +79,8 @@ export default [{
         <Media__body>
           <Rhythm size="small">
             <Heading level="h3">Randy Savage Buddy</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Rhythm>
         </Media__body>
       </Media>
@@ -96,8 +96,8 @@ export default [{
         <Media__body>
           <Rhythm size="small">
             <Heading level="h3">Randy Savage Buddy</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Rhythm>
         </Media__body>
       </Media>
@@ -113,8 +113,8 @@ export default [{
         <Media__body>
           <Rhythm size="small">
             <Heading level="h3">Randy Savage Buddy</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Rhythm>
         </Media__body>
 
@@ -139,7 +139,7 @@ export default [{
           <Rhythm size="large">
             <Rhythm size="small">
               <Heading level="h3">Randy Savage Buddy</Heading>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque facilis accusantium dolorum deserunt rem ex voluptas impedit doloribus facere, velit, possimus! Aliquid amet, corrupti cumque quae perferendis eos recusandae, nam non dicta velit rem enim vitae! Facere, aliquid inventore reiciendis.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Rhythm>
 
             <Media>
@@ -150,8 +150,8 @@ export default [{
               <Media__body>
                 <Rhythm size="small">
                   <Heading level="h3">Lorem ipsum dolor sit.</Heading>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quisquam sequi odit hic adipisci, ad consequatur quasi id aspernatur debitis saepe voluptatum veritatis consequuntur quas porro dolor molestiae error iste iusto voluptate nisi atque tempore! Beatae quod debitis modi soluta!</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quisquam sequi odit hic adipisci, ad consequatur quasi id aspernatur debitis saepe voluptatum veritatis consequuntur quas porro dolor molestiae error iste iusto voluptate nisi atque tempore! Beatae quod debitis modi soluta!</p>
+                  <p>{Utils.ipsum('paragraph', 1)}</p>
+                  <p>{Utils.ipsum('paragraph', 1)}</p>
                 </Rhythm>
               </Media__body>
             </Media>
@@ -160,7 +160,7 @@ export default [{
               <Media__body>
                 <Rhythm size="small">
                   <Heading level="h3">Lorem ipsum dolor sit.</Heading>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quisquam sequi odit hic adipisci, ad consequatur quasi id aspernatur debitis saepe voluptatum veritatis consequuntur quas porro dolor molestiae error iste iusto voluptate nisi atque tempore! Beatae quod debitis modi soluta!</p>
+                  <p>{Utils.ipsum('paragraph', 1)}</p>
                 </Rhythm>
               </Media__body>
 

@@ -65,18 +65,21 @@ const getElementListing = (examples, level) => Object.keys(examples).map((i) => 
 
 // Navigation atomic levels
 const getAtomicListing = () => {
-  const elements = GuideUtils.getExamples();
-
-  const collection = [];
+  const elements = global.guide.examples;
 
   // Create new atomic level collection of elements
+  const collection = [];
   Object.keys(elements).map((index) => {
-    const examples = elements[index];
-    if (!collection[examples.atomic]) {
-      collection[examples.atomic] = [];
+    const { atomic } = elements[index];
+
+    if (atomic) {
+      if (!collection[atomic]) {
+        collection[atomic] = [];
+      }
+
+      collection[atomic].push(elements[index]);
     }
 
-    collection[examples.atomic].push(examples);
     return true;
   });
 
@@ -103,31 +106,34 @@ const getAtomicListing = () => {
 
 // Navigation atomic levels
 const getPageListing = () => {
-  const pages = GuideUtils.getPages();
+  const { pages } = global.guide;
   if (!Object.keys(pages).length) { return false; }
   return (
     <List__item>
       <Heading level="h3" className="pages">Pages</Heading>
       <List className="hidden">
         {
-          Object.keys(pages).map((key, index) => {
-            const pageName = key.split('./')[1].split('.')[0];
-            return (
-              <List__item data-search={pageName} key={index}>
-                <Link href={['../../../pages/', pageName].join('')}>{pageName.charAt(0).toUpperCase() + pageName.slice(1)}</Link>
-                {
-                  (process.env.NODE_ENV === 'development')
-                    ? (
-                      <span className="guide__nav-icons">
-                        <span data-modal="rename" data-path={`src/pages/${pageName}.jsx`} data-name={pageName}><Icon name="pencil" /></span>
-                        <span data-modal="remove" data-path={`src/pages/${pageName}.jsx`}><Icon name="trash" /></span>
+          Object.keys(pages).map((key, index) => (
+            <List__item data-search={key} key={index}>
+              <Link href={`../../../pages/${key}`}>
+                {Utils.titleCapitalize(key)}
+              </Link>
+              {
+                (process.env.NODE_ENV === 'development')
+                  ? (
+                    <span className="guide__nav-icons">
+                      <span data-modal="rename" data-path={`src/pages/${key}.jsx`} data-name={key}>
+                        <Icon name="pencil" />
                       </span>
-                    )
-                    : ''
-                }
-              </List__item>
-            );
-          })
+                      <span data-modal="remove" data-path={`src/pages/${key}.jsx`}>
+                        <Icon name="trash" />
+                      </span>
+                    </span>
+                  )
+                  : ''
+              }
+            </List__item>
+          ))
         }
       </List>
     </List__item>
@@ -136,7 +142,7 @@ const getPageListing = () => {
 
 // Navigation atomic levels
 const getToolsListing = () => {
-  const pages = GuideUtils.getTools();
+  const pages = global.guide.tools;
 
   if (!Object.keys(pages).length) { return false; }
   return (
@@ -144,18 +150,15 @@ const getToolsListing = () => {
       <Heading level="h3" className="utilities">Tools</Heading>
       <List className="hidden">
         {
-          Object.keys(pages).map((key, index) => {
-            const pageName = key.split('./')[1].split('.')[0];
-            return (
-              <List__item data-search={pageName} key={index}>
-                <Link
-                  href={['../../../tools/', pageName].join('')}
-                >
-                  {pageName.charAt(0).toUpperCase() + pageName.slice(1)}
-                </Link>
-              </List__item>
-            );
-          })
+          Object.keys(pages).map((key, index) => (
+            <List__item data-search={key} key={index}>
+              <Link
+                href={`../../../tools/${key}`}
+              >
+                {Utils.titleCapitalize(key)}
+              </Link>
+            </List__item>
+          ))
         }
       </List>
     </List__item>

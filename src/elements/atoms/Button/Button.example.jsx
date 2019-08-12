@@ -26,6 +26,7 @@ import Button from './Button';
 export default [{
   examples: [{
     name: 'Default styling',
+    staticPath: '/button/button.html',
     component: (
       <Button>Hello World</Button>
     ),

@@ -50,29 +50,27 @@ export default [{
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
           </Table__body>
@@ -92,29 +90,29 @@ export default [{
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
             <Table__row>
               <Table__header>Lorem Ipsum</Table__header>
               <Table__data>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nostrum numquam officiis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <p>{Utils.ipsum('sentence', 2)}</p>
+                <p>{Utils.ipsum('sentence', 1)}</p>
               </Table__data>
             </Table__row>
           </Table__body>

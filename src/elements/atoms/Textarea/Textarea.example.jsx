@@ -27,7 +27,7 @@ export default [{
       name: 'Textarea',
       component: (
         <Textarea id="01" label="Basic input label text" type="text" name="text-input" required={true} error="This field is required" cols="80" rows="5">
-          This is my test content within a textarea.
+          {Utils.ipsum('word', 12)}
         </Textarea>
       ),
       notes: ''
@@ -35,7 +35,7 @@ export default [{
       name: 'Textarea (without label)',
       component: (
         <Textarea id="05" label={false} type="text" name="text-input" required={true} error="This field is required" cols="80" rows="5">
-          This is my test content within a textarea.
+          {Utils.ipsum('word', 12)}
         </Textarea>
       ),
       notes: ''

@@ -17,10 +17,10 @@
   }
   95% {
     transform: rotateX(-2deg);
-  }  
+  }
   100% {
     transform: rotateX(0deg);
-  }  
+  }
 }
 
 .guide__metrics {
@@ -28,7 +28,7 @@
   .chart-container {
     display: flex;
     justify-content: space-around;
-    align-items: flex-start;    
+    align-items: flex-start;
     .card__body {
       position: sticky;
       align-self: top;
@@ -41,29 +41,27 @@
   .tabs {
     display: flex;
     justify-content: space-between;
-    padding: 0;  
+    padding: 0;
   }
 
-  .card {
-    .card {
-      margin: 0;
-    }
-
-    .card__header {
-      .heading { font-size: rem(18px); }
-    }
+  .card__header {
+    .heading { font-size: rem(18px); }
   }
 
-  .tabs__trigger {
+  .tabs__triggers {
+    justify-content: space-between !important;
+    margin-bottom: rem(18px);
+  }
+
+  [data-tabs-trigger] {
     font-size: 0.85rem;
     text-align: left;
     position: relative;
-    margin: 0;
     transform-origin: top center;
     transform: rotateX(90deg);
 
     &.fall-flip {
-      animation: 2s ease-in-out fall-flip forwards;    
+      animation: 2s ease-in-out fall-flip forwards;
     }
 
     &:nth-child(1) { animation-delay: 0.1s }
@@ -97,32 +95,35 @@
 
     &.card:nth-child(1) {
       background-color: #f1e05a;
-      color: var(--color-black); 
+      color: var(--color-black);
     }
 
-    &.card:nth-child(3) {
+    &.card:nth-child(2) {
       background-color: #563d7c;
+      color: var(--color-white);
 
-    }    
-    .card { 
+    }
+    .card {
       width: 100%;
       &__body {
         display: flex;
-        flex-direction: column;     
+        flex-direction: column;
       }
     }
   }
 
-  .tabs__target {
+  [data-tabs-target] {
     display: flex;
     justify-content: space-between;
     width: 100%;
     > * {
-      width: calc(100% / 2.02);
+      width: calc(50% - 10px);
     }
 
     .card {
       margin-top: 1rem;
+      margin-left: 0;
+      margin-right: 0;
     }
 
     .list__item {
@@ -132,6 +133,7 @@
       padding: 0.5rem;
       display: block;
       position: relative;
+      word-break: break-all;
 
       .bar {
         background-color: var(--color-generic--green);

@@ -1,41 +1,59 @@
+// The Tabs JS module
 export const Tabs = (el) => {
+  // Tabs ui helper object
   const ui = {
     el,
-    triggers: el.querySelectorAll('.tabs__trigger'),
-    targets: el.querySelectorAll('.tabs__target'),
-    defaultTab: el.dataset.default
+    triggers: el.querySelectorAll('[data-tabs-trigger]'),
+    targets: el.querySelectorAll('[data-tabs-target]')
   };
 
-  const init = () => {
-    ui.el.addEventListener('click', (e) => {
-      const { target } = e;
-      if (!target.classList.contains('tabs__trigger')) { return; }
-
-      Object.keys(ui.triggers).map((index) => {
-        const trigger = ui.triggers[index];
-        Utils.replaceClass(trigger, ['tabs-state--closed', 'tabs-state--open']);
-
-        if (target !== trigger) {
-          Utils.replaceClass(trigger, ['tabs-state--open', 'tabs-state--closed']);
-        }
-
-        return true;
-      });
-
-      if (window.outerWidth < 768) {
-        window.scrollTo({
-          top: target.offsetTop,
-          left: 0,
-          behavior: 'smooth'
-        });
-      }
+  // Sets active state of clicked tab trigger
+  const state = (id) => {
+    Object.keys(ui.triggers).map((i) => {
+      ui.triggers[i].classList.remove('active');
+      return false;
     });
 
-    if (ui.defaultTab !== 'false') {
-      ui.triggers[parseInt(ui.defaultTab, 10)].click();
-    }
+    ui.triggers[id].classList.add('active');
+    return false;
   };
 
+  // Hides all tabs targets
+  const hide = () => Object.keys(ui.targets).map((i) => {
+    ui.targets[i].classList.add('hide');
+    return false;
+  });
+
+  // Shows specific tabs target
+  const show = (id) => {
+    hide();
+    state(parseInt(id, 10));
+    ui.targets[parseInt(id, 10)].classList.remove('hide');
+  };
+
+  // Tabs's main init method
+  const init = () => {
+    show(el.dataset.default);
+
+    // Event listener
+    ui.el.addEventListener('click', (e) => {
+      const { target } = e;
+      if (!target.dataset) { return false; }
+
+      if (target.dataset.tabsTrigger) {
+        show(target.dataset.tabsTrigger);
+        e.preventDefault();
+      }
+
+      return false;
+    });
+
+    // Makes methods available to DOM
+    el.hide = hide;
+    el.show = show;
+  };
+
+  // Self init
   init();
 };
 

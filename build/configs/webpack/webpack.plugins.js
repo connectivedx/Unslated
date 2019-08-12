@@ -4,16 +4,18 @@
 */
 const fs = require('fs-extra');
 const path = require('path');
+const https = require("https");
 const rimraf = require("rimraf");
-const pretty = require('pretty');
 const docgen = require('react-docgen');
 const Package = require('../../../package.json');
 const POSTCSS = require('postcss');
 const { parse } = require('node-html-parser');
-const POSTCSSPlugins = require('../css/css.postcss.config.js');
+const ExternalModule = require('webpack/lib/ExternalModule');
 const ReactDOMServer = require('react-dom/server');
+const POSTCSSPlugins = require('../css/css.postcss.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
 if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
@@ -109,13 +111,8 @@ class StaticBundle {
     }
 
     fs.writeFile(
-      path.resolve(__dirname, `${Package.statics.dest}/${example.staticPath}`),
-      pretty(`
-        <!--/* DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! */-->
-        <!--/* (see: ${this.getSourcePath(example.name, compilation)}) */-->
-
-        ${DOM.toString()}
-      `),
+      path.resolve(__dirname, `../../../${Package.statics.dest}/${example.staticPath}`),
+      `<!--/* DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! */-->\n<!--/* (see: ${this.getSourcePath(example.name, compilation)}) */-->\n${DOM.toString()}`,
       (e) => {
         if (e) {
           return false;
@@ -127,7 +124,7 @@ class StaticBundle {
   apply(compiler) {
     // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require(path.resolve(__dirname, `${Package.statics.dest}/static.js`)); // require bundled version of entry file
+      require(path.resolve(__dirname, `../../../${Package.statics.dest}/static.js`)); // require bundled version of entry file
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
@@ -136,7 +133,7 @@ class StaticBundle {
           example.staticPath = example.staticPath.replace(/\\/g, '/');
 
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
-          const dest = path.resolve(__dirname, `${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
+          const dest = path.resolve(__dirname, `../../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);
 
@@ -150,10 +147,10 @@ class StaticBundle {
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       fs.unlink(
         path.resolve(__dirname,
-        `./${Package.statics.dest}/static.js`),
+        `../../../${Package.statics.dest}/static.js`),
         (staticErr) => {
           if (staticErr) { console.log(staticErr); }
-          rimraf(path.resolve(__dirname, `./${Package.statics.dest}/img/`), (imgErr) => {
+          rimraf(path.resolve(__dirname, `../../../${Package.statics.dest}/assets/`), (imgErr) => {
             if (imgErr) { console.log(imgErr); }
           });
         }
@@ -162,24 +159,7 @@ class StaticBundle {
   }
 }
 
-/**
-  This plugin takes webpack's stats data object and injects it
-  into Unslates workflow. (see: https://webpack.js.org/api/stats/)
 
-  Because Webpack only offers the stats data object inside the 'done' tap hook; production and development builds
-  have their own method at bringing in stats.
-
-  PRODUCITON BUILDS:
-  1) Capture guide.js bundled contents into class variable.
-  2) Hook into webpack 'done', and filter down/inject stats object into guide.js
-
-  DEVELOPMENT BUILDS
-  1) Inject script block into index.html that points to emitted stats.js file under node_modules/.bin/
-  2) Hooks into webpack 'done', and filters down/writes stats object out to node_modules/.bin/webpack.stats.js
-
-  (Because we don't run watch in unslated, we don't have the opportunity to hook into webpack-dev-server's memory
-  and inject stats object into guide.js, thus DEVELOPMENT builds must use a disk file as outlined above.)
-*/
 class StatsBundle {
   constructor (buildType) {
     this.buildType = buildType;
@@ -266,8 +246,20 @@ class StatsBundle {
               delete parent[index]; // if found to still true, we delete it.
             }
           }
-        } else if (typeof object[i] === 'object') {
-          this.filterStats(object[i], filters, i, object); //if after all the above we still find object, we continue.
+
+          // cleans up names object
+          object[i] = object[i].replace(/css \.\/node_modules\/css-loader\?\?ref--4-1\!\.\/node_modules\/postcss-loader\/src\?\?postcss\!/g, '');
+        }
+
+        // if this object is its self another object, we re-filter it
+        if (typeof object[i] === 'object') {
+          // checks for and removes repeatly empty "assets": [] objects
+          if (i === 'assets' && !Object.keys(object[i]).length) {
+            delete object[i];
+          } else {
+            // recursive refiltering
+            this.filterStats(object[i], filters, i, object);
+          }
         }
       }
     }
@@ -311,9 +303,6 @@ class StatsBundle {
             if (Package.optimize.js) {
               this.guideSource = complation.assets[i]._value;
             }
-            /*fs.writeFile(path.resolve(__dirname, '../../../dump.txt'), JSON.stringify(complation.assets[i]),
-            (err) => { if (err) { console.log(err); } return false; });*/
-
           }
         });
       });
@@ -354,8 +343,45 @@ class StatsBundle {
   }
 }
 
+
+class CDNModules {
+  constructor(config) {
+    this.head = '';
+    this.body = '';
+    this.config = config;
+
+    Object.keys(this.config).map((i) => {
+      if (this.config[i].indexOf('css') !== -1) {
+        this.head += `<link href="${this.config[i]}" rel="stylesheet" />`;
+      } else {
+        this.body += `<script src="${this.config[i]}"></script>`;
+      }
+    });
+  }
+
+  apply(compiler) {
+    // 1) determin if endpoint is CSS or JS (aka before </head> or </body>)
+    // 2) scrub found modules against unpkg CDN
+    // 3) if found, remove module from bundle and inject script blocks into HtmlWebpackPlugin
+
+    // HtmlWebpackPlugin injection
+    compiler.hooks.compilation.tap({
+      name: 'CDNModules'
+    }, (compilation) => {
+      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tap(
+        'StatsCompile',
+        (data) => {
+          data.html = data.html.replace(/<link(.*?)<\/head>/, `${this.head}<link$1</head>`);
+          data.html = data.html.replace(/<script(.*?)<\/body>/, `${this.body}<script$1</body>`);
+        }
+      )
+    });
+  }
+}
+
 module.exports = {
   StatsBundle,
   StaticBundle,
+  CDNModules,
   ProcessCSSPostBundle
 };

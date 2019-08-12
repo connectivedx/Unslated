@@ -15,15 +15,12 @@ export class Card extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node,
-    /** Color defines the cards background color and forground content color */
-    color: PropTypes.oneOf(['white', 'red', 'green', 'blue', 'none'])
+    children: PropTypes.node
   };
 
   static defaultProps = {
     tagName: 'div',
-    variant: 'default',
-    color: 'white'
+    variant: 'default'
   };
 
   /** Element level options */
@@ -37,13 +34,11 @@ export class Card extends React.Component {
       className,
       variant,
       children,
-      color,
       ...attrs
     } = this.props;
 
     const classStack = Utils.createClassStack([
       'card',
-      `card--color-${color}`,
       `card--${variant}`,
       className
     ]);

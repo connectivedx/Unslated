@@ -8,11 +8,9 @@ global.components = [];
 
 Object.keys(components).map((i) => {
   const { examples } = components[i].default[0];
-
   Object.keys(examples).map((j) => {
     const { component } = examples[j];
     const { name } = component.type;
-
     global.components.push({
       name,
       source: component,
@@ -20,4 +18,3 @@ Object.keys(components).map((i) => {
     });
   });
 });
-
