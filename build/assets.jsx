@@ -5,7 +5,12 @@
   from the site or application main assets being bundled here.
 */
 
-import '@src/styles'; // see ./src/styles.js
-import '@src/scripts'; // see ./src/scripts.js
+import '@src/styles';
+import '@src/scripts';
 
-require('es6-object-assign').polyfill();
+// Icon bundling
+const requireAll = (r) => r.keys().map(r);
+requireAll(require.context('@atoms/Icon/assets', false, /\.(svg)$/));
+
+// Image bundling
+requireAll(require.context('@atoms/Image/assets', false, /\.(svg|jpg|png|gif)$/));

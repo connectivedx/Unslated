@@ -38,22 +38,22 @@ export default [{
         <Form action="#/" method="post">
           <Fieldset legend="Use the form below as an example on how to construct forms">
             <Rhythm tagName="ol">
-              <Input tagName="li" type="text" id="01" label="First text input example" name="first-text" required={true} />
-              <Input tagName="li" type="text" id="02" label="Second text input example" name="second-text" required={true} />
+              <Input tagName="li" type="text" id="01" label="First text input example" name="first-text" required={true} error="This field is required" />
+              <Input tagName="li" type="text" id="02" label="Second text input example" name="second-text" required={true} error="This field is required" />
               <List variant="blank">
                 <Fieldset legend="Yes or no?" legendHide={false}>
-                  <Input type="radio" id="03" label="Yes" name="yes-no" required={true} />
-                  <Input type="radio" id="04" label="No" name="yes-no" required={true} />
+                  <Input type="radio" id="03" label="Yes" name="yes-no" required={true} error="This field is required" />
+                  <Input type="radio" id="04" label="No" name="yes-no" required={true} error="This field is required" />
                 </Fieldset>
               </List>
-              <Input tagName="li" type="checkbox" id="05" name="agree" label="Please check this box to agree to terms." required={true} />
-              <Select tagName="li" label="Inline select label text" id="06" name="select" required={true} defaultValue="0">
-                <option value="0" />
+              <Input tagName="li" type="checkbox" id="05" name="agree" label="Please check this box to agree to terms." required={true} error="This field is required" />
+              <Select tagName="li" label="Inline select label text" id="06" name="select" required={true} error="This field is required" defaultValue="">
+                <option value="" />
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </Select>
-              <Textarea tagName="li" name="textarea" label="Textarea label" id="07" rows="4" cols="50" required={true} />
+              <Textarea tagName="li" name="textarea" label="Textarea label" id="07" rows="4" cols="50" required={true} error="This field is required" />
               <li>
                 <Button type="submit">Submit</Button>
               </li>

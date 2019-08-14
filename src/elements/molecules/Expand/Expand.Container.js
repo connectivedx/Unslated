@@ -1,10 +1,12 @@
+// The Expand JS module
 export const Expand = (el) => {
+  // Expand's ui helper object
   const ui = {
     trigger: el.querySelector('.expand__trigger'),
     target: el.querySelector('.expand__target')
   };
 
-
+  // Expands's main init method
   const init = () => {
     ui.trigger.addEventListener('click', () => {
       if (el.classList.contains('expand-state--open')) {
@@ -17,6 +19,7 @@ export const Expand = (el) => {
     });
   };
 
+  // Self init
   init();
 };
 

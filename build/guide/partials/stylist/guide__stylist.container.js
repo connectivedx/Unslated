@@ -101,28 +101,28 @@ export const GuideStylist = (el) => {
     }
 
     // Sets up event for stylist example change
-    if (ui.examples) {
-      ui.examples.addEventListener('change', () => {
+    if (ui.examplesNative) {
+      ui.examplesNative.addEventListener('change', () => {
         switchExamples(ui.examplesNative.selectedIndex);
       });
     }
 
     // Sets up event for stylist breakpoint change
-    if (ui.breakpoints) {
-      ui.breakpoints.addEventListener('change', () => {
+    if (ui.breakpointsNative) {
+      ui.breakpointsNative.addEventListener('change', () => {
         switchBreakpointSizes(ui.breakpointsNative.options[ui.breakpointsNative.selectedIndex].value);
       });
     }
 
     // Sets up event for stylist breakpoint debug speed change
-    if (ui.breakpointSpeeds) {
-      ui.breakpointSpeeds.addEventListener('change', () => {
+    if (ui.breakpointSpeedsNative) {
+      ui.breakpointSpeedsNative.addEventListener('change', () => {
         switchBreakpointSpeeds(ui.breakpointSpeedsNative.options[ui.breakpointSpeedsNative.selectedIndex].value);
       });
     }
 
 
-    const stats = filterBuildStats(__stats__.chunks[0].modules); // eslint-disable-line
+    const stats = filterBuildStats(__stats__.chunks.modules); // eslint-disable-line
     let i = stats.length;
 
     while (i--) {

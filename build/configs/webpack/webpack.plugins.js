@@ -1,20 +1,20 @@
 /*
-  Custom webpack plugins
-  Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks.
-  (see: https://webpack.js.org/api/compiler-hooks/)
+  Here lives all of Unslated's core custom webpack plugins.
+  Please note these plugins use the latest ^4.X tap plugin compiler and complation hooks. (see: https://webpack.js.org/api/compiler-hooks/)
 */
-
 const fs = require('fs-extra');
 const path = require('path');
-const rimraf = require("rimraf");
-const pretty = require('pretty');
+const https = require("https");
 const docgen = require('react-docgen');
 const Package = require('../../../package.json');
 const POSTCSS = require('postcss');
-const POSTCSSPlugins = require('../css/css.postcss.config.js');
+const { parse } = require('node-html-parser');
+const ExternalModule = require('webpack/lib/ExternalModule');
 const ReactDOMServer = require('react-dom/server');
+const POSTCSSPlugins = require('../css/css.postcss.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
 if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
@@ -61,11 +61,11 @@ class ProcessCSSPostBundle {
 }
 
 /*
-  Helper plugin to perform static JSX example exporting to standalone html fragments.
-  Configured in both package.json file and per example options.
+  Helper plugin to do static exports of examples
 */
 class StaticBundle {
   constructor() {
+    this.entryFile = path.resolve(__dirname, `../../../${Package.directories.dest}/assets/js/static.js`);
   }
 
   getSourcePath(name, compilation) {
@@ -82,19 +82,42 @@ class StaticBundle {
   }
 
   writeHtmlFile(example, compilation) {
-    const Html = ReactDOMServer.renderToStaticMarkup(example.source).replace(/is="sly"/g, '').replace(/data-sly-unwrap=""/g, 'data-sly-unwrap').replace(/></g, '>\r<');
+    const Html = ReactDOMServer
+      .renderToStaticMarkup(example.source)
+      .replace(/is="sly"/g, '')
+      .replace(/data-sly-unwrap=""/g, 'data-sly-unwrap')
+      .replace(/></g, '>\r<')
+      .replace(/&quot;/g, '"')
+      .replace(/&#34;/g, '"')
+      .replace(/&#x27;/g, '\'')
+      .replace(/&amp;/g, '&')
+      .replace(/&#39;/g, '\'')
+      .replace(/&gt;/g, '>');
+      const DOM = parse(Html);
+
+    // Remove any elements flagged to NOT be rendered in production views
+    if (DOM.querySelector('[data-sly-exports="false"]')) {
+      const nodes = DOM.querySelectorAll('[data-sly-exports="false"]');
+      let nodeLength = nodes.length;
+      while (nodeLength--) {
+        nodes[nodeLength].childNodes = [];
+        nodes[nodeLength].tagName = '';
+      }
+    }
+
+    if (DOM.querySelector('[data-sly-exports="true"]')) {
+      const nodes = DOM.querySelectorAll('[data-sly-exports="true"]');
+      let nodeLength = nodes.length;
+      while (nodeLength--) {
+        nodes[nodeLength].tagName = '';
+      }
+    }
 
     fs.writeFile(
       path.resolve(__dirname, `../../../${Package.statics.dest}/${example.staticPath}`),
-      pretty(`
-        <!-- DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! -->
-        <!-- (see: ${this.getSourcePath(example.name, compilation)}) -->
-
-        ${Html}
-      `),
-      (err) => {
-        if (err) {
-          console.log(err);
+      `<!--/* DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! */-->\n<!--/* (see: ${this.getSourcePath(example.name, compilation)}) */-->\n${DOM.toString()}`,
+      (e) => {
+        if (e) {
           return false;
         }
       }
@@ -102,21 +125,18 @@ class StaticBundle {
   }
 
   apply(compiler) {
-    // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
+    // After emitting static.js, lets load it up and loop over examples to export
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require(path.resolve(__dirname, `../../../${Package.statics.dest}/../static.js`)); // require bundled version of entry file
+      require(this.entryFile); // require bundled version of entry file
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
         if (example.staticPath) {
-          // first make static dest directories (if not already)
           example.staticPath = example.staticPath.replace(/\\/g, '/');
-
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
           const dest = path.resolve(__dirname, `../../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);
-          // second write files to newly created dest directories
           this.writeHtmlFile(example, compilation);
         }
       });
@@ -125,8 +145,7 @@ class StaticBundle {
     // Cleanup ./dist/static.js bundle leftover file
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       fs.unlink(
-        path.resolve(__dirname,
-        `../../../${Package.statics.dest}/../static.js`),
+        this.entryFile,
         (staticErr) => {
           if (staticErr) { console.log(staticErr); }
         }
@@ -135,23 +154,8 @@ class StaticBundle {
   }
 }
 
-/**
-  This plugin takes webpack's stats data object and injects it
-  into Unslates workflow. (see: https://webpack.js.org/api/stats/)
-
-  Because Webpack only offers the stats data object inside the 'done' tap hook; production and development builds
-  have their own method at bringing in stats.
-
-  PRODUCITON BUILDS:
-  1) Capture guide.js bundled contents into class variable.
-  2) Hook into webpack 'done', and filter down/inject stats object into guide.js
-
-  DEVELOPMENT BUILDS
-  1) Inject script block into index.html that points to emitted stats.js file under node_modules/.bin/
-  2) Hooks into webpack 'done', and filters down/writes stats object out to node_modules/.bin/webpack.stats.js
-
-  (Because we don't run watch in unslated, we don't have the opportunity to hook into webpack-dev-server's memory
-  and inject stats object into guide.js, thus DEVELOPMENT builds must use a disk file as outlined above.)
+/*
+  Helper plugin to compile our project metric stats into guide.js
 */
 class StatsBundle {
   constructor (buildType) {
@@ -172,6 +176,12 @@ class StatsBundle {
 
     this.chunkFilters = [
       'id',
+      'entry',
+      'hash',
+      'rendered',
+      'initial',
+      'cacheable',
+      'optional',
       'identifier',
       'issuer',
       'issuerName',
@@ -213,12 +223,40 @@ class StatsBundle {
         // if this object is a string with a key of "name", we check it
         if (typeof object[i] === 'string' && i === 'name') {
           if (object[i].indexOf('node_module') !== -1 ||
-              object[i].indexOf('(webpack)') !== -1 ||
-              object[i].indexOf('sync') !== -1) {
-                delete parent[index]; // if found to still true, we delete it.
+            object[i].indexOf('(webpack)') !== -1 ||
+            object[i].indexOf('sync') !== -1 ||
+            object[i].indexOf('.jsx') !== -1 ||
+            object[i].indexOf('.svg') !== -1 ||
+            object[i].indexOf('.jpg') !== -1 ||
+            object[i].indexOf('.gif') !== -1 ||
+            object[i].indexOf('.png') !== -1 ||
+            object[i].indexOf('.bmp') !== -1 ||
+            object[i].indexOf('.json') !== -1 ||
+            object[i].indexOf('.csv') !== -1 ||
+            object[i].indexOf('.json') !== -1 ||
+            object[i].indexOf('.css') !== -1
+          ) {
+            if (
+              object[i].indexOf('css-loader') === -1 &&
+              object[i].indexOf('postcss-loader') === -1
+            ) {
+              delete parent[index]; // if found to still true, we delete it.
+            }
           }
-        }else if (typeof object[i] === 'object') {
-          this.filterStats(object[i], filters, i, object); //if after all the above we still find object, we continue.
+
+          // cleans up names object
+          object[i] = object[i].replace(/css \.\/node_modules\/css-loader\?\?ref--4-1\!\.\/node_modules\/postcss-loader\/src\?\?postcss\!/g, '');
+        }
+
+        // if this object is its self another object, we re-filter it
+        if (typeof object[i] === 'object') {
+          // checks for and removes repeatly empty "assets": [] objects
+          if (i === 'assets' && !Object.keys(object[i]).length) {
+            delete object[i];
+          } else {
+            // recursive refiltering
+            this.filterStats(object[i], filters, i, object);
+          }
         }
       }
     }
@@ -245,7 +283,7 @@ class StatsBundle {
       'var __stats__ = ' + JSON.stringify({
         builds: { ...this.buildStats },
         assets: this.filterStats(stats.toJson().assets, this.assetFilters),
-        chunks: this.filterStats(stats.toJson().chunks, this.chunkFilters)
+        chunks: this.filterStats(stats.toJson().chunks[0], this.chunkFilters) // chunks[0] === assets and chunks[1] === guide
       }) + ';' + source,
     (err) => { if (err) { console.log(err); } return false; });
   }
@@ -259,18 +297,23 @@ class StatsBundle {
       compiler.hooks.afterEmit.tap({name:'StatsCompile'}, complation => {
         Object.keys(complation.assets).map(i => {
           if (i.indexOf('guide.js') !== -1) {
-            this.guideSource = complation.assets[i]._value;
+            if (Package.optimize.js) {
+              this.guideSource = complation.assets[i]._value;
+            }
           }
         });
       });
 
       // Injects latest build stats to guide.js
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
-        this.writeStats(
-          `${Package.directories.dest}${Package.directories.assetPath}/js/guide.js`,
-          stats,
-          this.guideSource
-        );
+
+        fs.readFile(`${global.directories.dest}${global.directories.assetPath}/js/guide.js`, 'utf8', (err, guideSource) => {
+          this.writeStats(
+            `${global.directories.dest}${global.directories.assetPath}/js/guide.js`,
+            stats,
+            guideSource
+          );
+        });
       });
     }
 
@@ -283,7 +326,7 @@ class StatsBundle {
         HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
           'StatsCompile',
           (data, cb) => {
-            data.html = data.html.replace('<script', '<script src="/node_modules/.bin/webpack.stats.js"></script><script');
+            data.html = data.html.replace('</head>', '<script src="/node_modules/.bin/webpack.stats.js"></script></head>');
             cb(null, data);
           }
         )
@@ -297,8 +340,47 @@ class StatsBundle {
   }
 }
 
+/*
+  Helper plugin to inject CDN dependecies to HtmlWebpackPlugin (see: build/configs/html/html.config.js)
+*/
+class CDNModules {
+  constructor(config) {
+    this.head = '';
+    this.body = '';
+    this.config = config;
+
+    Object.keys(this.config).map((i) => {
+      if (this.config[i].indexOf('css') !== -1) {
+        this.head += `<link href="${this.config[i]}" rel="stylesheet" />`;
+      } else {
+        this.body += `<script src="${this.config[i]}"></script>`;
+      }
+    });
+  }
+
+  apply(compiler) {
+    // 1) determin if endpoint is CSS or JS (aka before </head> or </body>)
+    // 2) scrub found modules against unpkg CDN
+    // 3) if found, remove module from bundle and inject script blocks into HtmlWebpackPlugin
+
+    // HtmlWebpackPlugin injection
+    compiler.hooks.compilation.tap({
+      name: 'CDNModules'
+    }, (compilation) => {
+      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tap(
+        'StatsCompile',
+        (data) => {
+          data.html = data.html.replace(/<link(.*?)<\/head>/, `${this.head}<link$1</head>`);
+          data.html = data.html.replace(/<script(.*?)<\/body>/, `${this.body}<script$1</body>`);
+        }
+      )
+    });
+  }
+}
+
 module.exports = {
   StatsBundle,
   StaticBundle,
+  CDNModules,
   ProcessCSSPostBundle
 };

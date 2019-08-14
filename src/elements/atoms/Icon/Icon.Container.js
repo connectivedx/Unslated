@@ -8,12 +8,11 @@ export const Icon = () => {
     const xhr = new XMLHttpRequest();
     xhr.open(
       'GET',
-      '[publicPath]img/iconset-[hash].svg',
+      '[assetPath]img/iconset-[hash].svg',
       true
     );
 
     xhr.onprogress = () => {};
-
     xhr.onload = () => {
       if (!xhr.responseText || xhr.responseText.substr(0, 4) !== '<svg') {
         throw Error('Invalid SVG Response');
@@ -25,7 +24,6 @@ export const Icon = () => {
       div.innerHTML = xhr.responseText;
       document.body.insertBefore(div, document.body.childNodes[0]);
     };
-
     xhr.send();
   };
 

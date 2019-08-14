@@ -16,11 +16,6 @@
   </div>
 */
 
-import {
-  List,
-  List__item
-} from '@atoms/List/List';
-
 export class Select extends React.Component {
   static propTypes = {
     /** Tag overload */
@@ -100,19 +95,21 @@ export class Select extends React.Component {
         className={classStack}
       >
         {
-          (error)
-            ? (
-              <span className="field__error-message field__error-message--error field__error-message--align-top">
-                <span className="field__error-message-inner">
-                  {error}
-                </span>
-              </span>
-            )
-            : ''
-        }
-        {
           (label !== false)
-            ? <label htmlFor={id} className="field__label">{label}</label>
+            ? (
+              <label htmlFor={id} className="field__label">
+                {label}
+                {
+                  (error)
+                    ? (
+                      <span className="field__error-message">
+                        {error}
+                      </span>
+                    )
+                    : ''
+                }
+              </label>
+            )
             : ''
         }
 
@@ -127,26 +124,6 @@ export class Select extends React.Component {
         >
           {children}
         </select>
-
-        {/* Builds unorder list for cross browser style control */}
-        <List className="select__decorator">
-          {
-            Object.keys(children).map((i) => {
-              if (children[i].props) {
-                return (
-                  <List__item
-                    key={i}
-                    data-value={children[i].props.value}
-                  >
-                    { (children[i].props.children) ? children[i].props.children : '' }
-                  </List__item>
-                );
-              }
-
-              return false;
-            })
-          }
-        </List>
       </Tag>
     );
   }

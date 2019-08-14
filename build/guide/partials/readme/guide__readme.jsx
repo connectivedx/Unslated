@@ -16,9 +16,9 @@ export const Guide__readme = (props) => {
   } = props;
 
   // jsx prop auto documentation (see: guide/partials/examples.jsx)
-  const { propDocs } = props.data;
+  const { jsxDocs } = props.data;
   // js methodology auto documentation (see: guide/partials/examples.jsx)
-  const { methodDocs } = props.data;
+  const { jsDocs } = props.data;
 
   // Displays elements JSX templating props
   const propsSection = () => (
@@ -36,9 +36,9 @@ export const Guide__readme = (props) => {
           </Table__head>
           <Table__body>
             {
-              Object.keys(propDocs.props).map((index) => {
-                const prop = propDocs.props[index];
-                const propType = prop.type.raw.replace(/\r?\n|\r/g, '').replace(/PropTypes./g, '').replace(/(.*)\(\[(.*)\]\)/g, '$2');
+              Object.keys(jsxDocs[0].props).map((index) => {
+                const prop = jsxDocs[0].props[index];
+                const propType = prop.type;
                 return (
                   <Table__row key={index}>
                     <Table__data>{index}</Table__data>
@@ -71,8 +71,8 @@ export const Guide__readme = (props) => {
           </Table__head>
           <Table__body>
             {
-              Object.keys(methodDocs).map((index) => {
-                const method = methodDocs[index];
+              Object.keys(jsDocs).map((index) => {
+                const method = jsDocs[index];
                 if (method.type === 'VariableDeclaration') {
                   const { type } = method.declarations[0].init;
 
@@ -162,14 +162,14 @@ export const Guide__readme = (props) => {
   );
 
   let description;
-  if (propDocs) {
+  if (jsxDocs) {
     description = `
       <span className="doc-error">
         Missing Element description!<br />
         Please describe this element in a multi-line comment at the top of it&apos;s JSX file.
       </span>
     `;
-    description = (propDocs.description) ? propDocs.description : description;
+    description = (jsxDocs[0].description) ? jsxDocs[0].description : description;
   }
 
   return (
@@ -185,12 +185,12 @@ export const Guide__readme = (props) => {
 
       <div className="guide__readme-sections">
         {
-          (propDocs)
+          (jsxDocs)
             ? propsSection()
             : ''
         }
         {
-          (methodDocs)
+          (jsDocs)
             ? methodsSection()
             : ''
         }

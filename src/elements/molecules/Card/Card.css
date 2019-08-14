@@ -1,5 +1,3 @@
-@import '@atoms/Rhythm/Rhythm.css';
-
 :root {
   --card-grid__per-row: 4; /* configures number of cards per row in a Card__grid */
   --card-spacing: 0.5rem;
@@ -31,31 +29,6 @@
     .card__footer {
       border-top: 1px solid var(--color-gray-light);
     }
-  }
-
-  /* Colors */
-  &--color-none {
-    background-color: transparent;
-  }
-
-  &--color-white {
-    background-color: var(--color-white);
-  }
-
-  &:not(.card--color-white) {
-    color: var(--color-white);
-  }
-
-  &--color-red {
-    background-color: var(--color-generic--red);
-  }
-
-  &--color-green {
-    background-color: var(--color-generic--green);
-  }
-
-  &--color-blue {
-    background-color: var(--color-generic--blue);
   }
 
   /* Groups, Decks, Grids */
@@ -91,6 +64,7 @@
 
     .card {
       margin: calc(var(--card-spacing) * 2) 0;
+
       @media (--medium) {
         max-width: calc(calc(100% / var(--card-grid__per-row)) - calc(var(--card-spacing) * var(--card-grid__per-row)));
       }

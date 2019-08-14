@@ -6,16 +6,16 @@
 */
 
 // Guide JS
+import Sly from '@modifiers/Sly/Sly.container';
 import Guide from '@guide/guide.router';
 import Package from '@root/package.json';
-import Sly from '@modifiers/Sly/Sly.container';
 import GuideNav from '@guide/partials/nav/guide__nav.container';
 import GuideIcons from '@guide/partials/icons/guide__icons.container';
 import GuideColors from '@guide/partials/colors/guide__colors.container';
 import GuideReadme from '@guide/partials/readme/guide__readme.container';
+import GuideWelcome from '@guide/partials/welcome/guide__welcome.container';
 import GuideMetrics from '@guide/partials/metrics/guide__metrics.container';
 import GuideStylist from '@guide/partials/stylist/guide__stylist.container';
-import GuideWelcome from '@guide/partials/welcome/guide__welcome.container';
 import GuideExamples from '@guide/partials/examples/guide__examples.container';
 import GuideTypography from '@guide/partials/typography/guide__typography.container';
 

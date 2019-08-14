@@ -1,23 +1,17 @@
-import Stylist from '@guide/partials/stylist/guide__stylist';
-import Readme from '@guide/partials/readme/guide__readme';
-import Input from '@atoms/Input/Input';
 import Button from '@atoms/Button/Button';
-import Icon from '@atoms/Icon/Icon';
-import Heading from '@atoms/Heading/Heading';
-import Rhythm from '@atoms/Rhythm/Rhythm';
 import {
   Card,
   Card__header,
   Card__body,
   Card__footer
 } from '@molecules/Card/Card';
+import Heading from '@atoms/Heading/Heading';
+import Icon from '@atoms/Icon/Icon';
+import Input from '@atoms/Input/Input';
+import Readme from '@guide/partials/readme/guide__readme';
+import Rhythm from '@atoms/Rhythm/Rhythm';
+import Stylist from '@guide/partials/stylist/guide__stylist';
 
-import ReactDOMServer from 'react-dom/server';
-import ReactElementToString from 'react-element-to-string';
-import pretty from 'pretty';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx.min';
-import 'prismjs/components/prism-json.min';
 import GuideConfig from '../../guide.config.js';
 
 export const Guide__examples = (props) => {
@@ -25,38 +19,18 @@ export const Guide__examples = (props) => {
     'guide__examples'
   ]);
 
-  // Gather data
-  const data = {};
-  const examples = GuideUtils.getExamples(props.match.params.element);
-
-  data.examples = Object.keys(examples).map((index) => {
-    const element = examples[index];
-
-    if (
-      (element.atomic === props.match.params.category)
-      && (element.name === props.match.params.element)
-    ) {
-      data.propDocs = element.jsxdocs;
-      data.methodDocs = element.jsdocs;
-      data.atomic = element.atomic;
-      data.name = element.name;
-      return element.examples;
-    }
-
-    return false;
-  }).filter((n) => n[0]);
+  // const ElementToString = new reactElementToJSXString(); // eslint-disable-line
+  const data = global.guide.examples[props.match.params.element];
 
   // JSX Prisim Code Snips
-  const getJSXPrisim = (component, object) => {
-    const prisimData = ReactElementToString(component, {
-      displayName: object.name,
-      showDefaultProps: false
-    }).replace(/<Unknown>/g, '')
+  const getJSXPrisim = (component, options) => {
+    const prisimData = GuideUtils.JSXFormat(component, options)
+      .replace(/<Unknown>/g, '')
       .replace(/<\/Unknown>/g, '')
       .replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2')
       .trim();
 
-    return Prism.highlight(pretty(prisimData), Prism.languages.jsx, 'jsx');
+    return Prism.highlight(prisimData, Prism.languages.jsx, 'jsx'); // eslint-disable-line
   };
 
   // Props Prisim Code Snips
@@ -68,7 +42,7 @@ export const Guide__examples = (props) => {
       return true;
     });
 
-    return Prism.highlight(['[', JSON.stringify(prisimData, null, 4), ']'].join(''), Prism.languages.json, 'javascript');
+    return Prism.highlight(`[${JSON.stringify(prisimData, null, 4)}]`, Prism.languages.json, 'javascript'); // eslint-disable-line
   };
 
   // HTML Prisim Code Snips
@@ -77,7 +51,7 @@ export const Guide__examples = (props) => {
     let indent = '';
     prisimData = prisimData.replace(/></g, (x) => {
       indent += '  ';
-      return x.replace('><', ['>\n', indent, '<'].join(''));
+      return x.replace('><', `>\n${indent}<`);
     }).trim();
     if (component.props.devonly === 'true') {
       prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
@@ -86,27 +60,19 @@ export const Guide__examples = (props) => {
     prisimData = prisimData.replace(/&lt;/g, '<');
     prisimData = prisimData.replace(/&#x27;/g, "'");
     prisimData = prisimData.replace(/is="sly"/g, '');
-    return Prism.highlight(pretty(prisimData), Prism.languages.html, 'html');
+    return Prism.highlight(GuideUtils.XMLFormat(prisimData), Prism.languages.html, 'html'); // eslint-disable-line
   };
 
   // C# Prisim Code Snips
-  const getCSharpPrisim = (component) => [
-    '// https://reactjs.net/getting-started/aspnet.html \n',
-    '// when consuming JSX components directly in CSHTML \n\r',
-    '@Html.React("',
-    component.type.name,
-    '", new { ',
-    Object.keys(props).map((j) => [j, ' = Model.', j].join('')),
-    ' });'
-  ].join('');
+  const getCSharpPrisim = (component) => `// https://reactjs.net/getting-started/aspnet.html\n// when consuming JSX components directly in CSHTML\n@Html.React(\n "${component.type.name}",\n  new {\n    ${Object.keys(props).map((j) => `${j} = Model.${j}`)}\n  }\n);`;
 
   return (
     <Rhythm tagName="section" className={classStack}>
       <Readme data={data} />
       <Rhythm className="examples__listing">
         {
-          Object.keys(data.examples[0]).map((index) => {
-            const example = data.examples[0][index];
+          Object.keys(data.examples).map((index) => {
+            const example = data.examples[index];
             const exampleConfig = GuideConfig.example.options;
 
             // for permalinks to examples
@@ -163,7 +129,7 @@ export const Guide__examples = (props) => {
                           options.background.match('#')
                           || options.background.match('rgb')
                         ) ? options.background
-                          : ['url(', options.background, ')'].join(''),
+                          : `url(${options.background})`,
                         '--padding': options.padding
                       }}
                     >
@@ -182,7 +148,7 @@ export const Guide__examples = (props) => {
                   </div>
                   <div className="examples__codes">
                     <pre className="examples__code hidden">
-                      <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, data) }} />
+                      <code dangerouslySetInnerHTML={{ __html: getJSXPrisim(example.component, { displayName: data.name, showDefaultProps: false }) }} />
                     </pre>
                     <pre className="examples__code hidden">
                       <code dangerouslySetInnerHTML={{ __html: getHTMLPrisim(example.component) }} />
@@ -199,7 +165,7 @@ export const Guide__examples = (props) => {
                                 ? (
                                   <code
                                     dangerouslySetInnerHTML={{
-                                      __html: Prism.highlight(getCSharpPrisim(example.component), Prism.languages.clike)
+                                      __html: Prism.highlight(getCSharpPrisim(example.component), Prism.languages.clike) // eslint-disable-line
                                     }}
                                   />
                                 )
@@ -216,7 +182,7 @@ export const Guide__examples = (props) => {
           })
         }
       </Rhythm>
-      <Stylist examples={data.examples[0]} />
+      <Stylist data={data.examples} />
     </Rhythm>
   );
 };

@@ -73,36 +73,40 @@ export class Textarea extends React.Component {
       pattern
     } = this.props;
 
-    const elClassStack = Utils.createClassStack([
+    const classStack = Utils.createClassStack([
       'textarea field',
       `textarea--${variant}`,
       className
-    ]);
-
-    const labelClassStack = Utils.createClassStack([
-      'field__label',
-      (label === false) && 'field__label--false'
     ]);
 
     if (!pattern && required) {
       pattern = '.*[^ ].*';
     }
 
-    const errorTemplate = () => (
-      <span className="field__error-message field__error-message--error field__error-message--align-top">
-        <span className="field__error-message-inner">
-          {error}
-        </span>
-      </span>
-    );
-
     return (
       <Tag
-        className={elClassStack}
+        className={classStack}
         {...attrs}
       >
-        {error && errorTemplate}
-        <label htmlFor={id} className={labelClassStack}>{label}</label>
+        {
+          (label !== false)
+            ? (
+              <label htmlFor={id} className="field__label">
+                {label}
+                {
+                  (error)
+                    ? (
+                      <span className="field__error-message">
+                        {error}
+                      </span>
+                    )
+                    : ''
+                }
+              </label>
+            )
+            : ''
+        }
+
         <textarea
           className="field__native"
           name={name}

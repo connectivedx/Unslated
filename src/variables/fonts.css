@@ -4,15 +4,15 @@
 */
 
 :root {
-  /* Individual font names */
+  /* Individual font faces */
   --font-name--default: 'Open Sans';
   --font-name--accent: 'Merriweather';
 
-  /* Base font stacks */
+  /* Font face stacks */
   --font-stack--default: var(--font-name--default), sans-serif;
   --font-stack--accent: var(--font-name--default), sans-serif;
 
-  /* Base body font-family */
+  /* Font families */
   --font-family--default: var(--font-stack--default);
 
   /* property-set defining the light font-face */

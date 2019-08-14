@@ -3,6 +3,8 @@
   /* Baseline styles */
   .field__native {
     min-width: 200px;
+    max-width: 100%;
+    min-height: 40px;
   }
 
   /* Style variants */
@@ -26,6 +28,7 @@
       border: none;
       box-shadow: 0 0 0 1px var(--color-gray);
       padding: rem(13px);
+      width: 100%;
     }
   }
 
@@ -41,7 +44,7 @@
       line-height: 10px;
       margin: 0;
       max-width: 145px;
-      padding: 0 0.5rem !important;
+      padding: 0 0.5rem;
       position: absolute;
       top: -5px;
       width: auto;

@@ -61,8 +61,16 @@ export class Modal extends React.Component {
         className={classStack}
         {...attrs}
       >
-        <Icon name="close" data-modal-close />
-        {children}
+        <div className="modal-inner">
+          <div className="modal-inner--width">
+            <Icon name="close" data-modal-close />
+            <div className="modal-inner--height">
+              <div className="modal-content">
+                {children}
+              </div>
+            </div>
+          </div>
+        </div>
       </Tag>
     );
   }

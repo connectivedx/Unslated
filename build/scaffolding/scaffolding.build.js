@@ -24,7 +24,7 @@ const replaceTokens = (targetFile, name) => {
   let fileName = targetFile.replace('[name]', name);
   let cssName = name.replace(/[^A-Z](?=[A-Z])/g, '$&-').toLowerCase();
 
-  if (type === 'pages' || type === 'variables') {
+  if (type === 'variables') {
     fileName = fileName.toLowerCase();
   }
 

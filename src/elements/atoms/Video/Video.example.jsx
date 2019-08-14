@@ -28,7 +28,6 @@ export default [{
     {
       name: 'Default Ratio 16:9',
       description: '',
-      staticPath: '',
       component: (
         <Video src="https://www.youtube.com/embed/XSGBVzeBUbk" ratio="default" />
       ),
@@ -36,7 +35,6 @@ export default [{
     }, {
       name: 'Wide Ratio 21:9',
       description: '',
-      staticPath: '',
       component: (
         <Video src="https://www.youtube.com/embed/XSGBVzeBUbk" ratio="wide" />
       ),
@@ -44,7 +42,6 @@ export default [{
     }, {
       name: 'Tall ratio 4:3',
       description: '',
-      staticPath: '',
       component: (
         <Video src="https://www.youtube.com/embed/XSGBVzeBUbk" ratio="tall" />
       ),

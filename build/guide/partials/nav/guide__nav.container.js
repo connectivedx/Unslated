@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export const GuideNav = (el) => {
   const ui = {
     el,
@@ -10,6 +8,10 @@ export const GuideNav = (el) => {
     newElement: document.querySelector('.new-element .input-text .field__native'),
     renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.modal)'),
     removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.modal)')
+  };
+
+  const events = {
+    keyupWait: undefined
   };
 
   const init = () => {
@@ -128,18 +130,24 @@ export const GuideNav = (el) => {
         }
       });
 
-      ui.newElement.addEventListener('keyup', _.debounce(() => {
-        ui.newElement.value = ui.newElement.value
-          .replace(/[A-Z]/g, (g0) => [' ', g0].join(''))
-          .replace(
-            /(\w)(\w*)/g,
-            (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
-          )
-          .replace(/ /g, '')
-          .replace(/'/g, '')
-          .replace(/-/g, '')
-          .replace(/_/g, '');
-      }, 512));
+      ui.newElement.addEventListener('keyup', () => {
+        if (typeof events.keyupWait !== 'undefined') {
+          clearTimeout(events.keyupWait);
+        }
+
+        events.keyupWait = setTimeout(() => {
+          ui.newElement.value = ui.newElement.value
+            .replace(/[A-Z]/g, (g0) => [' ', g0].join(''))
+            .replace(
+              /(\w)(\w*)/g,
+              (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
+            ).replace(/ /g, '')
+            .replace(/_/g, '')
+            .replace(/-/g, '')
+            .replace(/'/g, '')
+            .trim();
+        }, 200);
+      });
     }
   };
 
