@@ -29,48 +29,48 @@ export default [{
     name: 'Light (h1-h6)',
     component: (
       <Rhythm devonly="true">
-        <Heading level="h1" weight="thin">The brown fox jumps over the h1</Heading>
-        <Heading level="h2" weight="thin">The brown fox jumps over the h2</Heading>
-        <Heading level="h3" weight="thin">The brown fox jumps over the h3</Heading>
-        <Heading level="h4" weight="thin">The brown fox jumps over the h4</Heading>
-        <Heading level="h5" weight="thin">The brown fox jumps over the h5</Heading>
-        <Heading level="h6" weight="thin">The brown fox jumps over the h6</Heading>
+        <Heading level="h1" weight="thin">H1 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h2" weight="thin">H2 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h3" weight="thin">H3 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h4" weight="thin">H4 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h5" weight="thin">H5 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h6" weight="thin">H6 {Utils.ipsum('word', 35)}</Heading>
       </Rhythm>
     )
   }, {
     name: 'Medium (h1-h6)',
     component: (
       <Rhythm devonly="true">
-        <Heading level="h1" weight="medium">The brown fox jumps over the h1</Heading>
-        <Heading level="h2" weight="medium">The brown fox jumps over the h2</Heading>
-        <Heading level="h3" weight="medium">The brown fox jumps over the h3</Heading>
-        <Heading level="h4" weight="medium">The brown fox jumps over the h4</Heading>
-        <Heading level="h5" weight="medium">The brown fox jumps over the h5</Heading>
-        <Heading level="h6" weight="medium">The brown fox jumps over the h6</Heading>
+        <Heading level="h1" weight="medium">H1 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h2" weight="medium">H2 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h3" weight="medium">H3 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h4" weight="medium">H4 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h5" weight="medium">H5 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h6" weight="medium">H6 {Utils.ipsum('word', 35)}</Heading>
       </Rhythm>
     )
   }, {
     name: 'Bold (h1-h6)',
     component: (
       <Rhythm devonly="true">
-        <Heading level="h1" weight="bold">The brown fox jumps over the h1</Heading>
-        <Heading level="h2" weight="bold">The brown fox jumps over the h2</Heading>
-        <Heading level="h3" weight="bold">The brown fox jumps over the h3</Heading>
-        <Heading level="h4" weight="bold">The brown fox jumps over the h4</Heading>
-        <Heading level="h5" weight="bold">The brown fox jumps over the h5</Heading>
-        <Heading level="h6" weight="bold">The brown fox jumps over the h6</Heading>
+        <Heading level="h1" weight="bold">H1 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h2" weight="bold">H2 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h3" weight="bold">H3 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h4" weight="bold">H4 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h5" weight="bold">H5 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h6" weight="bold">H6 {Utils.ipsum('word', 35)}</Heading>
       </Rhythm>
     )
   }, {
     name: 'Alternative element tagName',
     component: (
       <Rhythm devonly="true">
-        <Heading level="h1" tagName="div">The brown fox jumps over the h1</Heading>
-        <Heading level="h2" tagName="div">The brown fox jumps over the h2</Heading>
-        <Heading level="h3" tagName="div">The brown fox jumps over the h3</Heading>
-        <Heading level="h4" tagName="div">The brown fox jumps over the h4</Heading>
-        <Heading level="h5" tagName="div">The brown fox jumps over the h5</Heading>
-        <Heading level="h6" tagName="div">The brown fox jumps over the h6</Heading>
+        <Heading level="h1" tagName="div">H1 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h2" tagName="div">H2 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h3" tagName="div">H3 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h4" tagName="div">H4 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h5" tagName="div">H5 {Utils.ipsum('word', 35)}</Heading>
+        <Heading level="h6" tagName="div">H6 {Utils.ipsum('word', 35)}</Heading>
       </Rhythm>
     )
   }]

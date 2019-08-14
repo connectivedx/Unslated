@@ -15,10 +15,6 @@ export const GuideTypography = (el) => {
       }
       el.querySelector('.heading').innerHTML = ui.selectNative.value;
     });
-
-    setTimeout(() => {
-      ui.select.choose(0);
-    });
   };
 
   init();

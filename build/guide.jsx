@@ -4,9 +4,8 @@
   This is seperated from the ./build/assets.js to keep assets seperate guide.
   Both guide.js and guide.css are not intended to be use in production.
 */
-
-
+import '@guide/guide.parts';
 import '@guide/styles'; // see ./build/guide/styles.css
-import '@guide/scripts.jsx'; // see ./guide/guide/scripts.jsx
+import '@guide/scripts'; // see ./guide/guide/scripts.jsx
 
 require('es6-object-assign').polyfill();

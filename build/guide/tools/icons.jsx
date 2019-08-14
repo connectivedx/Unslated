@@ -73,7 +73,7 @@ const page = () => (
 );
 
 page.options = {
-  navless: true,
+  navless: false,
   headless: false
 };
 

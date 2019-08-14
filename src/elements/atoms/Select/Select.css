@@ -6,110 +6,17 @@
 .select {
 
   /* Baseline styles */
+  padding: 0;
   position: relative;
 
-  &:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-
   .field__native {
-    display: none;
-  }
-
-  .select__decorator {
-    padding: 0;
-    position: relative;
-
-    &:before {
-      content: attr(data-placeholder);
-      background-image: url('../Icon/assets/down.svg');
-      background-repeat: no-repeat;
-      background-position: calc(100% - 40px) center;
-      background-size: 14px;
-      width: 100%;
-      height: var(--field-height);
-      max-height: var(--field-height);
-      padding: 0 rem(12px);
-    }
-  }
-
-  &.open {
-    &:before {
-      display: none;
-    }
-
-    .field__native {
-      display: block;
-      height: var(--field-height);
-    }
-
-    .select__decorator {
-      background-color: var(--color-white);
-      height: auto;
-      position: absolute;
-      margin-top: -var(--field-height);
-
-      &:before {
-        background-image: url('../Icon/assets/up.svg');
-      }
-    }
+    padding: rem(11px) rem(10px);
+    width: 100%;
   }
 
   /* Style variants */
   &--default {
+    background-color: var(--color-white);
     min-height: var(--field-height);
-
-    .select__decorator {
-      box-shadow: 0 0 0 1px var(--color-gray);
-      background-color: var(--color-white);
-      height: var(--field-height);
-      overflow: hidden;
-      width: 100%;
-
-      &:before {
-        border-bottom: 1px solid var(--color-gray);
-      }
-
-      .list__item {
-        min-height: var(--field-height);
-        padding: rem(8px) rem(12px);
-      }
-
-      &:before,
-      .list__item {
-        align-items: center;
-        display: flex;
-      }
-    }
-
-    .list__item {
-      &:--haf {
-        background-color: var(--color-gray) !important;
-      }
-
-      &.selected {
-        background-color: var(--color-gray-light);
-      }
-    }
-
-    &.select--multiple {
-      &:before {
-        display: none;
-      }
-
-      .select__decorator {
-        &:before {
-          display: none;
-        }
-
-        height: 100%;
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
-    }
   }
 }

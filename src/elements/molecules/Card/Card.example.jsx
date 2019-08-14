@@ -40,9 +40,9 @@ export default [{
       component: (
         <Card>
           <Card__body>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
-            <p>Cras rutrum est dolor, vel placerat magna consectetur et. Integer at faucibus nibh. Ut semper pharetra tortor, dictum consequat arcu porta quis. Donec metus justo, placerat nec sollicitudin id, bibendum sed lorem. Donec diam mi, ullamcorper eu tellus sed, dignissim eleifend tellus. Morbi suscipit ex non neque varius, nec cursus libero tempus. Donec laoreet accumsan odio vel venenatis. Duis convallis lectus nec tempus finibus. Vestibulum diam justo, laoreet ac posuere et, faucibus eu lacus. Donec vel rutrum metus, ut tempus augue.</p>
-            <p>Integer tempus tellus risus, quis lobortis felis dictum quis. Integer rutrum nisi quis semper laoreet. Aenean sit amet pellentesque odio. Cras vehicula eros sit amet placerat dignissim. Morbi faucibus et mauris vitae imperdiet. Praesent rhoncus ut urna in venenatis. Curabitur sed tortor orci. Integer dapibus rhoncus cursus. Morbi sit amet libero a est ultrices pretium vitae eget purus. Sed pulvinar ligula nulla, non fermentum nibh tempus nec. Cras nibh leo, euismod ac porttitor non, feugiat sed orci. Sed ac enim libero. Phasellus lorem justo, ullamcorper pulvinar sapien sit amet, pulvinar porta ex. Nulla facilisi. Aliquam nec pellentesque mi. Fusce et nunc mauris.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Card__body>
         </Card>
       ),
@@ -57,9 +57,9 @@ export default [{
           </Card__header>
           <Card__body>
             <Heading level="h3">Body</Heading>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
-            <p>Cras rutrum est dolor, vel placerat magna consectetur et. Integer at faucibus nibh. Ut semper pharetra tortor, dictum consequat arcu porta quis. Donec metus justo, placerat nec sollicitudin id, bibendum sed lorem. Donec diam mi, ullamcorper eu tellus sed, dignissim eleifend tellus. Morbi suscipit ex non neque varius, nec cursus libero tempus. Donec laoreet accumsan odio vel venenatis. Duis convallis lectus nec tempus finibus. Vestibulum diam justo, laoreet ac posuere et, faucibus eu lacus. Donec vel rutrum metus, ut tempus augue.</p>
-            <p>Integer tempus tellus risus, quis lobortis felis dictum quis. Integer rutrum nisi quis semper laoreet. Aenean sit amet pellentesque odio. Cras vehicula eros sit amet placerat dignissim. Morbi faucibus et mauris vitae imperdiet. Praesent rhoncus ut urna in venenatis. Curabitur sed tortor orci. Integer dapibus rhoncus cursus. Morbi sit amet libero a est ultrices pretium vitae eget purus. Sed pulvinar ligula nulla, non fermentum nibh tempus nec. Cras nibh leo, euismod ac porttitor non, feugiat sed orci. Sed ac enim libero. Phasellus lorem justo, ullamcorper pulvinar sapien sit amet, pulvinar porta ex. Nulla facilisi. Aliquam nec pellentesque mi. Fusce et nunc mauris.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Card__body>
           <Card__footer>
             <Heading level="h4">Footer</Heading>
@@ -74,22 +74,22 @@ export default [{
         <Card__group>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="red">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="green">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="blue">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
         </Card__group>
@@ -102,22 +102,22 @@ export default [{
         <Card__deck>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="red">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="green">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
           <Card color="blue">
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus enim. Donec molestie euismod velit, id fringilla purus fermentum id. Nullam ultricies pretium lacus sit amet rhoncus. Aliquam non turpis elit. Maecenas ornare libero non scelerisque tempus. Pellentesque efficitur enim turpis, euismod iaculis nibh tristique ac. Nullam molestie tortor a lorem auctor, vitae placerat velit eleifend. Fusce tempus ultrices dui, sed commodo enim viverra sit amet. Praesent elementum elit non sem dignissim congue. Sed lacinia vestibulum mi id ornare. Donec rhoncus molestie mi a vestibulum. Vestibulum ultrices finibus magna, nec semper dolor. Ut posuere aliquet purus at sagittis. Aliquam mattis semper semper.</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
             </Card__body>
           </Card>
         </Card__deck>
@@ -130,42 +130,42 @@ export default [{
         <Card__grid>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
           <Card>
             <Card__body>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>{Utils.ipsum('sentence', 1)}</p>
             </Card__body>
           </Card>
         </Card__grid>

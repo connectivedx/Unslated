@@ -106,9 +106,11 @@ For much finer levels of configuration, you can always dig directly into the bui
 
 Command | Description
 --- | ---
-`build` | runs `production` build
-`dev` | runs a local `development` instance that starts a webpack-dev-server at http://localhost:8080
-`static` | if configured to be enabled in package.json, this will export JSX examples out as `static` .html files
+`build` | runs `production` build of assets only, will not compile guide out (see guide build for guide files).
+`dev` | runs a local `development` instance at http://localhost:8080 to host a runtime of guide for local development.
+`guide` | build the guide assets for remote hosting of the guide.
+`static` | if configured to be enabled in package.json, this will export JSX examples out as `static` .html files during this build type and the normal production build.
+`staticDebug` | Useful for debugging just the static exporting of JSX examples from terminal.
 
 
 ### Scaffolding commands

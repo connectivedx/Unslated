@@ -9,7 +9,6 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const Package = require('../../../package.json');
 
 const generateHash = () => crypto.createHash('md5').update(new Date().toLocaleTimeString()).digest('hex');
 
@@ -59,8 +58,9 @@ class WebpackSvgSpritely {
 
   apply(compiler) {
     compiler.hooks.emit.tap('WebpackSvgSpritely', compilation => {
+      this.newHash = `iconset-${generateHash()}.svg`;
+
       // reset variables
-      this.newHash = `iconset-${generateHash()}.svg`; // in with the new
       this.symbols = '';
 
       // Grab a collection of icons based on filters option
@@ -87,17 +87,12 @@ class WebpackSvgSpritely {
         // update hash in assets.js (replaces hash used in src/elements/atoms/Icon/Icon.Container.js)
         if(i.indexOf('assets-') !== -1 || i.indexOf('assets.js') !== -1) {
           // Reach into bundle and replace instance of iconset-[hash] with actual bundle hash (works under both dev and prod builds)
-          recursiveSubStringReplace(compilation.assets[i], /iconset-(.*)\.svg/g, this.newHash);
-
-          // Replace Icon.container.js pathing with production configuration
-          if (process.argv.indexOf('production') !== -1) {
-            recursiveSubStringReplace(compilation.assets[i], /\[publicPath\]/g, Package.directories.publicPath);
-          }
-
-          // Replace Icon.container.js pathing with development configuration
-          if (process.argv.indexOf('development') !== -1) {
-            recursiveSubStringReplace(compilation.assets[i], /\[publicPath\]/g, '/assets/');
-          }
+          recursiveSubStringReplace(compilation.assets[i], /iconset-\[hash\]\.svg/g, this.newHash);
+          recursiveSubStringReplace(
+            compilation.assets[i],
+            /\[assetPath\]/g,
+            `${global.directories.assetPath}/`
+          );
 
           // We have cached development source ._cachedSource. (not in my house!)
           if (compilation.assets[i]._cachedSource) {
@@ -114,7 +109,7 @@ class WebpackSvgSpritely {
           if (assetName === iconName) {
             if (!compilation.assets[i]._value) { return; }
             let contents = compilation.assets[i]._value.toString('utf8');
-            contents = contents.replace(/<svg/g, `<symbol id="icon-${this.icons[k].name}"`);
+            contents = contents.replace(/<svg/g, '<symbol id="icon-'+this.icons[k].name+'"');
             contents = contents.replace(/<\/svg>/g, '</symbol>');
             contents = contents.replace('xmlns="http://www.w3.org/2000/svg"', '');
             contents = contents.replace(/<style>(.*)<\/style>/g, '<style><![CDATA[$1]]></style>');
@@ -128,7 +123,7 @@ class WebpackSvgSpritely {
 
       bundleResults(
         compilation,
-        this.options.filename.replace(/iconset-(.*)\.svg/g, this.newHash),
+        this.options.filename.replace(/iconset-\[hash\]\.svg/g, this.newHash),
         this.symbols
       );
     });

@@ -1,28 +1,26 @@
-// Input component client side namespace
+// The Input JS module
 export const Input = (el) => {
-  // UI obect houses common selected elements within component
+  // Input's ui helper object
   const ui = {
     el,
     native: el.querySelector('.field__native'),
     error: el.querySelector('.field__error-message')
   };
 
-  // Setup validation hook
+  // Inputs's validation method (see: src/utilities.jsx checkValidity)
   el.validate = () => {
     Utils.checkValidity(el);
-    if (ui.error) {
-      ui.error.style.left = `${ui.native.offsetLeft}px`;
-    }
   };
 
-  // Input component client side main init point
+  // Main init point
   const init = () => {
-    // Validation
-    el.addEventListener('input', () => {
+    // Field's "input" event listener and validation
+    ui.native.addEventListener('input', () => {
       el.validate();
     });
   };
 
+  // Self init
   init();
 };
 

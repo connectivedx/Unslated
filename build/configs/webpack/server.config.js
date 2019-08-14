@@ -60,14 +60,16 @@ module.exports = {
               if (!query.name) { return; }
               // Passes XHR to Scaffolding.build.js
               runNodeScript(
-                path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
+                path.resolve(__dirname, '../../scaffolding/scaffolding.build.js'),
                 [
                   'new',
                   query.new,
-                  query.name.replace(/_/g, ' ').replace(/-/g, ' ').replace(
-                    /(\w)(\w*)/g,
-                    (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
-                  ).trim(),
+                  query.name
+                  .replace(/ /g, '')
+                  .replace(/_/g, '')
+                  .replace(/-/g, '')
+                  .replace(/'/g, '')
+                  .trim(),
                   query.container
                 ]
               );
@@ -78,7 +80,7 @@ module.exports = {
           if (query.rename) {
             // Passes XHR to Scaffolding.build.js
             runNodeScript(
-              path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
+              path.resolve(__dirname, '../../scaffolding/scaffolding.build.js'),
               [
                 'rename',
                 query.path,
@@ -91,7 +93,7 @@ module.exports = {
           if (query.remove) {
             // Passes XHR to Scaffolding.build.js
             runNodeScript(
-              path.resolve(__dirname, '../scaffolding/scaffolding.build.js'),
+              path.resolve(__dirname, '../../scaffolding/scaffolding.build.js'),
               [
                 'remove',
                 query.path

@@ -1,8 +1,8 @@
 :root {
   --border-styles: 1px solid var(--color-gray);
   --tabs-bg-color: var(--color-white);
-  --tabs-trigger-padding: 0.5rem;
-  --tabs-target-padding: 1rem;
+  --tabs-trigger-padding: rem(8px);
+  --tabs-target-padding: rem(16px);
 }
 
 /* Baseline styles */
@@ -12,155 +12,105 @@
     position: relative;
   }
 
-  &__trigger {
-    &.tabs-state--open {
-      & + .tabs__target {
-        height: auto;
-        opacity: 1;
-        visibility: visible;
-        overflow: visible;
-      }
+  .hide {
+    display: none !important;
+  }
+
+  .tabs__triggers {
+    @media (--medium) {
+      display: flex;
     }
   }
 
-  &__target {
-    border: none;
-    height: 0;
-    opacity: 0;
-    margin: 0;
-    overflow: hidden;
-    visibility: hidden;
+  /* Tab target aligents */
+  &-align--top,
+  &-align--bottom {
+    flex-direction: column;
+
+    .tabs__triggers { flex-direction: row; }
   }
 
-  /* Tabs alignment & justification */
-  &-align {
-    &--left,
-    &--right {
-      @media (--medium) { display: grid; }
+  &-align--left,
+  &-align--right {
+    flex-direction: row;
 
-      .tabs__target {
-        grid-row-start: 20;
-        grid-row-end: 1;
-      }
-    }
-
-    &--left {
-      grid-template-columns: 15% 85%;
-
-      .tabs__trigger { grid-column-start: 1; }
-
-      .tabs__target   { grid-column-start: 2; }
-    }
-
-    &--right {
-      grid-template-columns: 85% 15%;
-
-      .tabs__trigger { grid-column-start: 2; }
-
-      .tabs__target   { grid-column-start: 1; }
-    }
-
-    /* Order is controlled via JS Containre with the CSS order: X; prop */
-    &--top,
-    &--bottom { flex-flow: row wrap; }
-
-    &--top {
-      .tabs__trigger { order: 1; }
-
-      .tabs__target  { order: 2; }
-    }
-
-    &--bottom {
-      .tabs__trigger { order: 2; }
-
-      .tabs__target  { order: 1; }
-    }
+    .tabs__triggers { flex-direction: column; }
   }
 
-  &-justify {
+  &-align--right { flex-direction: row-reverse; }
 
-    /* Justify horizontal tabs system to left */
-    &--left { justify-content: flex-start; }
+  &-align--bottom { flex-direction: column-reverse; }
 
-    /* Justify horizontal tab systems to center */
-    &--center { justify-content: center; }
 
-    /* Justify horizontal tab systems to right  */
-    &--right { justify-content: flex-end; }
+  /* Tab target justification */
+  &-justify--center { .tabs__triggers { justify-content: center; } }
 
-    &--bottom {
-      &,
-      .tabs__trigger,
-      .tabs__target {
-        @media (--medium) {
-          transform: rotateX(180deg); /* Justify vertical aligned tab systems to bottom */
-        }
-      }
-    }
-  }
+  &-justify--bottom,
+  &-justify--right { .tabs__triggers { justify-content: flex-end; } }
+
+  &-justify--top,
+  &-justify--left { .tabs__triggers { justify-content: flex-start; } }
+
 
   /* Style variants */
-  &--default { }
+  &--default {
 
-  &--outline {
-    .tabs__trigger {
+    /* Trigger styles */
+    [data-tabs-trigger] {
+      background-color: var(--tabs-bg-color);
       border: var(--border-styles);
       cursor: pointer;
-      font-size: rem(20px);
+      min-width: 180px;
       padding: var(--tabs-trigger-padding);
       position: relative;
-      z-index: 2;
-      background-color: var(--tabs-bg-color);
+      text-decoration: none;
+      z-index: var(--zindex--content);
 
       @media (--medium) {
-        padding: var(--tabs-trigger-padding) 0.85rem;
+        padding: var(--tabs-trigger-padding) rem(14px);
       }
 
-      &.tabs-state--open + .tabs__target {
-        border: var(--border-styles);
-      }
-    }
-
-    @media (--below-medium) {
-      .tabs__target {
-        border-top: none;
-        border-bottom: none;
+      &.active {
+        text-decoration: underline;
       }
     }
 
-    @media (--medium) {
-      &.tabs-align--top {
-        .tabs-state--open { border-bottom: 1px solid var(--tabs-bg-color); }
-
-        .tabs__target     { margin-top: -1px; }
-      }
-
-      &.tabs-align--bottom {
-        .tabs-state--open { border-top: 1px solid var(--tabs-bg-color); }
-
-        .tabs__target     { margin-bottom: -1px; }
-      }
-
-      &.tabs-align--left {
-        .tabs-state--open { border-right: 1px solid var(--tabs-bg-color); }
-
-        .tabs__target     { margin-left: -1px; }
-      }
-
-      &.tabs-align--right {
-        .tabs-state--open { border-left: 1px solid var(--tabs-bg-color); }
-
-        .tabs__target     { margin-right: -1px; }
-      }
-    }
-
-    .tabs__target {
+    /* Target styles */
+    [data-tabs-target] {
       background-color: var(--tabs-bg-color);
+      border: var(--border-styles);
+      height: 100%;
+      padding: var(--tabs-target-padding);
       position: relative;
-      z-index: 1;
+      z-index: var(--zindex--base);
+    }
 
-      > * {
-        padding: var(--tabs-target-padding);
+    /* Border styles for all alignment types */
+    &.tabs-align--top {
+      .active {
+        border-bottom: 1px solid var(--tabs-bg-color);
+        margin-bottom: -1px;
+      }
+    }
+
+    &.tabs-align--bottom {
+      .active {
+        border-top: 1px solid var(--tabs-bg-color);
+        margin-top: rem(-1px);
+      }
+    }
+
+    &.tabs-align--left {
+      .active {
+        border-right: 1px solid var(--tabs-bg-color);
+        margin-right: rem(-1px);
+      }
+    }
+
+    &.tabs-align--right {
+      .active {
+        border-left: 1px solid var(--tabs-bg-color);
+        margin-left: rem(-1px);
       }
     }
   }

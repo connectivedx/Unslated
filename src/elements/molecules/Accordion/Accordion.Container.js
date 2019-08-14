@@ -1,6 +1,6 @@
-/** Accordion component client side namespace */
+// The Accordion JS module
 export const Accordion = (el) => {
-  /** UI obect houses common selected elements within component */
+  // Accordion's ui helper object
   const ui = {
     el,
     sections: el.querySelectorAll('.accordion__section'),
@@ -8,6 +8,7 @@ export const Accordion = (el) => {
     target: el.querySelector('.expand__target')
   };
 
+  // Accordion's main init point
   const init = () => {
     ui.el.addEventListener('click', (e) => {
       if (el.classList.contains('accordion--multi-false')) {
@@ -27,6 +28,7 @@ export const Accordion = (el) => {
     });
   };
 
+  // Self init
   init();
 };
 

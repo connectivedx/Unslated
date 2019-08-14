@@ -1,27 +1,26 @@
+// The Textarea JS module
 export const Textarea = (el) => {
+  // Textarea's ui helper object
   const ui = {
     el,
     native: el.querySelector('.field__native'),
     error: el.querySelector('.field__error-message')
   };
 
+  // Teatarea's validation method (see: src/utilities.jsx checkValidity)
+  el.validate = () => {
+    Utils.checkValidity(el);
+  };
+
+  // Main init point
   const init = () => {
-    el.validate = () => {
-      Utils.checkValidity(el);
-      if (ui.error) {
-        ui.error.style.left = [ui.native.offsetLeft, 'px'].join('');
-      }
-    };
-
-    ui.native.addEventListener('keyup', () => {
-      el.validate();
-    });
-
-    ui.native.addEventListener('blur', () => {
+    // Field's "input" event listener / validation
+    ui.native.addEventListener('input', () => {
       el.validate();
     });
   };
 
+  // Self init
   init();
 };
 

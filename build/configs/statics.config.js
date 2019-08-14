@@ -8,15 +8,11 @@
 require('./webpack/paths.config');
 const path = require('path');
 const Webpack = require('webpack');
-const Package = require('../../package.json');
 const WebpackPlugins = require('./webpack/webpack.plugins.js');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // config files
 const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
 let img = require('./img/img.config.js');       // all image related build configurations
-img.config[0].use[0].options.emitFile = false;  //disable the output of image files
 
 // main config object
 const config = {
@@ -24,8 +20,8 @@ const config = {
     static: './build/static.jsx', // entry point for production assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${global.statics.dest}`),   // sets default location for all compiled files
-    filename: `../[name].js`,                                        // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
+    filename: `.${global.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   node: {
@@ -61,19 +57,19 @@ const config = {
     extensions: ['.js', '.jsx', '.json'],  // limits alias to these file types (order matters here; css last)
     enforceExtension: false                // allows importing of files without file's extension usage
   },
+  performance: false,
   optimization: {
-    minimize: false,                       // minimize output (set to false for dev builds)
-  },
-  performance: {
-    hints: false                           // bundle size warnings
-  },
-  stats: false,
-  devtool: false
+    minimize: false
+  }
 };
 
 module.exports = (env, argv) => {
   /* Here we have the opportunity to alter the config as needed prior to sending it off to webpack */
   config.plugins.push(
+    new Webpack.ProvidePlugin({
+      React: 'react',
+      PropTypes: 'prop-types'
+    }),
     new WebpackPlugins.StaticBundle(argv.mode)      // see build/configs/webpack.plugins.js
   );
 

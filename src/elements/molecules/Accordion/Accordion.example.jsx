@@ -30,13 +30,13 @@ export default [{
       component: (
         <Accordion>
           <Accordion__section title="Accordion section one">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla elit odio. Proin nec felis sit amet mi lobortis venenatis. Pellentesque porta leo in neque volutpat cursus. Fusce at urna facilisis, convallis turpis ac, vulputate eros. Cras mattis luctus dui, vel blandit est malesuada ultrices. Duis dignissim facilisis rutrum.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section two">
-            <p>Etiam mauris libero, porttitor ut aliquet ac, tempus vel neque. Integer venenatis dolor a sapien efficitur luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dolor lacus, auctor nec lectus quis, imperdiet laoreet metus. Quisque id tortor diam. Donec leo metus, suscipit quis accumsan commodo, suscipit aliquet velit. Sed ut semper leo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section three">
-            <p>Sed eget urna sed sapien faucibus mattis. Aliquam vel mauris ullamcorper, maximus metus sed, pharetra nunc. Duis neque ligula, gravida quis massa sit amet, semper feugiat dolor. Fusce ut malesuada dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam sed suscipit magna. Vivamus massa felis, consequat et massa nec, rhoncus eleifend justo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
       ),
@@ -46,13 +46,13 @@ export default [{
       component: (
         <Accordion variant="spread">
           <Accordion__section title="Accordion section one">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla elit odio. Proin nec felis sit amet mi lobortis venenatis. Pellentesque porta leo in neque volutpat cursus. Fusce at urna facilisis, convallis turpis ac, vulputate eros. Cras mattis luctus dui, vel blandit est malesuada ultrices. Duis dignissim facilisis rutrum.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section two">
-            <p>Etiam mauris libero, porttitor ut aliquet ac, tempus vel neque. Integer venenatis dolor a sapien efficitur luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dolor lacus, auctor nec lectus quis, imperdiet laoreet metus. Quisque id tortor diam. Donec leo metus, suscipit quis accumsan commodo, suscipit aliquet velit. Sed ut semper leo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section three">
-            <p>Sed eget urna sed sapien faucibus mattis. Aliquam vel mauris ullamcorper, maximus metus sed, pharetra nunc. Duis neque ligula, gravida quis massa sit amet, semper feugiat dolor. Fusce ut malesuada dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam sed suscipit magna. Vivamus massa felis, consequat et massa nec, rhoncus eleifend justo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
       ),
@@ -62,13 +62,13 @@ export default [{
       component: (
         <Accordion variant="spread">
           <Accordion__section title="Accordion section one" align="bottom">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla elit odio. Proin nec felis sit amet mi lobortis venenatis. Pellentesque porta leo in neque volutpat cursus. Fusce at urna facilisis, convallis turpis ac, vulputate eros. Cras mattis luctus dui, vel blandit est malesuada ultrices. Duis dignissim facilisis rutrum.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section two" align="bottom">
-            <p>Etiam mauris libero, porttitor ut aliquet ac, tempus vel neque. Integer venenatis dolor a sapien efficitur luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dolor lacus, auctor nec lectus quis, imperdiet laoreet metus. Quisque id tortor diam. Donec leo metus, suscipit quis accumsan commodo, suscipit aliquet velit. Sed ut semper leo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section three" align="bottom">
-            <p>Sed eget urna sed sapien faucibus mattis. Aliquam vel mauris ullamcorper, maximus metus sed, pharetra nunc. Duis neque ligula, gravida quis massa sit amet, semper feugiat dolor. Fusce ut malesuada dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam sed suscipit magna. Vivamus massa felis, consequat et massa nec, rhoncus eleifend justo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
       ),
@@ -78,13 +78,13 @@ export default [{
       component: (
         <Accordion multi={false}>
           <Accordion__section title="Accordion section one">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla elit odio. Proin nec felis sit amet mi lobortis venenatis. Pellentesque porta leo in neque volutpat cursus. Fusce at urna facilisis, convallis turpis ac, vulputate eros. Cras mattis luctus dui, vel blandit est malesuada ultrices. Duis dignissim facilisis rutrum.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section two">
-            <p>Etiam mauris libero, porttitor ut aliquet ac, tempus vel neque. Integer venenatis dolor a sapien efficitur luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam dolor lacus, auctor nec lectus quis, imperdiet laoreet metus. Quisque id tortor diam. Donec leo metus, suscipit quis accumsan commodo, suscipit aliquet velit. Sed ut semper leo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section three">
-            <p>Sed eget urna sed sapien faucibus mattis. Aliquam vel mauris ullamcorper, maximus metus sed, pharetra nunc. Duis neque ligula, gravida quis massa sit amet, semper feugiat dolor. Fusce ut malesuada dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam sed suscipit magna. Vivamus massa felis, consequat et massa nec, rhoncus eleifend justo.</p>
+            <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
       ),

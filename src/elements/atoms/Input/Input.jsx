@@ -87,21 +87,18 @@ export class Input extends React.Component {
       pattern = '.*[^ ].*';
     }
 
+    const errorMessage = (error)
+      ? (
+        <span className="field__error-message">
+          {error}
+        </span>
+      )
+      : '';
+
     return (
       <Tag
         className={classStack}
       >
-        {
-          (error)
-            ? (
-              <span className="field__error-message field__error-message--error field__error-message--align-top">
-                <span className="field__error-message-inner">
-                  {error}
-                </span>
-              </span>
-            )
-            : ''
-        }
         {
           (type !== 'radio' && type !== 'checkbox')
             ? (
@@ -110,6 +107,7 @@ export class Input extends React.Component {
                 className="field__label"
               >
                 {label}
+                {errorMessage}
               </label>
             )
             : ''
@@ -133,7 +131,8 @@ export class Input extends React.Component {
                 htmlFor={id}
                 className="field__label"
               >
-                {label}
+                <span className="field__label--inner">{label}</span>
+                {errorMessage}
               </label>
             )
             : ''

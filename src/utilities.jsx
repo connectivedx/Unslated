@@ -7,7 +7,6 @@
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
 
-
 /*
   Helper: Universal method to perform XHTTP requests
 */
@@ -238,6 +237,89 @@ const objectReverse = (object) => {
 };
 
 /*
+  Helper: Quick method to generate lorium ipsum dummy content to a give HTML block.
+  This helps reduce the guide bundle size by summing large ipsum usage down to a method.
+*/
+const ipsum = (type, amount) => {
+  const settings = {
+    wordsInSentence: {
+      max: 16,
+      min: 4
+    },
+    sentencesInParagraph: {
+      max: 8,
+      min: 4
+    }
+  };
+
+  const vocabulary = [
+    'ad', 'adipisicing', 'aliqua', 'aliquip', 'amet', 'anim', 'aute',
+    'cillum', 'commodo', 'consectetur', 'consequat', 'culpa', 'cupidatat',
+    'deserunt', 'do', 'dolor', 'dolore', 'duis',
+    'ea', 'eiusmod', 'elit', 'enim', 'esse', 'est', 'et', 'eu', 'ex', 'excepteur', 'exercitation',
+    'fugiat',
+    'id', 'in', 'incididunt', 'ipsum', 'irure',
+    'labore', 'laboris', 'laborum', 'Lorem',
+    'magna', 'minim', 'mollit', 'nisi',
+    'non', 'nostrud', 'nulla',
+    'occaecat', 'officia',
+    'pariatur', 'proident',
+    'qui', 'quis',
+    'reprehenderit',
+    'sint', 'sit', 'sunt',
+    'tempor',
+    'ullamco', 'ut',
+    'velit', 'veniam', 'voluptate'
+  ];
+
+  const randomRange = (min, max) => Math.floor((Math.random() * (max - min)) + min);
+
+  // Build a string of random ipsum words
+  const generateWords = (count) => {
+    let words = '';
+    for (let i = 0; i < count; i++) {
+      const rand = randomRange(1, vocabulary.length);
+      words += ` ${vocabulary[rand]}`;
+    }
+    return titleCapitalize(words.trim());
+  };
+
+  // Build a target amount of sentences
+  const generateSentences = () => {
+    let sentences = '';
+    for (let i = 0; i < amount; i++) {
+      sentences += ` ${generateWords(randomRange(settings.wordsInSentence.min, settings.wordsInSentence.max))}.`;
+    }
+
+    return sentences;
+  };
+
+  // Build a target amount of paragraphs
+  const generateParagraphs = () => {
+    let paragraphs = '';
+    for (let i = 0; i < amount; i++) {
+      paragraphs += ` ${generateSentences(randomRange(settings.sentencesInParagraph.min, settings.sentencesInParagraph.max))}`;
+    }
+
+    return paragraphs;
+  };
+
+  if (type === 'word') {
+    return generateWords(amount);
+  }
+
+  if (type === 'sentence') {
+    return generateSentences();
+  }
+
+  if (type === 'paragraph') {
+    return generateParagraphs();
+  }
+
+  return false;
+};
+
+/*
   CORE: Creating a nice className from an array of unknown values
 */
 const createClassStack = (classList) => (
@@ -273,6 +355,7 @@ module.exports = {
   getExample,
   XHR,
   Fetch,
+  ipsum,
   getCookie,
   setCookie,
   deleteCookie,

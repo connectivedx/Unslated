@@ -5,7 +5,6 @@
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
 
-
 /*
   CORE: Helper method to convert raw int into bytes, kb or kb for display.
 */
@@ -278,186 +277,151 @@ const WCAGTest = (ratio, size, level) => {
 
 
 /*
-  CORE: Recursive gathering of folders from a directory
+  CORE: Formats XML type languages for guide example(s) GuideUtils.XMLFormat(string);
+  Please note, this can't be used on JSX syntax as it normalizes the tags to being lowercase
 */
 
-const readDirectory = (context) => {
-  const collection = [];
-  context.keys().forEach((key) => {
-    collection[key] = context(key);
-    return true;
-  });
+const XMLParser = (node, level) => {
+  let textNode;
+  const indentBefore = new Array(level++ + 1).join('  ');
+  const indentAfter = new Array(level - 1).join('  ');
 
-  return collection;
-};
-
-/*
-  CORE: Gathering pages
-*/
-
-const getPages = (page = false) => {
-  const allPages = readDirectory(require.context('../../src/pages/', true, /\.jsx$/));
-  const collection = [];
-  Object.keys(allPages).map((key) => {
-    if (page) {
-      if (key.indexOf(page) === -1) { return false; }
+  for (let i = 0; i < node.children.length; i++) {
+    if (level !== 1) {
+      textNode = document.createTextNode(`\n ${indentBefore}`);
+      node.insertBefore(textNode, node.children[i]);
     }
-    collection[key] = allPages[key].default;
-    return false;
-  }).filter((n) => n);
 
-  if (page) {
-    return collection[Object.keys(collection)[0]];
+    XMLParser(node.children[i], level);
+
+    if (node.lastElementChild === node.children[i] && level !== 1) {
+      textNode = document.createTextNode(`\n ${indentAfter}`);
+      node.appendChild(textNode);
+    }
   }
 
-  return collection;
+  return node;
+};
+
+const XMLFormat = (string) => {
+  const div = document.createElement('div');
+  div.innerHTML = string.replace((/ {2}|\r\n|\n|\r/gm), '').trim();
+  return XMLParser(div, 0).innerHTML.replace(/^\s+|\s+$/g, '');
 };
 
 
 /*
-  CORE: Gathering tools
+  CORE: Converts a react JSX element to JSX RAW source and formats it for guide example(s).
+  Pleaes note, this is the opposite of ReactDOMServer.renderStaticMarkup
 */
 
-const getTools = (tool = false) => {
-  const allTools = readDirectory(require.context('./tools/', true, /\.jsx$/));
-  const collection = {};
-  Object.keys(allTools).map((key) => {
-    if (tool) {
-      if (key.indexOf(tool) === -1) { return false; }
+const JSXFormat = (element, options) => {
+  // private methods
+  const getName = (el) => {
+    const { type } = el;
+    if (type.displayName) {
+      return type.displayName;
     }
-    collection[key] = allTools[key].default;
-    return false;
-  }).filter((n) => n);
+    if (type.name) {
+      return type.name;
+    }
+    if (typeof type === 'string') {
+      return type;
+    }
+    return 'Unknown';
+  };
 
-  if (tool) {
-    return collection[Object.keys(collection)[0]];
+  const isDefaultProp = (el, prop, value) => {
+    if (!el.type.defaultProps) {
+      return false;
+    }
+    return el.type.defaultProps[prop] === value;
+  };
+
+  const getProps = (el, config) => Object.keys(el.props || {}).map((prop) => {
+    let val = el.props[prop];
+
+    if (prop === 'children' || isDefaultProp(el, prop, val)) {
+      return '';
+    }
+
+    if (typeof val === 'string') {
+      return ` ${prop}=${JSON.stringify(val)}`;
+    }
+
+    if (React.isValidElement(val)) {
+      val = JSXFormat(val, config); // eslint-disable-line
+    }
+
+    if (typeof val === 'object') {
+      val = JSON.stringify(val);
+    }
+
+    if (typeof val === 'function') {
+      val = `${(val.name || ' function')}()`;
+    }
+
+    return ` ${prop}={${val}}`;
+  }).join('');
+
+  const getChild = (el, config) => {
+    if (React.isValidElement(el)) {
+      return JSXFormat(el, config); // eslint-disable-line
+    }
+
+    if (el == null || el === false) {
+      return '';
+    }
+
+    return String(el);
+  };
+
+  const getChildren = (el, config) => {
+    const { children } = el.props;
+    if (!children) { return ''; }
+
+    const nodes = [];
+
+    React.Children.forEach(children, (child) => {
+      nodes.push(getChild(child, config)); // eslint-disable-line
+    });
+
+    return `\n${nodes.filter(Boolean).join('\n').replace(/^(?!\s*$)/gm, ' '.repeat(2))}\n`;
+  };
+
+  // get props
+  const props = getProps(element);
+
+  // get name
+  let name = getName(element);
+
+  if (!name) {
+    if (options.displayName) {
+      name = options.displayName;
+    }
   }
 
-  return collection;
-};
+  if (!name) { name = 'Unknown'; }
 
-
-/*
-  CORE: Gathering specific JSX file's documentation
-*/
-
-const getJSXDocumentation = (name) => {
-  const allJSXDocs = require.context(
-    '!!docgen-loader?htmlDescription!../../src/elements/',
-    true,
-    /\.jsx/
-  );
-  const keys = allJSXDocs.keys();
-  let i = keys.length;
-  while (i--) {
-    if (keys[i].indexOf('test') === -1 || keys[i].indexOf('example') !== -1) {
-      if (keys[i].indexOf(name) !== -1) {
-        return allJSXDocs(keys[i]);
-      }
-    }
+  // get children
+  const children = getChildren(element, options);
+  if (children.length > 0) {
+    return `<${name}${props}>${children}</${name}>`;
   }
-  return false;
+
+  return `<${name}${props} />`;
 };
-
-const getJSDocumentation = (name) => {
-  const allJSDocs = require.context(
-    '!!./plugins/webpack.jsdocgen.loader?htmlDescription!../../src/elements/',
-    true,
-    /^.*\.(js)$/
-  );
-
-  const keys = allJSDocs.keys();
-  let i = keys.length;
-  while (i--) {
-    if (keys[i].indexOf(name) !== -1) {
-      return allJSDocs(keys[i]);
-    }
-  }
-  return false;
-};
-
-/*
-  CORE: Gathering all or single element from elements directory
-*/
-
-const getElements = (element = false) => {
-  const allElements = readDirectory(require.context(
-    '../../src/elements/',
-    true,
-    /^((?!test|example).)*jsx$/
-  ));
-
-  const collection = {};
-  Object.keys(allElements).map((key) => {
-    if (element) {
-      if (key.indexOf(element) === -1) { return false; }
-    }
-    collection[key] = allElements[key];
-    return false;
-  }).filter((n) => n);
-  if (element) {
-    return collection[Object.keys(collection)[0]];
-  }
-  return collection;
-};
-
-/*
-  CORE: Gathering all or single example from elements directory
-*/
-
-const getExamples = (element = false) => {
-  const allExamples = readDirectory(require.context('../../src/elements/', true, /\.example.jsx$/));
-  return Object.keys(allExamples).map((key) => {
-    const path = `../../src/elements${key.split('.').slice(0, -1).slice(0, -1).pop()}.jsx`;
-
-    // you shall not pass!... without a path.
-    if (!path) { return false; }
-
-    // are we getting all elements examples, or single elements examples?
-    if (element) {
-      if (key.indexOf(element) === -1) { return false; }
-    }
-
-    const data = {
-      name: key.split('/').slice(-1)[0].split('.')[0],
-      atomic: key.replace('./', '').split('/')[0],
-      url: `examples${key.split('.').slice(0, -1).slice(0, -1).pop()}`,
-      examples: [...allExamples[key].default][0].examples,
-      element: getElements(key.split('/').slice(-1)[0].split('.')[0])
-    };
-
-    if (getJSXDocumentation(data.name)) {
-      if (getJSXDocumentation(data.name).length) {
-        data.jsxdocs = { ...getJSXDocumentation(data.name)[0] };
-      }
-    } else {
-      data.jsxdocs = undefined;
-    }
-
-    if (getJSDocumentation(data.name)) {
-      if (getJSDocumentation(data.name).length) {
-        data.jsdocs = getJSDocumentation(data.name);
-      }
-    } else {
-      data.jsdocs = undefined;
-    }
-
-    return data;
-  });
-};
-
 
 module.exports = {
-  getPages,
-  getTools,
-  getExamples,
-  getFontMetrics,
   bytesToSize,
-  WCAGTest,
-  getColorUnits,
+  cleanColorVariables,
   getColorContrast,
   getColorLuminanace,
-  RGBToHex,
+  getColorUnits,
+  getFontMetrics,
+  JSXFormat,
+  XMLFormat,
   HexToRGB,
-  cleanColorVariables
+  RGBToHex,
+  WCAGTest
 };

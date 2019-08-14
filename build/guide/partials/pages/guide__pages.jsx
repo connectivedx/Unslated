@@ -22,11 +22,11 @@ export const BadAddress = () => {
 export const Guide__pages = (props) => {
   let page;
   if (props.match.params.page) {
-    page = GuideUtils.getPages(props.match.params.page);
+    page = global.guide.pages[props.match.params.page];
   }
 
   if (props.match.params.tool) {
-    page = GuideUtils.getTools(props.match.params.tool);
+    page = global.guide.tools[props.match.params.tool];
   }
 
   const classStack = Utils.createClassStack([

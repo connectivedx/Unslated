@@ -178,38 +178,4 @@
     width: 85%;
     outline: none;
   }
-
-}
-
-[data-modal] {
-  .icon--close {
-    top: 15px;
-    right: 20px;
-  }
-
-  .modal-inner {
-    &--width {
-      background: transparent;
-      box-shadow: 0 rem(20px) rem(20px) 0 color(var(--color-black), 75%);
-    }
-  }
-
-  .card {
-    height: 100%;
-
-    &--default {
-      border: none;
-    }
-  }
-
-
-  .field,
-  .field__decorator,
-  .field__native {
-    width: 100%;
-  }
-
-  .hidden {
-    display: none;
-  }
 }
