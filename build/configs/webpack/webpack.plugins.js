@@ -5,7 +5,6 @@
 const fs = require('fs-extra');
 const path = require('path');
 const https = require("https");
-const rimraf = require("rimraf");
 const docgen = require('react-docgen');
 const Package = require('../../../package.json');
 const POSTCSS = require('postcss');
@@ -61,8 +60,12 @@ class ProcessCSSPostBundle {
   }
 }
 
+/*
+  Helper plugin to do static exports of examples
+*/
 class StaticBundle {
   constructor() {
+    this.entryFile = path.resolve(__dirname, `../../../${Package.directories.dest}/assets/js/static.js`);
   }
 
   getSourcePath(name, compilation) {
@@ -122,22 +125,18 @@ class StaticBundle {
   }
 
   apply(compiler) {
-    // Now we hook into our global.components object we made in our entry file (see: build/static.jsx)
+    // After emitting static.js, lets load it up and loop over examples to export
     compiler.hooks.afterEmit.tap('StaticBundle', (compilation) => {
-      require(path.resolve(__dirname, `../../../${Package.statics.dest}/static.js`)); // require bundled version of entry file
+      require(this.entryFile); // require bundled version of entry file
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
         if (example.staticPath) {
-          // first make static dest directories (if not already)
           example.staticPath = example.staticPath.replace(/\\/g, '/');
-
           const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
           const dest = path.resolve(__dirname, `../../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);
-
-          // second write files to newly created dest directories
           this.writeHtmlFile(example, compilation);
         }
       });
@@ -146,20 +145,18 @@ class StaticBundle {
     // Cleanup ./dist/static.js bundle leftover file
     compiler.hooks.done.tap('StaticBundle', (compilation) => {
       fs.unlink(
-        path.resolve(__dirname,
-        `../../../${Package.statics.dest}/static.js`),
+        this.entryFile,
         (staticErr) => {
           if (staticErr) { console.log(staticErr); }
-          rimraf(path.resolve(__dirname, `../../../${Package.statics.dest}/assets/`), (imgErr) => {
-            if (imgErr) { console.log(imgErr); }
-          });
         }
       );
     });
   }
 }
 
-
+/*
+  Helper plugin to compile our project metric stats into guide.js
+*/
 class StatsBundle {
   constructor (buildType) {
     this.buildType = buildType;
@@ -343,7 +340,9 @@ class StatsBundle {
   }
 }
 
-
+/*
+  Helper plugin to inject CDN dependecies to HtmlWebpackPlugin (see: build/configs/html/html.config.js)
+*/
 class CDNModules {
   constructor(config) {
     this.head = '';

@@ -1,10 +1,3 @@
-![Unslated](https://ibin.co/4gwUCNSUUmgQ.png)
-
-[Unslated](https://github.com/drolsen/Unslated) is a frontend oriented tool-set for making style and component guides.  It's great for producing assets under a high emphasis of atomic driven architecture. Unslated comes ready to be extended to larger CMS systems or projects.
-
-> To get started, download a copy of this repository from github and read Install section below.
-
-
 ## System Dependencies
 
 Before you get up and running, make sure your environment has the following dependencies installed:
@@ -31,7 +24,7 @@ yarn
 
 
 ## Getting Started
-
+f
 After you've installed npm dependencies, Unslated provides command line scripts to automate common tasks. Tasks are divided below into common work flows.
 
 > Use `npm run` or `yarn` to execute these commands in your favorite terminal.
@@ -214,7 +207,6 @@ The web development world is evolving rapidly. A tool that can automate the myri
 #### Building and watching
 
 There are some very helpful command line scripts to help with development and continuous-integration. You can build a static set of files using `npm run production` or `npm run dev` if you are developing, as it creates a server at http://localhost:8080 that updates upon file changes.
-
 
 ## FAQ
 

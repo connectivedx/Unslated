@@ -233,7 +233,7 @@ export class Guide__colors_card extends React.Component {
             />
           </Card__body>
           <Card__footer>
-            {unit}
+            <p>{unit}</p>
           </Card__footer>
         </Card>
       </React.Fragment>

@@ -141,11 +141,11 @@ export const GuideNav = (el) => {
             .replace(
               /(\w)(\w*)/g,
               (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
-            )
-            .replace(/ /g, '')
-            .replace(/'/g, '')
+            ).replace(/ /g, '')
+            .replace(/_/g, '')
             .replace(/-/g, '')
-            .replace(/_/g, '');
+            .replace(/'/g, '')
+            .trim();
         }, 200);
       });
     }

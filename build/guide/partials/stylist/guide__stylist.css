@@ -113,4 +113,8 @@
       }
     }
   }
+
+  .examples.hide {
+    display: none;
+  }
 }

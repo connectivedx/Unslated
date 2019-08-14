@@ -64,10 +64,12 @@ module.exports = {
                 [
                   'new',
                   query.new,
-                  query.name.replace(/_/g, ' ').replace(/-/g, ' ').replace(
-                    /(\w)(\w*)/g,
-                    (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
-                  ).trim(),
+                  query.name
+                  .replace(/ /g, '')
+                  .replace(/_/g, '')
+                  .replace(/-/g, '')
+                  .replace(/'/g, '')
+                  .trim(),
                   query.container
                 ]
               );

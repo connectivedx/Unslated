@@ -34,7 +34,6 @@ export default [{
   examples: [
     {
       name: 'Basic form example',
-      staticPath: '/form/form.html',
       component: (
         <Form action="#/" method="post">
           <Fieldset legend="Use the form below as an example on how to construct forms">

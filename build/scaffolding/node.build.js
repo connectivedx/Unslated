@@ -8,6 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const exec = require('child_process').exec;
+const execSync = require('child_process').execSync;
 const Package = require('../../package.json');
 const params = process.argv;
 const cmd = params[2];
@@ -31,7 +32,7 @@ const sync = () => {
   let needsSyncing = false;
 
   if (fs.existsSync(path.resolve(__dirname, `../../node_modules`))){
-    console.log('Checking dependencies . . .');
+    console.log('\x1b[33mChecking dependencies . . .\x1b[37m');
     fs.stat(Package.directories.dest, function(err, dstats){
       if (err) {
         console.log(err);
@@ -63,16 +64,16 @@ const sync = () => {
 
         if (needsSyncing === true) {
           console.log('\x1b[33mUpdating dependencies! This may effect cache, please hold . . .\x1b[37m');
-          exec('npm install');
+          execSync('npm install', {stdio:[0,1,2]});
         } else {
-          console.log('\x1b[32mNo dependencies changed.\nBuild is now starting . . .\x1b[37m')
+          console.log('\x1b[32mBuild is now starting . . .\x1b[37m')
         }
       });
     });
   } else {
     console.log('Welcome to Unslated!');
     console.log('Installing dependencies . . .');
-    exec('npm install');
+    execSync('npm install', {stdio:[0,1,2]});
     console.log('\x1b[32mBuild is now starting . . .\x1b[37m');
   }
 };

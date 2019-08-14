@@ -52,7 +52,7 @@ const config = {
     extensions: ['.js', '.jsx', '.json', '.css'],  // limits alias to these file types (order matters here; css last)
     enforceExtension: false                        // allows importing of files without file's extension usage
   },
-  ...stats.config,               // see build/configs/webpack/stats.config.js
+  ...stats.config,                                 // see build/configs/webpack/stats.config.js
   performance: {
     maxAssetSize: 170000,
     assetFilter: (asset) => {
