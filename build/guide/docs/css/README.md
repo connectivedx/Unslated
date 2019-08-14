@@ -41,23 +41,23 @@ Once fonts are installed, its wise to sum up font faces into commonly used font 
 
 Font variables have been abstracted out to build up the faces into variables, stacks and then families to allow as much flex ability as possible across all three levels.
 
-Please note, baseline Unslated has abstracted these three levels under two name spaces, `default` and `accent`. default primarly is used for body level content, while accent is reserved for things like headings and titles.
+Please note, baseline Unslated has abstracted these three levels under two name spaces, `default` and `accent`. default primarily is used for body level content, while accent is reserved for things like headings and titles.
 
-Lastly, under `src/variables/type.css` you can find global settings typograhpy such as body level font-size and line-height as well as responsive typograhpy baseline settings.
+Lastly, under `src/variables/type.css` you can find global settings typography such as body level font-size and line-height as well as responsive typography baseline settings.
 
 ## Variables
 
 Speaking of variables, one of the greatest features of Unslated is that CSS variables are all global!
-This elemenates the need for circular importing of CSS files and keeps projects focused on atmoic organization.
+This elements the need for circular importing of CSS files and keeps projects focused on atmoic organization.
 
 There are a few requirements to creating and using CSS variables:
 
 - Defined within the `:root {}` selector before they can be accessed.
 - Prefixed with `--` otherwise the system ignores them during compile.
 
-Lastly, although all variables in Unslated can be accessed globally no matter where they are define; for organization sakes Unslated offers `src/variables/` as a location to house all globally shared variables. This allows projects to focuse on crating component specific variables within a component's CSS file, while graduating globally shared variables to `src/variables`.
+Lastly, although all variables in Unslated can be accessed globally no matter where they are define; for organization sake Unslated offers `src/variables/` as a location to house all globally shared variables. This allows projects to focus on crating component specific variables within a component's CSS file, while graduating globally shared variables to `src/variables`.
 
-```
+```css
 // Create
 :root {
 	--css-variable: value;
@@ -90,7 +90,7 @@ When creating new colors, consider using [Name that color](http://chir.ag/projec
 ```
 
 ## Nesting
-Like most precompile environments, Unslated supports nesting of source CSS selectors to help with legability and selector strength where ever needed.
+Like most pre-compile environments, Unslated supports nesting of source CSS selectors to help with legibility and selector strength where ever needed.
 
 ```css
 .some-selector {
@@ -107,7 +107,7 @@ Like most precompile environments, Unslated supports nesting of source CSS selec
 
 ```
 
-However, also like most precompile environments its important to keep nesting levels to a max of three levels.
+However, also like most pre-compile environments its important to keep nesting levels to a max of three levels.
 The more you nest selectors, the more organized and stronger you make selectors, but you also grow selectors in length that may not be as apparent from source files. The deep you nest, the bigger the selector(s), the bigger the selectors the bigger your projects bundled CSS gets.
 
 Wrong way:
@@ -164,7 +164,7 @@ Instead, try to identify areas where selectors are strong enough on their and do
 
 ## Breakpoints
 
-Breakpoints are defined in `src/variables/breakpoints.css` and comes with two sets. One set to to target browser sizes from a pixel value on up, while the other set is to target a pixel value on down. Its standared to use on up set as it enforces the idea of mobile first. Use the on down set to help with overloads and corner cases.
+Breakpoints are defined in `src/variables/breakpoints.css` and comes with two sets. One set to to target browser sizes from a pixel value on up, while the other set is to target a pixel value on down. Its standard to use on up set as it enforces the idea of mobile first. Use the on down set to help with overloads and corner cases.
 
 To use breakpoints, you define a `@media` rule with a targeted breakpoint size, like so:
 
@@ -328,7 +328,7 @@ This compiles down to the following:
 }
 ```
 
-Please note, extendings styles is like nesting once things are compiled down, so depending on the size of the selectors you are extending or how much you are extending there can be a deminishing return of how large your bundle can get. For instance, if you have a scenario such as:
+Please note, extending styles is like nesting once things are compiled down, so depending on the size of the selectors you are extending or how much you are extending there can be a diminishing return of how large your bundle can get. For instance, if you have a scenario such as:
 
 ```css
 .some-pretty-long-css-selector {
@@ -350,7 +350,7 @@ Please note, extendings styles is like nesting once things are compiled down, so
 	background-color: #000;
 }
 
-// Where as without extending, and just writting color again would be a smaller:
+// Where as without extending, and just writing color again would be a smaller:
 .some-pretty-long-css-selector { color: #fff; }
 .another-prettylong-css-selector {
 	color: #fff;
@@ -360,7 +360,7 @@ Please note, extendings styles is like nesting once things are compiled down, so
 ```
 
 ## Mixins
-Mixins are like style extending from above but without the concern of deminishing returns and the added benifits of being able to pass values to them for different results. Mixins can be found in `src/variables/mixins.css` and are defined by using the `@define-mixin [name] ([arguments])` rule.
+Mixins are like style extending from above but without the concern of diminishing returns and the added benefits of being able to pass values to them for different results. Mixins can be found in `src/variables/mixins.css` and are defined by using the `@define-mixin [name] ([arguments])` rule.
 
 ```css
 @define-mixin aspect-ratio (--width, --height) {
@@ -385,7 +385,7 @@ To use a mixin, simple call out `@mixin` and the name of wanted mixin like so:
 
 
 ## Zindex
-Z-index can get kinda crazy over the lifetime development. Nothing is worse than getting a great site up and going out in production, to only to find out that modals have a higher z-index than primary site navigaiton.
+Z-index can get kinda crazy over the lifetime development. Nothing is worse than getting a great site up and going out in production, to only to find out that modals have a higher z-index than primary site navigation.
 Using `src/variables/zindex.css`, developers now have a defined set of z-indexes to use as normal variables throughout the project CSS authoring to ensure everyone is on the same level from component to component.
 
 ```css
@@ -402,7 +402,7 @@ Using `src/variables/zindex.css`, developers now have a defined set of z-indexes
 
 ## Responsive typography
 As mentioned above in the Fonts & Typography section, Unslated comes with responsive typography out of the box.
-Simply define what font-sizes and pixel screen size ranges to use, and a smooth transition between the two font-sizes will occure between the two define screensizes.
+Simply define what font-sizes and pixel screen size ranges to use, and a smooth transition between the two font-sizes will occur between the two define screen sizes.
 
 Things like large headings or akward typography that normally would be a pain or impossible to resize across normal media queries is now easy with responsive typography.
 
