@@ -61,14 +61,7 @@ const config = {
   performance: false,
   devtool: false,
   optimization: {
-    minimize: Package.optimize.js,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          keep_fnames: true
-        }
-      })
-    ]
+    minimize: Package.optimize.js
   },
 };
 

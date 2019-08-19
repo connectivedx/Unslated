@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
 	config: [{
     'test': /\.(jsx|js)$/,
-    'exclude': [path.resolve(__dirname, '../../node_modules')],
+    'exclude': [path.resolve(__dirname, '../../../node_modules')],
     'use': [
       {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)

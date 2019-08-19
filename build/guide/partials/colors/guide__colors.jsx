@@ -154,7 +154,11 @@ export class Guide__colors_card extends React.Component {
     /** Secondary test color */
     secondary: PropTypes.string,
     /** Colors unit (hex, rgb, rgba) */
-    unit: PropTypes.string
+    unit: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.node
+    ])
   };
 
   static defaultProps = {

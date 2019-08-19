@@ -1,4 +1,10 @@
+import Heading from '@atoms/Heading/Heading';
 import Rhythm from '@atoms/Rhythm/Rhythm';
+import {
+  List,
+  List__item
+} from '@atoms/List/List';
+
 import {
   Card,
   Card__body,
@@ -15,8 +21,11 @@ export const Guide__typography = () => {
     <Card className={classStack}>
       <Card__body>
         <Rhythm variant="large">
-          <h2 className="heading heading--h2 weight--semibold">The Serif</h2>
+          <Heading level="h3">The Serif</Heading>
           <p className="SgType-size--20">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />a b c d e f g h i j k l m n o p q r s t u v w x y z<br />0 1 2 3 4 5 6 7 8 9</p>
+
+          <div><strong>Bold</strong> - <i>Italic</i> - <u>Underline</u> - <strong><i>Bold Italic</i></strong></div>
+
           <Card__deck className="grid--auto-fill">
             <Card className="SgType weight--light style--normal SgType--block">
               <Card__body>
@@ -54,16 +63,56 @@ export const Guide__typography = () => {
               </Card__body>
             </Card>
           </Card__deck>
+
           <Rhythm>
-            <h1 className="heading heading--serif heading--h1 weight--semibold">Heading One 39px/54px</h1>
-            <h2 className="heading heading--serif heading--h2 heading--thin">Heading Two 39px/45px</h2>
-            <h3 className="heading heading--serif heading--h3 heading--thin">Heading Three 26px/34px</h3>
-            <h4 className="heading heading--serif heading--h4 heading--thin">Heading Four 22px/28px</h4>
-            <h5 className="heading heading--serif heading--h5 heading--thin">Heading Five 20px/24px</h5>
-            <h6 className="heading heading--serif heading--h6 heading--thin">Heading Six 18px/20px</h6>
+            <Heading level="h1">Heading One 39px/54px</Heading>
+            <Heading level="h2">Heading Two 39px/45px</Heading>
+            <Heading level="h3">Heading Three 26px/34px</Heading>
+            <Heading level="h4">Heading Four 22px/28px</Heading>
+            <Heading level="h5">Heading Five 20px/24px</Heading>
+            <Heading level="h6">Heading Six 18px/20px</Heading>
           </Rhythm>
-          <p className="SgType-size--20">The Serif Plain 16/20. Ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum, nibh pellentesque vestibulum mattis, lacus tortor posuere nulla, vel sagittis risus mauris ac tortor. Vestibulum et lacus a tellus sodales iaculis id vel dui. Etiam euismod lacus ornare risus egestas dignissim.</p>
-          <p className="SgType-size--15">The Serif Plain 14/15. Ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum, nibh pellentesque vestibulum mattis, lacus tortor posuere nulla, vel sagittis risus mauris ac tortor. Vestibulum et lacus a tellus sodales iaculis id vel dui. Etiam euismod lacus ornare risus egestas dignissim. Fusce mattis justo vitae congue varius. Suspendisse auctor dapibus ornare. Praesent venenatis lacus a sem interdum tempor et vitae magna. Aenean vel consectetur odio. Curabitur malesuada scelerisque massa varius volutpat.</p>
+
+          <p>{Utils.ipsum('paragraph', 2)}</p>
+          <p>{Utils.ipsum('paragraph', 3)}</p>
+
+          <div className="flex flex--justify-content-between">
+            <div>
+              <Heading level="h3">Ordered lists</Heading>
+              <List tagName="ol" variant="ordered">
+                <List__item>Item one</List__item>
+                <List__item>Item two</List__item>
+                <List__item>Item three</List__item>
+                <List__item>Item Four</List__item>
+                <List__item>Item Five</List__item>
+                <List__item>Item Size</List__item>
+              </List>
+            </div>
+
+            <div>
+              <Heading level="h3">Unordered lists</Heading>
+              <List tagName="ul">
+                <List__item>Item one</List__item>
+                <List__item>Item two</List__item>
+                <List__item>Item three</List__item>
+                <List__item>Item Four</List__item>
+                <List__item>Item Five</List__item>
+                <List__item>Item Size</List__item>
+              </List>
+            </div>
+
+            <div>
+              <Heading level="h3">Blank lists</Heading>
+              <List tagName="ul" variant="blank">
+                <List__item>Item one</List__item>
+                <List__item>Item two</List__item>
+                <List__item>Item three</List__item>
+                <List__item>Item Four</List__item>
+                <List__item>Item Five</List__item>
+                <List__item>Item Size</List__item>
+              </List>
+            </div>
+          </div>
         </Rhythm>
       </Card__body>
     </Card>

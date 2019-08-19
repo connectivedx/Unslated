@@ -1,8 +1,8 @@
 ## JSX
-Each compoent created in Unslated comes with a main .JSX file and a example.JSX file.
-The main.JSX is used to craft the heart of our component's markup while example.JSX used to demonstrate how our main.JSX component outght to be used.
+Each component created in Unslated comes with a main .JSX file and a example.JSX file.
+The main.JSX is used to craft the heart of our component's markup while example.JSX used to demonstrate how our main.JSX component ought to be used.
 
-Its recommended that you keep any and all children usage out of the main.JSX file and retain that for the example.JSX file to keep reusage and static exporting of example later on a possibility.
+Its recommended that you keep any and all children usage out of the main.JSX file and retain that for the example.JSX file to keep re-usage and static exporting of example later on a possibility.
 
 ## main.JSX Files
 
@@ -90,7 +90,7 @@ static propTypes = {
 ```
 In the above example, we have a tagName prop that uses the oneOfType operator to only allow strings, other elements or a function to be pass through it.
 
-While className and children as a bit simpler and only allow a string or a node to be passed. Variant makes use of oneOf opperator that allows you to pass one of an arrow of array items (strings in this case).
+While className and children as a bit simpler and only allow a string or a node to be passed. Variant makes use of oneOf operator that allows you to pass one of an arrow of array items (strings in this case).
 
 ## Defaults
 Along with defining rules and operators for element props, you can also set the default value of a prop if the prop is not used:
@@ -145,7 +145,7 @@ Finally, our return of the markup. Out of the box we make use of the Tag variabl
 The main.JSX file is auto documented from the description block at the top to the comments above the props.
 Make sure imports are after the first comment block of your main.JSX.
 
-Lastly Unslated offers pathing alias quicking get around different areas of the project for importing. For instance instead of having to deal with relative pathing during the import of one or another src file see `build/config/webpack/alias.config.js` for all the available @alias namespace availabl to you to speed up your development experince.
+Lastly Unslated offers pathing alias to speedup getting around different areas of the project during imports. For instance instead of having to deal with relative pathing during the import of one or another src file see `build/config/webpack/alias.config.js` for all the available @alias namespace availabl to you to speed up your development experince.
 
 ```jsx
 import SomeElement from '@atoms/SomeElement/SomeElement';
@@ -186,7 +186,7 @@ export default [{
 ```
 
 We start off example files with our importing of our main.JSX file.
-Once imported, we can begin extending out the `examples` object with entires. Example entires can be given names, description, developer notes and options, but most imortantly allows you to define and author component examples.
+Once imported, we can begin extending out the `examples` object with entries. Example entries can be given names, description, developer notes and options, but most importantly allows you to define and author component examples.
 
 - name = Gives a title to the example within component guide
 - description = Gives a description to example within component guide
@@ -196,3 +196,4 @@ Once imported, we can begin extending out the `examples` object with entires. Ex
 - notes = notes only within the source and not rendered in the component guide
 
 It is important to note that Unslated has decided to remain vanilla and only use react / JSX as a templating engine within the component guide of Unslated. This means that unless explicitly told to be within a production environment, react API will not work from assets.js alone.
+

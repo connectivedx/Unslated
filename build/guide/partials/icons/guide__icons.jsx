@@ -126,7 +126,11 @@ export class Guide__icons_card extends React.Component {
     /** File name */
     file: PropTypes.string,
     /** File Size */
-    size: PropTypes.string
+    size: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ])
   };
 
   static defaultProps = {
