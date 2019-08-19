@@ -3,7 +3,7 @@
 */
 
 const path = require('path');
-const WebpackSvgSpritely = require('./img.svg.plugin.js');
+const WebpackSvgSpritely = require('webpack-svg-spritely');
 
 // all image types get ran through these process
 module.exports = {
@@ -72,8 +72,10 @@ module.exports = {
     ]
   }],
   plugins: [
+    // Builds our icon svg sprite file (see: https://www.npmjs.com/package/webpack-svg-spritely)
     new WebpackSvgSpritely({
-      filename: `.${global.directories.assetPath}/img/iconset-[hash].svg` // see package.json
+      output: 'assets/img',
+      xhrEntry: 'main.js'
     })
   ]
 };

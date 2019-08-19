@@ -20,8 +20,8 @@ const config = {
     static: './build/static.jsx', // entry point for production assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
-    filename: `.${global.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, '../../node_modules/.bin/'),                           // sets default location for all compiled files
+    filename: '../../node_modules/.bin/unslated.[name].js',  // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   node: {

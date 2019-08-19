@@ -90,8 +90,8 @@
 		"postcss-loader": "^3.0.0",
 		"postcss-nested": "^4.1.2",
 		"react": "^16.8.0",
-		"react-dom": "^16.7.0",
 		"react-docgen": "^2.21.0",
+		"react-dom": "^16.7.0",
 		"reset-css": "^4.0.1",
 		"rimraf": "^2.6.3",
 		"style-loader": "^0.23.0",
@@ -101,6 +101,7 @@
 		"webpack": "^4.28.1",
 		"webpack-cli": "^3.2.1",
 		"webpack-dev-server": "^3.3.1",
-		"webpack-node-externals": "^1.7.2"
+		"webpack-node-externals": "^1.7.2",
+		"webpack-svg-spritely": "^1.0.0"
 	}
 }
