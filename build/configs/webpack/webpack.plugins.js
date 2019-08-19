@@ -65,7 +65,7 @@ class ProcessCSSPostBundle {
 */
 class StaticBundle {
   constructor() {
-    this.entryFile = path.resolve(__dirname, `../../../${Package.directories.dest}/assets/js/static.js`);
+    this.entryFile = path.resolve(__dirname, '../../../node_modules/.bin/unslated.static.js');
   }
 
   getSourcePath(name, compilation) {
@@ -226,7 +226,6 @@ class StatsBundle {
             object[i].indexOf('(webpack)') !== -1 ||
             object[i].indexOf('sync') !== -1 ||
             object[i].indexOf('.jsx') !== -1 ||
-            object[i].indexOf('.svg') !== -1 ||
             object[i].indexOf('.jpg') !== -1 ||
             object[i].indexOf('.gif') !== -1 ||
             object[i].indexOf('.png') !== -1 ||
@@ -306,7 +305,6 @@ class StatsBundle {
 
       // Injects latest build stats to guide.js
       compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
-
         fs.readFile(`${global.directories.dest}${global.directories.assetPath}/js/guide.js`, 'utf8', (err, guideSource) => {
           this.writeStats(
             `${global.directories.dest}${global.directories.assetPath}/js/guide.js`,

@@ -9,9 +9,7 @@ import Input from '@atoms/Input/Input';
 // Build our cards up from our @vars/colors.css thanks to the CSS :export plugin.
 const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {
   if (colors[key] === 'true') { return false; }
-
   const colorUnits = GuideUtils.getColorUnits(colors[key]);
-
   if (!colorUnits.hex) { return false; }
 
   return (

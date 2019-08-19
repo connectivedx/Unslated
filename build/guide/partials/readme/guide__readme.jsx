@@ -73,86 +73,25 @@ export const Guide__readme = (props) => {
             {
               Object.keys(jsDocs).map((index) => {
                 const method = jsDocs[index];
-                if (method.type === 'VariableDeclaration') {
-                  const { type } = method.declarations[0].init;
-
-                  if (type === 'ArrowFunctionExpression') {
-                    let { params } = method.declarations[0].init;
-                    if (!params) { params = []; }
-                    const { name } = method.declarations[0].id;
-                    const { kind } = method;
-                    return (
-                      <Table__row key={index}>
-                        <Table__data><strong>{kind} {name}</strong><br /><i>[{(!type) ? '--' : type}]</i></Table__data>
-                        <Table__data>
-                          {
-                            (params.length)
-                              ? Object.keys(params).map(
-                                (i) => params[i].name
-                              ).join(', ')
-                              : ' -- '
-                          }
-                        </Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>{method.comment}</Table__data>
-                      </Table__row>
-                    );
-                  }
-
-                  if (type === 'ObjectExpression') {
-                    const { properties } = method.declarations[0].init;
-                    const { name } = method.declarations[0].id;
-                    const { kind } = method;
-                    return (
-                      <Table__row key={index}>
-                        <Table__data><strong>{kind} {name}</strong><br /><i>[{(!type) ? '--' : type}]</i></Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>
-                          {
-                            (properties.length)
-                              ? Object.keys(properties).map(
-                                (i) => properties[i].key.name
-                              ).join(', ')
-                              : ' -- '
-                          }
-                        </Table__data>
-                        <Table__data>{method.comment}</Table__data>
-                      </Table__row>
-                    );
-                  }
-                }
-
-                if (method.type === 'ExpressionStatement') {
-                  const { type } = method.expression;
-                  if (type === 'CallExpression') {
-                    const objName = (method.expression.callee.object) ? method.expression.callee.object.name : '--';
-                    const propName = (method.expression.callee.property) ? method.expression.callee.property.name : '--';
-                    const name = (method.expression.callee.type === 'Identifier') ? method.expression.callee.name : [objName, '.', propName].join('');
-                    return (
-                      <Table__row key={index}>
-                        <Table__data><strong>{name}</strong><br /><i>[{method.expression.type}]</i></Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>{method.comment}</Table__data>
-                      </Table__row>
-                    );
-                  }
-
-                  if (type === 'AssignmentExpression') {
-                    const leftName = (method.expression.left.object) ? [method.expression.left.object.name, '.', method.expression.left.property.name].join('') : '--';
-                    const { operator } = method.expression;
-                    return (
-                      <Table__row key={index}>
-                        <Table__data><strong>{leftName} {operator}</strong><br /><i>[{method.expression.type}]</i></Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>--</Table__data>
-                        <Table__data>{method.comment}</Table__data>
-                      </Table__row>
-                    );
-                  }
-                }
-
-                return false;
+                return (
+                  <Table__row key={index}>
+                    <Table__data>
+                      <strong>
+                        ${method.name}
+                      </strong><br />
+                      <i>[{method.type}]</i>
+                    </Table__data>
+                    <Table__data>
+                      {method.params}
+                    </Table__data>
+                    <Table__data>
+                      {method.props}
+                    </Table__data>
+                    <Table__data>
+                      {method.comment}
+                    </Table__data>
+                  </Table__row>
+                );
               })
             }
           </Table__body>
