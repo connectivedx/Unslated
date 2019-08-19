@@ -75,7 +75,7 @@ module.exports = {
     // Builds our icon svg sprite file (see: https://www.npmjs.com/package/webpack-svg-spritely)
     new WebpackSvgSpritely({
       output: 'assets/img',
-      xhrEntry: 'main.js'
+      xhrEntry: 'assets.js'
     })
   ]
 };

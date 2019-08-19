@@ -7,3 +7,10 @@
 
 import '@src/styles';
 import '@src/scripts';
+
+// Icon bundling
+const requireAll = (r) => r.keys().map(r);
+requireAll(require.context('@atoms/Icon/assets', false, /\.(svg)$/));
+
+// Image bundling
+requireAll(require.context('@atoms/Image/assets', false, /\.(svg|jpg|png|gif)$/));

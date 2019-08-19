@@ -15,7 +15,7 @@
 		"publicPath": "/"
 	},
 	"statics": {
-		"enable": true,
+		"enable": false,
 		"dest": "./dist/statics"
 	},
 	"remote": {
@@ -102,6 +102,6 @@
 		"webpack-cli": "^3.2.1",
 		"webpack-dev-server": "^3.3.1",
 		"webpack-node-externals": "^1.7.2",
-		"webpack-svg-spritely": "^1.0.0"
+		"webpack-svg-spritely": "^1.1.3"
 	}
 }

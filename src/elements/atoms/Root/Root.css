@@ -1,3 +1,5 @@
+@import "./Root.font-face.css";
+
 * {
   box-sizing: border-box;
 }
