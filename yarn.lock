@@ -6525,6 +6525,14 @@ postcss-import@^12.0.1:
     read-cache "^1.0.0"
     resolve "^1.1.7"
 
+postcss-in-out@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-in-out/-/postcss-in-out-1.0.0.tgz#02ce13d8cb7430b0835a9436db6e33bb845ab271"
+  integrity sha512-6FiDCey4p7Iq9YMKlobq1a50I0dONmv6KLgygjJE+2Kf2nrLirfYYq/7BhFQIYIGdPvaCulxSTJklQTHqVzJQw==
+  dependencies:
+    postcss "^7.0.17"
+    postcss-loader "^3.0.0"
+
 postcss-jsx@^0.36.0:
   version "0.36.0"
   resolved "https://registry.yarnpkg.com/postcss-jsx/-/postcss-jsx-0.36.0.tgz#b7685ed3d070a175ef0aa48f83d9015bd772c82d"
@@ -6692,7 +6700,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.2, postcss@^7.0.7:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^7.0.16:
+postcss@^7.0.16, postcss@^7.0.17:
   version "7.0.17"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.17.tgz#4da1bdff5322d4a0acaab4d87f3e782436bad31f"
   integrity sha512-546ZowA+KZ3OasvQZHsbuEpysvwTZNGJv9EfyCQdsIDltPSWHAeTQ5fQy/Npi2ZDtLI3zs7Ps/p6wThErhm9fQ==
@@ -8761,6 +8769,11 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+webpack-cdn-inject@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/webpack-cdn-inject/-/webpack-cdn-inject-1.0.0.tgz#a9273fb292447aa4c6304b7b85c3a5816183f266"
+  integrity sha512-aBvBFmobXapX+yTrbP8rN3BxWZN9PztcF7zh3R9IPtqo8fO/26abw+VjjrbjbHiQ83tJ4gn9KfbBdv2qKLCEHw==
+
 webpack-cli@^3.2.1:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.2.3.tgz#13653549adfd8ccd920ad7be1ef868bacc22e346"
@@ -8852,6 +8865,11 @@ webpack-sources@^1.4.0:
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
+
+webpack-svg-spritely@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/webpack-svg-spritely/-/webpack-svg-spritely-1.1.3.tgz#19a548d117cb6387af2cc857b69467a96261160f"
+  integrity sha512-uzrAG79iB4L5LlXldKh4oSeL+z5lsWo00mOgnsHd5WXvArpI2b4lw0OyX+ZbgXbfc0tY20zG7FQyMwp/O5aQOQ==
 
 webpack@^4.28.1:
   version "4.29.5"
