@@ -4,60 +4,15 @@
 */
 const fs = require('fs-extra');
 const path = require('path');
-const https = require("https");
 const docgen = require('react-docgen');
 const Package = require('../../../package.json');
-const POSTCSS = require('postcss');
 const { parse } = require('node-html-parser');
-const ExternalModule = require('webpack/lib/ExternalModule');
 const ReactDOMServer = require('react-dom/server');
-const POSTCSSPlugins = require('../css/css.postcss.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
 
 let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
 if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
   findAllComponentDefinitions = findAllComponentDefinitions.default
-}
-
-/*
-  Helper plugin to process css files after being combined by mini-css-extract-plugin
-*/
-class ProcessCSSPostBundle {
-  constructor () {
-  }
-
-  process(children, callback) {
-    const collection = Object.keys(children).map((j) => {
-      let child = children[j];
-      if (typeof child === 'object') {
-        return child._value;
-      }
-      return child;
-    }).join('');
-
-    return POSTCSS([...POSTCSSPlugins.postBundle])
-      .process(collection, {
-        from: '',
-        to: ''
-      })
-      .then(result => {
-        callback(result.css);
-      })
-  }
-
-  apply(compiler) {
-    compiler.hooks.emit.tap('ProcessCSSPostBundle', compilation => {
-      Object.keys(compilation.assets).map((i) => {
-        if (i.indexOf('assets.css') !== -1 || i.indexOf('guide.css') !== -1) {
-          this.process(compilation.assets[i]._source.children, (results) => {
-            compilation.assets[i]._source.children = [results];
-          });
-        }
-      });
-    });
-  }
 }
 
 /*
@@ -338,47 +293,7 @@ class StatsBundle {
   }
 }
 
-/*
-  Helper plugin to inject CDN dependecies to HtmlWebpackPlugin (see: build/configs/html/html.config.js)
-*/
-class CDNModules {
-  constructor(config) {
-    this.head = '';
-    this.body = '';
-    this.config = config;
-
-    Object.keys(this.config).map((i) => {
-      if (this.config[i].indexOf('css') !== -1) {
-        this.head += `<link href="${this.config[i]}" rel="stylesheet" />`;
-      } else {
-        this.body += `<script src="${this.config[i]}"></script>`;
-      }
-    });
-  }
-
-  apply(compiler) {
-    // 1) determin if endpoint is CSS or JS (aka before </head> or </body>)
-    // 2) scrub found modules against unpkg CDN
-    // 3) if found, remove module from bundle and inject script blocks into HtmlWebpackPlugin
-
-    // HtmlWebpackPlugin injection
-    compiler.hooks.compilation.tap({
-      name: 'CDNModules'
-    }, (compilation) => {
-      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tap(
-        'StatsCompile',
-        (data) => {
-          data.html = data.html.replace(/<link(.*?)<\/head>/, `${this.head}<link$1</head>`);
-          data.html = data.html.replace(/<script(.*?)<\/body>/, `${this.body}<script$1</body>`);
-        }
-      )
-    });
-  }
-}
-
 module.exports = {
   StatsBundle,
-  StaticBundle,
-  CDNModules,
-  ProcessCSSPostBundle
+  StaticBundle
 };
