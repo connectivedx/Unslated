@@ -11,8 +11,6 @@ const Package = require('../../package.json');
 const WebpackPlugins = require('./webpack/webpack.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations

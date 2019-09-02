@@ -1,10 +1,10 @@
-import colors from '!!style-loader!css-loader!@vars/colors';
 import { Guide__colors, Guide__colors_card } from '@guide/partials/colors/guide__colors';
 import List from '@atoms/List/List';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import Select from '@atoms/Select/Select';
 import Input from '@atoms/Input/Input';
+import colors from '!!style-loader!css-loader!@vars/colors';
 
 // Build our cards up from our @vars/colors.css thanks to the CSS :export plugin.
 const cards = Object.keys(GuideUtils.cleanColorVariables(colors)).map((key) => {

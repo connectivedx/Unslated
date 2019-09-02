@@ -11,7 +11,6 @@ const Package = require('../../package.json');
 const WebpackPlugins = require('./webpack/webpack.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 // config files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -24,7 +23,7 @@ const stats = require('./webpack/stats.config.js');     // all terminal stats co
 // main config object
 const config = {
   entry: {
-    assets: './build/assets.jsx' // entry point for production assets
+    assets: './build/assets.jsx'
   },
   output: {
     path: path.resolve(__dirname, `../../${global.directories.dest}`),   // sets default location for all compiled files
@@ -70,14 +69,7 @@ module.exports = (env, argv) => {
 
     // Production builds JS minification (see: package.json -> optimize)
     config.optimization = {
-      minimize: Package.optimize.js,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            keep_fnames: true
-          }
-        })
-      ]
+      minimize: Package.optimize.js
     };
 
     config.plugins.push(

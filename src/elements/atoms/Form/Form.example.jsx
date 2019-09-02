@@ -47,8 +47,8 @@ export default [{
                 </Fieldset>
               </List>
               <Input tagName="li" type="checkbox" id="05" name="agree" label="Please check this box to agree to terms." required={true} error="This field is required" />
-              <Select tagName="li" label="Inline select label text" id="06" name="select" required={true} error="This field is required" defaultValue="">
-                <option value="" />
+              <Select tagName="li" label="Inline select label text" id="06" name="select" required={true} error="This field is required" defaultValue="0">
+                <option value="0" />
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
