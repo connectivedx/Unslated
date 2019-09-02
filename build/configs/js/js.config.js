@@ -25,7 +25,7 @@ module.exports = {
       }, {
         'loader': 'eslint-loader',
         'options': {
-          'cache': true,
+          'cache': false,
           'formatter': require('eslint-friendly-formatter'),
           'configFile': path.resolve(__dirname, '.eslintrc')
         }
