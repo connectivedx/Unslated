@@ -3,6 +3,7 @@
 */
 
 const path = require('path');
+const Package = require('../../../package.json');
 const WebpackCDNInject = require('webpack-cdn-inject');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const WebpackPlugins = require('../webpack/webpack.plugins.js');

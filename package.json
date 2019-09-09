@@ -9,8 +9,8 @@
 	"author": "Devin Olsen",
 	"license": "MIT",
 	"directories": {
-		"source": "./src",
-		"dest": "./dist",
+		"source": "/src",
+		"dest": "/dist",
 		"assetPath": "/assets",
 		"publicPath": "/"
 	},
@@ -27,7 +27,7 @@
 		"allowedHosts": []
 	},
 	"optimize": {
-		"js": true,
+		"js": false,
 		"css": true
 	},
 	"scripts": {
@@ -56,6 +56,7 @@
 		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-react": "^7.0.0",
 		"@babel/register": "^7.5.5",
+		"@babel/traverse": "^7.5.5",
 		"abstract-syntax-tree": "^2.4.0",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
@@ -79,14 +80,12 @@
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^4.0.0-beta.5",
 		"image-webpack-loader": "^5.0.0",
-		"jsdocgen": "^0.2.4",
-		"json-loader": "^0.5.7",
 		"mini-css-extract-plugin": "^0.8.0",
 		"node-html-parser": "^1.1.16",
 		"postcss": "^7.0.17",
 		"postcss-custom-selectors": "^5.1.2",
 		"postcss-import": "^12.0.1",
-		"postcss-in-out": "^1.0.2",
+		"postcss-in-out": "^1.1.0",
 		"postcss-loader": "^3.0.0",
 		"postcss-nested": "^4.1.2",
 		"react": "^16.9.0",

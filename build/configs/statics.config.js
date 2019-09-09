@@ -4,15 +4,14 @@
   out of a normal production build process.
 */
 
-// config dependencies
-require('./webpack/paths.config');
+// devDependencies
 const path = require('path');
 const Webpack = require('webpack');
-const WebpackPlugins = require('./webpack/webpack.plugins.js');
+const { StaticBundle } = require('./webpack/webpack.plugins.js');
 
-// config files
+// build configuration files
+const img = require('./img/img.config.js');       // all image related build configurations
 const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
-let img = require('./img/img.config.js');       // all image related build configurations
 
 // main config object
 const config = {
@@ -50,7 +49,12 @@ const config = {
     ]
   },
   plugins: [
-    ...alias.plugins                      // see build/configs/alias.config.js
+    ...alias.plugins,                      // see build/configs/alias.config.js
+    new Webpack.ProvidePlugin({
+      React: 'react',
+      PropTypes: 'prop-types'
+    }),
+    new StaticBundle()                     // see build/configs/webpack.plugins.js
   ],
   resolve: {
     alias: alias.config,                   // resolve alias namespaces (see build/configs/alias.config.js)
@@ -64,14 +68,5 @@ const config = {
 };
 
 module.exports = (env, argv) => {
-  /* Here we have the opportunity to alter the config as needed prior to sending it off to webpack */
-  config.plugins.push(
-    new Webpack.ProvidePlugin({
-      React: 'react',
-      PropTypes: 'prop-types'
-    }),
-    new WebpackPlugins.StaticBundle(argv.mode)      // see build/configs/webpack.plugins.js
-  );
-
   return config;
 };

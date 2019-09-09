@@ -36,7 +36,10 @@ module.exports = {
     devServer: {
       port: (Package.local.port.length) ? Package.local.port : '',                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
       host: Package.local.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
+      publicPath: Package.directories.publicPath,
+      contentBase: Package.directories.dest,
       allowedHosts: Package.local.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
+      historyApiFallback: true,
       watchOptions: {
         ignored: /node_modules/
       },
