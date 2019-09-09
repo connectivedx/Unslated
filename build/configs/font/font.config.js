@@ -3,6 +3,7 @@
 */
 
 const path = require('path');
+const Package = require('../../../package.json');
 
 module.exports = {
   config: [{
@@ -17,7 +18,7 @@ module.exports = {
         'loader': 'file-loader',
         'options': {
           'name': '[name].[ext]',
-          'outputPath': `.${global.directories.assetPath}/fonts/`
+          'outputPath': `.${Package.directories.assetPath}/fonts/`
         }
       }
     ]

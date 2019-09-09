@@ -4,15 +4,13 @@
 */
 
 // Main method to get custom data struct out of webpack-stats object
-const getFilteredData = (data, filters) => {
-  if (!data) { return false; }
+const getFilteredData = (stats, filters) => {
+  if (!stats) { return false; }
 
-  const collection = [
-    ...data.assets,
-    ...data.chunks.modules
-  ];
+  const collection = [...stats.data];
 
   const atomicLevels = ['atoms', 'molecules', 'organisms', 'modifiers', 'templates', 'pages'];
+
   const returnedData = Object.keys(atomicLevels).map((i) => {
     const levels = {
       level: atomicLevels[i],
@@ -24,8 +22,7 @@ const getFilteredData = (data, filters) => {
       const file = collection[j];
       if (
         file.name.indexOf(atomicLevels[i]) !== -1
-        && file.name.indexOf('/elements/') !== -1
-        && file.name.indexOf('.loader') === -1
+        && file.name.indexOf('elements') !== -1
       ) {
         let k = filters.length;
         while (k--) {
@@ -40,6 +37,7 @@ const getFilteredData = (data, filters) => {
 
     return levels;
   });
+
   return returnedData;
 };
 

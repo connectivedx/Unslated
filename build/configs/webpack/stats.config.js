@@ -2,6 +2,7 @@
   Build terminal statistics configuration
   (see: https://webpack.js.org/configuration/stats/)
 */
+const { MetricsBundle } = require('./webpack.plugins.js');
 
 module.exports = {
   config: {
@@ -15,5 +16,7 @@ module.exports = {
       errorDetails: true
     }
   },
-  plugins: []
+  plugins: [
+    new MetricsBundle()
+  ]
 };
