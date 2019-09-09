@@ -8,7 +8,6 @@ if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
 }
 
 module.exports = function ( source ) {
-
   this.cacheable && this.cacheable();
   const query = loaderUtils.parseQuery(`?${this.query}`);
 

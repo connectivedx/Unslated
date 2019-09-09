@@ -3,6 +3,7 @@
 */
 
 const path = require('path');
+const Package = require('../../../package.json');
 const WebpackSvgSpritely = require('webpack-svg-spritely');
 
 // all image types get ran through these process
@@ -19,7 +20,7 @@ module.exports = {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)
         'options': {
           'name': '[name].[ext]',
-          'outputPath': `.${global.directories.assetPath}/img/` // see package.json
+          'outputPath': `.${Package.directories.assetPath}/img` // see package.json
         }
       },
       {
@@ -34,7 +35,7 @@ module.exports = {
           },
           'svgo': {
             'options': {
-              'output': `${global.directories.dest}${global.directories.assetPath}/img/` // see package.json
+              'output': `${Package.directories.dest}${Package.directories.assetPath}/img` // see package.json
             },
             'plugins': [
               { 'cleanupAttrs': true },
@@ -74,7 +75,7 @@ module.exports = {
   plugins: [
     // Builds our icon svg sprite file (see: https://www.npmjs.com/package/webpack-svg-spritely)
     new WebpackSvgSpritely({
-      output: '/assets/img',
+      output: `${Package.directories.assetPath}/img`,
       entry: 'assets'
     })
   ]

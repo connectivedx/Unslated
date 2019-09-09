@@ -46,7 +46,7 @@ export const GuideStylist = (el) => {
   const switchBreakpointSizes = (selection) => {
     Object.keys(ui.pageExamples).map((key, index) => {
       const pallet = ui.pageExamples[index].querySelector('.examples__pallet');
-      pallet.style.width = [pallet.offsetWidth, 'px'].join('');
+      pallet.style.width = `${pallet.offsetWidth}px`;
       pallet.style.width = (selection !== 'none') ? selection : '100%';
       return true;
     });
@@ -122,7 +122,7 @@ export const GuideStylist = (el) => {
     }
 
 
-    const stats = filterBuildStats(__stats__.chunks.modules); // eslint-disable-line
+    const stats = filterBuildStats(__stats__.data); // eslint-disable-line
     let i = stats.length;
 
     while (i--) {
@@ -130,11 +130,11 @@ export const GuideStylist = (el) => {
       const isCSS = (stats[i].name.indexOf('.css') !== -1);
 
       if (ui.jsStats && isJS) {
-        ui.jsStats.innerHTML = ['<strong>JS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
+        ui.jsStats.innerHTML = `<strong>JS</strong>: ${GuideUtils.bytesToSize(stats[i].size)}`;
       }
 
       if (ui.cssStats && isCSS) {
-        ui.cssStats.innerHTML = ['<strong>CSS</strong>: ', GuideUtils.bytesToSize(stats[i].size)].join('');
+        ui.cssStats.innerHTML = `<strong>CSS</strong>: ${GuideUtils.bytesToSize(stats[i].size)}`;
       }
     }
   };

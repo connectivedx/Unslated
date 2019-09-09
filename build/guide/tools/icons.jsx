@@ -14,9 +14,9 @@ const files = requireAll(require.context('@atoms/Icon/assets', false, /\.(svg)$/
 // Build our cards data our requireAll svg gathering method above
 const icons = Object.keys(files).map((i) => {
   const name = files[i].split('/').slice(-1)[0];
-  const size = Object.keys(__stats__.assets).map((j) => {
-    if (__stats__.assets[j].name.indexOf(name) !== -1) {
-      return parseInt(__stats__.assets[j].size, 10);
+  const size = Object.keys(__stats__.data).map((j) => {
+    if (__stats__.data[j].name.indexOf(name) !== -1) {
+      return parseInt(__stats__.data[j].size, 10);
     }
     return false;
   }).filter((n) => n);
