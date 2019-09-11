@@ -61,7 +61,7 @@
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
 		"clean-css": "^4.2.1",
-		"clean-webpack-plugin": "^0.1.19",
+		"clean-webpack-plugin": "^3.0.0",
 		"copy-webpack-plugin": "^5.0.4",
 		"css-loader": "^3.2.0",
 		"docgen-loader": "^1.3.4",
@@ -101,6 +101,6 @@
 		"webpack-cli": "^3.3.7",
 		"webpack-dev-server": "^3.8.0",
 		"webpack-node-externals": "^1.7.2",
-		"webpack-svg-spritely": "^1.3.3"
+		"webpack-svg-spritely": "^1.3.6"
 	}
 }

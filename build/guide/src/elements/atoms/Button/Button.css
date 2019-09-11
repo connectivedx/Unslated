@@ -1,0 +1,49 @@
+.button {
+  cursor: pointer;
+  display: inline-block;
+  line-height: normal;
+  padding: rem(16px) rem(24px);
+
+  & + .button {
+    margin-left: rem(16px);
+  }
+
+  /* variants */
+  &--default {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-black);
+    color: var(--color-black);
+
+    &:--enter {
+      background-color: var(--color-black);
+      color: var(--color-white);
+      fill: var(--color-white);
+    }
+  }
+
+  &--cta {
+    background-color: var(--color-white);
+    border: 2px solid red;
+    color: red;
+
+    &:--enter {
+      background-color: var(--color-red);
+      color: var(--color-white);
+    }
+  }
+
+  &--link {
+    text-decoration: none;
+  }
+
+  /* sizes */
+  &--auto {
+    display: inline-block;
+    width: auto;
+  }
+
+  &--full {
+    display: block;
+    width: 100%;
+  }
+}

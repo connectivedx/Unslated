@@ -1,0 +1,136 @@
+.guide__input {
+
+  /* CSS Input reset */
+  input {
+
+    /* Removes date picker spinners */
+    &::-webkit- {
+      &inner-spin-button,
+      &calendar-picker-indicator {
+        opacity: 0;
+      }
+    }
+
+    /* Removes input clear X from IE */
+    &::-ms-clear {
+      display: none;
+    }
+  }
+
+  /* Baseline styles */
+  &-radio,
+  &-checkbox {
+    position: relative;
+
+    .field__label {
+      align-content: center;
+      display: inline-flex;
+      justify-content: space-between;
+
+      &:before { content: ''; }
+    }
+
+    .field__native {
+      cursor: pointer;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  /* Style variants */
+  &--default {
+    .field__native {
+      background-color: var(--color-white);
+      border: none;
+      box-shadow: 0 0 0 1px var(--color-gray);
+      min-height: rem(40px);
+      outline: none;
+      padding: rem(12px);
+      width: 100%;
+
+      &::placeholder,
+      &:-ms-input-placeholder,
+      &::-ms-input-placeholder {
+        color: var(--color-gray-light);
+        font-family: var(--font-name--default);
+        font-size: rem(16px);
+      }
+    }
+
+    .field__label {
+      &:before {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        margin: 0 rem(8px);
+        padding: rem(8px);
+      }
+    }
+
+    /* Input type styles */
+    &.input-date {
+      .field__native {
+        background-image: url('../Icon/assets/calendar.svg');
+        background-position: calc(100% - 5px) center;
+        background-repeat: no-repeat;
+        background-size: 30px;
+      }
+    }
+
+    &.input-number {
+      .field__native:--haf {
+        background-image: url('../Icon/assets/up-down.svg');
+        background-position: calc(100% - 5px) center;
+        background-repeat: no-repeat;
+        background-size: 20px;
+      }
+    }
+
+    &.input-radio,
+    &.input-checkbox {
+      .field__label {
+        min-height: auto;
+        padding: 0;
+
+        &:before {
+          margin-left: 0;
+          margin-right: rem(5px);
+          padding: rem(10px);
+        }
+      }
+
+      .field__native {
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+      }
+    }
+
+    &.input-radio {
+      .field__label:before {
+        background-image: url('../Icon/assets/radio-unchecked.svg');
+        border-radius: 32px;
+      }
+
+      .field__native:checked + .field__label:before {
+        background-image: url('../Icon/assets/radio-checked.svg');
+      }
+    }
+
+    &.input-checkbox {
+      .field__label:before {
+        background-image: url('../Icon/assets/checkbox-unchecked.svg');
+      }
+
+      .field__native:checked + .field__label:before {
+        background-image: url('../Icon/assets/checkbox-checked.svg');
+      }
+    }
+  }
+}

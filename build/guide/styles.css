@@ -5,18 +5,6 @@
 @import '@vars/type.css';
 @import '@vars/zindex.css';
 
-@import './partials/nav/guide__nav.css';
-@import './partials/icons/guide__icons.css';
-@import './partials/pages/guide__pages.css';
-@import './partials/colors/guide__colors.css';
-@import './partials/readme/guide__readme.css';
-@import './partials/metrics/guide__metrics.css';
-@import './partials/stylist/guide__stylist.css';
-@import './partials/welcome/guide__welcome.css';
-@import './partials/examples/guide__examples.css';
-@import './partials/typography/guide__typography.css';
-
-
 :root {
   --breakpoint-speed: 2s;
 }
@@ -26,7 +14,6 @@ strong {
 }
 
 .guide {
-  /* display: flex; */
   perspective: 100rem;
   height: 100vh;
 

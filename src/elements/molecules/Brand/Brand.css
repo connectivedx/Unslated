@@ -4,20 +4,17 @@
     vertical-align: middle;
   }
 
-  &__icon {
-    width: 1.65em;
+  .icon--normal {
+    width: 90px;
+    height: 90px;
+  }
+
+  .brand__label {
+    display: inline-block;
+    margin-top: rem(12px);
+    margin-left: rem(16px);
   }
 
   /* variants */
-  &--default {
-    & .brand__label { display: none; }
-
-    @media (--small) {
-      & .brand__label {
-        display: inline-block;
-        margin-top: 0.1em;
-        margin-left: 0.25em;
-      }
-    }
-  }
+  &--default {  }
 }

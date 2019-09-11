@@ -1,0 +1,37 @@
+.heading {
+  font-family: var(--font-stack--default);
+  font-size: rem(28px);
+  line-height: 1em;
+
+  /* weights */
+  &--thin   { font-weight: var(--font-weight--thin); }
+
+  &--bold   { font-weight: var(--font-weight--bold); }
+
+  &--medium { font-weight: var(--font-weight--medium); }
+
+  /* levels and responsive ranges */
+  &--h1 {
+    font-size: rem(28px);
+  }
+
+  &--h2 {
+    font-size: rem(24px);
+  }
+
+  &--h3 {
+    font-size: rem(22px);
+  }
+
+  &--h4 {
+    font-size: rem(20px);
+  }
+
+  &--h5 {
+    font-size: rem(18px);
+  }
+
+  &--h6 {
+    font-size: rem(16px);
+  }
+}

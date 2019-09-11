@@ -1,0 +1,29 @@
+/* Baseline general field styles */
+.guide__field__label {
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Field error */
+.field__error {
+  .field__native {
+    &, &:--haf {
+      box-shadow: 0 0 0 2px var(--color-red) !important;
+    }
+
+    & + .field__label:before {
+      box-shadow: 0 0 0 2px var(--color-red) inset !important;
+    }
+  }
+
+  &-message {
+    display: none;
+  }
+
+  & &-message {
+    display: block;
+    color: var(--color-red);
+  }
+}

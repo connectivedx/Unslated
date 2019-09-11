@@ -1,0 +1,73 @@
+:root {
+  --card-grid__per-row: 4; /* configures number of cards per row in a Card__grid */
+  --card-spacing: 0.5rem;
+}
+
+.card {
+  &__header,
+  &__body,
+  &__footer {
+    padding: 1rem;
+  }
+
+  &__body {
+    @extend-all .rhythm--medium;
+  }
+
+  /* Style variants */
+  &--default {
+    box-shadow: 0 0 0 1px var(--color-gray-light);
+    border-radius: 5px;
+
+    .card__header {
+      background-color: var(--color-gray-light);
+      box-shadow: 0 0 0 1px var(--color-gray);
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .card__footer {
+      border-top: 1px solid var(--color-gray-light);
+    }
+  }
+
+  /* Groups, Decks, Grids */
+  &__group,
+  &__deck,
+  &__grid {
+    @media (--medium) {
+      display: flex;
+    }
+
+    .card {
+      width: 100%;
+    }
+  }
+
+  &__deck {
+    .card {
+      margin: calc(var(--card-spacing) * 2) 0;
+
+      @media (--medium) {
+        margin: 0 var(--card-spacing);
+      }
+
+      &:first-child { margin-left: 0; }
+
+      &:last-child { margin-right: 0; }
+    }
+  }
+
+  &__grid {
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    .card {
+      margin: calc(var(--card-spacing) * 2) 0;
+
+      @media (--medium) {
+        max-width: calc(calc(100% / var(--card-grid__per-row)) - calc(var(--card-spacing) * var(--card-grid__per-row)));
+      }
+    }
+  }
+}

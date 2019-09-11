@@ -1,7 +1,7 @@
 import Icon from '@atoms/Icon/Icon';
 
 /**
-  It's the brand, man. It can be a brand icon only (compact), or a full brand mark with icon and name label.
+  It's the brand, man. It can be a brand icon only, or a full brand mark with icon and name slogan.
 */
 export class Brand extends React.Component {
   static propTypes = {
@@ -13,6 +13,8 @@ export class Brand extends React.Component {
     ]),
     /** Style variant */
     variant: PropTypes.oneOf(['default', 'compact']),
+    /** Defines branding slogan text */
+    slogan: PropTypes.string,
     /** Children nodes being passed through */
     className: PropTypes.string
   };
@@ -32,6 +34,7 @@ export class Brand extends React.Component {
       tagName: Tag,
       className,
       variant,
+      slogan,
       ...attrs
     } = this.props;
 
@@ -43,9 +46,9 @@ export class Brand extends React.Component {
 
     return (
       <Tag className={classStack} {...attrs}>
-        <Icon name="close" className="brand__icon" />
+        <Icon name="brand" className="brand__icon" />
         {
-          variant === 'default' && <span className="brand__label">GenericBrand</span>
+          variant === 'default' && <span className="brand__label">{slogan}</span>
         }
       </Tag>
     );

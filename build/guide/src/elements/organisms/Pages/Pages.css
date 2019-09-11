@@ -1,0 +1,31 @@
+/* Pages */
+.guide__pages {
+  padding: 6rem 2rem 2rem;
+
+  &.no-nav {
+    .guide_nav { display: none; }
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+.guide__404 {
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .heading {
+    color: var(--color-white);
+    text-shadow: 0 4px var(--color-black);
+    font-size: rem(48px);
+    margin-top: rem(200px);
+    text-align: center;
+  }
+}
