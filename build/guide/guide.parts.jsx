@@ -15,7 +15,7 @@ const readDirectory = (context) => {
 
 const getJSXDocs = (name) => {
   const allJSXDocs = require.context(
-    '!!./plugins/webpack.jsxdocgen.loader!../../src/elements/',
+    '!!../configs/webpack/webpack.jsxdocgen.loader!../../src/elements/',
     true,
     /^((?!test|example).)*jsx$/
   );
@@ -32,7 +32,7 @@ const getJSXDocs = (name) => {
 
 const getJSDocs = (name) => {
   const allJSDocs = require.context(
-    '!!./plugins/webpack.jsdocgen.loader?htmlDescription!../../src/elements/',
+    '!!../configs/webpack/webpack.jsdocgen.loader?htmlDescription!../../src/elements/',
     true,
     /^.*\.(js)$/
   );

@@ -1,0 +1,20 @@
+.link {
+  text-decoration: underline;
+
+  /* variants */
+  &--default {
+    color: var(--color-black);
+
+    &:--haf {
+      color: var(--color-black);
+    }
+  }
+
+  &--cta {
+    color: var(--color-black);
+
+    &:--haf {
+      color: var(--color-black);
+    }
+  }
+}

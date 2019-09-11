@@ -9,7 +9,7 @@ const WebpackSvgSpritely = require('webpack-svg-spritely');
 // all image types get ran through these process
 module.exports = {
   config: [{
-    'test': /\.(jpe?g|png|gif|svg)$/i,
+    'test': /\.(jpe?g|png|gif|svg|ico)$/i,
     'exclude': /node_modules/,
     'include': [
       path.resolve(__dirname, '../../../src'),

@@ -154,7 +154,16 @@ const extend = postcss.plugin('postcss-extend', (options) => {
           while (i--) {
             let j = toSelectors.length;
             while (j--) {
-              newSelector += `${fromSelectors[i].replace(new RegExp(`${atRule.params.trim()}(.*?)`, 'g'), ` ${toSelectors[j]}$1`)},`;
+              newSelector += `${fromSelectors[i]
+                .replace(
+                  new RegExp(`${
+                    atRule.params
+                      .replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').trim()
+                    }(.*?)`,
+                    'g'
+                  ),
+                ` ${toSelectors[j]}$1`)
+              },`;
             }
           }
 
