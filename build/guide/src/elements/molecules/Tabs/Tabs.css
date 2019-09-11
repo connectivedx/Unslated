@@ -1,0 +1,117 @@
+:root {
+  --border-styles: 1px solid var(--color-gray);
+  --tabs-bg-color: var(--color-white);
+  --tabs-trigger-padding: rem(8px);
+  --tabs-target-padding: rem(16px);
+}
+
+/* Baseline styles */
+.tabs {
+  @media (--medium) {
+    display: flex;
+    position: relative;
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .tabs__triggers {
+    @media (--medium) {
+      display: flex;
+    }
+  }
+
+  /* Tab target aligents */
+  &-align--top,
+  &-align--bottom {
+    flex-direction: column;
+
+    .tabs__triggers { flex-direction: row; }
+  }
+
+  &-align--left,
+  &-align--right {
+    flex-direction: row;
+
+    .tabs__triggers { flex-direction: column; }
+  }
+
+  &-align--right { flex-direction: row-reverse; }
+
+  &-align--bottom { flex-direction: column-reverse; }
+
+
+  /* Tab target justification */
+  &-justify--center { .tabs__triggers { justify-content: center; } }
+
+  &-justify--bottom,
+  &-justify--right { .tabs__triggers { justify-content: flex-end; } }
+
+  &-justify--top,
+  &-justify--left { .tabs__triggers { justify-content: flex-start; } }
+
+
+  /* Style variants */
+  &--default {
+
+    /* Trigger styles */
+    [data-tabs-trigger] {
+      background-color: var(--tabs-bg-color);
+      border: var(--border-styles);
+      cursor: pointer;
+      min-width: 180px;
+      padding: var(--tabs-trigger-padding);
+      position: relative;
+      text-decoration: none;
+      z-index: var(--zindex--content);
+
+      @media (--medium) {
+        padding: var(--tabs-trigger-padding) rem(14px);
+      }
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
+
+    /* Target styles */
+    [data-tabs-target] {
+      background-color: var(--tabs-bg-color);
+      border: var(--border-styles);
+      height: 100%;
+      padding: var(--tabs-target-padding);
+      position: relative;
+      z-index: var(--zindex--base);
+    }
+
+    /* Border styles for all alignment types */
+    &.tabs-align--top {
+      .active {
+        border-bottom: 1px solid var(--tabs-bg-color);
+        margin-bottom: -1px;
+      }
+    }
+
+    &.tabs-align--bottom {
+      .active {
+        border-top: 1px solid var(--tabs-bg-color);
+        margin-top: rem(-1px);
+      }
+    }
+
+    &.tabs-align--left {
+      .active {
+        border-right: 1px solid var(--tabs-bg-color);
+        margin-right: rem(-1px);
+      }
+    }
+
+    &.tabs-align--right {
+      .active {
+        border-left: 1px solid var(--tabs-bg-color);
+        margin-left: rem(-1px);
+      }
+    }
+  }
+}

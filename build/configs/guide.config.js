@@ -6,9 +6,10 @@
 // devDependencies
 const fs = require('fs');
 const path = require('path');
+const exec = require('child_process').exec;
 const Package = require('../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // build configuration files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -50,11 +51,15 @@ const config = {
     ...stats.plugins, // see build/configs/stats.config.js
     new CopyWebpackPlugin([ // react-routes rewrite files for hosting guide on remote a web server.
       {
-        from: path.resolve(
+        from: path.resolve(__dirname, `../../${Package.directories.dest}`),
+        to: path.resolve(__dirname, `../../dist`)
+      },
+      {
+        'from': path.resolve(
           __dirname,
           `../scaffolding/${(Package.remote.type !== 'IIS') ? '.htaccess' : 'web.config'}`
-        ), // for IIS servers
-        to: path.resolve(__dirname, `../../${Package.directories.dest}`)
+        ),
+        'to': path.resolve(__dirname, `../../${Package.directories.dest}`)
       }
     ])
   ],
@@ -75,13 +80,12 @@ const config = {
 module.exports = (env, argv) => {
   if (fs.existsSync(path.resolve(__dirname, `../../${Package.directories.dest}`))) {
     config.plugins.push(
-      new CleanWebpackPlugin(
-        [`${config.output.path}`], // reuse config output path from above
-        {
-          'root': path.resolve(config.output.path, '../') // focus plugins root out of build/config/
-        }
-      )
+      new CleanWebpackPlugin({
+        cleanStaleWebpackAssets: false                 // resolve conflict with `CopyWebpackPlugin`
+      })
     );
+  } else {
+    exec('npm run build');                             // when missing a required "first time build"
   }
 
   return config;

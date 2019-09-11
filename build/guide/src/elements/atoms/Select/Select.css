@@ -1,0 +1,18 @@
+/* Select */
+.guide__select {
+
+  /* Baseline styles */
+  padding: 0;
+  position: relative;
+
+  .field__native {
+    padding: rem(11px) rem(10px);
+    width: 100%;
+  }
+
+  /* Style variants */
+  &--default {
+    background-color: var(--color-white);
+    min-height: 40px;
+  }
+}

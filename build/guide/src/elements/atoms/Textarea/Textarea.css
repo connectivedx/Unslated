@@ -1,0 +1,54 @@
+.guide__textarea {
+
+  /* Baseline styles */
+  .field__native {
+    min-width: 200px;
+    max-width: 100%;
+    min-height: 40px;
+  }
+
+  /* Style variants */
+  &--default {
+    position: relative;
+
+    .field__label {
+      align-items: flex-start;
+
+      &:before {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        margin: 0 0.5rem;
+        padding: 0.5rem;
+      }
+    }
+
+    .field__native {
+      border: none;
+      box-shadow: 0 0 0 1px var(--color-gray);
+      padding: rem(13px);
+      width: 100%;
+    }
+  }
+
+  &--inline-label {
+    @extend-all .textarea--default;
+
+    .field__label {
+      background-color: var(--color-white);
+      display: block;
+      font-size: 0.85rem;
+      height: auto;
+      left: 10px;
+      line-height: 10px;
+      margin: 0;
+      max-width: 145px;
+      padding: 0 0.5rem;
+      position: absolute;
+      top: -5px;
+      width: auto;
+      z-index: 2;
+    }
+  }
+}

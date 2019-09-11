@@ -1,0 +1,142 @@
+.guide__colors {
+  .colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .color {
+    box-shadow: 0 0 10px 0 var(--color-gray);
+    height: 120px;
+  }
+
+  .card {
+    margin: 2rem 0 0;
+    position: relative;
+    box-shadow: 0 0 10px 0 var(--color-gray);
+    width: 100%;
+    transition: opacity 1s;
+
+    @media (--medium-large) {
+      max-width: 15%;
+    }
+  }
+
+  .field__label {
+    font-weight: 800;
+    font-size: rem(14px);
+    padding: rem(8px) 0 rem(8px) 0;
+
+    @media (--medium) {
+      padding: 0 0 rem(8px) 0;
+    }
+  }
+
+  .guide__input .field__native {
+    background-image: url('../../atoms/Icon/assets/search.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    background-size: rem(16px);
+    padding: rem(12px);
+    width: 100%;
+
+    @media (--medium-large) {
+      width: auto;
+    }
+  }
+
+  &-pallet {
+    box-shadow: 0 0 15px 0 color(var(--color-black), 65%);
+  }
+
+  .AccessibilityLevel {
+    display: flex;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+
+    &:before {
+      left: -3rem;
+      position: absolute;
+      top: 50%;
+    }
+
+    &__badge {
+      background-color: var(--color-black);
+      border-radius: 0.25rem;
+      color: var(--color-white);
+      padding: 0.1em 0.3em;
+      position: relative;
+
+      &::before {
+        content: 'A';
+        position: absolute;
+        top: -25px;
+      }
+
+      &--primary {
+        &::before {
+          color: var(--color-text--primary);
+          display: block;
+        }
+      }
+
+      &--secondary {
+        &::before {
+          color: var(--color-text--secondary);
+          display: block;
+        }
+      }
+
+      &--normal {
+        &::before {
+          font-size: rem(14px);
+          left: calc(50% - 5px);
+        }
+      }
+
+      &--large--bold {
+        &::before {
+          font-size: rem(18px);
+          font-weight: bold;
+          left: calc(50% - 5px);
+          top: -1.45em;
+        }
+      }
+
+      &--large {
+        &::before {
+          font-size: rem(18px);
+          left: calc(50% - 8px);
+          top: -1.35em;
+        }
+      }
+    }
+
+    &__wrapper {
+      margin: auto;
+      max-width: 1024px;
+      width: 100%;
+
+      & > .rhythm {
+        padding: 2rem 0 0;
+      }
+    }
+
+    &__control {
+      @media (--medium) {
+        display: flex;
+      }
+      .field {
+        font-weight: bold;
+        font-size: 0.75rem;
+        margin-right: 0.8rem;
+        margin-left: 0.4rem;
+      }
+    }
+  }
+}

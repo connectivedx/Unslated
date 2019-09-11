@@ -30,9 +30,9 @@ export default [{
       <Brand />
     )
   }, {
-    name: 'Compact variant',
+    name: 'With slogan',
     component: (
-      <Brand variant="compact" />
+      <Brand slogan="Unslated Framework" />
     )
   }]
 }];

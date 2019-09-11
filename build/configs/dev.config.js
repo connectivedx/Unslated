@@ -8,11 +8,11 @@ const path = require('path');
 const Package = require('../../package.json');
 
 // build configuration files
-const js = require('./js/js.config.js');        // all js file related build configurations
-const css = require('./css/css.config.js');     // all css file related build configurations
-const img = require('./img/img.config.js');     // all img/svg related build configurations
-const html = require('./html/html.config.js');  // all html related build configurations
-const font = require('./font/font.config.js');  // all font related build configurations
+const js = require('./js/js.config.js');                // all js file related build configurations
+const css = require('./css/css.config.js');             // all css file related build configurations
+const img = require('./img/img.config.js');             // all img/svg related build configurations
+const html = require('./html/html.config.js');          // all html related build configurations
+const font = require('./font/font.config.js');          // all font related build configurations
 const alias = require('./webpack/alias.config.js');     // all file path alias helper configurations
 const stats = require('./webpack/stats.config.js');     // all terminal stats configurations
 const server = require('./webpack/server.config.js');   // all webpack-dev-server configurations

@@ -1,0 +1,181 @@
+/* Navigation */
+.guide__nav {
+  background-color: transparent;
+  height: 100vh;
+  transform: rotateY(180deg);
+  transform-origin: left;
+  transition: transform 0.5s, background-color 3s 1s;
+  width: 100%;
+
+  &.open {
+    background-color: rgba(0, 0, 0, 0.25);
+    transform: rotateY(0);
+  }
+
+  &.close {
+    transition: transform 0.5s 0.25s, background-color 0.25s;
+  }
+
+  .guide-nav__open {
+    &:after {
+      background-color: var(--color-white);
+      border: 1px solid color(var(--color-black), 75%);
+      box-shadow: 2px 4px 10px 0 color(var(--color-black), 85%);
+      content: url('../../../assets/menu.svg');
+      cursor: pointer;
+      display: block;
+      left: -rem(80px);
+      opacity: 0.25;
+      padding: rem(8px) rem(7px) rem(4px);
+      position: absolute;
+      top: 0.75rem;
+      transition: opacity 1s;
+      width: 32px;
+      height: 24px;
+    }
+
+    &:--haf {
+      &:after { opacity: 1; }
+    }
+  }
+
+  &-inner {
+    background-color: var(--color-white);
+    height: 100%;
+    max-width: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: rem(16px);
+    position: relative;
+
+    .guide-nav__close {
+      &:before {
+        content: '';
+        background-image: url('../../../assets/close.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        cursor: pointer;
+        display: block;
+        height: 24px;
+        position: absolute;
+        right: rem(16px);
+        top: 20px;
+        width: 24px;
+      }
+    }
+  }
+
+  .list {
+    list-style: none;
+    padding: 0;
+
+    .link {
+      color: var(--color-black);
+      display: block;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    & .list__item {
+      &:hover {
+        > a {
+          text-decoration: underline;
+        }
+
+        > .guide__nav-icons { opacity: 1; }
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .list {
+        padding: 0 0 0.5rem 1.75rem;
+        font-size: rem(16px);
+      }
+
+      .list__item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .guide__nav-icons {
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+
+        .icon {
+          height: rem(20px);
+          width: rem(20px);
+        }
+
+        [data-modal] {
+          position: relative;
+          margin: 0 rem(10px) 0 0;
+          &:before {
+            content: '';
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  & .heading {
+    background-color: color(var(--color-black), 95%);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    color: var(--color-black);
+    cursor: pointer;
+    padding: 0.5rem 1rem 0.5rem 2.75rem;
+    display: flex;
+    justify-content: space-between;
+
+    &.atoms       { background-image: url('../../../assets/atoms.svg'); }
+    &.pages       { background-image: url('../../../assets/pages.svg'); }
+    &.utilities   { background-image: url('../../../assets/utilities.svg'); }
+    &.molecules   { background-image: url('../../../assets/molecules.svg'); }
+    &.modifiers   { background-image: url('../../../assets/modifiers.svg'); }
+    &.templates   { background-image: url('../../../assets/templates.svg'); }
+    &.organisms   { background-image: url('../../../assets/organisms.svg'); }
+    &.home        { background-image: url('../../../assets/home.svg'); }
+
+    .link {
+      position: relative;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+      }
+
+      .icon {
+        position: relative;
+        z-index: 1;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  & .field__native {
+    display: block;
+    padding: rem(8px);
+    width: 85%;
+    outline: none;
+  }
+}

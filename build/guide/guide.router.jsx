@@ -1,7 +1,8 @@
-import Nav from '@guide/partials/nav/guide__nav';
-import Welcome from '@guide/partials/welcome/guide__welcome';
-import Examples from '@guide/partials/examples/guide__examples';
-import { Guide__pages, BadAddress } from '@guide/partials/pages/guide__pages';
+import Nav from '@guideMolecules/Nav/Nav';
+import Examples from '@guideMolecules/Examples/Examples';
+
+import Dashboard from '@guideOrganisms/Dashboard/Dashboard';
+import { Pages, BadAddress } from '@guideOrganisms/Pages/Pages';
 
 export const Guide = (props) => {
   const {
@@ -21,11 +22,11 @@ export const Guide = (props) => {
       <ReactRouterDOM.BrowserRouter>
         <div className="guide__main">
           <ReactRouterDOM.Switch>
-            <ReactRouterDOM.Route exact path="/" component={Welcome} />
-            <ReactRouterDOM.Route exact path="/examples" component={Welcome} />
+            <ReactRouterDOM.Route exact path="/" component={Dashboard} />
+            <ReactRouterDOM.Route exact path="/examples" component={Dashboard} />
             <ReactRouterDOM.Route path="/examples/:category/:element" component={Examples} />
-            <ReactRouterDOM.Route path="/pages/:page" component={Guide__pages} />
-            <ReactRouterDOM.Route path="/tools/:tool" component={Guide__pages} />
+            <ReactRouterDOM.Route path="/pages/:page" component={Pages} />
+            <ReactRouterDOM.Route path="/tools/:tool" component={Pages} />
             <ReactRouterDOM.Route component={BadAddress} />
           </ReactRouterDOM.Switch>
           <Nav />
