@@ -4,16 +4,9 @@
 */
 const fs = require('fs-extra');
 const path = require('path');
-const docgen = require('react-docgen');
 const Package = require('../../../package.json');
 const { parse } = require('node-html-parser');
 const ReactDOMServer = require('react-dom/server');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-let findAllComponentDefinitions = require('react-docgen/dist/resolver/findAllComponentDefinitions');
-if ( findAllComponentDefinitions.hasOwnProperty('default') ) {
-  findAllComponentDefinitions = findAllComponentDefinitions.default
-}
 
 /*
   Helper plugin to do static exports of examples
@@ -112,188 +105,78 @@ class StaticBundle {
 /*
   Helper plugin to compile our project metric stats into guide.js
 */
-class StatsBundle {
-  constructor (buildType) {
-    this.buildType = buildType;
-    this.guideSource = {};
-
-    this.buildStats = {
-      time: 0,
-      count: 0,
-      errors: 0
+class MetricsBundle {
+  constructor () {
+    this.stats = {
+      builds: {
+        count: 0,
+        errors: 0,
+        time: 0
+      },
+      data: []
     };
 
-    this.assetFilters = [
-      'chunks',
-      'chunkNames',
-      'emitted'
-    ];
-
-    this.chunkFilters = [
-      'id',
-      'entry',
-      'hash',
-      'rendered',
-      'initial',
-      'cacheable',
-      'optional',
-      'identifier',
-      'issuer',
-      'issuerName',
-      'issuerPath',
-      'issuerId',
-      'reasons',
-      'chunks',
-      'parents',
-      'siblings',
-      'children',
-      'childrenByOrder',
-      'failed',
-      'depth',
-      'optimizationBailout',
-      'providedExports',
-      'warnings',
-      'errors',
-      'prefetched',
-      'built',
-      'index',
-      'index2',
-      'source',
-      'usedExports',
-      'origins',
-      'filteredModules'
-    ];
+    this.excludes = ['node_modules', '!', 'jsx', 'guide'];
+    this.includes = ['js', 'css', 'svg', 'jpg', 'png', 'gif', 'atoms', 'molecules', 'modifiers', 'organisms'];
   }
 
-  filterStats(object, filters, index, parent) {
-    // simple try catch to prevent killing
-    // build processes before or after this plugin
-    try {
-      for(let i in object) {
-        // if this object's key is a match for filters, we delete it.
-        if (filters.includes(i)) {
-          delete object[i];
-        }
-
-        // if this object is a string with a key of "name", we check it
-        if (typeof object[i] === 'string' && i === 'name') {
-          if (object[i].indexOf('node_module') !== -1 ||
-            object[i].indexOf('(webpack)') !== -1 ||
-            object[i].indexOf('sync') !== -1 ||
-            object[i].indexOf('.jsx') !== -1 ||
-            object[i].indexOf('.jpg') !== -1 ||
-            object[i].indexOf('.gif') !== -1 ||
-            object[i].indexOf('.png') !== -1 ||
-            object[i].indexOf('.bmp') !== -1 ||
-            object[i].indexOf('.json') !== -1 ||
-            object[i].indexOf('.csv') !== -1 ||
-            object[i].indexOf('.json') !== -1 ||
-            object[i].indexOf('.css') !== -1
-          ) {
-            if (
-              object[i].indexOf('css-loader') === -1 &&
-              object[i].indexOf('postcss-loader') === -1
-            ) {
-              delete parent[index]; // if found to still true, we delete it.
-            }
-          }
-
-          // cleans up names object
-          object[i] = object[i].replace(/css \.\/node_modules\/css-loader\?\?ref--4-1\!\.\/node_modules\/postcss-loader\/src\?\?postcss\!/g, '');
-        }
-
-        // if this object is its self another object, we re-filter it
-        if (typeof object[i] === 'object') {
-          // checks for and removes repeatly empty "assets": [] objects
-          if (i === 'assets' && !Object.keys(object[i]).length) {
-            delete object[i];
-          } else {
-            // recursive refiltering
-            this.filterStats(object[i], filters, i, object);
-          }
-        }
+  filter(url) {
+    if (!this.excludes.some(substring => url.includes(substring))) {
+      if (this.includes.some(substring => url.includes(substring))) {
+        return true;
       }
     }
-    catch (err) {
-      console.log('Error in webpack stats plugin:');
-      console.log(err);
-    }
 
-    // not all objects in the array are arrays, so object.splice vs. delete object was not an option.
-    // so, lets clear out any `null` keys left over from delete usage.
-    return JSON.parse(JSON.stringify(object).replace(/null,/g, '').replace(/,null/g, ''));
-  }
-
-  // Helper method to write our stats into guide.js or middle man webpack.stats.js
-  writeStats(path, stats, source) {
-    this.buildStats.count++; // increase our global build count
-    this.buildStats.time = stats.toJson().time; // capture current build's bundle time
-
-    if (stats.hasErrors()) {
-      this.buildStats.errors++;
-    }
-
-    fs.writeFile(path,
-      'var __stats__ = ' + JSON.stringify({
-        builds: { ...this.buildStats },
-        assets: this.filterStats(stats.toJson().assets, this.assetFilters),
-        chunks: this.filterStats(stats.toJson().chunks[0], this.chunkFilters) // chunks[0] === assets and chunks[1] === guide
-      }) + ';' + source,
-    (err) => { if (err) { console.log(err); } return false; });
+    return false;
   }
 
   apply(compiler) {
-    ///////////////////////
-    // PRODUCTION BUILDS //
-    ///////////////////////
-    if (this.buildType === 'production') {
-      // Get guide.js contents for later use
-      compiler.hooks.afterEmit.tap({name:'StatsCompile'}, complation => {
-        Object.keys(complation.assets).map(i => {
-          if (i.indexOf('guide.js') !== -1) {
-            if (Package.optimize.js) {
-              this.guideSource = complation.assets[i]._value;
+    compiler.hooks.normalModuleFactory.tap('StatsCompile', (factory) => {
+      factory.hooks.module.tap('StatsCompile', (module) => {
+        const url = module.userRequest;
+        if (this.filter(url)) {
+          this.stats.data.push({
+            "name": module.userRequest.replace(path.resolve(__dirname, '../../../'), ''),
+            "size": fs.statSync(module.userRequest)['size']
+          })
+        }
+      });
+    });
+
+    compiler.hooks.afterCompile.tap('StatsCompile', (compilation) => {
+      const assets = compilation.assets;
+      Object.keys(assets).map((i) => {
+        const asset = assets[i];
+        if (asset._source) {
+          if (this.filter(i)) {
+            this.stats.data.push({
+              "name": i,
+              "size": asset._source.children.join('').length
+            });
+          }
+        }
+      });
+    });
+
+    compiler.hooks.emit.tap('StatsCompile', (compilation) => {
+      Object.keys(compilation.assets).map((i) => {
+        if (i.indexOf('guide.js') !== -1) {
+          const source = `var __stats__ = ${JSON.stringify(this.stats)};\n ${compilation.assets[i].source()}`;
+          compilation.assets[i] = {
+            source: function () {
+              return source;
+            },
+            size: function () {
+              return source.length;
             }
           }
-        });
+        }
       });
-
-      // Injects latest build stats to guide.js
-      compiler.hooks.done.tap({name:'StatsCompile'}, stats => {
-        fs.readFile(`${global.directories.dest}${global.directories.assetPath}/js/guide.js`, 'utf8', (err, guideSource) => {
-          this.writeStats(
-            `${global.directories.dest}${global.directories.assetPath}/js/guide.js`,
-            stats,
-            guideSource
-          );
-        });
-      });
-    }
-
-    ////////////////////////
-    // DEVELOPMENT BUILDS //
-    ////////////////////////
-    if (this.buildType === 'development') {
-      // Injects a /webpack.stats.js script block into HtmlWebpackPlugin index.html
-      compiler.hooks.compilation.tap({name:'StatsCompile'}, (compilation) => {
-        HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
-          'StatsCompile',
-          (data, cb) => {
-            data.html = data.html.replace('</head>', '<script src="/node_modules/.bin/webpack.stats.js"></script></head>');
-            cb(null, data);
-          }
-        )
-      });
-
-      // Injects stats into middle man webpack.stats.js file
-      compiler.hooks.done.tap({name:'StatsCompile'}, (stats) => {
-        this.writeStats('./node_modules/.bin/webpack.stats.js', stats);
-      });
-    }
+    });
   }
 }
 
 module.exports = {
-  StatsBundle,
-  StaticBundle
+  StaticBundle,
+  MetricsBundle
 };
