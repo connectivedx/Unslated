@@ -26,9 +26,9 @@ const config = {
     guide: './build/guide.jsx'    // entry point for style guide assets
   },
   output: {
-    path: path.resolve(__dirname, `../../${Package.directories.dest}`),   // sets default location for all compiled files
-    publicPath: Package.directories.publicPath,                           // sets a default public location (required by react-routes)
-    filename: `.${Package.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../dist`),  // sets default location for all compiled files
+    publicPath: '/',                              // sets a default public location (required by react-routes)
+    filename: `${Package.directories.assetPath}/js/[name].js`,             // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   module: {
@@ -66,8 +66,8 @@ const config = {
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
-  if (!fs.existsSync(path.resolve(__dirname, `../../${Package.directories.dest}/index.html`))) {
-    execSync('npm run guide');                             // when missing a required "first time build"
+  if (!fs.existsSync(path.resolve(__dirname, '../../dist/index.html'))) {
+    execSync('npm run guide'); // fix for cold guide builds
   }
 
   return config;

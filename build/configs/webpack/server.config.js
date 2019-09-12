@@ -35,15 +35,13 @@ module.exports = {
   config: {
     devServer: {
       port: (Package.local.port.length) ? Package.local.port : '',                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-port)
-      host: Package.local.host,                 // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
-      publicPath: Package.directories.publicPath,
-      contentBase: Package.directories.dest,
-      allowedHosts: Package.local.allowedHosts, // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
+      host: Package.local.host,                                                    // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-host)
+      allowedHosts: Package.local.allowedHosts,                                    // package.json is this config entry point (see: https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)
       historyApiFallback: true,
       watchOptions: {
         ignored: /node_modules/
       },
-      before: (app, server) => {                 // Webpack-dev-server routes (see: https://webpack.js.org/configuration/dev-server/#devserver-before)
+      before: (app, server) => {                                                   // Webpack-dev-server routes (see: https://webpack.js.org/configuration/dev-server/#devserver-before)
         // All unslated GUI /api calls funneled here
         app.get('/api', (req, res) => {
           const query = res.req.query;

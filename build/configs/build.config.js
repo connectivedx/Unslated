@@ -4,10 +4,11 @@
 */
 
 // devDependencies
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const Package = require('../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { WebpackHooks } = require('./webpack/webpack.plugins');
 
 // build configuration files
 const js = require('./js/js.config.js');                // all js file related build configurations
@@ -23,9 +24,9 @@ const config = {
     assets: './build/assets.jsx'
   },
   output: {
-    path: path.resolve(__dirname, `../../${Package.directories.dest}`),   // sets default location for all compiled files
-    publicPath: Package.directories.publicPath,                           // sets a default public location (required by react-routes)
-    filename: `.${Package.directories.assetPath}/js/[name].js`,           // sets filename of bundled .js file (relative to output.path config)
+    path: path.resolve(__dirname, `../../dist`), // sets default location for all compiled files
+    publicPath: Package.directories.publicPath,  // sets a default public location (required by react-routes)
+    filename: `${Package.directories.assetPath}/js/[name].js`,            // sets filename of bundled .js file (relative to output.path config)
     pathinfo: false
   },
   module: {
@@ -41,7 +42,33 @@ const config = {
     ...js.plugins,    // see build/config/js/js.config.js
     ...img.plugins,   // see build/config/img/img.config.js
     ...font.plugins,  // see build/config/font/font.config.js
-    ...alias.plugins // see build/config/alias.config.js
+    ...alias.plugins,  // see build/config/alias.config.js,
+    new WebpackHooks({
+      done: () => {
+        // If output location is not dist, we copy results from dist
+        if (Package.directories.dest !== 'dist') {
+          // Clean configured output location
+          fs.remove(
+            path.resolve(
+              __dirname,
+              `../../${Package.directories.dest}/${Package.directories.assetPath}/img`
+            )
+          );
+
+          // Copy from /dist to configured output location
+          fs.copy(
+            path.resolve(
+              __dirname,
+              `../../dist`
+            ),
+            path.resolve(
+              __dirname,
+              `../../${Package.directories.dest}`
+            )
+          );
+        }
+      }
+    })
   ],
   ...stats.config,    // see build/configs/webpack/stats.config.js
   resolve: {
@@ -52,6 +79,10 @@ const config = {
   performance: {
     maxAssetSize: 170000,
     assetFilter: (asset) => {
+      if (asset.match('guide.js')) {
+        return false;
+      }
+
       return asset.match('assets.js');
     }
   },

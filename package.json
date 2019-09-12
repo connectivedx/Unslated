@@ -9,9 +9,9 @@
 	"author": "Devin Olsen",
 	"license": "MIT",
 	"directories": {
-		"source": "/src",
-		"dest": "/dist",
-		"assetPath": "/assets",
+		"source": "src",
+		"dest": "dist",
+		"assetPath": "assets",
 		"publicPath": "/"
 	},
 	"statics": {
@@ -27,7 +27,7 @@
 		"allowedHosts": []
 	},
 	"optimize": {
-		"js": false,
+		"js": true,
 		"css": true
 	},
 	"scripts": {

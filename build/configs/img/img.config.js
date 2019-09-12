@@ -21,7 +21,7 @@ module.exports = {
         'loader': 'file-loader', // (see: https://www.npmjs.com/package/file-loader)
         'options': {
           'name': '[name].[ext]',
-          'outputPath': `.${Package.directories.assetPath}/img` // see package.json
+          'outputPath': `${Package.directories.assetPath}/img` // see package.json
         }
       },
       {
@@ -36,7 +36,7 @@ module.exports = {
           },
           'svgo': {
             'options': {
-              'output': `${Package.directories.dest}${Package.directories.assetPath}/img` // see package.json
+              'output': `${Package.directories.assetPath}/img` // see package.json
             },
             'plugins': [
               { 'cleanupAttrs': true },
@@ -76,7 +76,7 @@ module.exports = {
   plugins: [
     // Builds our icon svg sprite file (see: https://www.npmjs.com/package/webpack-svg-spritely)
     new WebpackSvgSpritely({
-      output: `${Package.directories.assetPath}/img`,
+      output: `/${Package.directories.assetPath}/img`,
       entry: 'assets'
     }),
     new CleanWebpackPlugin({
