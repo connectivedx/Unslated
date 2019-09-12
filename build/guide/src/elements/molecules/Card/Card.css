@@ -3,7 +3,7 @@
   --card-spacing: 0.5rem;
 }
 
-.card {
+.guide__card {
   &__header,
   &__body,
   &__footer {
@@ -11,7 +11,7 @@
   }
 
   &__body {
-    @extend-all .rhythm--medium;
+    @extend-all .guide__rhythm--medium;
   }
 
   /* Style variants */
@@ -19,14 +19,14 @@
     box-shadow: 0 0 0 1px var(--color-gray-light);
     border-radius: 5px;
 
-    .card__header {
+    .guide__card__header {
       background-color: var(--color-gray-light);
       box-shadow: 0 0 0 1px var(--color-gray);
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
     }
 
-    .card__footer {
+    .guide__card__footer {
       border-top: 1px solid var(--color-gray-light);
     }
   }
@@ -39,13 +39,13 @@
       display: flex;
     }
 
-    .card {
+    .guide__card {
       width: 100%;
     }
   }
 
   &__deck {
-    .card {
+    .guide__card {
       margin: calc(var(--card-spacing) * 2) 0;
 
       @media (--medium) {
@@ -62,7 +62,7 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
 
-    .card {
+    .guide__card {
       margin: calc(var(--card-spacing) * 2) 0;
 
       @media (--medium) {

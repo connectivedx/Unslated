@@ -74,7 +74,7 @@
     }
 
     /* Input type styles */
-    &.input-date {
+    &.guide__input-date {
       .field__native {
         background-image: url('../Icon/assets/calendar.svg');
         background-position: calc(100% - 5px) center;
@@ -83,7 +83,7 @@
       }
     }
 
-    &.input-number {
+    &.guide__input-number {
       .field__native:--haf {
         background-image: url('../Icon/assets/up-down.svg');
         background-position: calc(100% - 5px) center;
@@ -92,8 +92,8 @@
       }
     }
 
-    &.input-radio,
-    &.input-checkbox {
+    &.guide__input-radio,
+    &.guide__input-checkbox {
       .field__label {
         min-height: auto;
         padding: 0;
@@ -112,7 +112,7 @@
       }
     }
 
-    &.input-radio {
+    &.guide__input-radio {
       .field__label:before {
         background-image: url('../Icon/assets/radio-unchecked.svg');
         border-radius: 32px;
@@ -123,7 +123,7 @@
       }
     }
 
-    &.input-checkbox {
+    &.guide__input-checkbox {
       .field__label:before {
         background-image: url('../Icon/assets/checkbox-unchecked.svg');
       }

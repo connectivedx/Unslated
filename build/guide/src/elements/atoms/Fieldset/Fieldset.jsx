@@ -49,8 +49,8 @@ export class Fieldset extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'form-fieldset',
-      `form-fieldset--${variant}`,
+      'guide__form-fieldset',
+      `guide__form-fieldset--${variant}`,
       className
     ]);
 

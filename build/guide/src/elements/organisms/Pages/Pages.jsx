@@ -30,7 +30,7 @@ export const Pages = (props) => {
   }
 
   const classStack = Utils.createClassStack([
-    'guide__pages',
+    `guide__${(props.location.pathname.indexOf('tools') !== -1) ? 'tools' : 'pages'}`,
     (page.options.navless === true) ? 'no-nav' : '',
     (page.options.headless === true) ? 'no-padding' : ''
   ]);

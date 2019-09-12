@@ -1,5 +1,3 @@
-const requireAll = (context) => context.keys().map(context);
-
 // Import variables CSS
 require('reset-css');
 require('@vars/breakpoints.css');
@@ -13,6 +11,3 @@ require('@vars/zindex.css');
 // Import root and richtext CSS
 require('@atoms/Root/Root.css');
 require('@atoms/RichText/RichText.css');
-
-// Import all remaining elements CSS
-requireAll(require.context('@elements/', true, /^(?!.*Root).*\/(?!.*RichText).*\/(?!.*font-face).*\.css$/));

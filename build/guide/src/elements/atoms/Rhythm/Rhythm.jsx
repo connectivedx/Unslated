@@ -43,6 +43,7 @@ export class Rhythm extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
+      'guide__rhythm',
       deep
         ? `rhythm--deep-${size}`
         : `rhythm--${size}`,

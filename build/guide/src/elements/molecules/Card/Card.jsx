@@ -38,8 +38,8 @@ export class Card extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card',
-      `card--${variant}`,
+      'guide__card',
+      `guide__card--${variant}`,
       className
     ]);
 
@@ -85,8 +85,8 @@ export class Card__header extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__header',
-      `card__header--${variant}`,
+      'guide__card__header',
+      `guide__card__header--${variant}`,
       className
     ]);
 
@@ -132,8 +132,8 @@ export class Card__body extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__body',
-      `card__body--${variant}`,
+      'guide__card__body',
+      `guide__card__body--${variant}`,
       className
     ]);
 
@@ -179,8 +179,8 @@ export class Card__footer extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__footer',
-      `card__footer--${variant}`,
+      'guide__card__footer',
+      `guide__card__footer--${variant}`,
       className
     ]);
 
@@ -222,7 +222,7 @@ export class Card__group extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__group',
+      'guide__card__group',
       className
     ]);
 
@@ -264,7 +264,7 @@ export class Card__deck extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__deck',
+      'guide__card__deck',
       className
     ]);
 
@@ -306,7 +306,7 @@ export class Card__grid extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'card__grid',
+      'guide__card__grid',
       className
     ]);
 

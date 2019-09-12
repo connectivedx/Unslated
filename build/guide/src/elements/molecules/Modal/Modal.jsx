@@ -49,10 +49,10 @@ export class Modal extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'modal',
-      `modal--${variant}`,
-      `modal--${size}`,
-      `modal--padding-${padding}`,
+      'guide__modal',
+      `guide__modal--${variant}`,
+      `guide__modal--${size}`,
+      `guide__modal--padding-${padding}`,
       className
     ]);
 
@@ -61,11 +61,11 @@ export class Modal extends React.Component {
         className={classStack}
         {...attrs}
       >
-        <div className="modal-inner">
-          <div className="modal-inner--width">
+        <div className="guide__modal-inner">
+          <div className="guide__modal-inner--width">
             <Icon name="close" data-modal-close />
-            <div className="modal-inner--height">
-              <div className="modal-content">
+            <div className="guide__modal-inner--height">
+              <div className="guide__modal-content">
                 {children}
               </div>
             </div>

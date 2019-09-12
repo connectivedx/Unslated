@@ -3,13 +3,13 @@ export const Modal = (el) => {
   // Modal ui helper object
   const ui = {
     modal: el,
-    innerWidth: el.querySelector('.modal-inner--width'),
-    innerHeight: el.querySelector('.modal-inner--height')
+    innerWidth: el.querySelector('.guide__modal-inner--width'),
+    innerHeight: el.querySelector('.guide__modal-inner--height')
   };
 
   // checks if window height is smaller than modal height
   const checkHeight = () => {
-    const elm = document.querySelector('.modal-visible');
+    const elm = document.querySelector('.guide__modal-visible');
     if (!elm) { return; }
 
     elm.classList.remove('overflowing');
@@ -27,7 +27,7 @@ export const Modal = (el) => {
       modal.dataset.href = trigger.href;
     }
 
-    modal.classList.add('modal-visible');
+    modal.classList.add('guide__modal-visible');
     modal.removeAttribute('data-modal-hide');
 
     setTimeout(() => {
@@ -40,12 +40,12 @@ export const Modal = (el) => {
     if (!modal || !modal.classList) { return; }
     modal.removeAttribute('data-href');
     modal.removeAttribute('data-modal-hide');
-    modal.classList.remove('modal-visible');
+    modal.classList.remove('guide__modal-visible');
     window.removeEventListener('resize', handleWindowResize, true);
   };
 
   // Get modal by ID
-  const getRefModal = (modalId) => document.querySelector(`.modal[data-modal="${modalId}"]`);
+  const getRefModal = (modalId) => document.querySelector(`.guide__modal[data-modal="${modalId}"]`);
 
   // Modals's main init method
   const init = () => {
@@ -58,12 +58,12 @@ export const Modal = (el) => {
       const { classList } = e.target;
 
       if (dataset) {
-        if (dataset.modal && !classList.contains('modal')) {
+        if (dataset.modal && !classList.contains('guide__modal')) {
           open(getRefModal(dataset.modal), e.target);
           e.preventDefault();
         }
 
-        if (dataset.modalClose || classList.contains('modal')) {
+        if (dataset.modalClose || classList.contains('guide__modal')) {
           close(ui.modal);
         }
       }

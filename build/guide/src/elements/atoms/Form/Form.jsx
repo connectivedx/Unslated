@@ -53,7 +53,7 @@ export class Form extends React.Component {
 
     const classStack = Utils.createClassStack([
       'guide__form',
-      `form--${variant}`,
+      `guide__form--${variant}`,
       className
     ]);
 

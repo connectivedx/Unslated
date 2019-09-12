@@ -72,7 +72,7 @@ module.exports = {
       ]
     }),
     new MiniCssExtractPlugin({                  // used to compile our css file.
-      filename: `.${Package.directories.assetPath}/css/[name].css`,
+      filename: `${Package.directories.assetPath}/css/[name].css`,
       chunkFilename: './[name].css'
     })
   ]

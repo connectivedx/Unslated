@@ -9,7 +9,7 @@
   --padding-large: rem(48px);
 }
 
-.modal {
+.guide__modal {
   background: rgba(0, 0, 0, 0.25);
   bottom: 0;
   display: none;
@@ -58,7 +58,7 @@
     white-space: normal;
   }
 
-  & .button { margin-top: rem(16px); }
+  & .guide__button { margin-top: rem(16px); }
 
   &-visible {
     display: block;
@@ -66,7 +66,7 @@
     transition: opacity 0.2s;
     z-index: 99;
 
-    & .modal-inner--width {
+    & .guide__modal-inner--width {
       opacity: 1;
       transform: scale(1);
       transition: opacity 0.2s, transform 0.2s;
@@ -97,48 +97,48 @@
   }
 
   /* size variants */
-  &--small .modal-inner      { max-width: var(--size-small);      }
+  &--small .guide__modal-inner      { max-width: var(--size-small);      }
 
-  &--medium .modal-inner     { max-width: var(--size-medium);     }
+  &--medium .guide__modal-inner     { max-width: var(--size-medium);     }
 
-  &--large .modal-inner      { max-width: var(--size-large);      }
+  &--large .guide__modal-inner      { max-width: var(--size-large);      }
 
-  &--extraLarge .modal-inner { max-width: var(--size-extraLarge); }
+  &--extraLarge .guide__modal-inner { max-width: var(--size-extraLarge); }
 
   /* padding variants */
   &--padding-none {
-    .modal-inner--width,
-    .modal-inner--height { padding: 0; }
+    .guide__modal-inner--width,
+    .guide__modal-inner--height { padding: 0; }
   }
 
   &--padding-small {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-small); }
+    .guide__modal-inner--width,
+    .guide__modal-inner--height { padding: var(--padding-small); }
   }
 
   &--padding-medium {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-medium); }
+    .guide__modal-inner--width,
+    .guide__modal-inner--height { padding: var(--padding-medium); }
   }
 
   &--padding-large {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-large); }
+    .guide__modal-inner--width,
+    .guide__modal-inner--height { padding: var(--padding-large); }
   }
 
   /* style variants */
-  &--default .modal-inner--width {
+  &--default .guide__modal-inner--width {
     background: var(--color-white);
     border-radius: 4px;
   }
 
-  .icon--close {
+  .guide__icon--close {
     cursor: pointer;
     height: 25px;
     line-height: 25px;
     position: absolute;
-    right: 5px;
-    top: -35px;
+    right: 15px;
+    top: 15px;
     width: 25px;
     z-index: 2;
   }

@@ -1,4 +1,15 @@
 /* Metrics */
 .guide__dashboard {
 	padding: 6rem 2rem 2rem;
+
+  .flex {
+    > div {
+      width: 100%;
+    }
+  }
+
+  .image {
+    margin-bottom: rem(20px);
+    max-width: 650px;
+  }
 }

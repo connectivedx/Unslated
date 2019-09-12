@@ -1,3 +1,8 @@
+/* Form Styles */
+.guide__form {
+  padding: rem(16px) 0;
+}
+
 /* Baseline general field styles */
 .guide__field__label {
   transition: color 0.15s;

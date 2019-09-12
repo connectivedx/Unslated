@@ -176,7 +176,26 @@ class MetricsBundle {
   }
 }
 
+/*
+  Helper plugin to copy production builds to configured output location
+*/
+
+class WebpackHooks {
+  constructor(hooks) {
+    this.hooks = hooks;
+  }
+
+  apply(compiler) {
+    Object.keys(this.hooks).map((i) => {
+      compiler.hooks[i].tap('WebpackHooks', (data) => {
+        this.hooks[i]();
+      });
+    });
+  }
+}
+
 module.exports = {
   StaticBundle,
-  MetricsBundle
+  MetricsBundle,
+  WebpackHooks,
 };

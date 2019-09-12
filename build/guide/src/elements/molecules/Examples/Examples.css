@@ -43,7 +43,7 @@
       justify-content: flex-start;
       flex-wrap: wrap;
 
-      .button {
+      .guide__button {
         margin-right: 1rem;
         margin-bottom: 1rem;
       }
@@ -70,12 +70,12 @@
         position: relative;
         padding-right: rem(20px);
 
-        &:hover .icon {
+        &:hover .guide__icon {
           opacity: 1;
         }
       }
 
-      .icon {
+      .guide__icon {
         height: 20px;
         opacity: 0;
         position: relative;
@@ -93,19 +93,19 @@
         }
       }
 
-      .heading {
+      .guide__heading {
         color: var(--color-black);
         padding-left: rem(5px);
       }
 
       .examples__header-jumplink {
-        .icon {
+        .guide__icon {
           transition: transform 0.25s, opacity 0.25s 0.5s;
         }
       }
 
       .copied {
-        .icon {
+        .guide__icon {
           fill: var(--color-generic--green);
           stroke-width: 2px;
           opacity: 1;
@@ -118,7 +118,7 @@
       display: flex;
       flex-direction: column;
 
-      .button {
+      .guide__button {
         margin: 0 0.5rem;
         &:first-child { margin-left: 0; }
         &:last-child { margin-right: 0; }

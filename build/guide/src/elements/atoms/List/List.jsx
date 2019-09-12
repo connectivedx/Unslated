@@ -51,8 +51,8 @@ export class List extends React.Component {
     const Tag = tagName || getTagName();
 
     const classStack = Utils.createClassStack([
-      'list',
-      `list--${variant}`,
+      'guide__list',
+      `guide__list--${variant}`,
       className
     ]);
 

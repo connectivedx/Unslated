@@ -6,11 +6,15 @@
 */
 
 // Guide JS
-import Sly from '@modifiers/Sly/Sly.container';
 import Guide from '@guide/guide.router';
-import Package from '@root/package.json';
+import GuideForm from '@guideAtoms/Form/Form.Container.js';
+import GuideInput from '@guideAtoms/Input/Input.Container.js';
+import GuideSelect from '@guideAtoms/Select/Select.Container.js';
+import GuideTextarea from '@guideAtoms/Textarea/Textarea.Container.js';
 
 import GuideNav from '@guideMolecules/Nav/Nav.Container';
+import GuideTabs from '@guideMolecules/Tabs/Tabs.Container';
+import GuideModal from '@guideMolecules/Modal/Modal.Container.js';
 import GuideReadme from '@guideMolecules/Readme/Readme.Container';
 import GuideStylist from '@guideMolecules/Stylist/Stylist.Container';
 import GuideExamples from '@guideMolecules/Examples/Examples.Container';
@@ -21,20 +25,11 @@ import GuideMetrics from '@guideOrganisms/Metrics/Metrics.Container';
 import GuideDashboard from '@guideOrganisms/Dashboard/Dashboard.Container';
 import GuideTypography from '@guideOrganisms/Typography/Typography.Container';
 
-import GuideForm from '@guideAtoms/Form/Form.Container.js';
-import GuideInput from '@guideAtoms/Input/Input.Container.js';
-import GuideSelect from '@guideAtoms/Select/Select.Container.js';
-import GuideTextarea from '@guideAtoms/Textarea/Textarea.Container.js';
-
-// Set page title based on package config
-document.head.querySelector('title').innerText = `${Package.name} ${Package.version}`;
-document.body.appendChild(document.createElement('sly'));
-
 // Mount the guide into DOM and run it's container.js
 ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
   document.addEventListener('DOMContentLoaded', () => {
-    Utils.initComponent('Sly', 'sly', Sly);
     Utils.initComponent('GuideNav', '.guide__nav', GuideNav);
+    Utils.initComponent('GuideTabs', '.guide__tabs', GuideTabs);
     Utils.initComponent('GuideIcons', '.guide__icons', GuideIcons);
     Utils.initComponent('GuideColors', '.guide__colors', GuideColors);
     Utils.initComponent('GuideReadme', '.guide__readme', GuideReadme);
@@ -45,6 +40,7 @@ ReactDOM.render(<Guide />, document.querySelector('#index'), () => {
     Utils.initComponent('GuideTypography', '.guide__typography', GuideTypography);
 
     Utils.initComponent('GuideForm', '.guide__form', GuideForm);
+    Utils.initComponent('GuideModal', '.guide__modal', GuideModal);
     Utils.initComponent('GuideInput', '.guide__input', GuideInput);
     Utils.initComponent('GuideSelect', '.guide__select', GuideSelect);
     Utils.initComponent('GuideTextarea', '.guide__textarea', GuideTextarea);

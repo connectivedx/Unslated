@@ -23,7 +23,7 @@ export class Table__head extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__head',
+      'guide__table__head',
       className
     ]);
 
@@ -58,7 +58,7 @@ export class Table__header extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__header',
+      'guide__table__header',
       className
     ]);
 
@@ -93,7 +93,7 @@ export class Table__body extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__body',
+      'guide__table__body',
       className
     ]);
 
@@ -128,7 +128,7 @@ export class Table__foot extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__foot',
+      'guide__table__foot',
       className
     ]);
 
@@ -163,7 +163,7 @@ export class Table__data extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__data',
+      'guide__table__data',
       className
     ]);
 
@@ -198,7 +198,7 @@ export class Table__row extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table__row',
+      'guide__table__row',
       className
     ]);
 
@@ -246,8 +246,8 @@ export class Table extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'table',
-      `table--${variant}`,
+      'guide__table',
+      `guide__table--${variant}`,
       className
     ]);
 

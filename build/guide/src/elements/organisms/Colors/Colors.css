@@ -10,7 +10,7 @@
     height: 120px;
   }
 
-  .card {
+  .guide__card {
     margin: 2rem 0 0;
     position: relative;
     box-shadow: 0 0 10px 0 var(--color-gray);
@@ -122,7 +122,7 @@
       max-width: 1024px;
       width: 100%;
 
-      & > .rhythm {
+      & > .guide__rhythm {
         padding: 2rem 0 0;
       }
     }

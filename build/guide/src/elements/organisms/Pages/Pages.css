@@ -1,7 +1,6 @@
 /* Pages */
-.guide__pages {
-  padding: 6rem 2rem 2rem;
-
+.guide__pages,
+.guide__tools {
   &.no-nav {
     .guide_nav { display: none; }
   }
@@ -9,6 +8,14 @@
   &.no-padding {
     padding: 0;
   }
+}
+
+.guide__pages {
+  padding: 0 2rem 2rem;
+}
+
+.guide__tools {
+  padding: 6rem 2rem 2rem;
 }
 
 .guide__404 {
@@ -21,7 +28,7 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  .heading {
+  .guide__heading {
     color: var(--color-white);
     text-shadow: 0 4px var(--color-black);
     font-size: rem(48px);

@@ -30,8 +30,8 @@ export class Link extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'link',
-      `link--${variant}`,
+      'guide__link',
+      `guide__link--${variant}`,
       className
     ]);
 

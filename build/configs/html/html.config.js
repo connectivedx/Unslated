@@ -24,10 +24,10 @@ module.exports = {
   }],
   plugins: [
     new HtmlWebPackPlugin({ // used to compile our html files/
-      'title': 'Unslated Component Guide',
-      'template': './src/index.html',
-      'filename': './index.html',
-      'favicon': './src/elements/atoms/Icon/assets/favicon.ico',
+      'title': `${Package.name} ${Package.version}`,
+      'template': 'src/index.html',
+      'filename': 'index.html',
+      'favicon': 'src/elements/atoms/Icon/assets/favicon.ico',
     }),
     new WebpackCDNInject({
       head: [

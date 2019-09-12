@@ -29,11 +29,11 @@ export const GuideExamples = (el) => {
     if (ui.examples) {
       Object.keys(ui.examples).map((index) => {
         const example = ui.examples[index];
-        const buttons = example.querySelectorAll('.button');
+        const buttons = example.querySelectorAll('.guide__button');
         Object.keys(buttons).map((j) => {
           if (!buttons[j].hasAttribute('type')) {
             buttons[j].addEventListener('click', (e) => {
-              if (!e.target.classList.contains('button')) { return; }
+              if (!e.target.classList.contains('guide__button')) { return; }
               switchCodeSamples(e.target.dataset.index, example);
               e.preventDefault();
             });

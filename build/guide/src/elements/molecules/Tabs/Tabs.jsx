@@ -54,10 +54,10 @@ export class Tabs extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'tabs',
-      `tabs--${variant}`,
-      `tabs-align--${align}`,
-      `tabs-justify--${justify}`,
+      'guide__tabs',
+      `guide__tabs--${variant}`,
+      `guide__tabs-align--${align}`,
+      `guide__tabs-justify--${justify}`,
       className
     ]);
 

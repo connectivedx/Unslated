@@ -2,7 +2,7 @@ export const GuideIcons = (el) => {
   const ui = {
     el,
     iconSearch: el.querySelector('.icons__controls-search .field__native'),
-    iconCards: el.querySelectorAll('.card[data-icon]'),
+    iconCards: el.querySelectorAll('.guide__card[data-icon]'),
     iconUtilities: el.querySelectorAll('.icon__utilities')
   };
 
@@ -20,7 +20,7 @@ export const GuideIcons = (el) => {
           const native = natives[j];
           native.addEventListener('input', () => {
             const GUIStyles = serializeIconUtilities(natives);
-            Utils.parents(native, '.card').setAttribute('style', GUIStyles);
+            Utils.parents(native, '.guide__card').setAttribute('style', GUIStyles);
           });
           return false;
         });

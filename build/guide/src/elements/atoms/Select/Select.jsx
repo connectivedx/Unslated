@@ -81,8 +81,8 @@ export class Select extends React.Component {
 
     const classStack = Utils.createClassStack([
       'guide__select field',
-      `select--${variant}`,
-      (multiple) ? 'select--multiple' : '',
+      `guide__select--${variant}`,
+      (multiple) ? 'guide__select--multiple' : '',
       className
     ]);
 

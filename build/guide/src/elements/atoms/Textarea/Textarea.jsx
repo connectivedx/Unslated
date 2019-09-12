@@ -75,7 +75,7 @@ export class Textarea extends React.Component {
 
     const classStack = Utils.createClassStack([
       'guide__textarea field',
-      `textarea--${variant}`,
+      `guide__textarea--${variant}`,
       className
     ]);
 

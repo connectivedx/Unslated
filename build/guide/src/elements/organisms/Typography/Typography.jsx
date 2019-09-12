@@ -77,43 +77,35 @@ export const Typography = () => {
           <p>{Utils.ipsum('paragraph', 2)}</p>
           <p>{Utils.ipsum('paragraph', 3)}</p>
 
-          <div className="flex flex--justify-content-between">
-            <div>
-              <Heading level="h3">Ordered lists</Heading>
-              <List tagName="ol" variant="ordered">
-                <List__item>Item one</List__item>
-                <List__item>Item two</List__item>
-                <List__item>Item three</List__item>
-                <List__item>Item Four</List__item>
-                <List__item>Item Five</List__item>
-                <List__item>Item Size</List__item>
-              </List>
-            </div>
+          <Heading level="h3">Ordered lists</Heading>
+          <List tagName="ol" variant="ordered">
+            <List__item>Item one</List__item>
+            <List__item>Item two</List__item>
+            <List__item>Item three</List__item>
+            <List__item>Item Four</List__item>
+            <List__item>Item Five</List__item>
+            <List__item>Item Size</List__item>
+          </List>
 
-            <div>
-              <Heading level="h3">Unordered lists</Heading>
-              <List tagName="ul">
-                <List__item>Item one</List__item>
-                <List__item>Item two</List__item>
-                <List__item>Item three</List__item>
-                <List__item>Item Four</List__item>
-                <List__item>Item Five</List__item>
-                <List__item>Item Size</List__item>
-              </List>
-            </div>
+          <Heading level="h3">Unordered lists</Heading>
+          <List tagName="ul">
+            <List__item>Item one</List__item>
+            <List__item>Item two</List__item>
+            <List__item>Item three</List__item>
+            <List__item>Item Four</List__item>
+            <List__item>Item Five</List__item>
+            <List__item>Item Size</List__item>
+          </List>
 
-            <div>
-              <Heading level="h3">Blank lists</Heading>
-              <List tagName="ul" variant="blank">
-                <List__item>Item one</List__item>
-                <List__item>Item two</List__item>
-                <List__item>Item three</List__item>
-                <List__item>Item Four</List__item>
-                <List__item>Item Five</List__item>
-                <List__item>Item Size</List__item>
-              </List>
-            </div>
-          </div>
+          <Heading level="h3">Blank lists</Heading>
+          <List tagName="ul" variant="blank">
+            <List__item>Item one</List__item>
+            <List__item>Item two</List__item>
+            <List__item>Item three</List__item>
+            <List__item>Item Four</List__item>
+            <List__item>Item Five</List__item>
+            <List__item>Item Size</List__item>
+          </List>
         </Rhythm>
       </Card__body>
     </Card>

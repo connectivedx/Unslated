@@ -3,11 +3,11 @@ export const GuideNav = (el) => {
     el,
     nav: document.querySelector('.guide__nav'),
     navInner: document.querySelector('.guide__nav-inner'),
-    navLists: document.querySelectorAll('.heading + .list'),
+    navLists: document.querySelectorAll('.guide__heading + .guide__list'),
     search: el.querySelector('.guide__nav--search .field__native'),
     newElement: document.querySelector('.new-element .input-text .field__native'),
-    renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.modal)'),
-    removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.modal)')
+    renameElementTrigger: document.querySelectorAll('[data-modal="rename"]:not(.guide__modal)'),
+    removeElementTrigger: document.querySelectorAll('[data-modal="remove"]:not(.guide__modal)')
   };
 
   const events = {
@@ -35,7 +35,7 @@ export const GuideNav = (el) => {
         }
 
         // navigation accordion
-        if (target.classList.contains('heading')) {
+        if (target.classList.contains('guide__heading')) {
           if (target.classList.contains('home')) { return; }
           Utils.toggleClass(target.nextSibling, 'hidden');
           e.preventDefault();
@@ -77,9 +77,13 @@ export const GuideNav = (el) => {
             // toggle list__items visibility by value match
             while (j--) {
               items[j].classList.add('hidden');
-              if (items[j].dataset.search.toLowerCase().match(value.toLowerCase())) {
-                items[j].classList.remove('hidden');
-                hasMatches = true;
+              if (items[j].dataset) {
+                if (items[j].dataset.search) {
+                  if (items[j].dataset.search.toLowerCase().match(value.toLowerCase())) {
+                    items[j].classList.remove('hidden');
+                    hasMatches = true;
+                  }
+                }
               }
             }
 

@@ -22,6 +22,7 @@ module.exports = {
     '@modifiers': path.resolve(__dirname, '../../../src/elements/modifiers/'),
     '@templates': path.resolve(__dirname, '../../../src/elements/templates/'),
     '@tools': path.resolve(__dirname, '../../guide/src/tools/'),
+    '@guideElements': path.resolve(__dirname, '../../guide/src/elements/'),
     '@guideAtoms': path.resolve(__dirname, '../../guide/src/elements/atoms/'),
     '@guideAssets': path.resolve(__dirname, '../../guide/assets/'),
     '@guideMolecules': path.resolve(__dirname, '../../guide/src/elements/molecules/'),

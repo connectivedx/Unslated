@@ -6,6 +6,7 @@
   transform-origin: left;
   transition: transform 0.5s, background-color 3s 1s;
   width: 100%;
+  z-index: 100;
 
   &.open {
     background-color: rgba(0, 0, 0, 0.25);
@@ -16,6 +17,10 @@
     transition: transform 0.5s 0.25s, background-color 0.25s;
   }
 
+  .guide__form {
+    padding: 0;
+  }
+
   .guide-nav__open {
     &:after {
       background-color: var(--color-white);
@@ -24,11 +29,11 @@
       content: url('../../../assets/menu.svg');
       cursor: pointer;
       display: block;
-      left: -rem(80px);
+      left: -80px;
       opacity: 0.25;
       padding: rem(8px) rem(7px) rem(4px);
       position: absolute;
-      top: 0.75rem;
+      top: 35px;
       transition: opacity 1s;
       width: 32px;
       height: 24px;
@@ -59,18 +64,18 @@
         display: block;
         height: 24px;
         position: absolute;
-        right: rem(16px);
-        top: 20px;
+        right: 16px;
+        top: 25px;
         width: 24px;
       }
     }
   }
 
-  .list {
+  .guide__list {
     list-style: none;
     padding: 0;
 
-    .link {
+    .guide__link {
       color: var(--color-black);
       display: block;
       text-decoration: none;
@@ -78,6 +83,8 @@
     }
 
     & .list__item {
+      margin-top: rem(10px);
+
       &:hover {
         > a {
           text-decoration: underline;
@@ -90,7 +97,7 @@
         display: none;
       }
 
-      .list {
+      .guide__list {
         padding: 0 0 0.5rem 1.75rem;
         font-size: rem(16px);
       }
@@ -109,7 +116,7 @@
         opacity: 0;
         transition: opacity 0.5s;
 
-        .icon {
+        .guide__icon {
           height: rem(20px);
           width: rem(20px);
         }
@@ -131,7 +138,7 @@
     }
   }
 
-  & .heading {
+  & .guide__heading {
     background-color: color(var(--color-black), 95%);
     background-position: 10px center;
     background-repeat: no-repeat;
@@ -151,7 +158,7 @@
     &.organisms   { background-image: url('../../../assets/organisms.svg'); }
     &.home        { background-image: url('../../../assets/home.svg'); }
 
-    .link {
+    .guide__link {
       position: relative;
 
       &:before {
@@ -163,7 +170,7 @@
         z-index: 2;
       }
 
-      .icon {
+      .guide__icon {
         position: relative;
         z-index: 1;
         width: 15px;

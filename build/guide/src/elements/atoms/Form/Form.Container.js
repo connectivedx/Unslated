@@ -33,7 +33,7 @@ export const Form = (el) => {
 
         xhttp.open(
           el.method,
-          `$(el.dataset.xhr}?${Utils.serialize(el, 'urlencode')}`,
+          `${el.dataset.xhr}?${Utils.serialize(el, 'urlencode')}`,
           true
         );
 
