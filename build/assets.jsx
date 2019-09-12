@@ -7,3 +7,12 @@
 
 import '@src/styles';
 import '@src/scripts';
+
+const requireAll = (context) => context.keys().map(context);
+
+// Import all CSS and Image files
+requireAll(require.context(
+  '@elements/',
+  true,
+  /^(?!.*Root).*\/(?!.*RichText).*\/(?!.*font-face).*\.(css|svg|jpg|png|gif)$/
+));
