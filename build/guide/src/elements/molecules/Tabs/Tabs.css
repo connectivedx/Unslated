@@ -6,7 +6,7 @@
 }
 
 /* Baseline styles */
-.tabs {
+.guide__tabs {
   @media (--medium) {
     display: flex;
     position: relative;

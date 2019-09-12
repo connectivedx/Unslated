@@ -1,8 +1,8 @@
 export const GuideColors = (el) => {
   const ui = {
     el,
-    colorCards: el.querySelectorAll('li.card'),
-    colorSearch: el.querySelector('.AccessibilityLevel__control .input-text .field__native'),
+    colorCards: el.querySelectorAll('li.guide__card'),
+    colorSearch: el.querySelector('.AccessibilityLevel__control .guide__input-text .field__native'),
     colorLevelSelect: el.querySelector('.accessibility__controls-level'),
     colorLevelSelectNative: el.querySelector('.accessibility__controls-level .field__native'),
     colorWeightSelect: el.querySelector('.accessibility__controls-weight'),

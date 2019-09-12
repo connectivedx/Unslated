@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    .card__body {
+    .guide__card__body {
       position: sticky;
       align-self: top;
       top: 0;
@@ -38,14 +38,15 @@
     }
   }
 
-  .tabs {
+  .guide__tabs {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     padding: 0;
   }
 
-  .card__header {
-    .heading { font-size: rem(18px); }
+  .guide__card__header {
+    .guide__heading { font-size: rem(18px); }
   }
 
   .tabs__triggers {
@@ -59,6 +60,7 @@
     position: relative;
     transform-origin: top center;
     transform: rotateX(90deg);
+    width: 100%;
 
     &.fall-flip {
       animation: 2s ease-in-out fall-flip forwards;
@@ -93,17 +95,17 @@
       font-size: 0.95rem;
     }
 
-    &.card:nth-child(1) {
+    &.guide__card:nth-child(1) {
       background-color: #f1e05a;
       color: var(--color-black);
     }
 
-    &.card:nth-child(2) {
+    &.guide__card:nth-child(2) {
       background-color: #563d7c;
       color: var(--color-white);
 
     }
-    .card {
+    .guide__card {
       width: 100%;
       &__body {
         display: flex;
@@ -120,7 +122,7 @@
       width: calc(50% - 10px);
     }
 
-    .card {
+    .guide__card {
       margin-top: 1rem;
       margin-left: 0;
       margin-right: 0;

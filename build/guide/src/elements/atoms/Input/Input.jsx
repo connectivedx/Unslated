@@ -78,8 +78,8 @@ export class Input extends React.Component {
 
     const classStack = Utils.createClassStack([
       'guide__input field',
-      `input-${type}`,
-      `input--${variant}`,
+      `guide__input-${type}`,
+      `guide__input--${variant}`,
       className
     ]);
 

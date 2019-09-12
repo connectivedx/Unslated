@@ -1,4 +1,4 @@
-.list {
+.guide__list {
 
   /* variants */
   &--blank {
@@ -21,7 +21,7 @@
   }
 
   &--definition {
-    & .List__item {
+    & .list__item {
       &--term {
         font-weight: bold;
       }

@@ -9,7 +9,6 @@ const path = require('path');
 const exec = require('child_process').exec;
 const Package = require('../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // build configuration files
 const js = require('./js/js.config.js');        // all js file related build configurations
@@ -78,13 +77,7 @@ const config = {
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
-  if (fs.existsSync(path.resolve(__dirname, `../../${Package.directories.dest}`))) {
-    config.plugins.push(
-      new CleanWebpackPlugin({
-        cleanStaleWebpackAssets: false                 // resolve conflict with `CopyWebpackPlugin`
-      })
-    );
-  } else {
+  if (!fs.existsSync(path.resolve(__dirname, `../../${Package.directories.dest}`))) {
     exec('npm run build');                             // when missing a required "first time build"
   }
 

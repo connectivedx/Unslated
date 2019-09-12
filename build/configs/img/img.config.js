@@ -5,6 +5,7 @@
 const path = require('path');
 const Package = require('../../../package.json');
 const WebpackSvgSpritely = require('webpack-svg-spritely');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // all image types get ran through these process
 module.exports = {
@@ -77,6 +78,11 @@ module.exports = {
     new WebpackSvgSpritely({
       output: `${Package.directories.assetPath}/img`,
       entry: 'assets'
+    }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        'assets/img/**'
+      ]
     })
   ]
 };

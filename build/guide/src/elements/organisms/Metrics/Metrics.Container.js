@@ -174,20 +174,20 @@ export const GuideMetrics = (el) => {
       const atomicLevel = data[j];
       if (Object.keys(atomicLevel.files).length) {
         const card = document.createElement('div');
-        card.setAttribute('class', 'card card--color-white card--default');
+        card.setAttribute('class', 'guide__card guide__card--color-white guide__card--default');
 
         const cardBody = document.createElement('div');
-        cardBody.setAttribute('class', 'card__body card__body--default');
+        cardBody.setAttribute('class', 'guide__card__body guide__card__body--default');
 
         const cardHeader = document.createElement('div');
-        cardHeader.setAttribute('class', 'card__header card__header--default');
+        cardHeader.setAttribute('class', 'guide__card__header guide__card__header--default');
 
         const heading = document.createElement('h3');
         heading.setAttribute('class', 'heading heading--h3');
         heading.innerHTML = `${atomicLevel.level} - ${GuideUtils.bytesToSize(atomicLevel.size)}`;
 
         const list = document.createElement('ul');
-        list.setAttribute('class', `list list--blank guide__welcome__assets-list total-${atomicLevel.level}`);
+        list.setAttribute('class', `guide__list guide__list--blank guide__welcome__assets-list total-${atomicLevel.level}`);
 
         Object.keys(atomicLevel.files).map((k) => {
           const listItem = document.createElement('li');

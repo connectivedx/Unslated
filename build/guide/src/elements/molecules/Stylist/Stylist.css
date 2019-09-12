@@ -7,7 +7,7 @@
     max-width: 320px;
     position: fixed;
     right: 2rem;
-    top: 0;
+    top: 25px;
     opacity: 0.25;
     transition: opacity 1s;
     z-index: 100;
@@ -20,7 +20,7 @@
       display: flex;
       justify-content: flex-end;
 
-      .icon {
+      .guide__icon {
         cursor: pointer;
 
         &--close {
@@ -37,7 +37,7 @@
       & .guide__stylist{
         &-minmax {
           margin-bottom: -1.95rem;
-          & .icon--close {
+          & .guide__icon--close {
             transform: rotateZ(270deg);
           }
         }
@@ -45,7 +45,7 @@
         &-inner {
           padding: 1rem;
 
-          & > .rhythm--default {
+          & > .guide__rhythm {
             display: block;
           }
         }
@@ -55,7 +55,7 @@
     &-inner {
       padding: 1rem;
 
-      & > .rhythm--default {
+      & > .guide__rhythm {
         display: none;
       }
     }
@@ -69,7 +69,7 @@
       }
     }
 
-    .heading {
+    .guide__heading {
       border-bottom: 1px solid var(--color-gray-light);
       padding-top: rem(10px);
       padding-bottom: rem(10px);

@@ -46,9 +46,9 @@ export class Heading extends React.Component {
     const Tag = tagName || level || 'h1';
 
     const classStack = Utils.createClassStack([
-      'heading',
-      `heading--${weight}`,
-      `heading--${level}`,
+      'guide__heading',
+      `guide__heading--${weight}`,
+      `guide__heading--${level}`,
       className
     ]);
 

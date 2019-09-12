@@ -14,5 +14,9 @@ require('@vars/zindex.css');
 require('@atoms/Root/Root.css');
 require('@atoms/RichText/RichText.css');
 
-// Import all remaining elements CSS
-requireAll(require.context('@elements/', true, /^(?!.*Root).*\/(?!.*RichText).*\/(?!.*font-face).*\.css$/));
+// Import all CSS and Image files
+requireAll(require.context(
+  '@elements/',
+  true,
+  /^(?!.*Root).*\/(?!.*RichText).*\/(?!.*font-face).*\.(css|svg|jpg|png|gif)$/
+));

@@ -47,9 +47,9 @@ export class Button extends React.Component {
     let Tag = tagName;
 
     let classStack = Utils.createClassStack([
-      'button',
-      `button--${variant}`,
-      `button--${width}`,
+      'guide__button',
+      `guide__button--${variant}`,
+      `guide__button--${width}`,
       className
     ]);
 

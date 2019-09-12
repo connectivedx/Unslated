@@ -171,10 +171,10 @@ export class Icons_card extends React.Component {
             {file}
             <Form legend="Use the form below to change icon size" className="icon__utilities">
               <List>
-                <Input tagName="li" className="icon__utility list__item list__item--default" type="range" id="icon-size" min="1" max="256" defaultValue="128" name="font-size" label="size" align="inline-right" />
-                <Input tagName="li" className="icon__utility list__item list__item--default" type="range" id="icon-stroke-width" min="0" max="16" defaultValue="0" name="stroke-width" label="stroke" align="inline-right" />
-                <Input tagName="li" className="icon__utility list__item list__item--default" type="color" id="icon-fill" name="fill" label="fill" align="inline-right" />
-                <Input tagName="li" className="icon__utility list__item list__item--default" type="color" id="icon-stroke" name="stroke" label="stroke" align="inline-right" />
+                <Input tagName="li" className="guide__icon__utility list__item list__item--default" type="range" id="icon-size" min="1" max="256" defaultValue="128" name="font-size" label="size" align="inline-right" />
+                <Input tagName="li" className="guide__icon__utility list__item list__item--default" type="range" id="icon-stroke-width" min="0" max="16" defaultValue="0" name="stroke-width" label="stroke" align="inline-right" />
+                <Input tagName="li" className="guide__icon__utility list__item list__item--default" type="color" id="icon-fill" name="fill" label="fill" align="inline-right" />
+                <Input tagName="li" className="guide__icon__utility list__item list__item--default" type="color" id="icon-stroke" name="stroke" label="stroke" align="inline-right" />
               </List>
             </Form>
           </Heading>

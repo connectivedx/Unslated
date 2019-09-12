@@ -35,10 +35,10 @@ export class Icon extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'icon',
-      `icon--${name}`,
-      `icon--${size}`,
-      `icon--${variant}`,
+      'guide__icon',
+      `guide__icon--${name}`,
+      `guide__icon--${size}`,
+      `guide__icon--${variant}`,
       className
     ]);
 

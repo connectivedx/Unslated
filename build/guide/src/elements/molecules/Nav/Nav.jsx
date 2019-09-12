@@ -191,7 +191,7 @@ export const Nav = (props) => {
         </Form>
         <span className="guide-nav__close" />
 
-        <Rhythm tagName="ul" deep size="small" className="list">
+        <Rhythm tagName="ul" deep size="small" className="guide__list">
           <Heading level="h3" className="home"><Link href="/">Home</Link></Heading>
           { getAtomicListing() }
           { getPageListing() }

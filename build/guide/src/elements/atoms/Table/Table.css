@@ -13,7 +13,7 @@
   --txt--transform-toggle: none;
 }
 
-.table {
+.guide__table {
   background-color: var(--color-white);
 
   & &__root {

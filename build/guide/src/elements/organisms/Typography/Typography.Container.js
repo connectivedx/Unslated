@@ -12,7 +12,7 @@ export const GuideTypography = (el) => {
       all[i].style.fontFamily = ui.native.options[ui.native.selectedIndex].value;
     }
 
-    el.querySelector('.heading').innerHTML = ui.native.value;
+    el.querySelector('.guide__heading').innerHTML = ui.native.value;
   };
 
   // Our main install point

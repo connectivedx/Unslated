@@ -4,7 +4,9 @@
 */
 
 // devDependencies
+const fs = require('fs');
 const path = require('path');
+const execSync = require('child_process').execSync;
 const Package = require('../../package.json');
 
 // build configuration files
@@ -64,5 +66,9 @@ const config = {
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
+  if (!fs.existsSync(path.resolve(__dirname, `../../${Package.directories.dest}/index.html`))) {
+    execSync('npm run guide');                             // when missing a required "first time build"
+  }
+
   return config;
 };
