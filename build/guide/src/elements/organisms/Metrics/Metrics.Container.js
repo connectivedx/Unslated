@@ -22,6 +22,7 @@ const getFilteredData = (stats, filters) => {
       if (
         file.name.indexOf(atomicLevels[i]) !== -1
         && file.name.indexOf('elements') !== -1
+        && !levels.files[file.name]
       ) {
         let k = filters.length;
         while (k--) {

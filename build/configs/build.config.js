@@ -44,6 +44,17 @@ const config = {
     ...font.plugins,  // see build/config/font/font.config.js
     ...alias.plugins,  // see build/config/alias.config.js,
     new WebpackHooks({
+      beforeCompile: () => {
+        // Clean dist location
+        fs.remove(
+          path.resolve(__dirname, `../../dist`),
+          err => {
+            if (err) {
+              return console.error(err);
+            }
+          }
+        );
+      },
       done: () => {
         // If output location is not dist, we copy results from dist
         if (Package.directories.dest !== 'dist') {
@@ -94,5 +105,8 @@ const config = {
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
+  // Production builds pass the package.json's publicPath to SVG Spritely plugin
+  config.plugins[3].options.url = `${Package.directories.publicPath}resources/img/${config.plugins[3].options.filename}`;
+
   return config;
 };
