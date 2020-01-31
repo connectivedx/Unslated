@@ -29,13 +29,13 @@ export default [{
       name: 'Default styling',
       component: (
         <Accordion>
-          <Accordion__section title="Accordion section one">
+          <Accordion__section title="Accordion section one" tabindex="0">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section two">
+          <Accordion__section title="Accordion section two" tabindex="0">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section three">
+          <Accordion__section title="Accordion section three" tabindex="0">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
