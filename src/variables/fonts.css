@@ -9,8 +9,9 @@
   --font-name--accent: 'Merriweather';
 
   /* Font face stacks */
-  --font-stack--default: var(--font-name--default), sans-serif;
+  --font-stack--default: var(--font-name--default), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --font-stack--accent: var(--font-name--default), sans-serif;
+  --font-stack-monotype: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Font families */
   --font-family--default: var(--font-stack--default);
