@@ -70,5 +70,8 @@ module.exports = (env, argv) => {
     execSync('npm run guide'); // fix for cold guide builds
   }
 
+  // Dev builds have no need for to use babel transpiling, only react parsing.
+  config.module.rules[1].use[0].options.presets = ['@babel/preset-react'];
+
   return config;
 };

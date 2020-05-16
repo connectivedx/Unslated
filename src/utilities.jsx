@@ -339,7 +339,7 @@ const createClassStack = (classList) => (
   CORE: Installing an atomic element's Container.js class based on elements found on page
 */
 const initComponent = (name, selector, Component, callback) => {
-  const createComponent = (el) => new Component(el);
+  const createComponent = (el) => Component(el);
 
   // init maching elements
   const elms = document.querySelectorAll(selector.toLowerCase().toString());

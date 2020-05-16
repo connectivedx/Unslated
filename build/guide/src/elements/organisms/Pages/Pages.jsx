@@ -21,7 +21,7 @@ export const BadAddress = () => {
 
 export const Pages = (props) => {
   let page;
-  let pathname = props.location.pathname.replace('/pages/', '').replace('/tools/', '');
+  const pathname = props.location.pathname.replace('/pages/', '').replace('/tools/', '');
   if (global.guide.pages[pathname]) {
     page = global.guide.pages[pathname];
   } else if (props.match.params.page) {

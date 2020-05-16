@@ -46,7 +46,7 @@
   }
 
   &-pallet {
-    box-shadow: 0 0 15px 0 color(var(--color-black), 65%);
+    box-shadow: 0 0 15px 0 #eee;
   }
 
   .AccessibilityLevel {

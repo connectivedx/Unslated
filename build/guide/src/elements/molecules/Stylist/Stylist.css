@@ -2,7 +2,7 @@
 .guide {
   &__stylist {
     background-color: var(--color-white);
-    border: 1px vcolor(var(--color-black), 75%) solid;
+    border: 1px #eee solid;
     box-shadow: 2px 4px 10px 0px color(var(--color-black), 75%);
     max-width: 320px;
     position: fixed;
