@@ -49,6 +49,38 @@ const checkValidity = (field) => {
 };
 
 /*
+  Helper: Universal method to clear all form's field errors
+*/
+const clearFormErrors = (form) => {
+  const errors = form.querySelectorAll('.field__error');
+  Object.keys(errors).map((i) => {
+    errors[i].classList.remove('field__error');
+
+    return false;
+  });
+};
+
+/*
+  Helper: Universal method to clear all form's fields
+*/
+const clearFormInputs = (form, skips) => {
+  const inputs = form.querySelectorAll('.field__native');
+  Object.keys(inputs).map((i) => {
+    const input = inputs[i];
+    if (skips.indexOf(input.id) !== -1) { return false; }
+    if (input.type && input.tagName.toLowerCase() !== 'select') {
+      if (input.type === 'checkbox' || input.type === 'radio') {
+        inputs[i].checked = false;
+      } else {
+        inputs[i].value = '';
+      }
+    }
+
+    return false;
+  });
+};
+
+/*
   Helper: Quick method to capatalize the first character of a string of text
 */
 const titleCapitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
@@ -361,6 +393,8 @@ module.exports = {
   deleteCookie,
   titleCapitalize,
   checkValidity,
+  clearFormErrors,
+  clearFormInputs,
   objectReverse,
   createClassStack,
   initComponent,
