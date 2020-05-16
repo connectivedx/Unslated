@@ -10,7 +10,7 @@ const path = require('path');
 const Package = require('../../../package.json');
 const POSTCSSInOut = require('postcss-in-out');
 const Alias = require('../webpack/alias.config.js');
-const Plugins = require('./css.postcss.plugins.js');
+const Plugins = require('./css.config.plugins.js');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nested = require('postcss-nested');
@@ -66,6 +66,7 @@ module.exports = {
         Plugins.media(),         // Allows for custom media queries
         Plugins.roots(),         // Cleans up leftover :root declarations.
         Plugins.comments(),      // Cleans up comments.
+        Plugins.metrics(),
         (Package.optimize.css)   // Minification of our final CSS results.
           ? Plugins.minify()
           : () => {}

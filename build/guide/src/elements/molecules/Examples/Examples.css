@@ -51,7 +51,7 @@
 
     &__codes {
       pre {
-        background-color: color(var(--color-black), 95%);
+        background-color: #eee;
         margin-top: 1rem;
         max-height: 320px;
         overflow-x: scroll;
@@ -61,7 +61,7 @@
     }
 
     &__header {
-      background-color: color(var(--color-black), 95%);
+      background-color: #eee;
 
       a {
         font-size: 0.875rem;

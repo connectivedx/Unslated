@@ -13,6 +13,15 @@
       display: inline-flex;
     }
 
+    /* .flex--wrap */
+    &--wrap {
+      flex-wrap: wrap;
+    }
+
+    &--wrap-reverse {
+      flex-wrap: wrap-reverse;
+    }
+
     /* .flex--column */
     &--column {
       flex-direction: column;

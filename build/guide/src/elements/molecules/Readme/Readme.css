@@ -58,7 +58,7 @@
       transition: opacity 0.25s, height 0.25s;
 
       &__head {
-        background-color: color(var(--color-black), 95%);
+        background-color: #eee;
         &er {
           border-top: 1px solid var(--color-gray);
           border-bottom: 1px solid var(--color-gray);

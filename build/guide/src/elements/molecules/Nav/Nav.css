@@ -24,8 +24,8 @@
   .guide-nav__open {
     &:after {
       background-color: var(--color-white);
-      border: 1px solid color(var(--color-black), 75%);
-      box-shadow: 2px 4px 10px 0 color(var(--color-black), 85%);
+      border: 1px solid #eee;
+      box-shadow: 2px 4px 10px 0 #999;
       content: url('../../../assets/menu.svg');
       cursor: pointer;
       display: block;
@@ -139,7 +139,7 @@
   }
 
   & .guide__heading {
-    background-color: color(var(--color-black), 95%);
+    background-color: #eee;
     background-position: 10px center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
