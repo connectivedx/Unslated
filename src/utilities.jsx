@@ -9,33 +9,66 @@
 
 /*
   Helper: Universal method to perform XHTTP requests
+
+  Eg: Simple XHR GET with no options
+  Utils.XHR('path/to/endpoint', {}, (response) => { });
+
+  Eg: XHR POST
+  Utils.XHR('path/to/endpoint', { type: 'POST', }, (response) => { });
 */
 const XHR = (url, options, callback) => {
-  options = {} || options;
+  options = options || {
+    type: 'GET',
+    body: {},
+    contentType: ''
+  };
+
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4 && xhttp.status === 200) {
       if (typeof callback === 'function') {
-        callback(xhttp);
+        callback((options.contentType === 'application/json') ? JSON.parse(xhttp) : xhttp);
       }
     }
   };
-  xhttp.open('GET', url, true);
-  xhttp.send();
+
+  xhttp.open(
+    (options.type) ? options.type : 'GET',
+    url,
+    true
+  );
+
+  if (options.contentType !== '') {
+    xhttp.setRequestHeader(
+      'Content-Type',
+      options.contentType
+    );
+  }
+
+  xhttp.send((options.type !== 'get') ? options.body : '');
 };
 
 /*
   Helper: Universal method to perform XHTTP requests using a promisse
+
+  Eg: Basic Fetch request with no options
+  Utils.Fetch('path/to/endpoint').then((response) => { });
+
+  Eg: Fetch request with options for request type and header options.
+  Utils.Fetch('path/to/endpoint', { type: 'get', contentType: 'application/json' }).then((response) => { });
 */
-const Fetch = (url, options) => new Promise((resolve) => {
+const Fetch = (url, options = {}) => new Promise((resolve) => {
   options = {} || options;
   XHR(url, options, (request) => {
-    resolve(request.responseText);
+    resolve(request);
   });
 }).catch((err) => console.error(err)); // eslint-disable-line no-console
 
 /*
   Helper: Universal method to validate native form fields
+
+  Eg: Uses browser native checkValidity to deterin if field is valid (depends on a pattern attribute on field__native)
+  Utils.checkValidity(formField);
 */
 const checkValidity = (field) => {
   const native = field.querySelector('.field__native');
@@ -50,11 +83,20 @@ const checkValidity = (field) => {
 
 /*
   Helper: Universal method to clear all form's field errors
+
+  Eg: Clears all field errors
+  Utils.clearFormErros(formElement);
+
+  Eg: Clears all field errors, except for passed ids.
+  Utils.clearFormErros(formElement, ['inputOneId', 'inputSixId']);
 */
-const clearFormErrors = (form) => {
+const clearFormErrors = (form, excludes = []) => {
   const errors = form.querySelectorAll('.field__error');
   Object.keys(errors).map((i) => {
-    errors[i].classList.remove('field__error');
+    const error = errors[i];
+    const field = error.querySelector('.field__native');
+    if (excludes.indexOf(field.id) !== -1) { return false; }
+    error.classList.remove('field__error');
 
     return false;
   });
@@ -62,12 +104,18 @@ const clearFormErrors = (form) => {
 
 /*
   Helper: Universal method to clear all form's fields
+
+  Eg: Clears all inputs
+  Utils.clearFormInput(formElement);
+
+  Eg: Clears all inputs, except for passed ids.
+  Utils.clearFormInput(formElement, ['inputOneId', 'inputSixId']);
 */
-const clearFormInputs = (form, skips) => {
+const clearFormInputs = (form, excludes = []) => {
   const inputs = form.querySelectorAll('.field__native');
   Object.keys(inputs).map((i) => {
     const input = inputs[i];
-    if (skips.indexOf(input.id) !== -1) { return false; }
+    if (excludes.indexOf(input.id) !== -1) { return false; }
     if (input.type && input.tagName.toLowerCase() !== 'select') {
       if (input.type === 'checkbox' || input.type === 'radio') {
         inputs[i].checked = false;
