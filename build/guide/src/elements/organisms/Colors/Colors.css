@@ -33,7 +33,7 @@
   }
 
   .guide__input .field__native {
-    background-image: url('../../atoms/Icon/assets/search.svg');
+    background-image: url('../../atoms/Icon/assets/@search.svg');
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) center;
     background-size: rem(16px);
