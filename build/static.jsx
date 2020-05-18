@@ -1,3 +1,7 @@
+/*
+  Main entry file to export static markup from React JSX componentry examples.
+*/
+
 const requireAll = (context) => context.keys().map(context);
 const components = requireAll(require.context('@elements/', true, /^(?!.*\.test\.jsx$).*\.example.jsx$/));
 

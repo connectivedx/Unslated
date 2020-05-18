@@ -103,80 +103,6 @@ class StaticBundle {
 }
 
 /*
-  Helper plugin to compile our project metric stats into guide.js
-*/
-class MetricsBundle {
-  constructor () {
-    this.stats = {
-      builds: {
-        count: 0,
-        errors: 0,
-        time: 0
-      },
-      data: []
-    };
-
-    this.excludes = ['node_modules', '!', 'jsx', 'guide'];
-    this.includes = ['js', 'css', 'svg', 'jpg', 'png', 'gif', 'atoms', 'molecules', 'modifiers', 'organisms'];
-  }
-
-  filter(url) {
-    if (!this.excludes.some(substring => url.includes(substring))) {
-      if (this.includes.some(substring => url.includes(substring))) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  apply(compiler) {
-    compiler.hooks.normalModuleFactory.tap('StatsCompile', (factory) => {
-      factory.hooks.module.tap('StatsCompile', (module) => {
-        const url = module.userRequest;
-        if (this.filter(url)) {
-          this.stats.data.push({
-            "name": module.userRequest.replace(path.resolve(__dirname, '../../../'), ''),
-            "size": fs.statSync(module.userRequest)['size']
-          })
-        }
-      });
-    });
-
-    compiler.hooks.afterCompile.tap('StatsCompile', (compilation) => {
-      const assets = compilation.assets;
-      Object.keys(assets).map((i) => {
-        const asset = assets[i];
-        if (asset._source) {
-          if (this.filter(i)) {
-            this.stats.data.push({
-              "name": i,
-              "size": asset._source.children.join('').length
-            });
-          }
-        }
-      });
-    });
-
-    compiler.hooks.emit.tap('StatsCompile', (compilation) => {
-      Object.keys(compilation.assets).map((i) => {
-        if (i.indexOf('guide.js') !== -1) {
-          const source = `var __stats__ = ${JSON.stringify(this.stats)};\n ${compilation.assets[i].source()}`;
-          compilation.assets[i] = {
-            source: function () {
-              return source;
-            },
-            size: function () {
-              return source.length;
-            }
-          }
-        }
-      });
-    });
-  }
-}
-
-/*
   Helper plugin to copy production builds to configured output location
 */
 
@@ -196,6 +122,5 @@ class WebpackHooks {
 
 module.exports = {
   StaticBundle,
-  MetricsBundle,
   WebpackHooks,
 };

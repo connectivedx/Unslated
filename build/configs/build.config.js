@@ -44,27 +44,41 @@ const config = {
     ...font.plugins,  // see build/config/font/font.config.js
     ...alias.plugins,  // see build/config/alias.config.js,
     new WebpackHooks({
+      beforeCompile: () => {
+        // Clean dist location
+        fs.remove(
+          path.resolve(__dirname, `../../dist`),
+          err => {
+            if (err) {
+              return console.error(err);
+            }
+          }
+        );
+      },
       done: () => {
         // If output location is not dist, we copy results from dist
         if (Package.directories.dest !== 'dist') {
           // Clean configured output location
           fs.remove(
-            path.resolve(
-              __dirname,
-              `../../${Package.directories.dest}/${Package.directories.assetPath}/img`
-            )
-          );
-
-          // Copy from /dist to configured output location
-          fs.copy(
-            path.resolve(
-              __dirname,
-              `../../dist`
-            ),
-            path.resolve(
-              __dirname,
-              `../../${Package.directories.dest}`
-            )
+            path.resolve(__dirname, `../../${Package.directories.dest}/${Package.directories.assetPath}/img`),
+            (cleanError) => {
+              if (cleanError) { console.log(cleanError); }
+              // Copy from /dist to configured output location
+              fs.copy(
+                path.resolve(__dirname, `../../dist`),
+                path.resolve(__dirname, `../../${Package.directories.dest}`),
+                (copyError) => {
+                  if (copyError) { console.log(copyError); }
+                  // Clean away web.config
+                  fs.remove(
+                    path.resolve(
+                      __dirname,
+                      `../../${Package.directories.dest}/web.config`
+                    )
+                  );
+                }
+              );
+            }
           );
         }
       }
@@ -94,5 +108,13 @@ const config = {
 
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
+  // Set SVG Spritely url to publicPath for production builds
+  Object.keys(config.plugins).map((i) => {
+    const imgPlugin = config.plugins[i];
+    if (imgPlugin.constructor.name === 'WebpackSvgSpritely') {
+      imgPlugin.options.url = `${Package.directories.publicPath}${Package.directories.assetPath}/img/${imgPlugin.options.filename}`;
+    }
+  });
+
   return config;
 };
