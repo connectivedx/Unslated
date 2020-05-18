@@ -5,6 +5,7 @@
 const path = require('path');
 const Package = require('../../../package.json');
 const WebpackSvgSpritely = require('webpack-svg-spritely');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // all image types get ran through these process
@@ -79,10 +80,21 @@ module.exports = {
       output: `/${Package.directories.assetPath}/img`,
       entry: 'assets'
     }),
+    // Cleans our output folder's image directory prior to writting images to disk again
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         'assets/img/**'
       ]
+    }),
+    // Takes our favicon source and builds out all configured permutations of that icon for devices and browsers
+    new FaviconsWebpackPlugin({
+      logo: path.resolve(__dirname, `../../../${Package.favicon.src}`),
+      prefix: 'assets/img/',
+      persistentCache: false,
+      favicons: {
+        ...Package.favicon.options,
+        icons: { ...Package.favicon.type }
+      }
     })
   ]
 };

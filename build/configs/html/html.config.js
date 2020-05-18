@@ -27,7 +27,7 @@ module.exports = {
       'title': `${Package.name} ${Package.version}`,
       'template': 'src/index.html',
       'filename': 'index.html',
-      'favicon': 'src/elements/atoms/Icon/assets/favicon.ico',
+      'favicon': Package.favicon.src
     }),
     new WebpackCDNInject({
       head: [

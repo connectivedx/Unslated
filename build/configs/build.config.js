@@ -106,7 +106,7 @@ const config = {
   }
 };
 
-// Prod vs. Dev config customizing
+// Prod config customizing
 module.exports = (env, argv) => {
   // Set SVG Spritely url to publicPath for production builds
   Object.keys(config.plugins).map((i) => {
