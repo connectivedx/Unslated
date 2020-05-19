@@ -102,6 +102,6 @@
 		"webpack-cli": "^3.3.7",
 		"webpack-dev-server": "^3.11.0",
 		"webpack-node-externals": "^1.7.2",
-		"webpack-svg-spritely": "^1.3.6"
+		"webpack-svg-spritely": "^1.3.8"
 	}
 }
