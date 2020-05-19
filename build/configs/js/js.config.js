@@ -4,6 +4,7 @@
 
 const path = require('path');
 const Package = require('../../../package.json');
+const { MetricsBundle } = require('./js.config.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // all js(x) files get ran through these build processes
@@ -34,10 +35,11 @@ module.exports = {
     ]
   }],
 	plugins: [
+    new MetricsBundle(),
     new CopyWebpackPlugin([
       {
         context: path.resolve(__dirname, '../../../src/data/'),
-        from: path.resolve(__dirname, '../../../src/data/*.*'), // for IIS servers
+        from: path.resolve(__dirname, '../../../src/data/**/*.*'), // for IIS servers
         to: `${Package.directories.assetPath}/data/`          // relative to Package.directories.dest
       }
     ])
