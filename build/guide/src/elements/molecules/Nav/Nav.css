@@ -26,7 +26,7 @@
       background-color: var(--color-white);
       border: 1px solid #eee;
       box-shadow: 2px 4px 10px 0 #999;
-      content: url('../../../assets/menu.svg');
+      content: url('../../atoms/Icon/assets/@menu.svg');
       cursor: pointer;
       display: block;
       left: -80px;
@@ -56,7 +56,7 @@
     .guide-nav__close {
       &:before {
         content: '';
-        background-image: url('../../../assets/close.svg');
+        background-image: url('../../atoms/Icon/assets/@close.svg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -149,14 +149,14 @@
     display: flex;
     justify-content: space-between;
 
-    &.atoms       { background-image: url('../../../assets/atoms.svg'); }
-    &.pages       { background-image: url('../../../assets/pages.svg'); }
-    &.utilities   { background-image: url('../../../assets/utilities.svg'); }
-    &.molecules   { background-image: url('../../../assets/molecules.svg'); }
-    &.modifiers   { background-image: url('../../../assets/modifiers.svg'); }
-    &.templates   { background-image: url('../../../assets/templates.svg'); }
-    &.organisms   { background-image: url('../../../assets/organisms.svg'); }
-    &.home        { background-image: url('../../../assets/home.svg'); }
+    &.atoms       { background-image: url('../../atoms/Icon/assets/@atoms.svg'); }
+    &.pages       { background-image: url('../../atoms/Icon/assets/@pages.svg'); }
+    &.utilities   { background-image: url('../../atoms/Icon/assets/@utilities.svg'); }
+    &.molecules   { background-image: url('../../atoms/Icon/assets/@molecules.svg'); }
+    &.modifiers   { background-image: url('../../atoms/Icon/assets/@modifiers.svg'); }
+    &.templates   { background-image: url('../../atoms/Icon/assets/@templates.svg'); }
+    &.organisms   { background-image: url('../../atoms/Icon/assets/@organisms.svg'); }
+    &.home        { background-image: url('../../atoms/Icon/assets/@home.svg'); }
 
     .guide__link {
       position: relative;
