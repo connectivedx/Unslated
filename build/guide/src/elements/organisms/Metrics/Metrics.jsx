@@ -46,12 +46,22 @@ export const Metrics = () => {
                   <div className="mini-numbers variables" />
                   <div className="mini-numbers methods" />
                   <div className="mini-numbers expressions" />
+                  <div className="mini-numbers loops" />
                 </div>
 
                 <Heading level="h2">Variable Metrics</Heading>
                 <div className="flex flex--wrap">
                   <div className="mini-numbers const" />
                   <div className="mini-numbers lets" />
+                </div>
+
+                <Heading level="h2">Loop Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers for" />
+                  <div className="mini-numbers forIn" />
+                  <div className="mini-numbers forOf" />
+                  <div className="mini-numbers while" />
+                  <div className="mini-numbers object" />
                 </div>
 
                 <Heading level="h2">Method Metrics</Heading>

@@ -66,7 +66,7 @@ module.exports = {
         Plugins.media(),         // Allows for custom media queries
         Plugins.roots(),         // Cleans up leftover :root declarations.
         Plugins.comments(),      // Cleans up comments.
-        Plugins.metrics(),
+        Plugins.MetricsCSS(),
         (Package.optimize.css)   // Minification of our final CSS results.
           ? Plugins.minify()
           : () => {}

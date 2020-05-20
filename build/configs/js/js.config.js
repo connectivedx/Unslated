@@ -4,7 +4,7 @@
 
 const path = require('path');
 const Package = require('../../../package.json');
-const { MetricsBundle } = require('./js.config.plugins.js');
+const { MetricsBundle, MetricsJS } = require('./js.config.plugins.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // all js(x) files get ran through these build processes
@@ -22,6 +22,19 @@ module.exports = {
             '@babel/plugin-proposal-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
             '@babel/plugin-proposal-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
             '@babel/plugin-transform-react-display-name' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
+          ]
+        }
+      }
+    ]
+  }, {
+    'test': /\.js$/,
+    'exclude': [path.resolve(__dirname, '../../../node_modules')],
+    'use': [
+      {
+        'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
+        'options': {
+          'plugins': [
+            MetricsJS
           ]
         }
       }, {
