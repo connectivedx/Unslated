@@ -48,17 +48,15 @@ const config = {
     ...font.plugins,  // see build/config/font/font.config.js
     ...alias.plugins, // see build/config/alias.config.js
     ...stats.plugins, // see build/configs/stats.config.js
-    new CopyWebpackPlugin({
-      patterns: [ // react-routes rewrite files for hosting guide on remote a web server.
-        {
-          'from': path.resolve(
-            __dirname,
-            `../scaffolding/${(Package.remote.type !== 'IIS') ? '.htaccess' : 'web.config'}`
-          ),
-          'to': path.resolve(__dirname, '../../dist')
-        }
-      ]
-    })
+    new CopyWebpackPlugin([
+      {
+        'from': path.resolve(
+          __dirname,
+          `../scaffolding/${(Package.remote.type !== 'IIS') ? '.htaccess' : 'web.config'}`
+        ),
+        'to': path.resolve(__dirname, '../../dist')
+      }
+    ])
   ],
   ...stats.config,    // see build/configs/webpack/stats.config.js
   resolve: {
