@@ -45,7 +45,7 @@
 		"new:variable": "node build/scaffolding/scaffolding.build.js new variables"
 	},
 	"engines": {
-		"node": ">=10.17.0"
+		"node": ">=10.16.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.5.5",
