@@ -9,33 +9,71 @@
 
 /*
   Helper: Universal method to perform XHTTP requests
+
+  Eg: Simple XHR GET with no options
+  Utils.XHR('path/to/endpoint', {}, (response) => { });
+
+  Eg: XHR GET with request for response being returned in JSON format
+  Utils.XHR('path/to/endpoint', { type: 'POST', contentType: 'application/json' }, (jsonResponse) => { });
+
+  Eg: XHR POST with body data and response
+  Utils.XHR('path/to/endpoint', { type: 'POST', body: { one: 'data', two: 'data' } }, (response) => { });
+
+  NOTE: the data returned is the full response object, in most cases `response.responseText` is the data you want.
 */
 const XHR = (url, options, callback) => {
-  options = {} || options;
+  options = options || {
+    type: 'GET',
+    body: {},
+    contentType: ''
+  };
+
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4 && xhttp.status === 200) {
       if (typeof callback === 'function') {
-        callback(xhttp);
+        callback((options.contentType === 'application/json') ? JSON.parse(xhttp) : xhttp);
       }
     }
   };
-  xhttp.open('GET', url, true);
-  xhttp.send();
+
+  xhttp.open(
+    (options.type) ? options.type : 'GET',
+    url,
+    true
+  );
+
+  if (options.contentType !== '') {
+    xhttp.setRequestHeader(
+      'Content-Type',
+      options.contentType
+    );
+  }
+
+  xhttp.send((options.type !== 'get') ? options.body : '');
 };
 
 /*
   Helper: Universal method to perform XHTTP requests using a promisse
+
+  Eg: Basic Fetch request with no options
+  Utils.Fetch('path/to/endpoint').then((response) => { });
+
+  Eg: Fetch request with options for request type and header options.
+  Utils.Fetch('path/to/endpoint', { type: 'get', contentType: 'application/json' }).then((response) => { });
 */
-const Fetch = (url, options) => new Promise((resolve) => {
+const Fetch = (url, options = {}) => new Promise((resolve) => {
   options = {} || options;
   XHR(url, options, (request) => {
-    resolve(request.responseText);
+    resolve(request);
   });
 }).catch((err) => console.error(err)); // eslint-disable-line no-console
 
 /*
   Helper: Universal method to validate native form fields
+
+  Eg: Uses browser native checkValidity to deterin if field is valid (depends on a pattern attribute on field__native)
+  Utils.checkValidity(formField);
 */
 const checkValidity = (field) => {
   const native = field.querySelector('.field__native');
@@ -49,7 +87,56 @@ const checkValidity = (field) => {
 };
 
 /*
+  Helper: Universal method to clear all form's field errors
+
+  Eg: Clears all field errors
+  Utils.clearFormErros(formElement);
+
+  Eg: Clears all field errors, except for passed ids.
+  Utils.clearFormErros(formElement, ['inputOneId', 'inputSixId']);
+*/
+const clearFormErrors = (form, excludes = []) => {
+  const errors = form.querySelectorAll('.field__error');
+  Object.keys(errors).map((i) => {
+    const error = errors[i];
+    const field = error.querySelector('.field__native');
+    if (excludes.indexOf(field.id) !== -1) { return false; }
+    error.classList.remove('field__error');
+
+    return false;
+  });
+};
+
+/*
+  Helper: Universal method to clear all form's fields
+
+  Eg: Clears all inputs
+  Utils.clearFormInput(formElement);
+
+  Eg: Clears all inputs, except for passed ids.
+  Utils.clearFormInput(formElement, ['inputOneId', 'inputSixId']);
+*/
+const clearFormInputs = (form, excludes = []) => {
+  const inputs = form.querySelectorAll('.field__native');
+  Object.keys(inputs).map((i) => {
+    const input = inputs[i];
+    if (excludes.indexOf(input.id) !== -1) { return false; }
+    if (input.type && input.tagName.toLowerCase() !== 'select') {
+      if (input.type === 'checkbox' || input.type === 'radio') {
+        inputs[i].checked = false;
+      } else {
+        inputs[i].value = '';
+      }
+    }
+
+    return false;
+  });
+};
+
+/*
   Helper: Quick method to capatalize the first character of a string of text
+
+  Utils.titleCapitalize('he walked in circles.'); // becomes He walked in circles.
 */
 const titleCapitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -92,6 +179,10 @@ const getExample = (examples, id) => examples[0].examples[id].component;
 
 /*
   Helper: Traverses up the dom to a given parent element
+
+  Utils.parents(element, '.parent-selector'); // will keep looking for a parent with specified class
+  Utils.parents(element, '#parent-selector'); // will keep looking for a parent with specified id
+  Utils.parents(element, '[data-parent]');   // will keep looking for a parent with specified attribute
 */
 const parents = (obj, parent) => {
   let el = obj;
@@ -139,6 +230,8 @@ const parents = (obj, parent) => {
 /*
   Helper: Used to toggle between classes on elements
   Note: Use this over native classList.toggleClass due to no IE support
+
+  Utils.toggleClass(element, '.active');
 */
 const toggleClass = (element, classString) => {
   if (!element) {
@@ -163,6 +256,8 @@ const toggleClass = (element, classString) => {
 /*
   Helper: Used to replace a class
   Note: Use this over native classList.replace due to no IE support
+
+  Utils.replaceClass(element, ['.success', '.fail']); // replaces .success with .fail
 */
 const replaceClass = (element, classArray) => {
   if (!element) {
@@ -183,6 +278,9 @@ const replaceClass = (element, classArray) => {
 
 /*
   Helper: Used to serialize a form element's fields into JSON object. Useful for XHR.
+
+  Utils.serialize(form); // Loops over a given form's fields and creates a key / value object based on input's name and value attributes.
+  Utils.serialize(form, 'json'); // Same as first example, but data returned is JSON.parsed() for you.
 */
 const serialize = (elm, type) => {
   const jsonToQueryString = (json) => (
@@ -221,6 +319,9 @@ const serialize = (elm, type) => {
 
 /*
   Helper: Like array .reverse() method, this will reverse an entire object.
+
+  const object = { a: 'data', b: 'data', c: 'data' };
+  Utils.objectReverse(object); // becomes { c: 'data', d: 'data', a: 'data' }
 */
 const objectReverse = (object) => {
   const newObject = {};
@@ -239,6 +340,10 @@ const objectReverse = (object) => {
 /*
   Helper: Quick method to generate lorium ipsum dummy content to a give HTML block.
   This helps reduce the guide bundle size by summing large ipsum usage down to a method.
+
+  Utils.ipsum('word', 12); // Will create a lorem ipsum string that contains 12 words.
+  Utils.ipsum('sentence', 12); // Will create a lorem ipsum string that contains 12 sentences.
+  Utils.ipsum('paragraph', 12); // Will create a lorem ipsum string that contains 12 pargaraphs.
 */
 const ipsum = (type, amount) => {
   const settings = {
@@ -337,6 +442,8 @@ const createClassStack = (classList) => (
 
 /*
   CORE: Installing an atomic element's Container.js class based on elements found on page
+
+  Utils.initComponent('ComponentName', '.component-class', ComponentImport);
 */
 const initComponent = (name, selector, Component, callback) => {
   const createComponent = (el) => Component(el);
@@ -361,6 +468,8 @@ module.exports = {
   deleteCookie,
   titleCapitalize,
   checkValidity,
+  clearFormErrors,
+  clearFormInputs,
   objectReverse,
   createClassStack,
   initComponent,

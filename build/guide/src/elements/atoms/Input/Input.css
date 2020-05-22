@@ -76,7 +76,7 @@
     /* Input type styles */
     &.guide__input-date {
       .field__native {
-        background-image: url('../Icon/assets/calendar.svg');
+        background-image: url('../Icon/assets/@calendar.svg');
         background-position: calc(100% - 5px) center;
         background-repeat: no-repeat;
         background-size: 30px;
@@ -85,7 +85,7 @@
 
     &.guide__input-number {
       .field__native:--haf {
-        background-image: url('../Icon/assets/up-down.svg');
+        background-image: url('../Icon/assets/@up-down.svg');
         background-position: calc(100% - 5px) center;
         background-repeat: no-repeat;
         background-size: 20px;
@@ -114,22 +114,22 @@
 
     &.guide__input-radio {
       .field__label:before {
-        background-image: url('../Icon/assets/radio-unchecked.svg');
+        background-image: url('../Icon/assets/@radio-unchecked.svg');
         border-radius: 32px;
       }
 
       .field__native:checked + .field__label:before {
-        background-image: url('../Icon/assets/radio-checked.svg');
+        background-image: url('../Icon/assets/@radio-checked.svg');
       }
     }
 
     &.guide__input-checkbox {
       .field__label:before {
-        background-image: url('../Icon/assets/checkbox-unchecked.svg');
+        background-image: url('../Icon/assets/@checkbox-unchecked.svg');
       }
 
       .field__native:checked + .field__label:before {
-        background-image: url('../Icon/assets/checkbox-checked.svg');
+        background-image: url('../Icon/assets/@checkbox-checked.svg');
       }
     }
   }

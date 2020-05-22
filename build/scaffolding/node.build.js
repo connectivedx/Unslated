@@ -24,7 +24,7 @@ const sync = () => {
 
   console.log('\x1b[33mChecking system node version . . .\x1b[37m');
 
-  if (systemNode !== neededNode) {
+  if (systemNode < neededNode) {
     console.log(`\x1b[31mError: System NodeJS version is \x1b[33m${systemNode}\x1b[31m, while this project requires \x1b[33m${neededNode}\x1b[31m!\nPlease use the recommended version and try again.\x1b[37m`);
     process.exit(1);
     return false;

@@ -48,7 +48,7 @@ export class Brand extends React.Component {
       <Tag className={classStack} {...attrs}>
         <Icon name="brand" className="brand__icon" />
         {
-          variant === 'default' && <span className="brand__label">{slogan}</span>
+          slogan && <span className="brand__label">{slogan}</span>
         }
       </Tag>
     );
