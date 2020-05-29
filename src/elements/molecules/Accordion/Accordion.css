@@ -20,7 +20,7 @@
     .expand__trigger {
       background-color: var(--trigger-bg-color);
       border: var(--border-style);
-      color: var(--color-gray);
+      color: var(--color-gray-dark);
       font-size: rem(16px);
       font-weight: normal;
       margin-top: rem(-1px);

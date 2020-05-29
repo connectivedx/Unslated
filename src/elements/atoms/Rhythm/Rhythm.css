@@ -2,20 +2,20 @@
 .rhythm {
   &,
   &--default,
-  &--medium { & > * + * { margin-top: 1em; } }
+  &--medium { & > * + * { margin-top: rem(16px); } }
 
-  &--small { & > * + * { margin-top: 0.5em; } }
+  &--small { & > * + * { margin-top: rem(8px); } }
 
-  &--large { & > * + * { margin-top: 2em; } }
+  &--large { & > * + * { margin-top: rem(32px); } }
 
   &--deep {
     &,
     &-default,
-    &-medium { & * + * { margin-top: 1em; } }
+    &-medium { & * + * { margin-top: rem(16px); } }
 
-    &-small { & * + * { margin-top: 0.5em; } }
+    &-small { & * + * { margin-top: rem(8px); } }
 
-    &-large { & * + * { margin-top: 2em; } }
+    &-large { & * + * { margin-top: rem(32px); } }
   }
 }
 
