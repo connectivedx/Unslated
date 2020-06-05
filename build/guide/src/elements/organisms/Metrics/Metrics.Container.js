@@ -78,6 +78,12 @@ export const GuideMetrics = (el) => {
     jsMetrics: {
       const: el.querySelector('.const'),
       lets: el.querySelector('.lets'),
+      loops: el.querySelector('.loops'),
+      for: el.querySelector('.for'),
+      forIn: el.querySelector('.forIn'),
+      forOf: el.querySelector('.forOf'),
+      while: el.querySelector('.while'),
+      object: el.querySelector('.object'),
       variables: el.querySelector('.variables'),
       methods: el.querySelector('.methods'),
       expressions: el.querySelector('.expressions'),
@@ -338,12 +344,19 @@ export const GuideMetrics = (el) => {
     }
 
     // Install JS Metrics
-    ui.jsMetrics.variables.innerHTML = `${__stats__.js.const + __stats__.js.lets} <sup>/ variables</sup>`;
+    ui.jsMetrics.variables.innerHTML = `${__stats__.js.variables.all} <sup>/ variables</sup>`;
+    ui.jsMetrics.loops.innerHTML = `${__stats__.js.loops.all} <sup>/ loops</sup>`;
     ui.jsMetrics.methods.innerHTML = `${__stats__.js.methods.all} <sup>/ functions</sup>`;
     ui.jsMetrics.expressions.innerHTML = `${__stats__.js.expressions.all} <sup>/ expressions</sup>`;
 
-    ui.jsMetrics.const.innerHTML = `${__stats__.js.const} <sup>/ const</sup>`;
-    ui.jsMetrics.lets.innerHTML = `${__stats__.js.lets} <sup>/ lets</sup>`;
+    ui.jsMetrics.const.innerHTML = `${__stats__.js.variables.const} <sup>/ const</sup>`;
+    ui.jsMetrics.lets.innerHTML = `${__stats__.js.variables.lets} <sup>/ lets</sup>`;
+
+    ui.jsMetrics.for.innerHTML = `${__stats__.js.loops.for} <sup>/ for() loops</sup>`;
+    ui.jsMetrics.forIn.innerHTML = `${__stats__.js.loops.forIn} <sup>/ forIn() loops</sup>`;
+    ui.jsMetrics.forOf.innerHTML = `${__stats__.js.loops.forOf} <sup>/ forOf() loops</sup>`;
+    ui.jsMetrics.while.innerHTML = `${__stats__.js.loops.while} <sup>/ while() loops</sup>`;
+    ui.jsMetrics.object.innerHTML = `${__stats__.js.loops.object} <sup>/ object.key() loops</sup>`;
 
     ui.jsMetrics.functions.innerHTML = `${__stats__.js.methods.functions} <sup>/ Functions()</sup>`;
     ui.jsMetrics.arrows.innerHTML = `${__stats__.js.methods.arrows} <sup>/ (Arrows) =></sup>`;

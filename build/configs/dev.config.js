@@ -70,16 +70,5 @@ module.exports = (env, argv) => {
     execSync('npm run guide'); // fix for cold guide builds
   }
 
-  // Disables favicon generating for dev builds
-  Object.keys(config.plugins).map((i) => {
-    const imgPlugin = config.plugins[i];
-    if (imgPlugin.constructor.name === 'FaviconsWebpackPlugin') {
-      delete imgPlugin;
-    }
-  });
-
-  // Disables babel transpiling for dev builds.
-  config.module.rules[1].use[0].options.presets = ['@babel/preset-react'];
-
   return config;
 };

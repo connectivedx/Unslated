@@ -424,12 +424,13 @@ const minify = postcss.plugin('postcss-minify', (options) => {
   }
 });
 
-const metrics = postcss.plugin('postcss-metrics', (options) => {
+const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
   /* Removes duplicates from objects */
   const reduceDuplicates = (obj) => Object(obj).filter((n, i) => obj.indexOf(n) === i);
 
-  return root => {
-    const __metrics = {
+  /* Hoist up a globally accessible metrics reset for CSS object */
+  process.cssMetricsReset = () => {
+    return {
       rules: 0,
       selectors: 0,
       declarations: 0,
@@ -579,7 +580,11 @@ const metrics = postcss.plugin('postcss-metrics', (options) => {
           }
         }
       }
-    };
+    }
+  };
+
+  return root => {
+    const __metrics = process.cssMetricsReset();
 
     let metrics = {...__metrics};
 
@@ -844,17 +849,17 @@ const metrics = postcss.plugin('postcss-metrics', (options) => {
       metrics.comparison.margin.left.unique = reduceDuplicates(marginLeft).length;
       metrics.comparison.margin.left.repeated = marginLeft.length;
 
-      global.cssMetrics = JSON.stringify(metrics);
+      process.cssMetrics = metrics;
     }
   }
 });
 
 module.exports = {
+  MetricsCSS,
   percentage,
   exporting,
   variables,
   comments,
-  metrics,
   mixins,
   extend,
   minify,
