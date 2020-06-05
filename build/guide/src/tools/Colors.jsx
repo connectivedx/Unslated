@@ -6,7 +6,7 @@ import Select from '@guideAtoms/Select/Select';
 import {
   Colors,
   Colors_card
-} from '@guideOrganisms/colors/Colors';
+} from '@guideOrganisms/Colors/Colors';
 
 import colors from '!!style-loader!css-loader!@vars/colors';
 
