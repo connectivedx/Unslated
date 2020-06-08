@@ -6,7 +6,7 @@ import {
   Icons,
   Icons_card,
   Icons_wrapper
-} from '@guideOrganisms/icons/Icons';
+} from '@guideOrganisms/Icons/Icons';
 
 const requireAll = (r) => r.keys().map(r);
 const files = requireAll(require.context('@atoms/Icon/assets', false, /\.(svg)$/));

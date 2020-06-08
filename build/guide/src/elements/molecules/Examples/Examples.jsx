@@ -4,8 +4,8 @@ import Rhythm from '@guideAtoms/Rhythm/Rhythm';
 import Button from '@guideAtoms/Button/Button';
 import Heading from '@guideAtoms/Heading/Heading';
 
-import Readme from '@guideMolecules/readme/Readme';
-import Stylist from '@guideMolecules/stylist/Stylist';
+import Readme from '@guideMolecules/Readme/Readme';
+import Stylist from '@guideMolecules/Stylist/Stylist';
 import {
   Card,
   Card__header,
