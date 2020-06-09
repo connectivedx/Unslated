@@ -2,7 +2,8 @@ export const GuideReadme = (el) => {
   const ui = {
     el,
     examplesReadmeTogglers: document.querySelectorAll('.guide__readme-toggler'),
-    jsxDocsTable: document.querySelector('.jsx .guide__table__body'),
+    jsxTables: document.querySelector('.jsx-tags'),
+    esTables: document.querySelector('.js-events').parentNode,
     esEventsTable: document.querySelector('.js-events .guide__table__body'),
     esMethodsTable: document.querySelector('.js-methods .guide__table__body'),
     esSelectorsTable: document.querySelector('.js-selectors .guide__table__body')
@@ -12,22 +13,48 @@ export const GuideReadme = (el) => {
 
   const data = {
     name: getElementName(window.location.href),
-    jsxDocs: global.__jsxDocs__[getElementName(window.location.href)][getElementName(window.location.href)], // eslint-disable-line
+    jsxDocs: global.__jsxDocs__[getElementName(window.location.href)], // eslint-disable-line
     esDocs: global.__esDocs__[getElementName(window.location.href)] // eslint-disable-line
   };
 
   // Used to build props list on example pages
   const jsxPropsListing = () => {
     const collection = [];
-    Object.keys(data.jsxDocs.props).map((i, index) => {
-      const prop = data.jsxDocs.props[i];
+    Object.keys(data.jsxDocs).map((i, index) => {
+      const elementProps = data.jsxDocs[i].props;
+
       collection.push(`
-        <tr class="guide__table__row" key=${index}>
-          <td class="guide__table__data"><strong>${i}</strong></td>
-          <td class="guide__table__data">${prop.type.raw.replace(/PropTypes\./g, '')}</td>
-          <td class="guide__table__data">${(prop.description) ? prop.description : '<div className="doc-error">Missing description</div>'}</td>
-        </tr>
-      `);
+      <h4 class="guide__heading guide__heading--medium guide__heading--h4">${i}</h4>
+      <table class="guide__table guide__table--default">
+        <thead class="guide__table__head">
+          <tr class="guide__table__row">
+            <th width="10%" class="guide__table__header">Name</th>
+            <th width="10%" class="guide__table__header">Kind</th>
+            <th width="15%" class="guide__table__header">Types</th>
+            <th width="10%" class="guide__table__header">Required</th>
+            <th width="45%" class="guide__table__header">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+    `);
+
+      Object.keys(elementProps).map((j) => {
+        const prop = elementProps[j];
+
+        collection.push(`
+          <tr class="guide__table__row" key=${index}>
+            <td class="guide__table__data"><strong>${prop.name}</strong></td>
+            <td class="guide__table__data">${prop.type}</td>
+            <td class="guide__table__data">${(prop.value.indexOf('oneOf') !== -1) ? prop.value.replace(/(.*?)\(\[(.*?)\]\)/, '$2').replace(/PropTypes./g, '').replace(/,/g, '<br />') : '--'}</td>
+            <td class="guide__table__data">${prop.required}</td>
+            <td class="guide__table__data">${(prop.description) ? prop.description : '<div className="doc-error">Missing description</div>'}</td>
+          </tr>
+        `);
+
+        return false;
+      });
+
+      collection.push('</tbody></table>');
 
       return false;
     });
@@ -115,10 +142,24 @@ export const GuideReadme = (el) => {
   };
 
   const init = () => {
-    ui.jsxDocsTable.innerHTML = jsxPropsListing();
-    ui.esEventsTable.innerHTML = esEventsListing();
-    ui.esMethodsTable.innerHTML = esMethodsListing();
-    ui.esSelectorsTable.innerHTML = esSelectorsListing();
+    ui.jsxTables.innerHTML = `${ui.jsxTables.innerHTML} ${jsxPropsListing()}`;
+    if (data.esDocs) {
+      if (data.esDocs.events) {
+        ui.esEventsTable.innerHTML = esEventsListing();
+      }
+
+      if (data.esDocs.methods) {
+        ui.esMethodsTable.innerHTML = esMethodsListing();
+      }
+
+      if (data.esDocs.selectors) {
+        ui.esSelectorsTable.innerHTML = esSelectorsListing();
+      }
+    }
+
+    if (!data.esDocs) {
+      ui.esTables.innerHTML = '<strong>No Javascript currently associated with this element</strong>';
+    }
 
     ui.el.addEventListener('click', (event) => {
       const { target } = event;

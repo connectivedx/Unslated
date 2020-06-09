@@ -27,7 +27,7 @@
 		"allowedHosts": []
 	},
 	"optimize": {
-		"js": true,
+		"js": false,
 		"css": true
 	},
 	"scripts": {
@@ -91,7 +91,7 @@
 		"postcss-loader": "^3.0.0",
 		"postcss-nested": "^4.1.2",
 		"react": "^16.9.0",
-		"react-docgen": "^2.4.0",
+		"react-docgen": "^5.3.0",
 		"react-dom": "^16.9.0",
 		"reset-css": "^4.0.1",
 		"rimraf": "^3.0.0",

@@ -6,11 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const { declare } = require('@babel/helper-plugin-utils');
-const ReactDocgen = require('react-docgen');
-const findAllExportedComponentDefinitions = require('react-docgen/dist/resolver/findAllExportedComponentDefinitions').default;
 
-
-// Returns element's name from file pathing
 const getElementName = (pathing) => {
   pathing = path.resolve(__dirname, pathing).split('\\');
   return pathing[pathing.length - 1].split('.')[0];
@@ -233,20 +229,7 @@ const ESDocs = declare((api, opts) => {
             }
           }
         }
-      }/*,
-      ImportDeclaration(ast, file) {
-        const elementName = getElementName(file.filename);
-        if (ast.node.source) {
-          if (ast.node.source.value) {
-            console.log(ast.node.source);
-            imports.push({
-              file: file.filename,
-              module: ast.node.source.value,
-              line: ast.node.source.loc.start.line
-            });
-          }
-        }
-      }*/
+      }
     }
   };
 });
@@ -255,38 +238,81 @@ const JSXDocs = declare((api, opts) => {
   process.jsxDocsReset = () => {};
   process.jsxDocs = {};
 
+  const getComment = (prop) => (prop.leadingComments) ? Object.keys(prop.leadingComments).map((k) => prop.leadingComments[k].value).join(' ') : '';
+
+  const getPropTypes = (classProperties, elementName) => {
+    const collection = [];
+
+    Object.keys(classProperties).map((i) => {
+      const classPropertyName = classProperties[i].key.name;
+      if (classPropertyName === 'propTypes') {
+        const propTypes = classProperties[i].value.properties;
+        Object.keys(propTypes).map((j) => {
+          const prop = propTypes[j];
+          const propName = prop.key.name;
+
+
+          if (prop.value.object) {
+            const { object } = prop.value;
+            const { property } = prop.value;
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${(object.name) ? object.name : `PropTypes.${object.property.name}`}.${property.name}`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            })
+          }
+
+          if (prop.value.callee) {
+            const { object } = prop.value.callee;
+            const { property } = prop.value.callee;
+            const { arguments } = prop.value;
+
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${object.name}.${property.name}([${
+                Object.keys(arguments).map((k) => {
+                  const { elements } = arguments[k];
+                  return Object.keys(elements).map((l) => {
+                    return (elements[l].value) ? `'${elements[l].value}'` : `${elements[l].object.name}.${elements[l].property.name}`;
+                  });
+                }).join(', ')
+              }])`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            });
+          }
+        });
+      }
+    });
+
+    return collection;
+  };
+
   return {
     name: 'JSXDocs',
     visitor: {
-      JSX(ast, file) {
-        if (
-          file.filename.indexOf('.example.jsx') === -1
-          && file.filename.indexOf('guide') === -1
-        ) {
-          if (ast.node.type === 'JSXElement') {
-            // console.log(ast)
-            try {
-              const ElementDocs = ReactDocgen.parse(
-                file.file.code,
-                findAllExportedComponentDefinitions
-              );
+      Program(ast, file) {
+        if (file.filename.indexOf('.jsx') !== -1 && file.filename.indexOf('.example.jsx') === -1) {
 
-              // Grab elements name from file.filename
-              let filename = getElementName(file.filename);
+        }
+      },
+      Class(ast, file) {
+        if (ast.node.superClass.object.name === 'React') {
+          const elementName = ast.node.id.name;
+          const classProperties = ast.node.body.body;
 
-              // Start element's collection entry point
-              if (!process.jsxDocs[filename]) {
-                process.jsxDocs[filename] = {};
-              }
-
-              // Loop over file's JSX element parts and add them to collection
-              Object.keys(ElementDocs).map((i) => {
-                if (ElementDocs[i].props) {
-                  process.jsxDocs[filename][ElementDocs[i].displayName] = ElementDocs[i];
-                }
-              });
-            } catch (err) { console.log(err); }
+          // If you build it, they will come.
+          if (!process.jsxDocs[getElementName(file.filename)]) {
+            process.jsxDocs[getElementName(file.filename)] = {};
           }
+
+          process.jsxDocs[getElementName(file.filename)][elementName] = {
+            description: getComment(ast.container),
+            props: getPropTypes(classProperties, elementName)
+          };
         }
       }
     }
