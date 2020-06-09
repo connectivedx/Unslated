@@ -13,40 +13,6 @@ const readDirectory = (context) => {
   return collection;
 };
 
-const getJSXDocs = (name) => {
-  const allJSXDocs = require.context(
-    '!!../configs/webpack/webpack.jsxdocgen.loader!../../src/elements/',
-    true,
-    /^((?!test|example).)*jsx$/
-  );
-  const keys = allJSXDocs.keys();
-  let i = keys.length;
-  while (i--) {
-    if (keys[i].indexOf(name) !== -1) {
-      return allJSXDocs(keys[i]); // eslint-disable-line
-    }
-  }
-
-  return false;
-};
-
-const getJSDocs = (name) => {
-  const allJSDocs = require.context(
-    '!!../configs/webpack/webpack.jsdocgen.loader?htmlDescription!../../src/elements/',
-    true,
-    /^.*\.(js)$/
-  );
-
-  const keys = allJSDocs.keys();
-  let i = keys.length;
-  while (i--) {
-    if (keys[i].indexOf(name) !== -1) {
-      return allJSDocs(keys[i]);
-    }
-  }
-  return false;
-};
-
 const getElements = (element = false) => {
   const allElements = readDirectory(require.context(
     '@elements/',
@@ -81,8 +47,7 @@ const getExamples = () => {
       url: `examples${key.split('.').slice(0, -1).slice(0, -1).pop()}`,
       name: elementName,
       atomic: key.replace('./', '').split('/')[0],
-      jsDocs: getJSDocs(elementName),
-      jsxDocs: getJSXDocs(elementName),
+      jsDocs: [],
       element: getElements(elementName),
       examples: [...allExamples[key].default][0].examples
     };

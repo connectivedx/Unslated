@@ -3,10 +3,12 @@
   (see: https://webpack.js.org/configuration/dev-server/)
 */
 
+const sys = require('sys');
 const fs = require('fs');
 const path = require('path');
 const Package = require('../../../package.json');
 const childProcess = require('child_process');
+
 
 // Helper method to pass requests to scaffolding.build.js node scripts
 const runNodeScript = (scriptPath, arguments, callback) => {
@@ -100,6 +102,21 @@ module.exports = {
                 query.path
               ]
             )
+          }
+
+          // Opens Local file
+          if (query.openLocal) {
+            const getCommandLine = () => {
+              switch (process.platform) {
+                case 'darwin' : return 'open';
+                case 'win32' : return 'start';
+                case 'win64' : return 'start';
+                default : return 'xdg-open';
+              }
+            };
+
+            console.log(`${getCommandLine()} ${query.openLocal} -n${query.lineNumber}`);
+            childProcess.exec(`${getCommandLine()} ${query.openLocal} -n${query.lineNumber}`);
           }
 
           res.send();

@@ -50,6 +50,15 @@
         border: 1px solid var(--color-gray);
         padding: 1rem;
       }
+
+      & .guide__heading--h4 {
+        border: none;
+        padding-bottom: 0;
+      }
+    }
+
+    &-sub-section {
+
     }
 
     & .guide__table {
@@ -71,6 +80,12 @@
           &:last-child {
             border-right: 1px solid var(--color-gray);
           }
+        }
+      }
+
+      &__body {
+        .guide__table__row {
+          border-bottom: 1px solid var(--color-gray);
         }
       }
 

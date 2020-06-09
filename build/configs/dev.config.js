@@ -67,7 +67,7 @@ const config = {
 // Prod vs. Dev config customizing
 module.exports = (env, argv) => {
   if (!fs.existsSync(path.resolve(__dirname, '../../dist/index.html'))) {
-    execSync('npm run guide'); // fix for cold guide builds
+    execSync('npm run guide'); // fix for "cold" dev builds
   }
 
   return config;
