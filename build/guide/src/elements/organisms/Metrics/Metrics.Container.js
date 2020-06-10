@@ -334,6 +334,38 @@ export const GuideMetrics = (el) => {
     return `<span>${title}</span> <strong>${GuideUtils.bytesToSize(size)}</strong>`;
   };
 
+  // Method to get a collection of all files of a particular media type
+  const getMediaFiles = (files, filters = ['jpg', 'png', 'gif', 'svg']) => {
+    const collection = [];
+
+    Object.keys(files).map((i) => {
+      const file = files[i];
+
+      Object.keys(filters).map((j) => {
+        if (file.name.indexOf(filters[j]) !== -1) {
+          collection.push(file);
+        }
+
+        return false;
+      });
+
+      return false;
+    });
+
+    return collection;
+  };
+
+  // Method to tally up the total file size of one or another collection of media files
+  const getMediaTotal = (files) => {
+    let total = 0;
+    Object.keys(files).map((i) => {
+      total += files[i].size;
+      return false;
+    });
+
+    return `${Math.round(total / 1000)}KB`;
+  };
+
   const init = () => {
     // Install JS Size card
     ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
@@ -460,47 +492,16 @@ export const GuideMetrics = (el) => {
     ui.cssMetrics.compMarginLeft.innerHTML = `Margin-left <br /><sup>${__stats__.css.comparison.margin.left.unique} Unique ${__stats__.css.comparison.margin.left.repeated} Repeated</sup>`;
 
     // Install media metrics
-    const getMediaFiles = (files, filters = ['jpg', 'png', 'gif', 'svg']) => {
-      const collection = [];
-
-      Object.keys(files).map((i) => {
-        const file = files[i];
-
-        Object.keys(filters).map((j) => {
-          if (file.name.indexOf(filters[j]) !== -1) {
-            collection.push(file);
-          }
-
-          return false;
-        });
-
-        return false;
-      });
-
-      return collection;
-    };
-
-    const getMediaFileSizes = (files) => {
-      let total = 0;
-      Object.keys(files).map((i) => {
-        total += files[i].size;
-        return false;
-      });
-
-      return `${Math.round(total / 1000)}KB`;
-    };
-
-    console.log(getMediaFiles(__stats__.files, ['png']));
     ui.mediaMetrics.counts.all.innerHTML = `Total / <sup>${getMediaFiles(__stats__.files).length}</sup>`;
     ui.mediaMetrics.counts.jpg.innerHTML = `JPG / <sup>${getMediaFiles(__stats__.files, ['jpg']).length}</sup>`;
     ui.mediaMetrics.counts.png.innerHTML = `PNG / <sup>${getMediaFiles(__stats__.files, ['png']).length}</sup>`;
     ui.mediaMetrics.counts.gif.innerHTML = `GIF / <sup>${getMediaFiles(__stats__.files, ['gif']).length}</sup>`;
     ui.mediaMetrics.counts.svg.innerHTML = `SVG / <sup>${getMediaFiles(__stats__.files, ['svg']).length}</sup>`;
 
-    ui.mediaMetrics.sizes.jpg.innerHTML = `JPGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['jpg']))}</sup>`;
-    ui.mediaMetrics.sizes.png.innerHTML = `PNGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['png']))}</sup>`;
-    ui.mediaMetrics.sizes.gif.innerHTML = `GIFS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['gif']))}</sup>`;
-    ui.mediaMetrics.sizes.svg.innerHTML = `SVGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['svg']))}</sup>`;
+    ui.mediaMetrics.sizes.jpg.innerHTML = `JPGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['jpg']))}</sup>`;
+    ui.mediaMetrics.sizes.png.innerHTML = `PNGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['png']))}</sup>`;
+    ui.mediaMetrics.sizes.gif.innerHTML = `GIFS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['gif']))}</sup>`;
+    ui.mediaMetrics.sizes.svg.innerHTML = `SVGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['svg']))}</sup>`;
   };
 
   init();
