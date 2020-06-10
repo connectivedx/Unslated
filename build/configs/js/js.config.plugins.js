@@ -319,43 +319,41 @@ const JSXDocs = declare((api, opts) => {
   };
 });
 
-const Metrics = declare((api, opts) => {
+const ESMetrics = declare((api, opts) => {
   process.jsMetricsReset = () => {
-    return {
-      utils: {
-        all: 0,
-        xhr: 0,
-        fetch: 0
-      },
-      variables: {
-        all: 0,
-        const: 0,
-        lets: 0
-      },
-      loops: {
-        all: 0,
-        for: 0,
-        forIn: 0,
-        forOf: 0,
-        while: 0,
-        object: 0
-      },
-      methods: {
-        all: 0,
-        functions: 0,
-        arrows: 0
-      },
-      promises: {
-        all: 0,
-        async: 0,
-        await: 0
-      },
-      expressions: {
-        all: 0,
-        assignments: 0,
-        calls: 0,
-        members: 0
-      }
+    utils: {
+      all: 0,
+      xhr: 0,
+      fetch: 0
+    },
+    variables: {
+      all: 0,
+      const: 0,
+      lets: 0
+    },
+    loops: {
+      all: 0,
+      for: 0,
+      forIn: 0,
+      forOf: 0,
+      while: 0,
+      object: 0
+    },
+    methods: {
+      all: 0,
+      functions: 0,
+      arrows: 0
+    },
+    promises: {
+      all: 0,
+      async: 0,
+      await: 0
+    },
+    expressions: {
+      all: 0,
+      assignments: 0,
+      calls: 0,
+      members: 0
     }
   };
 

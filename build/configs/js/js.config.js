@@ -42,7 +42,7 @@ module.exports = {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
         'options': {
           'plugins': [
-            Metrics,
+            ESMetrics,
             ESDocs
           ]
         }

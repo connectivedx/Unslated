@@ -54,6 +54,7 @@
       & .guide__heading--h4 {
         border: none;
         padding-bottom: 0;
+        padding-left: 0;
       }
     }
 

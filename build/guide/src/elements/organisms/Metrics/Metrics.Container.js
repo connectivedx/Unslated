@@ -160,6 +160,21 @@ export const GuideMetrics = (el) => {
       compMarginRight: el.querySelector('.comp__margin-right'),
       compMarginBottom: el.querySelector('.comp__margin-bottom'),
       compMarginLeft: el.querySelector('.comp__margin-left')
+    },
+    mediaMetrics: {
+      counts: {
+        all: el.querySelector('.all-media'),
+        jpg: el.querySelector('.jpg'),
+        png: el.querySelector('.png'),
+        gif: el.querySelector('.gif'),
+        svg: el.querySelector('.svg')
+      },
+      sizes: {
+        jpg: el.querySelector('.jpgs'),
+        png: el.querySelector('.pngs'),
+        gif: el.querySelector('.gifs'),
+        svg: el.querySelector('.svgs')
+      }
     }
   };
 
@@ -443,6 +458,49 @@ export const GuideMetrics = (el) => {
     ui.cssMetrics.compMarginRight.innerHTML = `Margin-right <br/><sup>${__stats__.css.comparison.margin.right.unique} Unique ${__stats__.css.comparison.margin.right.repeated} Repeated</sup>`;
     ui.cssMetrics.compMarginBottom.innerHTML = `Margin-bottom <br /><sup>${__stats__.css.comparison.margin.bottom.unique} Unique ${__stats__.css.comparison.margin.bottom.repeated} Repeated</sup>`;
     ui.cssMetrics.compMarginLeft.innerHTML = `Margin-left <br /><sup>${__stats__.css.comparison.margin.left.unique} Unique ${__stats__.css.comparison.margin.left.repeated} Repeated</sup>`;
+
+    // Install media metrics
+    const getMediaFiles = (files, filters = ['jpg', 'png', 'gif', 'svg']) => {
+      const collection = [];
+
+      Object.keys(files).map((i) => {
+        const file = files[i];
+
+        Object.keys(filters).map((j) => {
+          if (file.name.indexOf(filters[j]) !== -1) {
+            collection.push(file);
+          }
+
+          return false;
+        });
+
+        return false;
+      });
+
+      return collection;
+    };
+
+    const getMediaFileSizes = (files) => {
+      let total = 0;
+      Object.keys(files).map((i) => {
+        total += files[i].size;
+        return false;
+      });
+
+      return `${Math.round(total / 1000)}KB`;
+    };
+
+    console.log(getMediaFiles(__stats__.files, ['png']));
+    ui.mediaMetrics.counts.all.innerHTML = `Total / <sup>${getMediaFiles(__stats__.files).length}</sup>`;
+    ui.mediaMetrics.counts.jpg.innerHTML = `JPG / <sup>${getMediaFiles(__stats__.files, ['jpg']).length}</sup>`;
+    ui.mediaMetrics.counts.png.innerHTML = `PNG / <sup>${getMediaFiles(__stats__.files, ['png']).length}</sup>`;
+    ui.mediaMetrics.counts.gif.innerHTML = `GIF / <sup>${getMediaFiles(__stats__.files, ['gif']).length}</sup>`;
+    ui.mediaMetrics.counts.svg.innerHTML = `SVG / <sup>${getMediaFiles(__stats__.files, ['svg']).length}</sup>`;
+
+    ui.mediaMetrics.sizes.jpg.innerHTML = `JPGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['jpg']))}</sup>`;
+    ui.mediaMetrics.sizes.png.innerHTML = `PNGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['png']))}</sup>`;
+    ui.mediaMetrics.sizes.gif.innerHTML = `GIFS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['gif']))}</sup>`;
+    ui.mediaMetrics.sizes.svg.innerHTML = `SVGS / <sup>${getMediaFileSizes(getMediaFiles(__stats__.files, ['svg']))}</sup>`;
   };
 
   init();

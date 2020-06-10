@@ -47,7 +47,6 @@ const getExamples = () => {
       url: `examples${key.split('.').slice(0, -1).slice(0, -1).pop()}`,
       name: elementName,
       atomic: key.replace('./', '').split('/')[0],
-      jsDocs: [],
       element: getElements(elementName),
       examples: [...allExamples[key].default][0].examples
     };

@@ -20,44 +20,47 @@ export const GuideReadme = (el) => {
   // Used to build props list on example pages
   const jsxPropsListing = () => {
     const collection = [];
-    Object.keys(data.jsxDocs).map((i, index) => {
-      const elementProps = data.jsxDocs[i].props;
-
-      collection.push(`
-      <h4 class="guide__heading guide__heading--medium guide__heading--h4">${i}</h4>
-      <table class="guide__table guide__table--default">
-        <thead class="guide__table__head">
-          <tr class="guide__table__row">
-            <th width="10%" class="guide__table__header">Name</th>
-            <th width="10%" class="guide__table__header">Kind</th>
-            <th width="15%" class="guide__table__header">Types</th>
-            <th width="10%" class="guide__table__header">Required</th>
-            <th width="45%" class="guide__table__header">Comment</th>
-          </tr>
-        </thead>
-        <tbody>
-    `);
-
-      Object.keys(elementProps).map((j) => {
-        const prop = elementProps[j];
+    if (data.jsxDocs) {
+      Object.keys(data.jsxDocs).map((i, index) => {
+        const elementProps = data.jsxDocs[i].props;
 
         collection.push(`
-          <tr class="guide__table__row" key=${index}>
-            <td class="guide__table__data"><strong>${prop.name}</strong></td>
-            <td class="guide__table__data">${prop.type}</td>
-            <td class="guide__table__data">${(prop.value.indexOf('oneOf') !== -1) ? prop.value.replace(/(.*?)\(\[(.*?)\]\)/, '$2').replace(/PropTypes./g, '').replace(/,/g, '<br />') : '--'}</td>
-            <td class="guide__table__data">${prop.required}</td>
-            <td class="guide__table__data">${(prop.description) ? prop.description : '<div className="doc-error">Missing description</div>'}</td>
-          </tr>
-        `);
+        <h4 class="guide__heading guide__heading--medium guide__heading--h4">&lt;${i}&gt;</h4>
+        <p>${data.jsxDocs[i].description}</p>
+        <table class="guide__table guide__table--default">
+          <thead class="guide__table__head">
+            <tr class="guide__table__row">
+              <th width="10%" class="guide__table__header">Name</th>
+              <th width="10%" class="guide__table__header">Kind</th>
+              <th width="15%" class="guide__table__header">Types</th>
+              <th width="10%" class="guide__table__header">Required</th>
+              <th width="45%" class="guide__table__header">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+      `);
+
+        Object.keys(elementProps).map((j) => {
+          const prop = elementProps[j];
+
+          collection.push(`
+            <tr class="guide__table__row" key=${index}>
+              <td class="guide__table__data"><strong>${prop.name}</strong></td>
+              <td class="guide__table__data">${prop.type}</td>
+              <td class="guide__table__data">${(prop.value.indexOf('oneOf') !== -1) ? prop.value.replace(/(.*?)\(\[(.*?)\]\)/, '$2').replace(/PropTypes./g, '').replace(/,/g, '<br />') : '--'}</td>
+              <td class="guide__table__data">${prop.required}</td>
+              <td class="guide__table__data">${(prop.description) ? prop.description : '<div className="doc-error">Missing description</div>'}</td>
+            </tr>
+          `);
+
+          return false;
+        });
+
+        collection.push('</tbody></table>');
 
         return false;
       });
-
-      collection.push('</tbody></table>');
-
-      return false;
-    });
+    }
 
     return collection.join('');
   };
@@ -142,7 +145,12 @@ export const GuideReadme = (el) => {
   };
 
   const init = () => {
-    ui.jsxTables.innerHTML = `${ui.jsxTables.innerHTML} ${jsxPropsListing()}`;
+    if (data.jsxDocs) {
+      ui.jsxTables.innerHTML = `${ui.jsxTables.innerHTML} ${jsxPropsListing()}`;
+    } else {
+      ui.jsxTables.innerHTML = '<strong>Currently there is no JSX tags associated with this element</strong>';
+    }
+
     if (data.esDocs) {
       if (data.esDocs.events) {
         ui.esEventsTable.innerHTML = esEventsListing();
@@ -155,10 +163,8 @@ export const GuideReadme = (el) => {
       if (data.esDocs.selectors) {
         ui.esSelectorsTable.innerHTML = esSelectorsListing();
       }
-    }
-
-    if (!data.esDocs) {
-      ui.esTables.innerHTML = '<strong>No Javascript currently associated with this element</strong>';
+    } else {
+      ui.esTables.innerHTML = '<strong>Currently there is no Javascript associated with this element</strong>';
     }
 
     ui.el.addEventListener('click', (event) => {
