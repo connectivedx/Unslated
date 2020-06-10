@@ -3,7 +3,7 @@ import Form from '@guideAtoms/Form/Form';
 import Heading from '@guideAtoms/Heading/Heading';
 import Rhythm from '@guideAtoms/Rhythm/Rhythm';
 import Select from '@guideAtoms/Select/Select';
-import Typography from '@guideOrganisms/typography/Typography';
+import Typography from '@guideOrganisms/Typography/Typography';
 
 const page = () => (
   <Rhythm>
