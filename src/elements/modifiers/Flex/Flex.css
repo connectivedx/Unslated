@@ -2,100 +2,258 @@
   This modifier distills down common felx styles to classes to be reused and extended as needed
 */
 
+/* .flex */
 .flex {
-  @media (--large) {
+  display: flex;
 
-    /* Baseline styles */
-    display: flex;
+  /* .flex--inline */
+  &--inline {
+    display: inline-flex;
+  }
 
-    /* .flex-inline */
-    &-inline {
-      display: inline-flex;
-    }
+  /* .flex--wrap */
+  &--wrap {
+    flex-wrap: wrap;
+  }
 
-    /* .flex--wrap */
-    &--wrap {
-      flex-wrap: wrap;
-    }
+  /*
+    Breakpoint variants
+  */
 
-    &--wrap-reverse {
-      flex-wrap: wrap-reverse;
-    }
+  /*
+    .flex--small
+    Flex will not applied until browser window has reached breakpoint size "small".
+  */
+  &--small {
+    @media (--small) {
+      display: flex;
 
-    /* .flex--column */
-    &--column {
-      flex-direction: column;
+      /* .flex--small-inline */
+      &--inline {
+        display: inline-flex;
+      }
 
-      &-reverse {
-        flex-direction: column-reverse;
+      /* .flex--small-wrap */
+      &-wrap {
+        flex-wrap: wrap;
       }
     }
+  }
 
-    /* .flex--row  */
-    &--row {
-      flex-direction: row;
+  /*
+    .flex--medium
+    Flex will not applied until browser window has reached breakpoint size "medium".
+  */
+  &--medium {
+    @media (--medium) {
+      display: flex;
 
-      &-reverse {
-        flex-direction: row-reverse;
+      &--inline {
+        display: inline-flex;
+      }
+
+      /* .flex--wrap */
+      &--wrap {
+        flex-wrap: wrap;
       }
     }
+  }
 
-    &--justify-content,
-    &--justify-items {
 
-      /* .flex--justify-content-between or .flex--justify-items-between */
-      &-between {
-        justify-content: space-between;
+  /*
+    .flex--large
+    Flex will not applied until browser window has reached breakpoint size "large".
+  */
+  &--large {
+    @media (--large) {
+      display: flex;
+
+      &--inline {
+        display: inline-flex;
       }
 
-      /* .flex--justify-content-around or .flex--justify-items-around */
-      &-around {
-        justify-content: space-around;
-      }
-
-      /* .flex--justify-content-even or .flex--justify-items-even */
-      &-even {
-        justify-content: space-evenly;
-      }
-
-      /* .flex--justify-content-start or .flex--justify-items-start */
-      &-start {
-        justify-content: flex-start;
-      }
-
-      /* .flex--justify-content-end or .flex--justify-items-end */
-      &-end {
-        justify-content: flex-end;
+      /* .flex--wrap */
+      &--wrap {
+        flex-wrap: wrap;
       }
     }
+  }
 
-    &--align-content,
-    &--align-items {
+  /*
+    .flex--large
+    Flex will not applied until browser window has reached breakpoint size "large".
+  */
+  &--extra-large {
+    @media (--extra-large) {
+      display: flex;
 
-      /* .flex--align-content-between or .flex--align-items-between */
-      &-between {
-        align-content: space-between;
+      &--inline {
+        display: inline-flex;
       }
 
-      /* .flex--align-content-around or .flex--align-items-around */
-      &-around {
-        align-content: space-around;
+      /* .flex--wrap */
+      &--wrap {
+        flex-wrap: wrap;
       }
+    }
+  }
 
-      /* .flex--align-content-even or .flex--align-items-even */
-      &-even {
-        align-content: space-evenly;
-      }
 
-      /* .flex--align-content-start or .flex--align-items-start */
-      &-start {
-        align-content: flex-start;
-      }
+  &--wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
 
-      /* .flex--align-content-end or .flex--align-items-end */
-      &-end {
-        align-content: flex-end;
-      }
+  /* .flex--column */
+  &--column {
+    flex-direction: column;
+
+    &-reverse {
+      flex-direction: column-reverse;
+    }
+  }
+
+  /* .flex--row  */
+  &--row {
+    flex-direction: row;
+
+    &-reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  /* .flex--justify-content */
+  &--justify-content {
+
+    /* .flex--justify-content-center */
+    &-center {
+      justify-content: center;
+    }
+
+    /* .flex--justify-content-between */
+    &-between {
+      justify-content: space-between;
+    }
+
+    /* .flex--justify-content-around */
+    &-around {
+      justify-content: space-around;
+    }
+
+    /* .flex--justify-content-even */
+    &-even {
+      justify-content: space-evenly;
+    }
+
+    /* .flex--justify-content-start */
+    &-start {
+      justify-content: flex-start;
+    }
+
+    /* .flex--justify-content-end */
+    &-end {
+      justify-content: flex-end;
+    }
+  }
+
+  /* .flex--justify-items */
+  &--justify-items {
+
+    /* .flex--justify-items-center */
+    &-center {
+      justify-items: center;
+    }
+
+    /* .flex--justify-items-between */
+    &-between {
+      justify-items: space-between;
+    }
+
+    /* .flex--justify-items-around */
+    &-around {
+      justify-items: space-around;
+    }
+
+    /* .flex--justify-items-even */
+    &-even {
+      justify-items: space-evenly;
+    }
+
+    /* .flex--justify-items-start */
+    &-start {
+      justify-items: flex-start;
+    }
+
+    /* .flex--justify-items-end */
+    &-end {
+      justify-items: flex-end;
+    }
+  }
+
+  /* .flex--align-content */
+  &--align-content {
+
+    /* .flex--align-content-center */
+    &-center {
+      align-content: center;
+    }
+
+    /* .flex--align-content-between */
+    &-between {
+      align-content: space-between;
+    }
+
+    /* .flex--align-content-around */
+    &-around {
+      align-content: space-around;
+    }
+
+    /* .flex--align-content-even */
+    &-even {
+      align-content: space-evenly;
+    }
+
+    /* .flex--align-content-start */
+    &-start {
+      align-content: flex-start;
+    }
+
+    /* .flex--align-content-end */
+    &-end {
+      align-content: flex-end;
+    }
+  }
+
+  /* .flex--align-items */
+  &--align-items {
+
+    /* .flex--align-items-center */
+    &-center {
+      align-items: center;
+    }
+
+    /* .flex--align-items-between */
+    &-between {
+      align-items: space-between;
+    }
+
+    /* .flex--align-items-around */
+    &-around {
+      align-items: space-around;
+    }
+
+    /* .flex--align-items-even */
+    &-even {
+      align-items: space-evenly;
+    }
+
+    /* .flex--align-items-start */
+    &-start {
+      align-items: flex-start;
+    }
+
+    /* .flex--align-items-end */
+    &-end {
+      align-items: flex-end;
     }
   }
 }

@@ -35,6 +35,15 @@ export const Tabs = (el) => {
   const init = () => {
     show(el.dataset.default);
 
+    // Setup responsive data attributes
+    Object.keys(ui.targets).map((i) => {
+      Object.keys(ui.triggers).map((j) => {
+        ui.targets[i].dataset.tabsTriggerTitle = ui.triggers[j].innerText;
+        return false;
+      });
+      return false;
+    });
+
     // Event listener
     ui.el.addEventListener('click', (e) => {
       const { target } = e;
@@ -42,6 +51,11 @@ export const Tabs = (el) => {
 
       if (target.dataset.tabsTrigger) {
         show(target.dataset.tabsTrigger);
+        e.preventDefault();
+      }
+
+      if (target.dataset.tabsTarget) {
+        show(target.dataset.tabsTarget);
         e.preventDefault();
       }
 

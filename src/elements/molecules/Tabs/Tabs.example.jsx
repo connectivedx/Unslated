@@ -28,23 +28,23 @@ import { Tabs, Tabs__triggers, Tabs__targets } from './Tabs';
 export default [{
   examples: [
     {
-      name: 'Align top, justify left (default)',
+      name: 'Justify top, Align start (default)',
       component: (
-        <Tabs defaultTab="0">
+        <Tabs align="start" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm data-tabs-target="1">
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm data-tabs-target="2">
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm data-tabs-target="3">
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -52,23 +52,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align top, justify center',
+      name: 'Justify top, Align center',
       component: (
-        <Tabs justify="center" defaultTab="0">
+        <Tabs align="center" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -76,23 +76,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align top, justify right',
+      name: 'Justify top, Align end',
       component: (
-        <Tabs justify="right" defaultTab="0">
+        <Tabs align="end" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -100,23 +100,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align bottom, justify left',
+      name: 'Justify bottom, Align start',
       component: (
-        <Tabs align="bottom" defaultTab="0">
+        <Tabs align="start" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -124,23 +124,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align bottom, justify center',
+      name: 'Justify bottom, Align center',
       component: (
-        <Tabs align="bottom" justify="center" defaultTab="0">
+        <Tabs align="center" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -148,23 +148,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align bottom, justify right',
+      name: 'Justify bottom, Align end',
       component: (
-        <Tabs align="bottom" justify="right" defaultTab="0">
+        <Tabs align="end" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -172,23 +172,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align left, Justify Top',
+      name: 'Justify left, Align top',
       component: (
-        <Tabs align="left">
+        <Tabs justify="left">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -196,23 +196,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align left, Justify Center',
+      name: 'Justify left, Align center',
       component: (
-        <Tabs align="left" justify="center">
+        <Tabs justify="left" align="center">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -220,23 +220,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align left, Justify Bottom',
+      name: 'Justify left, Align bottom',
       component: (
-        <Tabs align="left" justify="bottom">
+        <Tabs justify="left" align="bottom">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -244,23 +244,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align right, justify top',
+      name: 'Justify right, Align top',
       component: (
-        <Tabs align="right">
+        <Tabs justify="right">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -268,23 +268,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align right, justify center',
+      name: 'Justify right, Align center',
       component: (
-        <Tabs align="right" justify="center">
+        <Tabs justify="right" align="center">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
@@ -292,23 +292,23 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Align right, justify bottom',
+      name: 'Justify right, Align bottom',
       component: (
-        <Tabs align="right" justify="bottom">
+        <Tabs justify="right" align="bottom">
           <Tabs__triggers>
-            <Link href="/#">Tab one</Link>
-            <Link href="/#">Tab two</Link>
-            <Link href="/#">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
           </Tabs__triggers>
 
           <Tabs__targets>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
-            <Rhythm>
+            <Rhythm className="padding--small">
               <p>{Utils.ipsum('paragraph', 5)}</p>
             </Rhythm>
           </Tabs__targets>
