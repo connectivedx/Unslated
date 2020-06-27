@@ -54,7 +54,7 @@ export class Tabs extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'tabs flex--extra-large',
+      'tabs flex--large',
       justify === 'top' && 'flex--column',
       justify === 'bottom' && 'flex--column-reverse',
       justify === 'left' && 'flex--row',

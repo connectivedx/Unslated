@@ -7,14 +7,9 @@
 
 /* Baseline styles */
 .tabs {
-  .tabs__triggers {
+  .hide > *,
+  &__triggers {
     display: none;
-  }
-
-  .hide {
-    > * {
-      display: none;
-    }
   }
 
   [data-tabs-target] {
@@ -56,7 +51,7 @@
   /* Style variants */
   &--default {
 
-    /* Trigger styles */
+    /* Default Trigger styles */
     [data-tabs-trigger] {
       background-color: var(--tabs-bg-color);
       border: var(--border-styles);
@@ -73,7 +68,7 @@
       }
     }
 
-    /* Target styles */
+    /* Default Target styles */
     [data-tabs-target] {
       background-color: var(--tabs-bg-color);
       border: var(--border-styles);
@@ -82,11 +77,11 @@
       z-index: var(--zindex--base);
     }
 
-    /* Border styles for all alignment types */
+    /* Default Border styles */
     &.flex--column {
       .active {
         border-bottom: 1px solid var(--tabs-bg-color);
-        margin-bottom: -1px;
+        margin-bottom: rem(-1px);
       }
 
       &-reverse {
