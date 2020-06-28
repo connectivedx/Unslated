@@ -109,6 +109,7 @@ export class Tabs__triggers extends React.Component {
 
     children = Object.keys(children).map((i) => {
       children[i].props['data-tabs-trigger'] = i;
+      children[i].props.className += ' tabs__trigger';
       return children[i];
     });
 
@@ -156,7 +157,7 @@ export class Tabs__targets extends React.Component {
 
     children = Object.keys(children).map((i) => {
       children[i].props['data-tabs-target'] = i;
-      children[i].props.className = [children[i].props.className, 'hide'].join(' ');
+      children[i].props.className += ' hide tabs__target';
       return children[i];
     });
 

@@ -12,22 +12,22 @@
     display: none;
   }
 
-  [data-tabs-target] {
+  &__target {
     &:before {
       background-color: var(--color-gray-light);
       padding: rem(16px);
       content: attr(data-tabs-trigger-title);
       display: block;
-    }
 
-    &:not(.hide):before {
-      margin-bottom: rem(16px);
+      &:not(.hide) {
+        margin-bottom: rem(16px);
+      }
     }
   }
 
   @media (--large) {
     .hide,
-    [data-tabs-target]:before {
+    .tabs__target:before {
       display: none;
     }
 
@@ -51,25 +51,25 @@
   /* Style variants */
   &--default {
 
-    /* Default Trigger styles */
-    [data-tabs-trigger] {
+    /* Trigger styles */
+    .tabs__trigger {
       background-color: var(--tabs-bg-color);
       border: var(--border-styles);
       cursor: pointer;
       display: block;
+      min-width: 190px;
       position: relative;
+      text-align: center;
       text-decoration: none;
       z-index: var(--zindex--content);
-      min-width: 190px;
-      text-align: center;
 
       &.active {
         text-decoration: underline;
       }
     }
 
-    /* Default Target styles */
-    [data-tabs-target] {
+    /* Target styles */
+    .tabs__target {
       background-color: var(--tabs-bg-color);
       border: var(--border-styles);
       height: 100%;
@@ -77,7 +77,7 @@
       z-index: var(--zindex--base);
     }
 
-    /* Default Border styles */
+    /* Borders */
     &.flex--column {
       .active {
         border-bottom: 1px solid var(--tabs-bg-color);
