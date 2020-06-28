@@ -1,6 +1,5 @@
 /**
-  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.<br/>
-  <strong>Mobile friendly:</strong> Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordion experince.
+  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.
 */
 
 export class Tabs extends React.Component {
@@ -78,6 +77,10 @@ export class Tabs extends React.Component {
   }
 }
 
+
+/*
+  Triggers are the elements which users click or touch to visually revel a content target.
+*/
 export class Tabs__triggers extends React.Component {
   static propTypes = {
     /** Tag overload */
@@ -120,6 +123,9 @@ export class Tabs__triggers extends React.Component {
   }
 }
 
+/*
+  Targets are the corresponding content blocks to a given trigger.
+*/
 export class Tabs__targets extends React.Component {
   static propTypes = {
     /** Tag overload */

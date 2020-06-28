@@ -3,8 +3,8 @@ export const Tabs = (el) => {
   // Tabs ui helper object
   const ui = {
     el,
-    triggers: el.querySelectorAll('[data-tabs-trigger]'),
-    targets: el.querySelectorAll('[data-tabs-target]')
+    triggers: el.querySelectorAll('.tabs__trigger'),
+    targets: el.querySelectorAll('.tabs__target')
   };
 
   // Hide all targets

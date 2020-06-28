@@ -28,7 +28,7 @@ import { Tabs, Tabs__triggers, Tabs__targets } from './Tabs';
 export default [{
   examples: [
     {
-      name: 'Justify top, Align start (default)',
+      name: 'Justify top, Align left (default)',
       component: (
         <Tabs align="start" defaultTab="0">
           <Tabs__triggers>
@@ -88,7 +88,7 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Justify top, Align end',
+      name: 'Justify top, Align right',
       component: (
         <Tabs align="end" defaultTab="0">
           <Tabs__triggers>
@@ -118,7 +118,7 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Justify bottom, Align start',
+      name: 'Justify bottom, Align left',
       component: (
         <Tabs align="start" justify="bottom" defaultTab="0">
           <Tabs__triggers>
@@ -178,7 +178,7 @@ export default [{
       ),
       notes: ''
     }, {
-      name: 'Justify bottom, Align end',
+      name: 'Justify bottom, Align right',
       component: (
         <Tabs align="end" justify="bottom" defaultTab="0">
           <Tabs__triggers>
