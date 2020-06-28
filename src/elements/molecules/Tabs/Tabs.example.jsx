@@ -32,26 +32,31 @@ export default [{
       component: (
         <Tabs align="start" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+            <Link href="/#tab-one" className="padding--top padding--bottom padding--small-left padding--small-right">
               Tab one
             </Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+            <Link href="/#tab-two" className="padding--top padding--bottom padding--small-left padding--small-right">
               Tab two
             </Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+            <Link href="/#tab-three" className="padding--top padding--bottom padding--small-left padding--small-right">
               Tab three
             </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -75,13 +80,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -105,13 +115,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -135,13 +150,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -165,13 +185,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -195,13 +220,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -225,13 +255,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -255,13 +290,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -285,13 +325,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -315,13 +360,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -345,13 +395,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
@@ -375,13 +430,18 @@ export default [{
 
           <Tabs__targets>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
             <Rhythm className="padding--small">
-              <p>{Utils.ipsum('paragraph', 5)}</p>
+              <p>{Utils.ipsum('paragraph', 3)}</p>
+              <p>{Utils.ipsum('paragraph', 1)}</p>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
             </Rhythm>
           </Tabs__targets>
         </Tabs>
