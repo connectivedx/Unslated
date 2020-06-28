@@ -18,10 +18,10 @@
       padding: rem(16px);
       content: attr(data-tabs-trigger-title);
       display: block;
+    }
 
-      &:not(.hide) {
-        margin-bottom: rem(16px);
-      }
+    &:not(.hide):before {
+      margin-bottom: rem(16px);
     }
   }
 

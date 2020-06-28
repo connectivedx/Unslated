@@ -97,7 +97,6 @@ export class Tabs__triggers extends React.Component {
     variant: 'default'
   };
 
-
   render = () => {
     const {
       tagName: Tag,
@@ -132,11 +131,7 @@ export class Tabs__targets extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node,
-    /** Title text of each tab */
-    title: PropTypes.string,
-    /** Triggers passed to targets to gather names */
-    triggers: PropTypes.node
+    children: PropTypes.node
   };
 
   static defaultProps = {
@@ -148,8 +143,6 @@ export class Tabs__targets extends React.Component {
     const {
       tagName: Tag,
       variant,
-      title,
-      triggers,
       ...attrs
     } = this.props;
 

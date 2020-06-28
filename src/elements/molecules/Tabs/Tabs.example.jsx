@@ -32,9 +32,15 @@ export default [{
       component: (
         <Tabs align="start" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -56,9 +62,15 @@ export default [{
       component: (
         <Tabs align="center" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -80,9 +92,15 @@ export default [{
       component: (
         <Tabs align="end" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -104,9 +122,15 @@ export default [{
       component: (
         <Tabs align="start" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -128,9 +152,15 @@ export default [{
       component: (
         <Tabs align="center" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -152,9 +182,15 @@ export default [{
       component: (
         <Tabs align="end" justify="bottom" defaultTab="0">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -176,9 +212,15 @@ export default [{
       component: (
         <Tabs justify="left">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -200,9 +242,15 @@ export default [{
       component: (
         <Tabs justify="left" align="center">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -224,9 +272,15 @@ export default [{
       component: (
         <Tabs justify="left" align="bottom">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -248,9 +302,15 @@ export default [{
       component: (
         <Tabs justify="right">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -272,9 +332,15 @@ export default [{
       component: (
         <Tabs justify="right" align="center">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
@@ -296,9 +362,15 @@ export default [{
       component: (
         <Tabs justify="right" align="bottom">
           <Tabs__triggers>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab one</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab two</Link>
-            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">Tab three</Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab one
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab two
+            </Link>
+            <Link href="/#" className="padding--top padding--bottom padding--small-left padding--small-right">
+              Tab three
+            </Link>
           </Tabs__triggers>
 
           <Tabs__targets>
