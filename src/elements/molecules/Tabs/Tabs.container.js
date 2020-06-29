@@ -3,31 +3,27 @@ export const Tabs = (el) => {
   // Tabs ui helper object
   const ui = {
     el,
-    triggers: el.querySelectorAll('[data-tabs-trigger]'),
-    targets: el.querySelectorAll('[data-tabs-target]')
+    triggers: el.querySelectorAll('.tabs__trigger'),
+    targets: el.querySelectorAll('.tabs__target')
   };
 
-  // Sets active state of clicked tab trigger
-  const state = (id) => {
-    Object.keys(ui.triggers).map((i) => {
-      ui.triggers[i].classList.remove('active');
-      return false;
-    });
-
-    ui.triggers[id].classList.add('active');
-    return false;
+  // Hide all targets
+  const hide = () => {
+    let i = ui.targets.length;
+    while (i--) {
+      ui.targets[i].classList.add('hide');
+    }
   };
 
-  // Hides all tabs targets
-  const hide = () => Object.keys(ui.targets).map((i) => {
-    ui.targets[i].classList.add('hide');
-    return false;
-  });
-
-  // Shows specific tabs target
+  // Show specific target
   const show = (id) => {
     hide();
-    state(parseInt(id, 10));
+    let i = ui.triggers.length;
+    while (i--) {
+      ui.triggers[i].classList.remove('active');
+    }
+
+    ui.triggers[id].classList.add('active');
     ui.targets[parseInt(id, 10)].classList.remove('hide');
   };
 
@@ -35,13 +31,26 @@ export const Tabs = (el) => {
   const init = () => {
     show(el.dataset.default);
 
+    // Setup responsive data attributes
+    let i = ui.targets.length;
+    while (i--) {
+      ui.targets[i].dataset.tabsTriggerTitle = ui.triggers[i].innerText;
+    }
+
     // Event listener
     ui.el.addEventListener('click', (e) => {
       const { target } = e;
       if (!target.dataset) { return false; }
 
+      /* For desktop */
       if (target.dataset.tabsTrigger) {
         show(target.dataset.tabsTrigger);
+        e.preventDefault();
+      }
+
+      /* For mobile */
+      if (target.dataset.tabsTarget) {
+        show(target.dataset.tabsTarget);
         e.preventDefault();
       }
 
