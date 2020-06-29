@@ -7,7 +7,319 @@ const fs = require('fs');
 const path = require('path');
 const { declare } = require('@babel/helper-plugin-utils');
 
-const MetricsJS = declare((api, opts) => {
+const getElementName = (pathing) => {
+  pathing = path.resolve(__dirname, pathing).split('\\');
+  return pathing[pathing.length - 1].split('.')[0];
+};
+
+// Unslated's ECMA Script comment based docs
+const ESDocs = declare((api, opts) => {
+  process.esDocsReset = () => {};
+  process.esDocs = {};
+  let imports = [];
+  let comments;
+
+  const commentToSourceMatching = (comments, ast, name) => {
+    let comment = false;
+
+    Object.keys(comments).map((i) => {
+      const cmt = comments[i];
+      if ((ast.node.loc.start.line - 1) === cmt.loc.start.line) {
+        comment = cmt.value;
+      } else if ((ast.node.loc.start.line - 2) === cmt.loc.start.line) {
+        comment = cmt.value;
+      }
+
+      return false;
+    });
+
+    return comment;
+  };
+
+  const getMethodParams = (containers) => {
+    let params = [];
+    Object.keys(containers.init.params).map((j) => {
+      params.push(containers.init.params[j].name);
+    });
+
+    return params;
+  };
+
+  const getEventParams = (params) => {
+    let collection = [];
+    if (params) {
+      Object.keys(params).map((j) => {
+        collection.push(params[j].name);
+      });
+    }
+
+    return collection;
+  };
+
+  const getSelectorTemplateLiteral = (expressions, quasis) => {
+    let selector = '';
+    let collection = [];
+
+    // first we collect both expressions and quasis start line numbers
+    Object.keys(quasis).map((i) => {
+      collection.push(quasis[i].start);
+    });
+
+    Object.keys(expressions).map((i) => {
+      collection.push(expressions[i].start);
+    });
+
+    // then we sort the numbers
+    collection = collection.sort((a, b) => a - b);
+
+    // then we loop / hunt for the values based on the order of our sorting above.
+    Object.keys(collection).map((i) => {
+      Object.keys(quasis).map((j) => {
+        if (collection[i] === quasis[j].start) {
+          selector += quasis[j].value.raw;
+        }
+      });
+
+      Object.keys(expressions).map((j) => {
+        if (collection[i] === expressions[j].start) {
+         selector += `\$\{${expressions[j].name}\}`;
+        }
+      });
+    });
+
+    // results
+    return selector;
+  };
+
+  return {
+    name: 'ESDocs',
+    visitor: {
+      Program(ast, file) {
+        if (file.filename.indexOf('.container.js') !== -1) {
+          comments = ast.container.comments;
+
+          // Grab elements name from file.filename
+          const elementName = getElementName(file.filename);
+
+          // Start element's collection entry point
+          process.esDocs[elementName] = {};
+          process.esDocs[elementName].events = [];
+          process.esDocs[elementName].methods = [];
+          process.esDocs[elementName].selectors = [];
+        }
+      },
+      Expression(ast, file) {
+        if (file.filename.indexOf('container.js') !== -1) {
+          const container = ast.container;
+          const callee = container.callee;
+          const elementName = getElementName(file.filename);
+
+          // Methods documenting
+          if (ast.type === 'ArrowFunctionExpression') {
+            if (container.length) {
+              Object.keys(container).keys((i) => {
+                if (container[i].id) {
+                  process.esDocs[elementName].methods.push({
+                    name: container[i].id.name,
+                    type: ast.type,
+                    comment: commentToSourceMatching(comments, ast, container[i].id.name),
+                    params: getMethodParams(container[0])
+                  });
+                }
+              });
+            } else {
+              if (container.type !== 'AssignmentExpression') {
+                process.esDocs[elementName].methods.push({
+                  name: container.id.name,
+                  type: ast.type,
+                  comment: commentToSourceMatching(comments, ast, container.id.name),
+                  params: getMethodParams(container)
+                });
+              }
+            }
+          }
+
+          if (ast.type === 'FunctionExpression') {
+            process.esDocs[elementName].methods.push({
+              name: ast.name,
+              type: ast.type,
+              comment: commentToSourceMatching(comments, ast),
+              params: getMethodParams(container)
+            });
+          }
+
+          // eventListener documenting
+          if (ast.type === 'MemberExpression') {
+            if (ast.node.property.name === 'addEventListener') {
+              const args = container.arguments;
+              const parent = callee.object.object;
+              const endpoint = (callee.object.name) ? callee.object : callee.object.property;
+              let element;
+
+              if (parent && endpoint) {
+                element = `${parent.name}.${endpoint.name}`;
+              } else if (parent && !endpoint) {
+                element = parent.name;
+              } else if (!parent && endpoint) {
+                element = endpoint.name;
+              }
+
+              if (!element) {
+                console.log(element);
+              }
+
+              process.esDocs[elementName].events.push({
+                file: file.filename,
+                line: container.loc.start.line,            // line in document this is expressed
+                element: element,
+                eventType: args[0].value,   // `click`, `mouseup`, keyup etc.
+                callbackType: args[1].type,    // callback kind `function(){}` or `() => {}`
+                callbackParams: getEventParams(args[1].params), // params passed to listener callback
+              });
+            }
+
+
+            // querySelector documenting
+            if (
+              ast.node.property.name === 'querySelector'
+              || ast.node.property.name === 'querySelectorAll'
+            ) {
+              const args = container.arguments;
+              if (args[0].type === 'StringLiteral') {
+                process.esDocs[elementName].selectors.push({
+                  file: file.filename,
+                  line: container.loc.start.line,            // line in document this is expressed
+                  element: callee.object.name,
+                  selector: args[0].value,               // '#someId .someClass etc.'
+                  selectorType: ast.node.property.name
+                });
+              }
+
+              if (args[0].type === 'TemplateLiteral') {
+                console.log();
+                process.esDocs[elementName].selectors.push({
+                  file: file.filename,
+                  line: container.loc.start.line,            // line in document this is expressed
+                  element: callee.object.name,
+                  selector: getSelectorTemplateLiteral(args[0].expressions, args[0].quasis), // templateliteral variable usage
+                  selectorType: ast.node.property.name
+                });
+              }
+            }
+          }
+
+          // Determins line numbers of methods being used
+          if (ast.type === 'CallExpression') {
+            if (container.expression) {
+              if (container.expression.callee.name) {
+                const name = container.expression.callee.name;
+
+                Object.keys(process.esDocs[elementName].methods).map((j) => {
+                  const method = process.esDocs[elementName].methods[j];
+                  if (method.name === name) {
+                    if (!method.used) {
+                      method.used = [];
+                    }
+
+                    method.used.push(container.expression.callee.loc.start.line);
+                  }
+                });
+
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+});
+
+const JSXDocs = declare((api, opts) => {
+  process.jsxDocsReset = () => {};
+  process.jsxDocs = {};
+
+  const getComment = (prop) => (prop.leadingComments) ? Object.keys(prop.leadingComments).map((k) => prop.leadingComments[k].value).join(' ') : '';
+
+  const getPropTypes = (classProperties, elementName) => {
+    const collection = [];
+
+    Object.keys(classProperties).map((i) => {
+      const classPropertyName = classProperties[i].key.name;
+      if (classPropertyName === 'propTypes') {
+        const propTypes = classProperties[i].value.properties;
+        Object.keys(propTypes).map((j) => {
+          const prop = propTypes[j];
+          const propName = prop.key.name;
+
+
+          if (prop.value.object) {
+            const { object } = prop.value;
+            const { property } = prop.value;
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${(object.name) ? object.name : `PropTypes.${object.property.name}`}.${property.name}`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            })
+          }
+
+          if (prop.value.callee) {
+            const { object } = prop.value.callee;
+            const { property } = prop.value.callee;
+            const { arguments } = prop.value;
+
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${object.name}.${property.name}([${
+                Object.keys(arguments).map((k) => {
+                  const { elements } = arguments[k];
+                  return Object.keys(elements).map((l) => {
+                    return (elements[l].value) ? `'${elements[l].value}'` : `${elements[l].object.name}.${elements[l].property.name}`;
+                  });
+                }).join(', ')
+              }])`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            });
+          }
+        });
+      }
+    });
+
+    return collection;
+  };
+
+  return {
+    name: 'JSXDocs',
+    visitor: {
+      Program(ast, file) {
+        if (file.filename.indexOf('.jsx') !== -1 && file.filename.indexOf('.example.jsx') === -1) {
+
+        }
+      },
+      Class(ast, file) {
+        if (ast.node.superClass.object.name === 'React') {
+          const elementName = ast.node.id.name;
+          const classProperties = ast.node.body.body;
+
+          // If you build it, they will come.
+          if (!process.jsxDocs[getElementName(file.filename)]) {
+            process.jsxDocs[getElementName(file.filename)] = {};
+          }
+
+          process.jsxDocs[getElementName(file.filename)][elementName] = {
+            description: getComment(ast.container),
+            props: getPropTypes(classProperties, elementName)
+          };
+        }
+      }
+    }
+  };
+});
+
+const ESMetrics = declare((api, opts) => {
   process.jsMetricsReset = () => {
     return {
       utils: {
@@ -51,7 +363,7 @@ const MetricsJS = declare((api, opts) => {
 
   // https://babeljs.io/docs/en/6.26.3/babel-types for all available babel AST types
   return {
-    name: "metrics-bundle",
+    name: "metrics",
     visitor: {
       Declaration(ast, file) {
         if (file.filename.indexOf('container.js') !== -1) {
@@ -147,9 +459,9 @@ const MetricsJS = declare((api, opts) => {
 });
 
 /*
-  Helper plugin to compile our project metric stats into guide.js
+  Helper plugin to compile our project metric and docs into guide.js
 */
-class MetricsBundle {
+class Bundle {
   constructor() {
     this.stats = {
       js: [],
@@ -220,7 +532,11 @@ class MetricsBundle {
         if (i.indexOf('guide.js') !== -1) {
           this.stats.js = process.jsMetrics;
           this.stats.css = process.cssMetrics;
-          const source = `var __stats__ = ${JSON.stringify(this.stats)};\n ${compilation.assets[i].source()}`;
+          const source = `
+            var __stats__ = ${JSON.stringify(this.stats)};\n ${compilation.assets[i].source()};
+            var __jsxDocs__ = ${JSON.stringify(process.jsxDocs)};
+            var __esDocs__ = ${JSON.stringify(process.esDocs)};
+          `;
 
           compilation.assets[i] = {
             source: function () {
@@ -241,6 +557,8 @@ class MetricsBundle {
 }
 
 module.exports = {
-  MetricsJS,
-  MetricsBundle
+  JSXDocs,
+  ESDocs,
+  ESMetrics,
+  Bundle
 };

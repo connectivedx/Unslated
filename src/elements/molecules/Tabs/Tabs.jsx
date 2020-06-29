@@ -57,7 +57,7 @@ export class Tabs extends React.Component {
       justify === 'top' && 'flex--column',
       justify === 'bottom' && 'flex--column-reverse',
       justify === 'left' && 'flex--row',
-      justify === 'right' && `flex--row-reverse`,
+      justify === 'right' && 'flex--row-reverse',
       (align === 'left' || align === 'top') && 'flex--align-items-start',
       (align === 'right' || align === 'bottom') && 'flex--align-items-end',
       (align !== 'left' && align !== 'right') && `flex--align-items-${align}`,
