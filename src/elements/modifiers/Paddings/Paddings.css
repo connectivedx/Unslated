@@ -1,6 +1,7 @@
 :root {
 
   /* CSS variables */
+  --padding: 4px;
   --padding-small: 8px;
   --padding-medium: 16px;
   --padding-large: 48px;
@@ -9,6 +10,10 @@
 .padding {
 
   /* Size variants */
+  padding: var(--padding);
+
+  @media (--medium) { padding: calc(var(--padding) * 2); }
+
   &--small {
     padding: var(--padding-small);
 
@@ -34,6 +39,30 @@
   }
 
   /* Side variants */
+  &--top {
+    padding-top: var(--padding);
+
+    @media (--medium) { padding-top: var(--padding-small); }
+  }
+
+  &--right {
+    padding-right: var(--padding);
+
+    @media (--medium) { padding-right: var(--padding-small); }
+  }
+
+  &--bottom {
+    padding-bottom: var(--padding);
+
+    @media (--medium) { padding-bottom: var(--padding-small); }
+  }
+
+  &--left {
+    padding-left: var(--padding);
+
+    @media (--medium) { padding-left: var(--padding-small); }
+  }
+
   &--small {
     &-top {
       padding-top: var(--padding-small);
