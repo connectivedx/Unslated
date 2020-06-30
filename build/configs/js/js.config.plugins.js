@@ -7,10 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { declare } = require('@babel/helper-plugin-utils');
 
-const getElementName = (pathing) => {
-  pathing = path.resolve(__dirname, pathing).split('\\');
-  return pathing[pathing.length - 1].split('.')[0];
-};
+const getElementName = (pathing) => path.basename(path.resolve(__dirname, pathing)).split('.')[0];
 
 // Unslated's ECMA Script comment based docs
 const ESDocs = declare((api, opts) => {
@@ -533,9 +530,10 @@ class Bundle {
           this.stats.js = process.jsMetrics;
           this.stats.css = process.cssMetrics;
           const source = `
-            var __stats__ = ${JSON.stringify(this.stats)};\n ${compilation.assets[i].source()};
+            var __stats__ = ${JSON.stringify(this.stats)};
             var __jsxDocs__ = ${JSON.stringify(process.jsxDocs)};
             var __esDocs__ = ${JSON.stringify(process.esDocs)};
+            \n ${compilation.assets[i].source()};
           `;
 
           compilation.assets[i] = {
