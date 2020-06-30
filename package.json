@@ -30,6 +30,25 @@
 		"js": true,
 		"css": true
 	},
+	"favicon": {
+		"src": "src/favicon.svg",
+		"options": {
+			"background": "#000",
+			"theme_color": "#000"
+		},
+		"types": {
+			"android": true,
+			"appleIcon": true,
+			"appleStartup": true,
+			"coast": true,
+			"favicons": true,
+			"firefox": true,
+			"opengraph": true,
+			"twitter": true,
+			"yandex": true,
+			"windows": true
+		}
+	},
 	"scripts": {
 		"dev": "node build/scaffolding/node.build.js sync && webpack-dev-server --config build/configs/dev.config.js --mode development --open",
 		"build": "node build/scaffolding/node.build.js sync && webpack --config build/configs/build.config.js --mode production && npm run static",
@@ -74,6 +93,7 @@
 		"eslint-plugin-jsx-a11y": "^6.2.3",
 		"eslint-plugin-react": "^7.19.0",
 		"eslint-plugin-react-hooks": "^2.5.0",
+		"favicons-webpack-plugin": "^3.0.1",
 		"file-loader": "^4.2.0",
 		"fs-extra": "^8.1.0",
 		"html-loader": "^0.5.5",
