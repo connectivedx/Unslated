@@ -7,7 +7,6 @@
 const fs = require('fs-extra');
 const path = require('path');
 const Package = require('../../package.json');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { WebpackHooks } = require('./webpack/webpack.plugins');
 
 // build configuration files

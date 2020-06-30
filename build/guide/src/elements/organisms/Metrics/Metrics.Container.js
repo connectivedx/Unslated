@@ -78,6 +78,12 @@ export const GuideMetrics = (el) => {
     jsMetrics: {
       const: el.querySelector('.const'),
       lets: el.querySelector('.lets'),
+      loops: el.querySelector('.loops'),
+      for: el.querySelector('.for'),
+      forIn: el.querySelector('.forIn'),
+      forOf: el.querySelector('.forOf'),
+      while: el.querySelector('.while'),
+      object: el.querySelector('.object'),
       variables: el.querySelector('.variables'),
       methods: el.querySelector('.methods'),
       expressions: el.querySelector('.expressions'),
@@ -154,6 +160,21 @@ export const GuideMetrics = (el) => {
       compMarginRight: el.querySelector('.comp__margin-right'),
       compMarginBottom: el.querySelector('.comp__margin-bottom'),
       compMarginLeft: el.querySelector('.comp__margin-left')
+    },
+    mediaMetrics: {
+      counts: {
+        all: el.querySelector('.all-media'),
+        jpg: el.querySelector('.jpg'),
+        png: el.querySelector('.png'),
+        gif: el.querySelector('.gif'),
+        svg: el.querySelector('.svg')
+      },
+      sizes: {
+        jpg: el.querySelector('.jpgs'),
+        png: el.querySelector('.pngs'),
+        gif: el.querySelector('.gifs'),
+        svg: el.querySelector('.svgs')
+      }
     }
   };
 
@@ -313,6 +334,38 @@ export const GuideMetrics = (el) => {
     return `<span>${title}</span> <strong>${GuideUtils.bytesToSize(size)}</strong>`;
   };
 
+  // Method to get a collection of all files of a particular media type
+  const getMediaFiles = (files, filters = ['jpg', 'png', 'gif', 'svg']) => {
+    const collection = [];
+
+    Object.keys(files).map((i) => {
+      const file = files[i];
+
+      Object.keys(filters).map((j) => {
+        if (file.name.indexOf(filters[j]) !== -1) {
+          collection.push(file);
+        }
+
+        return false;
+      });
+
+      return false;
+    });
+
+    return collection;
+  };
+
+  // Method to tally up the total file size of one or another collection of media files
+  const getMediaTotal = (files) => {
+    let total = 0;
+    Object.keys(files).map((i) => {
+      total += files[i].size;
+      return false;
+    });
+
+    return `${Math.round(total / 1000)}KB`;
+  };
+
   const init = () => {
     // Install JS Size card
     ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
@@ -338,12 +391,19 @@ export const GuideMetrics = (el) => {
     }
 
     // Install JS Metrics
-    ui.jsMetrics.variables.innerHTML = `${__stats__.js.const + __stats__.js.lets} <sup>/ variables</sup>`;
+    ui.jsMetrics.variables.innerHTML = `${__stats__.js.variables.all} <sup>/ variables</sup>`;
+    ui.jsMetrics.loops.innerHTML = `${__stats__.js.loops.all} <sup>/ loops</sup>`;
     ui.jsMetrics.methods.innerHTML = `${__stats__.js.methods.all} <sup>/ functions</sup>`;
     ui.jsMetrics.expressions.innerHTML = `${__stats__.js.expressions.all} <sup>/ expressions</sup>`;
 
-    ui.jsMetrics.const.innerHTML = `${__stats__.js.const} <sup>/ const</sup>`;
-    ui.jsMetrics.lets.innerHTML = `${__stats__.js.lets} <sup>/ lets</sup>`;
+    ui.jsMetrics.const.innerHTML = `${__stats__.js.variables.const} <sup>/ const</sup>`;
+    ui.jsMetrics.lets.innerHTML = `${__stats__.js.variables.lets} <sup>/ lets</sup>`;
+
+    ui.jsMetrics.for.innerHTML = `${__stats__.js.loops.for} <sup>/ for() loops</sup>`;
+    ui.jsMetrics.forIn.innerHTML = `${__stats__.js.loops.forIn} <sup>/ forIn() loops</sup>`;
+    ui.jsMetrics.forOf.innerHTML = `${__stats__.js.loops.forOf} <sup>/ forOf() loops</sup>`;
+    ui.jsMetrics.while.innerHTML = `${__stats__.js.loops.while} <sup>/ while() loops</sup>`;
+    ui.jsMetrics.object.innerHTML = `${__stats__.js.loops.object} <sup>/ object.key() loops</sup>`;
 
     ui.jsMetrics.functions.innerHTML = `${__stats__.js.methods.functions} <sup>/ Functions()</sup>`;
     ui.jsMetrics.arrows.innerHTML = `${__stats__.js.methods.arrows} <sup>/ (Arrows) =></sup>`;
@@ -430,6 +490,18 @@ export const GuideMetrics = (el) => {
     ui.cssMetrics.compMarginRight.innerHTML = `Margin-right <br/><sup>${__stats__.css.comparison.margin.right.unique} Unique ${__stats__.css.comparison.margin.right.repeated} Repeated</sup>`;
     ui.cssMetrics.compMarginBottom.innerHTML = `Margin-bottom <br /><sup>${__stats__.css.comparison.margin.bottom.unique} Unique ${__stats__.css.comparison.margin.bottom.repeated} Repeated</sup>`;
     ui.cssMetrics.compMarginLeft.innerHTML = `Margin-left <br /><sup>${__stats__.css.comparison.margin.left.unique} Unique ${__stats__.css.comparison.margin.left.repeated} Repeated</sup>`;
+
+    // Install media metrics
+    ui.mediaMetrics.counts.all.innerHTML = `Total / <sup>${getMediaFiles(__stats__.files).length}</sup>`;
+    ui.mediaMetrics.counts.jpg.innerHTML = `JPG / <sup>${getMediaFiles(__stats__.files, ['jpg']).length}</sup>`;
+    ui.mediaMetrics.counts.png.innerHTML = `PNG / <sup>${getMediaFiles(__stats__.files, ['png']).length}</sup>`;
+    ui.mediaMetrics.counts.gif.innerHTML = `GIF / <sup>${getMediaFiles(__stats__.files, ['gif']).length}</sup>`;
+    ui.mediaMetrics.counts.svg.innerHTML = `SVG / <sup>${getMediaFiles(__stats__.files, ['svg']).length}</sup>`;
+
+    ui.mediaMetrics.sizes.jpg.innerHTML = `JPGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['jpg']))}</sup>`;
+    ui.mediaMetrics.sizes.png.innerHTML = `PNGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['png']))}</sup>`;
+    ui.mediaMetrics.sizes.gif.innerHTML = `GIFS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['gif']))}</sup>`;
+    ui.mediaMetrics.sizes.svg.innerHTML = `SVGS / <sup>${getMediaTotal(getMediaFiles(__stats__.files, ['svg']))}</sup>`;
   };
 
   init();

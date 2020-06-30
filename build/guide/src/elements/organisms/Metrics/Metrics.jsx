@@ -46,12 +46,22 @@ export const Metrics = () => {
                   <div className="mini-numbers variables" />
                   <div className="mini-numbers methods" />
                   <div className="mini-numbers expressions" />
+                  <div className="mini-numbers loops" />
                 </div>
 
                 <Heading level="h2">Variable Metrics</Heading>
                 <div className="flex flex--wrap">
                   <div className="mini-numbers const" />
                   <div className="mini-numbers lets" />
+                </div>
+
+                <Heading level="h2">Loop Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers for" />
+                  <div className="mini-numbers forIn" />
+                  <div className="mini-numbers forOf" />
+                  <div className="mini-numbers while" />
+                  <div className="mini-numbers object" />
                 </div>
 
                 <Heading level="h2">Method Metrics</Heading>
@@ -186,11 +196,27 @@ export const Metrics = () => {
           {/* MEDIA */}
           <div className="tabs__section">
             <Card>
+              <canvas id="media-chart" />
               <Card__body className="atomic-media" />
             </Card>
             <Card className="chart-container">
               <Card__body>
-                <canvas id="media-chart" />
+                <Heading level="h2">General Media Type Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers all-media" />
+                  <div className="mini-numbers jpg" />
+                  <div className="mini-numbers png" />
+                  <div className="mini-numbers gif" />
+                  <div className="mini-numbers svg" />
+                </div>
+
+                <Heading level="h2">Media Size Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers jpgs" />
+                  <div className="mini-numbers pngs" />
+                  <div className="mini-numbers gifs" />
+                  <div className="mini-numbers svgs" />
+                </div>
               </Card__body>
             </Card>
           </div>
