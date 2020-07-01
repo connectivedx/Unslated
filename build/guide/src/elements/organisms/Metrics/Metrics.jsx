@@ -22,6 +22,9 @@ export const Metrics = () => {
       <Tabs className="card__deck" defaultTab="0" align="top" variant="metrics" justify="center">
         <Tabs__triggers>
           <Card className="tabs__trigger fall-flip tabs-state--open">
+            <Card__body className="jsx-size" tagName="h2" />
+          </Card>
+          <Card className="tabs__trigger fall-flip tabs-state--open">
             <Card__body className="js-size" tagName="h2" />
           </Card>
           <Card className="tabs__trigger fall-flip">
@@ -33,6 +36,57 @@ export const Metrics = () => {
         </Tabs__triggers>
 
         <Tabs__targets>
+          {/* JSX React */}
+          <div className="tabs__section">
+            <Card>
+              <canvas id="jsx-chart" />
+              <Card__body className="atomic-jsx" />
+            </Card>
+            <Card className="chart-container">
+              <Card__body>
+                <Heading level="h2">General JSX Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers roots" />
+                  <div className="mini-numbers subs" />
+                </div>
+
+                <Heading level="h2">Prop Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers props" />
+                  <div className="mini-numbers strings" />
+                  <div className="mini-numbers elements" />
+                  <div className="mini-numbers funcs" />
+                  <div className="mini-numbers nodes" />
+                  <div className="mini-numbers oneOfs" />
+                  <div className="mini-numbers oneOfTypes" />
+                  <div className="mini-numbers isReuireds" />
+                </div>
+
+                <Heading level="h2">Usage Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers used" />
+                  <div className="mini-numbers used-roots" />
+                  <div className="mini-numbers used-subs" />
+                  <div className="mini-numbers used-atoms" />
+                  <div className="mini-numbers used-molecules" />
+                  <div className="mini-numbers used-organisms" />
+                  <div className="mini-numbers used-templates" />
+                </div>
+
+                <Heading level="h2">Example Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers examples" />
+                  <div className="mini-numbers example-exported" />
+                  <div className="mini-numbers example-reused" />
+                  <div className="mini-numbers example-atoms" />
+                  <div className="mini-numbers example-molecules" />
+                  <div className="mini-numbers example-organisms" />
+                  <div className="mini-numbers example-templates" />
+                </div>
+              </Card__body>
+            </Card>
+          </div>
+
           {/* JAVASCRIPT */}
           <div className="tabs__section">
             <Card>

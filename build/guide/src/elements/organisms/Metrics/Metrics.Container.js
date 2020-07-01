@@ -53,11 +53,13 @@ export const GuideMetrics = (el) => {
     JSAssetList: el.querySelector('.guide__welcome__assets-list.js'),
     CSSAssetList: el.querySelector('.guide__welcome__assets-list.css'),
     MediaAssetList: el.querySelector('.guide__welcome__assets-list.media'),
+    JSXAtomicList: el.querySelector('.atomic-jsx'),
     JSAtomicList: el.querySelector('.atomic-js'),
     CSSAtomicList: el.querySelector('.atomic-css'),
     MediaAtomicList: el.querySelector('.atomic-media'),
     cards: {
       all: el.querySelectorAll('.tabs__trigger'),
+      jsxSize: el.querySelector('.jsx-size'),
       jsSize: el.querySelector('.js-size'),
       cssSize: el.querySelector('.css-size'),
       mediaSize: el.querySelector('.media-size'),
@@ -68,12 +70,39 @@ export const GuideMetrics = (el) => {
       totalErrors: el.querySelector('.total-errors')
     },
     charts: {
+      JSXChart: el.querySelector('#jsx-chart'),
       JSChart: el.querySelector('#js-chart'),
       CSSChart: el.querySelector('#css-chart'),
       MediaChart: el.querySelector('#media-chart'),
       TotalJSXChart: el.querySelector('#total-jsx'),
       TotalCSSChart: el.querySelector('#total-css'),
       TotalMediaChart: el.querySelector('#total-media')
+    },
+    jsxMetrics: {
+      roots: el.querySelector('.roots'),
+      subs: el.querySelector('.subs'),
+      props: el.querySelector('.props'),
+      strings: el.querySelector('.strings'),
+      elements: el.querySelector('.elements'),
+      funcs: el.querySelector('.funcs'),
+      nodes: el.querySelector('.nodes'),
+      oneOfs: el.querySelector('.oneOfs'),
+      oneOfTypes: el.querySelector('.oneOfTypes'),
+      isReuireds: el.querySelector('.isReuireds'),
+      used: el.querySelector('.used'),
+      usedRoots: el.querySelector('.used-roots'),
+      usedSubs: el.querySelector('.used-subs'),
+      usedAtoms: el.querySelector('.used-atoms'),
+      usedMolecules: el.querySelector('.used-molecules'),
+      usedOrganisms: el.querySelector('.used-organisms'),
+      usedTemplates: el.querySelector('.used-templates'),
+      examples: el.querySelector('.examples'),
+      exampleExports: el.querySelector('.example-exported'),
+      exampleReused: el.querySelector('.example-reused'),
+      exampleAtoms: el.querySelector('.example-atoms'),
+      exampleMolecules: el.querySelector('.example-molecules'),
+      exampleOrganisms: el.querySelector('.example-organisms'),
+      exampleTemplates: el.querySelector('.example-templates')
     },
     jsMetrics: {
       const: el.querySelector('.const'),
@@ -366,7 +395,47 @@ export const GuideMetrics = (el) => {
     return `${Math.round(total / 1000)}KB`;
   };
 
+  const getRootTagTotal = (data) => Object.keys(data).map(
+    (i) => Object.keys(data[i].Tags).map(
+      (j) => ((i === j) ? 1 : 0)
+    ).reduce((a, b) => a + b, 0)
+  ).reduce((a, b) => a + b, 0);
+
+  const getSubTagTotal = (data) => Object.keys(data).map(
+    (i) => Object.keys(data[i].Tags).map(
+      (j) => ((i !== j) ? 1 : 0)
+    ).reduce((a, b) => a + b, 0)
+  ).reduce((a, b) => a + b, 0);
+
+  const getPropsTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => Object.keys(data[i].Tags).map(
+      (j) => (
+        (filter)
+          ? Object.keys(data[i].Tags[j].props).map(
+            (k) => (
+              (data[i].Tags[j].props[k].type === filter) ? 1 : 0
+            )
+          ).reduce((a, b) => a + b, 0)
+          : data[i].Tags[j].props.length)
+    ).reduce((a, b) => a + b, 0)
+  ).reduce((a, b) => a + b, 0);
+
+  const getUsedTagTotal = (data, filter = false, filterType = false) => Object.keys(data).map(
+    (i) => (
+      (filter)
+        ? Object.keys(data[i].Using).map((j) => (
+          (data[i].Using[j][filterType] === filter) ? 1 : 0
+        )).reduce((a, b) => a + b, 0)
+        : Object.keys(data[i].Using).length
+    )
+  ).reduce((a, b) => a + b, 0);
+
   const init = () => {
+    // Install JSX Size card
+    ui.cards.jsxSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.jsx$']), 'JSX Size:');
+    createAtomicList(ui.JSXAtomicList, getFilteredData(__stats__, ['/*.jsx$']));
+    renderDoughnutChart(ui.charts.JSXChart, getFilteredData(__stats__, ['/*.jsx$']), 'Project JSX (files and atomic levels)');
+
     // Install JS Size card
     ui.cards.jsSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.js$']), 'JS Size:');
     createAtomicList(ui.JSAtomicList, getFilteredData(__stats__, ['/*.js$']));
@@ -382,13 +451,35 @@ export const GuideMetrics = (el) => {
     createAtomicList(ui.MediaAtomicList, getFilteredData(__stats__, ['/*.svg', '/*.jpg', '/*.png']));
     renderDoughnutChart(ui.charts.MediaChart, getFilteredData(__stats__, ['/*.svg', '/*.jpg', '/*.png']), 'Project Media (files and atomic levels)');
 
-    if (process.env.NODE_ENV === 'development') {
-      // Install Total Builds card
-      // ui.cards.totalBuilds.innerHTML = `<span>Build Counts / Time</span> <strong>${__stats__.builds.count} / <small>${__stats__.builds.time}ms</small></strong>`;
+    // Install JS Metrics
+    ui.jsxMetrics.roots.innerHTML = `${getRootTagTotal(__jsxDocs__)} <sup>/ Root tags</sup>`; // eslint-disable-line
+    ui.jsxMetrics.subs.innerHTML = `${getSubTagTotal(__jsxDocs__)} <sup>/ Sub tags</sup>`; // eslint-disable-line
 
-      // Install Total Errors card
-      // ui.cards.totalErrors.innerHTML = `<span>Build Fails</span> <strong>${__stats__.builds.errors}</strong>`;
-    }
+    ui.jsxMetrics.props.innerHTML = `${getPropsTotal(__jsxDocs__)} <sup>/ total props</sup>`; // eslint-disable-line
+    ui.jsxMetrics.strings.innerHTML = `${getPropsTotal(__jsxDocs__, 'string')} <sup>/ propTypes.strings</sup>`; // eslint-disable-line
+    ui.jsxMetrics.elements.innerHTML = `${getPropsTotal(__jsxDocs__, 'element')} <sup>/ propTypes.elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.funcs.innerHTML = `${getPropsTotal(__jsxDocs__, 'function')} <sup>/ propTypes.functions</sup>`; // eslint-disable-line
+    ui.jsxMetrics.nodes.innerHTML = `${getPropsTotal(__jsxDocs__, 'node')} <sup>/ propTypes.nodes</sup>`; // eslint-disable-line
+    ui.jsxMetrics.oneOfs.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOf')} <sup>/ propTypes.oneOfs</sup>`; // eslint-disable-line
+    ui.jsxMetrics.oneOfTypes.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOfType')} <sup>/ propTypes.oneOfTypes</sup>`; // eslint-disable-line
+    ui.jsxMetrics.isReuireds.innerHTML = `${getPropsTotal(__jsxDocs__, 'isRequired')} <sup>/ propTypes.isRequired</sup>`; // eslint-disable-line
+
+    ui.jsxMetrics.used.innerHTML = `${getUsedTagTotal(__jsxDocs__)} <sup>/ used elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedRoots.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'root', 'tagType')} <sup>/ used main elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedSubs.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'sub', 'tagType')} <sup>/ used sub elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedAtoms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'atoms', 'tagLevel')} <sup>/ used atoms</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedMolecules.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'molecules', 'tagLevel')} <sup>/ used molecules</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedOrganisms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'organisms', 'tagLevel')} <sup>/ used organisms</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedTemplates.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'templates', 'tagLevel')} <sup>/ used templates</sup>`; // eslint-disable-line
+
+    ui.jsxMetrics.examples.innerHTML = `${__stats__.jsx.examples.all} <sup>/ examples</sup>`;
+    ui.jsxMetrics.exampleExports.innerHTML = `${__stats__.jsx.examples.exported} <sup>/ exported examples</sup>`;
+    ui.jsxMetrics.exampleReused.innerHTML = `${__stats__.jsx.examples.reused} <sup>/ reused examples</sup>`;
+
+    ui.jsxMetrics.exampleAtoms.innerHTML = `${__stats__.jsx.examples.atoms} <sup>/ atom examples</sup>`;
+    ui.jsxMetrics.exampleMolecules.innerHTML = `${__stats__.jsx.examples.molecules} <sup>/ molecule examples</sup>`;
+    ui.jsxMetrics.exampleOrganisms.innerHTML = `${__stats__.jsx.examples.organisms} <sup>/ organism examples</sup>`;
+    ui.jsxMetrics.exampleTemplates.innerHTML = `${__stats__.jsx.examples.templates} <sup>/ template examples</sup>`;
 
     // Install JS Metrics
     ui.jsMetrics.variables.innerHTML = `${__stats__.js.variables.all} <sup>/ variables</sup>`;

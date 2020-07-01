@@ -5,7 +5,7 @@
 const path = require('path');
 const Package = require('../../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { ESDocs, JSXDocs, ESMetrics, Bundle } = require('./js.config.plugins.js');
+const { ESDocs, JSXDocs, ESMetrics, JSXMetrics, Bundle } = require('./js.config.plugins.js');
 
 const babelPlugins = [
   '@babel/plugin-proposal-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
@@ -22,6 +22,7 @@ const babelOptions = {
 // all js(x) files get ran through these build processes
 module.exports = {
 	config: [{
+    // Full transpile of JS and JSX files for rendering in browser
     'test': /\.(jsx|js)$/,
     'exclude': [path.resolve(__dirname, '../../../node_modules')],
     'use': [
@@ -35,12 +36,14 @@ module.exports = {
       }
     ]
   }, {
+    // Pre transpile entry for JS Docs and Metrics building
     'test': /\.js$/,
     'exclude': [path.resolve(__dirname, '../../../node_modules')],
     'use': [
       {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
         'options': {
+          'compact': false,
           'plugins': [
             ESMetrics,
             ESDocs
@@ -52,14 +55,17 @@ module.exports = {
       }
     ]
   }, {
+    // Pre transpile entry for JSX Docs and Metrics building
     'test': /\.jsx$/,
     'exclude': [path.resolve(__dirname, '../../../node_modules')],
     'use': [
       {
         'loader': 'babel-loader?cacheDirectory', // (see: https://www.npmjs.com/package/babel-loader)
         'options': {
+          'compact': false,
           'presets': ['@babel/preset-react'],
           'plugins': [
+            JSXMetrics,
             JSXDocs,
             ...babelPlugins
           ]

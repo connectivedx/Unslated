@@ -19,7 +19,9 @@ export class Button extends React.Component {
     /** If used, button becomes an anchor tag with button styles */
     href: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node
+    children: PropTypes.node,
+    /** Testing is all */
+    newThing: PropTypes.string
   };
 
   static defaultProps = {

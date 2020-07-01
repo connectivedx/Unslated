@@ -6,8 +6,11 @@
 const fs = require('fs');
 const path = require('path');
 const { declare } = require('@babel/helper-plugin-utils');
+const types = require('@babel/types');
+const traverse = require('@babel/traverse').default;
 
 const getElementName = (pathing) => path.basename(path.resolve(__dirname, pathing)).split('.')[0];
+
 
 // Unslated's ECMA Script comment based docs
 const ESDocs = declare((api, opts) => {
@@ -33,25 +36,13 @@ const ESDocs = declare((api, opts) => {
     return comment;
   };
 
-  const getMethodParams = (containers) => {
-    let params = [];
-    Object.keys(containers.init.params).map((j) => {
-      params.push(containers.init.params[j].name);
-    });
+  const getMethodParams = (containers) => (containers)
+    ? [...Object.keys(containers.init.params).map((i) => containers.init.params[i].name)]
+    : [];
 
-    return params;
-  };
-
-  const getEventParams = (params) => {
-    let collection = [];
-    if (params) {
-      Object.keys(params).map((j) => {
-        collection.push(params[j].name);
-      });
-    }
-
-    return collection;
-  };
+  const getEventParams = (params) => (params)
+    ? [...Object.keys(params).map((i) => params[i].name)]
+    : [];
 
   const getSelectorTemplateLiteral = (expressions, quasis) => {
     let selector = '';
@@ -161,10 +152,6 @@ const ESDocs = declare((api, opts) => {
                 element = endpoint.name;
               }
 
-              if (!element) {
-                console.log(element);
-              }
-
               process.esDocs[elementName].events.push({
                 file: file.filename,
                 line: container.loc.start.line,            // line in document this is expressed
@@ -193,7 +180,6 @@ const ESDocs = declare((api, opts) => {
               }
 
               if (args[0].type === 'TemplateLiteral') {
-                console.log();
                 process.esDocs[elementName].selectors.push({
                   file: file.filename,
                   line: container.loc.start.line,            // line in document this is expressed
@@ -288,14 +274,31 @@ const JSXDocs = declare((api, opts) => {
     return collection;
   };
 
+  const getAtomicLevel = (path) => {
+    if (path.indexOf('atoms') !== -1) {
+      return 'atoms';
+    }
+    if (path.indexOf('modifiers') !== -1) {
+      return 'modifiers';
+    }
+    if (path.indexOf('molecules') !== -1) {
+      return 'molecules';
+    }
+    if (path.indexOf('organisms') !== -1) {
+      return 'organisms';
+    }
+    if (path.indexOf('templates') !== -1) {
+      return 'templates';
+    }
+
+    return false;
+  };
+
   return {
     name: 'JSXDocs',
+    pre(state) {},
     visitor: {
-      Program(ast, file) {
-        if (file.filename.indexOf('.jsx') !== -1 && file.filename.indexOf('.example.jsx') === -1) {
-
-        }
-      },
+      Program(ast, file) {},
       Class(ast, file) {
         if (ast.node.superClass.object.name === 'React') {
           const elementName = ast.node.id.name;
@@ -303,15 +306,107 @@ const JSXDocs = declare((api, opts) => {
 
           // If you build it, they will come.
           if (!process.jsxDocs[getElementName(file.filename)]) {
-            process.jsxDocs[getElementName(file.filename)] = {};
+            process.jsxDocs[getElementName(file.filename)] = {
+              Level: undefined,
+              Tags: {},
+              Using: {}
+            };
           }
 
-          process.jsxDocs[getElementName(file.filename)][elementName] = {
+          process.jsxDocs[getElementName(file.filename)].Level = getAtomicLevel(file.filename);
+          process.jsxDocs[getElementName(file.filename)].Tags[elementName] = {
             description: getComment(ast.container),
             props: getPropTypes(classProperties, elementName)
           };
         }
       }
+    },
+    post(state) {
+      traverse(state.ast, {
+        ImportDeclaration: (ast) => {
+          const value = ast.node.source.value.toLowerCase();
+          const levels = ['atoms', 'molecules', 'organisms', 'templates'];
+
+          if (
+            value.indexOf('.css') === -1
+            && value.indexOf('.js') === -1
+            && value.indexOf('.container') === -1
+            && value.indexOf('.example') === -1
+          ) {
+            // Determins used element types and levels (root or sub and atomic levels)
+            Object.keys(ast.container).map((i) => {
+              const node = ast.container[i];
+              if (!node.source) { return false; }
+
+              const sourceFilename = path.basename(ast.hub.file.opts.filename).split('.')[0];
+              const sourceValue = node.source.value;
+
+              if (sourceFilename.indexOf('@guide') !== -1) { return false; }
+              if (ast.hub.file.opts.filename.indexOf('guide') !== -1) { return false; }
+
+              if (
+                sourceValue &&
+                sourceValue.indexOf('@guide') === -1 &&
+                sourceValue.indexOf('@vars') === -1 &&
+                sourceValue.indexOf('@src') === -1 &&
+                sourceValue.indexOf('.json') === -1 &&
+                sourceValue.indexOf('.jpg') === -1 &&
+                sourceValue.indexOf('.svg') === -1 &&
+                sourceValue.indexOf('.png') === -1 &&
+                sourceValue.indexOf('.gif') === -1 &&
+                sourceValue.indexOf('.ico') === -1 &&
+                sourceValue.indexOf('.woff') === -1 &&
+                sourceValue.indexOf('.woff2') === -1 &&
+                sourceValue.indexOf('.ttf') === -1 &&
+                sourceValue.indexOf('.eot') === -1 &&
+                sourceValue.indexOf('!') === -1) {
+                const importedFilename = path.basename(sourceValue).split('.')[0];
+
+                Object.keys(node.specifiers).map((j) => {
+                  if (!process.jsxDocs[sourceFilename]) { return false; }
+                  if (sourceFilename === importedFilename) { return false; }
+
+                  if (node.specifiers[j].type === 'ImportDefaultSpecifier') {
+                    // Direct import of element
+                    const importedElementName = node.specifiers[j].local.name;
+                    // if (process.jsxDocs[sourceFilename].uses[importedElementName]) { return false; }
+                    if (importedElementName === importedFilename ) {
+                      process.jsxDocs[sourceFilename].Using[importedElementName] = {
+                        tagPath: sourceValue,
+                        tagType: 'root',
+                        tagLevel: getAtomicLevel(sourceValue)
+                      };
+                    }
+                  }
+
+                  if (node.specifiers[j].type === 'ImportSpecifier') {
+                    // Mupltiple import of element and sub elements
+                    const importedElementName = node.specifiers[j].imported.name;
+                    // if (process.jsxDocs[sourceFilename].uses[importedElementName]) { return false; }
+                    if (importedElementName === importedFilename) {
+                      process.jsxDocs[sourceFilename].Using[importedElementName] = {
+                        tagPath: sourceValue,
+                        tagType: 'root',
+                        tagLevel: getAtomicLevel(sourceValue)
+                      };
+                    } else {
+                      process.jsxDocs[sourceFilename].Using[importedElementName] = {
+                        tagPath: sourceValue,
+                        tagType: 'sub',
+                        tagLevel: getAtomicLevel(sourceValue)
+                      };
+                    }
+                  }
+
+                  return false;
+                });
+              }
+
+              return false;
+            });
+          }
+        }
+      })
     }
   };
 });
@@ -455,6 +550,252 @@ const ESMetrics = declare((api, opts) => {
   };
 });
 
+const JSXMetrics = declare((api, opts) => {
+  process.jsxMetricsReset = () => {
+    return {
+      elements: {
+        all: 0,
+        root: 0,
+        sub: 0
+      },
+      props: {
+        all: 0,
+        string: 0,
+        element: 0,
+        func: 0,
+        node: 0,
+        oneOf: 0,
+        oneOfType: 0,
+        isRequired: 0
+      },
+      usage: {
+        all: 0,       // total elements used within the project
+        sub: 0,       // total sub elements being used
+        root: 0,      // total main elements being used
+        atoms: 0,     // total atom elements being used
+        molecules: 0, // total molecule elements being used
+        organisms: 0, // total organism elements being used
+        templates: 0  // total template elements being used
+      },
+      examples: {
+        all: 0,       // total examples within project
+        exported: 0,  // total examples being exported to IO
+        reused: 0,    // total examples being ran through Utils.getExample();
+        atoms: 0,     // total atom examples
+        molecules: 0, // total molecule examples
+        organisms: 0, // total organism examples
+        templates: 0  // total template examples
+      }
+    }
+  };
+
+  process.jsxMetrics = process.jsxMetricsReset();
+
+  // https://babeljs.io/docs/en/6.26.3/babel-types for all available babel AST types
+  const getComment = (prop) => (prop.leadingComments) ? Object.keys(prop.leadingComments).map((k) => prop.leadingComments[k].value).join(' ') : '';
+
+  const getPropTypes = (classProperties, elementName) => {
+    const collection = [];
+
+    Object.keys(classProperties).map((i) => {
+      const classPropertyName = classProperties[i].key.name;
+      if (classPropertyName === 'propTypes') {
+        const propTypes = classProperties[i].value.properties;
+        Object.keys(propTypes).map((j) => {
+          const prop = propTypes[j];
+          const propName = prop.key.name;
+
+
+          if (prop.value.object) {
+            const { object } = prop.value;
+            const { property } = prop.value;
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${(object.name) ? object.name : `PropTypes.${object.property.name}`}.${property.name}`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            })
+          }
+
+          if (prop.value.callee) {
+            const { object } = prop.value.callee;
+            const { property } = prop.value.callee;
+            const { arguments } = prop.value;
+
+            collection.push({
+              name: propName,
+              type: (object.property) ? object.property.name : property.name,
+              value: `${object.name}.${property.name}([${
+                Object.keys(arguments).map((k) => {
+                  const { elements } = arguments[k];
+                  return Object.keys(elements).map((l) => {
+                    return (elements[l].value) ? `'${elements[l].value}'` : `${elements[l].object.name}.${elements[l].property.name}`;
+                  });
+                }).join(', ')
+              }])`,
+              required: (object.property) ? property.name : false,
+              description: getComment(prop)
+            });
+          }
+        });
+      }
+    });
+
+    return collection;
+  };
+
+  return {
+    name: 'JSXMetrics',
+    visitor: {
+      Program(ast, file) {
+        this.cache++;
+      },
+      Class(ast, file) {
+        if (ast.node.superClass.object.name === 'React') {
+          const fileName = getElementName(file.filename);
+          const elementName = ast.node.id.name;
+          const classProperties = ast.node.body.body;
+          const props = getPropTypes(classProperties, elementName);
+
+          process.jsxMetrics.elements.all++;
+
+          if (fileName === elementName) {
+            process.jsxMetrics.elements.root++;
+          } else {
+            process.jsxMetrics.elements.sub++;
+          }
+
+          process.jsxMetrics.props.all += props.length;
+
+          Object.keys(props).map((i) => {
+            if (props[i].type === 'string') {
+              process.jsxMetrics.props.string++;
+            }
+            if (props[i].type === 'element') {
+              process.jsxMetrics.props.element++;
+            }
+            if (props[i].type === 'function') {
+              process.jsxMetrics.props.func++;
+            }
+            if (props[i].type === 'node') {
+              process.jsxMetrics.props.node++;
+            }
+            if (props[i].type === 'oneOf') {
+              process.jsxMetrics.props.oneOf++;
+            }
+            if (props[i].type === 'oneOfType') {
+              process.jsxMetrics.props.oneOfType++;
+            }
+            if (props[i].type === 'isRequired') {
+              process.jsxMetrics.props.isRequired++;
+            }
+          });
+
+          /*// If you build it, they will come.
+          if (!process.jsxDocs[getElementName(file.filename)]) {
+            process.jsxDocs[getElementName(file.filename)] = {};
+          }
+
+          process.jsxDocs[getElementName(file.filename)][elementName] = {
+            description: getComment(ast.container),
+            props: getPropTypes(classProperties, elementName)
+          };*/
+        }
+      },
+      Declaration(ast, file) {
+        if (types.isImportDeclaration(ast)) {
+          const value = ast.node.source.value.toLowerCase();
+          if (
+            value.indexOf('.css') === -1
+            && value.indexOf('.js') === -1
+            && value.indexOf('.container') === -1
+            && value.indexOf('.example') === -1
+          ) {
+            // Determins used element types and levels (root or sub and atomic levels)
+            Object.keys(ast.container).map((i) => {
+              const node = ast.container[i];
+              const sourceFilename = path.basename(ast.hub.file.opts.filename).split('.')[0];
+              if (ast.hub.file.opts.filename.indexOf('guide') !== -1) { return false; }
+
+              if (node.type === 'ImportDeclaration' && sourceFilename.indexOf('@guide') === -1) {
+                if (node.source) {
+                  const sourceValue = node.source.value;
+                  if (
+                    sourceValue &&
+                    sourceValue.indexOf('@guide') === -1 &&
+                    sourceValue.indexOf('@vars') === -1 &&
+                    sourceValue.indexOf('@src') === -1 &&
+                    sourceValue.indexOf('.json') === -1 &&
+                    sourceValue.indexOf('.jpg') === -1 &&
+                    sourceValue.indexOf('.svg') === -1 &&
+                    sourceValue.indexOf('.png') === -1 &&
+                    sourceValue.indexOf('.gif') === -1 &&
+                    sourceValue.indexOf('.ico') === -1 &&
+                    sourceValue.indexOf('.woff') === -1 &&
+                    sourceValue.indexOf('.woff2') === -1 &&
+                    sourceValue.indexOf('.ttf') === -1 &&
+                    sourceValue.indexOf('.eot') === -1 &&
+                    sourceValue.indexOf('!') === -1) {
+                    const importedFilename = path.basename(sourceValue).split('.')[0];
+
+                    Object.keys(node.specifiers).map((j) => {
+                      if (node.specifiers[j].type === 'ImportDefaultSpecifier') {
+                        // Direct import of element
+                        const importedElementName = node.specifiers[j].local.name;
+                        if (importedElementName === importedFilename) {
+                          process.jsxMetrics.usage.root++;
+                        }
+                      }
+
+                      if (node.specifiers[j].type === 'ImportSpecifier') {
+                        // Mupltiple import of element and sub elements
+                        const importedElementName = node.specifiers[j].imported.name;
+                        if (importedElementName === importedFilename) {
+                          process.jsxMetrics.usage.root++;
+                        } else {
+                          process.jsxMetrics.usage.sub++;
+                        }
+                      }
+
+                      if (['ImportDefaultSpecifier', 'ImportSpecifier'].indexOf(node.specifiers[j].type) !== -1) {
+                        process.jsxMetrics.usage.all++;
+
+                        if (value.indexOf('atoms') !== -1) {
+                          process.jsxMetrics.usage.atoms++;
+                        }
+
+                        if (value.indexOf('molecules') !== -1) {
+                          process.jsxMetrics.usage.molecules++;
+                        }
+
+                        if (value.indexOf('organisms') !== -1) {
+                          process.jsxMetrics.usage.organisms++;
+                        }
+
+                        if (value.indexOf('templates') !== -1) {
+                          process.jsxMetrics.usage.templates++;
+                        }
+                      }
+                    });
+                  }
+                }
+              }
+            });
+          }
+        }
+      },
+      Expression(ast, file) {
+        if (ast.node.name === 'Utils') {
+          if (ast.container.property.name.indexOf('getExample') !== -1) {
+            process.jsxMetrics.examples.reused++;
+          }
+        }
+      }
+    }
+  };
+});
+
 /*
   Helper plugin to compile our project metric and docs into guide.js
 */
@@ -466,8 +807,8 @@ class Bundle {
       files: []
     };
 
-    this.excludes = ['node_modules', '!', 'jsx', 'guide'];
-    this.includes = ['js', 'css', 'svg', 'jpg', 'png', 'gif', 'atoms', 'molecules', 'modifiers', 'organisms'];
+    this.excludes = ['node_modules', 'example.jsx', 'test.jsx', '!', 'guide'];
+    this.includes = ['js', 'jsx', 'css', 'svg', 'jpg', 'png', 'gif', 'atoms', 'molecules', 'modifiers', 'organisms'];
   }
 
   // Used to prevent unwanted file types into our file list buildup
@@ -528,11 +869,13 @@ class Bundle {
       Object.keys(compilation.assets).map((i) => {
         if (i.indexOf('guide.js') !== -1) {
           this.stats.js = process.jsMetrics;
+          this.stats.jsx = process.jsxMetrics;
           this.stats.css = process.cssMetrics;
+
           const source = `
             var __stats__ = ${JSON.stringify(this.stats)};
-            var __jsxDocs__ = ${JSON.stringify(process.jsxDocs)};
             var __esDocs__ = ${JSON.stringify(process.esDocs)};
+            var __jsxDocs__ = ${JSON.stringify(process.jsxDocs)};
             \n ${compilation.assets[i].source()};
           `;
 
@@ -547,6 +890,7 @@ class Bundle {
 
           // The great memory leak prevention reset (DO NOT REMOVE!)
           process.jsMetrics = process.jsMetricsReset();
+          process.jsxMetrics = process.jsxMetricsReset();
           process.cssMetrics = process.cssMetricsReset();
         }
       });
@@ -558,5 +902,6 @@ module.exports = {
   JSXDocs,
   ESDocs,
   ESMetrics,
+  JSXMetrics,
   Bundle
 };
