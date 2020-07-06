@@ -1,5 +1,5 @@
 import Heading from '@guideAtoms/Heading/Heading';
-import Metrics from '@guideOrganisms/metrics/Metrics';
+import Metrics from '@guideOrganisms/Metrics/Metrics';
 import Rhythm from '@guideAtoms/Rhythm/Rhythm';
 
 const page = () => (

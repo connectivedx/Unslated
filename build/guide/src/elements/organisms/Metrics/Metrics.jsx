@@ -196,11 +196,27 @@ export const Metrics = () => {
           {/* MEDIA */}
           <div className="tabs__section">
             <Card>
+              <canvas id="media-chart" />
               <Card__body className="atomic-media" />
             </Card>
             <Card className="chart-container">
               <Card__body>
-                <canvas id="media-chart" />
+                <Heading level="h2">General Media Type Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers all-media" />
+                  <div className="mini-numbers jpg" />
+                  <div className="mini-numbers png" />
+                  <div className="mini-numbers gif" />
+                  <div className="mini-numbers svg" />
+                </div>
+
+                <Heading level="h2">Media Size Metrics</Heading>
+                <div className="flex flex--wrap">
+                  <div className="mini-numbers jpgs" />
+                  <div className="mini-numbers pngs" />
+                  <div className="mini-numbers gifs" />
+                  <div className="mini-numbers svgs" />
+                </div>
               </Card__body>
             </Card>
           </div>

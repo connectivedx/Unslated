@@ -1,6 +1,5 @@
 /**
-  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.<br/>
-  <strong>Mobile friendly:</strong> Because tab systems are simply stacked elements, all tabs are mobile friendly by transforming into stacked accordion experince.
+  Tabs are perfect for single page web applications, or for web pages capable of displaying different subjects.
 */
 
 export class Tabs extends React.Component {
@@ -17,10 +16,10 @@ export class Tabs extends React.Component {
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
     children: PropTypes.node,
-    /** Alignment of targets within tabs system (top, bottom, left, right). */
-    align: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-    /** Justify targets within tabs system. center only works for systems with align set to top or bottom. */
-    justify: PropTypes.oneOf(['top', 'bottom', 'left', 'right', 'center']),
+    /** Alignment of targets. */
+    align: PropTypes.oneOf(['top', 'bottom', 'left', 'right', 'center']),
+    /** Justify targets. */
+    justify: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
     /** Default tab index (string) which should be open at page load. Set to {false} to keep tabs closed at page load. */
     defaultTab: PropTypes.oneOfType([
       PropTypes.string,
@@ -31,8 +30,8 @@ export class Tabs extends React.Component {
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    align: 'top',
-    justify: 'left',
+    align: 'left',
+    justify: 'top',
     defaultTab: '1'
   };
 
@@ -54,10 +53,15 @@ export class Tabs extends React.Component {
     } = this.props;
 
     const classStack = Utils.createClassStack([
-      'tabs',
+      'tabs flex--large',
+      justify === 'top' && 'flex--column',
+      justify === 'bottom' && 'flex--column-reverse',
+      justify === 'left' && 'flex--row',
+      justify === 'right' && 'flex--row-reverse',
+      (align === 'left' || align === 'top') && 'flex--align-items-start',
+      (align === 'right' || align === 'bottom') && 'flex--align-items-end',
+      (align !== 'left' && align !== 'right') && `flex--align-items-${align}`,
       `tabs--${variant}`,
-      `tabs-align--${align}`,
-      `tabs-justify--${justify}`,
       className
     ]);
 
@@ -73,6 +77,10 @@ export class Tabs extends React.Component {
   }
 }
 
+
+/*
+  Triggers are the elements which users click or touch to visually revel a content target.
+*/
 export class Tabs__triggers extends React.Component {
   static propTypes = {
     /** Tag overload */
@@ -92,7 +100,6 @@ export class Tabs__triggers extends React.Component {
     variant: 'default'
   };
 
-
   render = () => {
     const {
       tagName: Tag,
@@ -104,7 +111,10 @@ export class Tabs__triggers extends React.Component {
 
     children = Object.keys(children).map((i) => {
       children[i].props['data-tabs-trigger'] = i;
-
+      children[i].props.className = Utils.createClassStack([
+        'tabs__trigger',
+        children[i].props.className
+      ]);
       return children[i];
     });
 
@@ -116,6 +126,9 @@ export class Tabs__triggers extends React.Component {
   }
 }
 
+/*
+  Targets are the corresponding content blocks to a given trigger.
+*/
 export class Tabs__targets extends React.Component {
   static propTypes = {
     /** Tag overload */
@@ -127,9 +140,7 @@ export class Tabs__targets extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node,
-    /** Title text of each tab */
-    title: PropTypes.string
+    children: PropTypes.node
   };
 
   static defaultProps = {
@@ -137,12 +148,10 @@ export class Tabs__targets extends React.Component {
     variant: 'default'
   };
 
-
   render = () => {
     const {
       tagName: Tag,
       variant,
-      title,
       ...attrs
     } = this.props;
 
@@ -150,7 +159,11 @@ export class Tabs__targets extends React.Component {
 
     children = Object.keys(children).map((i) => {
       children[i].props['data-tabs-target'] = i;
-      children[i].props.className = 'hide';
+      children[i].props.className = Utils.createClassStack([
+        'hide',
+        'tabs__target',
+        children[i].props.className
+      ]);
       return children[i];
     });
 

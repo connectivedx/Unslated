@@ -76,7 +76,7 @@ class CreateAtomicElement {
       },
       elements: {
         src: path.resolve(__dirname, './elements'),
-        target: path.resolve(__dirname, '../../src/elements/'+type+'/'+name)
+        target: path.resolve(__dirname, '../../src/elements/'+type.toLowerCase()+'/'+name)
       }
     };
 

@@ -67,8 +67,16 @@ const config = {
 // Dev config customizing
 module.exports = (env, argv) => {
   if (!fs.existsSync(path.resolve(__dirname, '../../dist/index.html'))) {
-    execSync('npm run guide'); // fix for cold guide builds
+    execSync('npm run guide'); // fix for "cold" dev builds
   }
+
+  // Disables favicon generating for dev builds
+  Object.keys(config.plugins).map((i) => {
+    const imgPlugin = config.plugins[i];
+    if (imgPlugin.constructor.name === 'FaviconsWebpackPlugin') {
+      delete imgPlugin;
+    }
+  });
 
   return config;
 };
