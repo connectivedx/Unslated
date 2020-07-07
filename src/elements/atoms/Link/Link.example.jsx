@@ -38,7 +38,7 @@ export default [{
     }, {
       name: 'Span as link',
       component: (
-        <Link tagName="span" data-href="#slime-span">Span link</Link>
+        <Link tagName="span" data-href="#slime-span">Span link</Link> // eslint-disable-line
       )
     }, {
       name: 'Image as link',

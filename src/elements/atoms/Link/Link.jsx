@@ -14,8 +14,7 @@ export class Link extends React.Component {
     /** Style variant */
     variant: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node,
-    href: PropTypes.string
+    children: PropTypes.node
   };
 
   static defaultProps = {
@@ -34,7 +33,6 @@ export class Link extends React.Component {
       children,
       className,
       variant,
-      href,
       ...attrs
     } = this.props;
 
