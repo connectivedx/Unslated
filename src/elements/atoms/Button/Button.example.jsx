@@ -57,5 +57,10 @@ export default [{
     component: (
       <Button href="#/" variant="cta">Hello World</Button>
     )
+  }, {
+    name: 'Toggle aria-pressed attribute',
+    component: (
+      <Button tagName="div" aria-pressed="false">Hello World</Button>
+    )
   }]
 }];

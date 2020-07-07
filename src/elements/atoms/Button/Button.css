@@ -46,4 +46,9 @@
     display: block;
     width: 100%;
   }
+
+  &--pressed {
+    background-color: var(--color-gray-light);
+    border-color: var(--color-gray-light);
+  }
 }

@@ -57,6 +57,12 @@ export class Button extends React.Component {
       Tag = 'a';
       classStack = [classStack, ' button--link'].join('');
       attrs.href = href;
+      attrs.role = 'button';
+    }
+
+    if (tagName === 'div') {
+      attrs.role = 'button';
+      attrs.tabIndex = '0';
     }
 
     return (
