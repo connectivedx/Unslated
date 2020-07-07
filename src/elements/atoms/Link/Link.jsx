@@ -4,15 +4,22 @@
 
 export class Link extends React.Component {
   static propTypes = {
+    tagName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ]),
     /** Class stacking */
     className: PropTypes.string,
     /** Style variant */
     variant: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node
+    children: PropTypes.node,
+    href: PropTypes.string
   };
 
   static defaultProps = {
+    tagName: 'a',
     variant: 'default'
   };
 
@@ -23,11 +30,15 @@ export class Link extends React.Component {
 
   render = () => {
     const {
+      tagName,
       children,
       className,
       variant,
+      href,
       ...attrs
     } = this.props;
+
+    const Tag = tagName;
 
     const classStack = Utils.createClassStack([
       'link',
@@ -35,10 +46,15 @@ export class Link extends React.Component {
       className
     ]);
 
+    if (tagName !== 'a') {
+      attrs.role = 'link';
+      attrs.tabIndex = '0';
+    }
+
     return (
-      <a className={classStack} {...attrs}>
+      <Tag className={classStack} {...attrs}>
         {children}
-      </a>
+      </Tag>
     );
   }
 }
