@@ -13,7 +13,7 @@ export class Alert extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default', 'modal']),
+    variant: PropTypes.oneOf(['default', 'modal', 'inline']),
     /** Children passed through */
     children: PropTypes.node,
     /** Allows you to specify if alert is a modal or inline */

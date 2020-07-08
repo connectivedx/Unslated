@@ -22,7 +22,7 @@
 */
 
 import Button from '@atoms/Button/Button';
-// import Icon from '@atoms/Icon/Icon';
+import Icon from '@atoms/Icon/Icon';
 import Heading from '@atoms/Heading/Heading';
 import Modal from '@molecules/Modal/Modal';
 import Rhythm from '@atoms/Rhythm/Rhythm';
@@ -31,39 +31,35 @@ import Alert from './Alert';
 export default [{
   examples: [
     {
-      name: 'Custom Modal styling',
+      name: 'Inline Alert',
       description: '',
       staticPath: '',
       component: (
         <React.Fragment>
-          <Button id="alert-modal-btn">Open Alert</Button>
-          <Alert variant="modal">
-            <div className="alert-modal alert-hidden">
-              <div className="alert-modal-content">
-                <Rhythm size="large">
-                  <span className="alert-close-btn">&times;</span>
-                  <Heading level="h3">This is an alert!</Heading>
-                  <div className="flex flex--justify-content-end">
-                    <Button variant="cta">Primary Cta</Button>
-                    <Button>Secondary Button</Button>
-                  </div>
-                </Rhythm>
+          <Rhythm>
+            <Heading level="h5">Inline alert example. Refresh page after closing to rerender.</Heading>
+            <Alert variant="inline" className="flex flex--justify-content-between" role="alert">
+              <div className="alert--inline-container" role="alertdialog">
+                <Heading level="h4" weight="thin">This is an inline alert!</Heading>
               </div>
-            </div>
-          </Alert>
+              <Button variant="icon" className="alert--close-icon" aria-label="close alert">
+                <Icon name="close" />
+              </Button>
+            </Alert>
+          </Rhythm>
         </React.Fragment>
       ),
       notes: ''
     }, {
-      name: 'Modal Molecule styling',
+      name: 'Modal Alert',
       description: '',
       staticPath: '',
       component: (
         <React.Fragment>
           <Alert>
-            <Button data-modal="alert-modal-id-01">Open Modal</Button>
+            <Button data-modal="alert-modal-id-01">Click Me</Button>
           </Alert>
-          <Modal data-modal="alert-modal-id-01" className="alert-modal-id-01" role="alert">
+          <Modal data-modal="alert-modal-id-01" className="alert-modal-id-01" size="medium" padding="medium" role="alert">
             <Rhythm size="large" role="alertdialog">
               <Heading>Alert!!</Heading>
               <p>{Utils.ipsum('sentence', 1)}</p>
@@ -76,14 +72,14 @@ export default [{
         </React.Fragment>
       ),
       notes: ''
-    // }, {
-    //   name: 'Default styling',
-    //   description: '',
-    //   staticPath: '',
-    //   component: (
-    //     <Alert>This is an Alert!</Alert>
-    //   ),
-    //   notes: ''
+    }, {
+      name: 'Default styling',
+      description: '',
+      staticPath: '',
+      component: (
+        <Alert>This is an Alert!</Alert>
+      ),
+      notes: ''
     }
   ]
 }];
