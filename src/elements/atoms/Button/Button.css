@@ -47,7 +47,7 @@
     width: 100%;
   }
 
-  &--pressed {
+  &[aria-pressed="true"] {
     background-color: var(--color-gray-light);
     border-color: var(--color-gray-light);
   }
