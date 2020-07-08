@@ -36,6 +36,20 @@
     text-decoration: none;
   }
 
+  &--icon {
+    background-color: transparent;
+    border: none;
+    fill: var(--color-red);
+    font-size: rem(16px);  
+    padding: 0;
+
+    &:hover,
+    &:active {
+      background-color: transparent;
+      fill: var(--color-black);
+    }
+  }
+
   /* sizes */
   &--auto {
     display: inline-block;
