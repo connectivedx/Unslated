@@ -4,9 +4,9 @@
   --size-large: 1024px;
   --size-extraLarge: 1200px;
 
-  --padding-small: rem(16px);
-  --padding-medium: rem(32px);
-  --padding-large: rem(48px);
+  --padding-small: rem(4px) rem(8px) rem(8px);
+  --padding-medium: rem(4px) rem(16px) rem(16px);
+  --padding-large: rem(4px) rem(24px) rem(24px);
 }
 
 .modal {
@@ -75,7 +75,10 @@
   }
 
   &-inner {
-    padding: rem(64px) rem(16px) rem(32px);
+    background-color: var(--color-white);
+    margin: auto; 
+    padding: rem(20px); 
+    position: relative; 
     width: 100%;
 
     &--width {
@@ -134,12 +137,8 @@
 
   .icon--close {
     cursor: pointer;
-    height: 25px;
-    line-height: 25px;
-    position: absolute;
-    right: 5px;
-    top: -35px;
-    width: 25px;
-    z-index: 2;
+    fill: var(--color-gray);
+    float: right; 
+    font-size: 20px;  
   }
 }
