@@ -26,11 +26,11 @@ export default [{
     {
       name: 'Default styling',
       description: '',
-      staticPath: '',
+      exports: '',
+      notes: '',
       component: (
         <div className="{{name}}">Lorem ipsum</div>
-      ),
-      notes: ''
+      )
     }
   ]
 }];

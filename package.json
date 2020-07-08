@@ -112,6 +112,7 @@
 		"postcss-in-out": "^1.1.0",
 		"postcss-loader": "^3.0.0",
 		"postcss-nested": "^4.1.2",
+		"pretty": "^2.0.0",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
 		"reset-css": "^4.0.1",

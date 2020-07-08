@@ -476,6 +476,87 @@ export const GuideMetrics = (el) => {
     )
   ).reduce((a, b) => a + b, 0);
 
+  const getSelectorTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (i === filter) ? data[i].selectors : 0 // eslint-disable-line
+      : data[i].selectors
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getDeclarationsTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (i === filter) ? data[i].declarations : 0 // eslint-disable-line
+      : data[i].declarations
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getPropertiesTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (i === filter) ? data[i].properties : 0 // eslint-disable-line
+      : data[i].properties
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getIdsTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (i === filter) ? data[i].ids : 0 // eslint-disable-line
+      : data[i].ids
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getClassesTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (i === filter) ? data[i].classes : 0 // eslint-disable-line
+      : data[i].classes
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getPseudoTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter)
+      ? data[i].pseudo[filter]
+      : Object.keys(data[i].pseudo).map((j) => data[i].pseudo[j]).reduce((a, b) => a + b, 0)
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getLayoutTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter)
+      ? data[i].layout[filter]
+      : Object.keys(data[i].layout).map((j) => data[i].layout[j]).reduce((a, b) => a + b, 0)
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getSkinsTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter)
+      ? data[i].skin[filter]
+      : Object.keys(data[i].skin).map((j) => data[i].skin[j]).reduce((a, b) => a + b, 0)
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getTypographyTotals = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter)
+      ? data[i].typography[filter]
+      : Object.keys(data[i].typography).map((j) => data[i].typography[j]).reduce((a, b) => a + b, 0)
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getSpacingTotals = (data, filter = false, side = false) => Object.keys(data).map(
+    (i) => (filter && side)  // eslint-disable-line
+      ? data[i].spacing[filter][side]
+      : 0
+  ).reduce((a, b) => a + b, 0);
+
+  const getResetTotals = (data, filter = false, side = false) => Object.keys(data).map(
+    (i) => (filter && side)  // eslint-disable-line
+      ? data[i].resets[filter][side]
+      : 0
+  ).reduce((a, b) => a + b, 0);
+
+  const getCompairsonTotals = (data, category = false, prop = false, type = false) => Object.keys(data).map(
+    (i) => (category && prop && type)  // eslint-disable-line
+      ? data[i].comparison[category][prop][type]
+      : 0
+  ).reduce((a, b) => a + b, 0);
+
   const init = () => {
     // Install JSX Size card
     ui.cards.jsxSize.innerHTML = getAssetsTotal(getFilteredData(__stats__, ['/*.jsx$']), 'JSX Size:');
@@ -550,82 +631,83 @@ export const GuideMetrics = (el) => {
     ui.jsMetrics.assignments.innerHTML = `${getExpressionsTotal(__esDocs__, 'AssignmentExpression')} <sup>/ x = y Assignments</sup>`;  // eslint-disable-line
 
     // Install CSS Metrics
-    ui.cssMetrics.selectors.innerHTML = `${__stats__.css.selectors} <sup>/ Selectors</sup>`;
-    ui.cssMetrics.declarations.innerHTML = `${__stats__.css.selectors} <sup>/ Declarations</sup>`;
-    ui.cssMetrics.properties.innerHTML = `${__stats__.css.properties} <sup>/ Properties</sup>`;
-    ui.cssMetrics.ids.innerHTML = `${__stats__.css.ids} <sup>/ #ids</sup>`;
-    ui.cssMetrics.classes.innerHTML = `${__stats__.css.classes} <sup>/ .classes</sup>`;
-    ui.cssMetrics.pseudoClass.innerHTML = `${__stats__.css.pseudo.class} <sup>/ Pseudo class</sup>`;
-    ui.cssMetrics.pseudoElement.innerHTML = `${__stats__.css.pseudo.element} <sup>/ Pseudo element</sup>`;
+    ui.cssMetrics.selectors.innerHTML = `${getSelectorTotals(__stats__.css)} <sup>/ Selectors</sup>`;
+    ui.cssMetrics.declarations.innerHTML = `${getDeclarationsTotals(__stats__.css)} <sup>/ Declarations</sup>`;
+    ui.cssMetrics.properties.innerHTML = `${getPropertiesTotals(__stats__.css)} <sup>/ Properties</sup>`;
+    ui.cssMetrics.ids.innerHTML = `${getIdsTotals(__stats__.css)} <sup>/ #ids</sup>`;
+    ui.cssMetrics.classes.innerHTML = `${getClassesTotals(__stats__.css)} <sup>/ .classes</sup>`;
+    ui.cssMetrics.pseudoClass.innerHTML = `${getPseudoTotals(__stats__.css, 'class')} <sup>/ Pseudo class</sup>`;
+    ui.cssMetrics.pseudoElement.innerHTML = `${getPseudoTotals(__stats__.css, 'element')} <sup>/ Pseudo element</sup>`;
 
-    ui.cssMetrics.display.innerHTML = `${__stats__.css.layout.display} <sup>/ Display</sup>`;
-    ui.cssMetrics.float.innerHTML = `${__stats__.css.layout.float} <sup>/ Float</sup>`;
-    ui.cssMetrics.width.innerHTML = `${__stats__.css.layout.width} <sup>/ Width</sup>`;
-    ui.cssMetrics.height.innerHTML = `${__stats__.css.layout.height} <sup>/ Height</sup>`;
-    ui.cssMetrics.maxWidth.innerHTML = `${__stats__.css.layout.maxWidth} <sup>/ Max-width</sup>`;
-    ui.cssMetrics.minWidth.innerHTML = `${__stats__.css.layout.minWidth} <sup>/ Min-width</sup>`;
-    ui.cssMetrics.maxHeight.innerHTML = `${__stats__.css.layout.maxHeight} <sup>/ Max-height</sup>`;
-    ui.cssMetrics.minHeight.innerHTML = `${__stats__.css.layout.minHeight} <sup>/ Min-height</sup>`;
+    ui.cssMetrics.display.innerHTML = `${getLayoutTotals(__stats__.css, 'display')} <sup>/ Display</sup>`;
+    ui.cssMetrics.float.innerHTML = `${getLayoutTotals(__stats__.css, 'float')} <sup>/ Float</sup>`;
+    ui.cssMetrics.width.innerHTML = `${getLayoutTotals(__stats__.css, 'width')} <sup>/ Width</sup>`;
+    ui.cssMetrics.height.innerHTML = `${getLayoutTotals(__stats__.css, 'height')} <sup>/ Height</sup>`;
+    ui.cssMetrics.maxWidth.innerHTML = `${getLayoutTotals(__stats__.css, 'maxWidth')} <sup>/ Max-width</sup>`;
+    ui.cssMetrics.minWidth.innerHTML = `${getLayoutTotals(__stats__.css, 'minWidth')} <sup>/ Min-width</sup>`;
+    ui.cssMetrics.maxHeight.innerHTML = `${getLayoutTotals(__stats__.css, 'maxHeight')} <sup>/ Max-height</sup>`;
+    ui.cssMetrics.minHeight.innerHTML = `${getLayoutTotals(__stats__.css, 'minHeight')} <sup>/ Min-height</sup>`;
 
-    ui.cssMetrics.color.innerHTML = `${__stats__.css.skin.color} <sup>/ Color</sup>`;
-    ui.cssMetrics.backgroundColor.innerHTML = `${__stats__.css.skin.backgroundColor} <sup>/ Background-color</sup>`;
-    ui.cssMetrics.borderColor.innerHTML = `${__stats__.css.skin.borderColor} <sup>/ Border-color</sup>`;
-    ui.cssMetrics.boxShadow.innerHTML = `${__stats__.css.skin.boxShadow} <sup>/ Box-shadow</sup>`;
+    ui.cssMetrics.color.innerHTML = `${getSkinsTotals(__stats__.css, 'color')} <sup>/ Color</sup>`;
+    ui.cssMetrics.backgroundColor.innerHTML = `${getSkinsTotals(__stats__.css, 'backgroundColor')} <sup>/ Background-color</sup>`;
+    ui.cssMetrics.borderColor.innerHTML = `${getSkinsTotals(__stats__.css, 'borderColor')} <sup>/ Border-color</sup>`;
+    ui.cssMetrics.boxShadow.innerHTML = `${getSkinsTotals(__stats__.css, 'boxShadow')} <sup>/ Box-shadow</sup>`;
 
-    ui.cssMetrics.family.innerHTML = `${__stats__.css.typography.family} <sup>/ Font-family</sup>`;
-    ui.cssMetrics.size.innerHTML = `${__stats__.css.typography.size} <sup>/ Font-size</sup>`;
-    ui.cssMetrics.weight.innerHTML = `${__stats__.css.typography.weight} <sup>/ Font-weight</sup>`;
-    ui.cssMetrics.alignment.innerHTML = `${__stats__.css.typography.alignment} <sup>/ Text-align</sup>`;
-    ui.cssMetrics.lineHeight.innerHTML = `${__stats__.css.typography.lineHeight} <sup>/ Line-height</sup>`;
-    ui.cssMetrics.letterSpace.innerHTML = `${__stats__.css.typography.letterSpace} <sup>/ Letter-spacing</sup>`;
-    ui.cssMetrics.decoration.innerHTML = `${__stats__.css.typography.decoration} <sup>/ Decoration</sup>`;
-    ui.cssMetrics.transform.innerHTML = `${__stats__.css.typography.transform} <sup>/ Transform</sup>`;
-    ui.cssMetrics.shadow.innerHTML = `${__stats__.css.typography.shadow} <sup>/ Shadow</sup>`;
+    ui.cssMetrics.family.innerHTML = `${getTypographyTotals(__stats__.css, 'family')} <sup>/ Font-family</sup>`;
+    ui.cssMetrics.size.innerHTML = `${getTypographyTotals(__stats__.css, 'size')} <sup>/ Font-size</sup>`;
+    ui.cssMetrics.weight.innerHTML = `${getTypographyTotals(__stats__.css, 'weight')} <sup>/ Font-weight</sup>`;
+    ui.cssMetrics.alignment.innerHTML = `${getTypographyTotals(__stats__.css, 'alignment')} <sup>/ Text-align</sup>`;
+    ui.cssMetrics.lineHeight.innerHTML = `${getTypographyTotals(__stats__.css, 'lineHeight')} <sup>/ Line-height</sup>`;
+    ui.cssMetrics.letterSpace.innerHTML = `${getTypographyTotals(__stats__.css, 'letterSpace')} <sup>/ Letter-spacing</sup>`;
+    ui.cssMetrics.decoration.innerHTML = `${getTypographyTotals(__stats__.css, 'decoration')} <sup>/ Decoration</sup>`;
+    ui.cssMetrics.transform.innerHTML = `${getTypographyTotals(__stats__.css, 'transform')} <sup>/ Transform</sup>`;
+    ui.cssMetrics.shadow.innerHTML = `${getTypographyTotals(__stats__.css, 'shadow')} <sup>/ Shadow</sup>`;
 
-    ui.cssMetrics.spacingPadding.innerHTML = `${__stats__.css.spacing.padding.all} <sup>/ Padding</sup>`;
-    ui.cssMetrics.spacingPaddingTop.innerHTML = `${__stats__.css.spacing.padding.top} <sup>/ Padding-top</sup>`;
-    ui.cssMetrics.spacingPaddingRight.innerHTML = `${__stats__.css.spacing.padding.right} <sup>/ Padding-right</sup>`;
-    ui.cssMetrics.spacingPaddingBottom.innerHTML = `${__stats__.css.spacing.padding.bottom} <sup>/ Padding-bottom</sup>`;
-    ui.cssMetrics.spacingPaddingLeft.innerHTML = `${__stats__.css.spacing.padding.left} <sup>/ Padding-left</sup>`;
+    ui.cssMetrics.spacingPadding.innerHTML = `${getSpacingTotals(__stats__.css, 'padding', 'all')} <sup>/ Padding</sup>`;
+    ui.cssMetrics.spacingPaddingTop.innerHTML = `${getSpacingTotals(__stats__.css, 'padding', 'top')} <sup>/ Padding-top</sup>`;
+    ui.cssMetrics.spacingPaddingRight.innerHTML = `${getSpacingTotals(__stats__.css, 'padding', 'right')} <sup>/ Padding-right</sup>`;
+    ui.cssMetrics.spacingPaddingBottom.innerHTML = `${getSpacingTotals(__stats__.css, 'padding', 'bottom')} <sup>/ Padding-bottom</sup>`;
+    ui.cssMetrics.spacingPaddingLeft.innerHTML = `${getSpacingTotals(__stats__.css, 'padding', 'left')} <sup>/ Padding-left</sup>`;
 
-    ui.cssMetrics.spacingMargin.innerHTML = `${__stats__.css.spacing.margin.all} <sup>/ Margin</sup>`;
-    ui.cssMetrics.spacingMarginTop.innerHTML = `${__stats__.css.spacing.margin.top} <sup>/ Margin-top</sup>`;
-    ui.cssMetrics.spacingMarginRight.innerHTML = `${__stats__.css.spacing.margin.right} <sup>/ Margin-right</sup>`;
-    ui.cssMetrics.spacingMarginBottom.innerHTML = `${__stats__.css.spacing.margin.bottom} <sup>/ Margin-bottom</sup>`;
-    ui.cssMetrics.spacingMarginLeft.innerHTML = `${__stats__.css.spacing.margin.left} <sup>/ Margin-left</sup>`;
+    ui.cssMetrics.spacingMargin.innerHTML = `${getSpacingTotals(__stats__.css, 'margin', 'all')} <sup>/ Margin</sup>`;
+    ui.cssMetrics.spacingMarginTop.innerHTML = `${getSpacingTotals(__stats__.css, 'margin', 'top')} <sup>/ Margin-top</sup>`;
+    ui.cssMetrics.spacingMarginRight.innerHTML = `${getSpacingTotals(__stats__.css, 'margin', 'right')} <sup>/ Margin-right</sup>`;
+    ui.cssMetrics.spacingMarginBottom.innerHTML = `${getSpacingTotals(__stats__.css, 'margin', 'bottom')} <sup>/ Margin-bottom</sup>`;
+    ui.cssMetrics.spacingMarginLeft.innerHTML = `${getSpacingTotals(__stats__.css, 'margin', 'left')} <sup>/ Margin-left</sup>`;
 
-    ui.cssMetrics.resetPadding.innerHTML = `${__stats__.css.resets.padding.all} <sup>/ Padding</sup>`;
-    ui.cssMetrics.resetPaddingTop.innerHTML = `${__stats__.css.resets.padding.top} <sup>/ Padding-top</sup>`;
-    ui.cssMetrics.resetPaddingRight.innerHTML = `${__stats__.css.resets.padding.right} <sup>/ Padding-right</sup>`;
-    ui.cssMetrics.resetPaddingBottom.innerHTML = `${__stats__.css.resets.padding.bottom} <sup>/ Padding-bottom</sup>`;
-    ui.cssMetrics.resetPaddingLeft.innerHTML = `${__stats__.css.resets.padding.left} <sup>/ Padding-left</sup>`;
+    ui.cssMetrics.resetPadding.innerHTML = `${getResetTotals(__stats__.css, 'padding', 'all')} <sup>/ Padding</sup>`;
+    ui.cssMetrics.resetPaddingTop.innerHTML = `${getResetTotals(__stats__.css, 'padding', 'top')} <sup>/ Padding-top</sup>`;
+    ui.cssMetrics.resetPaddingRight.innerHTML = `${getResetTotals(__stats__.css, 'padding', 'right')} <sup>/ Padding-right</sup>`;
+    ui.cssMetrics.resetPaddingBottom.innerHTML = `${getResetTotals(__stats__.css, 'padding', 'bottom')} <sup>/ Padding-bottom</sup>`;
+    ui.cssMetrics.resetPaddingLeft.innerHTML = `${getResetTotals(__stats__.css, 'padding', 'left')} <sup>/ Padding-left</sup>`;
 
-    ui.cssMetrics.resetMargin.innerHTML = `${__stats__.css.resets.margin.all} <sup>/ Margin</sup>`;
-    ui.cssMetrics.resetMarginTop.innerHTML = `${__stats__.css.resets.margin.top} <sup>/ Margin-top</sup>`;
-    ui.cssMetrics.resetMarginRight.innerHTML = `${__stats__.css.resets.margin.right} <sup>/ Margin-right</sup>`;
-    ui.cssMetrics.resetMarginBottom.innerHTML = `${__stats__.css.resets.margin.bottom} <sup>/ Margin-bottom</sup>`;
-    ui.cssMetrics.resetMarginLeft.innerHTML = `${__stats__.css.resets.margin.left} <sup>/ Margin-left</sup>`;
+    ui.cssMetrics.resetMargin.innerHTML = `${getResetTotals(__stats__.css, 'margin', 'all')} <sup>/ Margin</sup>`;
+    ui.cssMetrics.resetMarginTop.innerHTML = `${getResetTotals(__stats__.css, 'margin', 'top')} <sup>/ Margin-top</sup>`;
+    ui.cssMetrics.resetMarginRight.innerHTML = `${getResetTotals(__stats__.css, 'margin', 'right')} <sup>/ Margin-right</sup>`;
+    ui.cssMetrics.resetMarginBottom.innerHTML = `${getResetTotals(__stats__.css, 'margin', 'bottom')} <sup>/ Margin-bottom</sup>`;
+    ui.cssMetrics.resetMarginLeft.innerHTML = `${getResetTotals(__stats__.css, 'margin', 'left')} <sup>/ Margin-left</sup>`;
 
-    ui.cssMetrics.compDisplay.innerHTML = `Display <br /><sup>${__stats__.css.comparison.layout.display.unique} Unique ${__stats__.css.comparison.layout.display.repeated} Repeated</sup>`;
-    ui.cssMetrics.compFloat.innerHTML = `Float <br /><sup>${__stats__.css.comparison.layout.float.unique} Unique ${__stats__.css.comparison.layout.float.repeated} Repeated</sup>`;
-    ui.cssMetrics.compWidth.innerHTML = `Width <br /><sup>${__stats__.css.comparison.layout.width.unique} Unique ${__stats__.css.comparison.layout.width.repeated} Repeated</sup>`;
-    ui.cssMetrics.compHeight.innerHTML = `Height <br /><sup>${__stats__.css.comparison.layout.height.unique} Unique ${__stats__.css.comparison.layout.height.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMinWidth.innerHTML = `Min-width <br /><sup>${__stats__.css.comparison.layout.minWidth.unique} Unique ${__stats__.css.comparison.layout.minWidth.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMaxWidth.innerHTML = `Max-width <br /><sup>${__stats__.css.comparison.layout.maxWidth.unique} Unique ${__stats__.css.comparison.layout.maxWidth.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMinHeight.innerHTML = `Min-height <br /><sup>${__stats__.css.comparison.layout.minHeight.unique} Unique ${__stats__.css.comparison.layout.minHeight.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMaxHeight.innerHTML = `Max-height <br /><sup>${__stats__.css.comparison.layout.maxHeight.unique} Unique ${__stats__.css.comparison.layout.maxHeight.repeated} Repeated</sup>`;
 
-    ui.cssMetrics.compPadding.innerHTML = `Padding <br /><sup>${__stats__.css.comparison.padding.all.unique} Unique ${__stats__.css.comparison.padding.all.repeated} Repeated</sup>`;
-    ui.cssMetrics.compPaddingTop.innerHTML = `Padding-top <br /><sup>${__stats__.css.comparison.padding.top.unique} Unique ${__stats__.css.comparison.padding.top.repeated} Repeated</sup>`;
-    ui.cssMetrics.compPaddingRight.innerHTML = `Padding-right <br /><sup>${__stats__.css.comparison.padding.right.unique} Unique ${__stats__.css.comparison.padding.right.repeated} Repeated</sup>`;
-    ui.cssMetrics.compPaddingBottom.innerHTML = `Padding-bottom <br /><sup>${__stats__.css.comparison.padding.bottom.unique} Unique ${__stats__.css.comparison.padding.bottom.repeated} Repeated</sup>`;
-    ui.cssMetrics.compPaddingLeft.innerHTML = `Padding-left <br /><sup>${__stats__.css.comparison.padding.left.unique} Unique ${__stats__.css.comparison.padding.left.repeated} Repeated</sup>`;
+    ui.cssMetrics.compDisplay.innerHTML = `Display <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'display', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'display', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compFloat.innerHTML = `Float <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'float', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'float', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compWidth.innerHTML = `Width <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'width', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'width', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compHeight.innerHTML = `Height <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'height', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'height', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMinWidth.innerHTML = `Min-width <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'minWidth', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'minWidth', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMaxWidth.innerHTML = `Max-width <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'maxWidth', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'maxWidth', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMinHeight.innerHTML = `Min-height <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'minHeight', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'minHeight', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMaxHeight.innerHTML = `Max-height <br /><sup>${getCompairsonTotals(__stats__.css, 'layout', 'maxHeight', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'layout', 'maxHeight', 'repeated')} Repeated</sup>`;
 
-    ui.cssMetrics.compMargin.innerHTML = `Margin <br /><sup>${__stats__.css.comparison.margin.all.unique} Unique ${__stats__.css.comparison.margin.all.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMarginTop.innerHTML = `Margin-top <br/><sup>${__stats__.css.comparison.margin.top.unique} Unique ${__stats__.css.comparison.margin.top.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMarginRight.innerHTML = `Margin-right <br/><sup>${__stats__.css.comparison.margin.right.unique} Unique ${__stats__.css.comparison.margin.right.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMarginBottom.innerHTML = `Margin-bottom <br /><sup>${__stats__.css.comparison.margin.bottom.unique} Unique ${__stats__.css.comparison.margin.bottom.repeated} Repeated</sup>`;
-    ui.cssMetrics.compMarginLeft.innerHTML = `Margin-left <br /><sup>${__stats__.css.comparison.margin.left.unique} Unique ${__stats__.css.comparison.margin.left.repeated} Repeated</sup>`;
+    ui.cssMetrics.compPadding.innerHTML = `Padding <br /><sup>${getCompairsonTotals(__stats__.css, 'padding', 'all', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'padding', 'all', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compPaddingTop.innerHTML = `Padding-top <br /><sup>${getCompairsonTotals(__stats__.css, 'padding', 'top', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'padding', 'top', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compPaddingRight.innerHTML = `Padding-right <br /><sup>${getCompairsonTotals(__stats__.css, 'padding', 'right', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'padding', 'right', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compPaddingBottom.innerHTML = `Padding-bottom <br /><sup>${getCompairsonTotals(__stats__.css, 'padding', 'bottom', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'padding', 'bottom', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compPaddingLeft.innerHTML = `Padding-left <br /><sup>${getCompairsonTotals(__stats__.css, 'padding', 'left', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'padding', 'left', 'repeated')} Repeated</sup>`;
+
+    ui.cssMetrics.compMargin.innerHTML = `Margin <br /><sup>${getCompairsonTotals(__stats__.css, 'margin', 'all', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'margin', 'all', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMarginTop.innerHTML = `Margin-top <br/><sup>${getCompairsonTotals(__stats__.css, 'margin', 'top', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'margin', 'top', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMarginRight.innerHTML = `Margin-right <br/><sup>${getCompairsonTotals(__stats__.css, 'margin', 'right', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'margin', 'right', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMarginBottom.innerHTML = `Margin-bottom <br /><sup>${getCompairsonTotals(__stats__.css, 'margin', 'bottom', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'margin', 'bottom', 'repeated')} Repeated</sup>`;
+    ui.cssMetrics.compMarginLeft.innerHTML = `Margin-left <br /><sup>${getCompairsonTotals(__stats__.css, 'margin', 'left', 'unique')} Unique ${getCompairsonTotals(__stats__.css, 'margin', 'left', 'repeated')} Repeated</sup>`;
 
     // Install media metrics
     ui.mediaMetrics.counts.all.innerHTML = `Total / <sup>${getMediaFiles(__stats__.files).length}</sup>`;

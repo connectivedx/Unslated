@@ -746,10 +746,6 @@ class Bundle {
 
           // The great memory leak prevention reset (DO NOT REMOVE!)
           process.jsMetrics = process.jsMetricsReset();
-          process.cssMetrics = process.cssMetricsReset();
-
-          this.stats.js = process.jsMetricsReset();
-          this.stats.css = process.cssMetricsReset();
         }
       });
     });

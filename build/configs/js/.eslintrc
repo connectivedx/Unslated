@@ -39,7 +39,10 @@
 		"react/require-default-props": 0,
 		"react/jsx-props-no-spreading": 0,
 		"react/static-property-placement": 0,
-		"react/jsx-fragments": 0
+		"react/jsx-fragments": 0,
+		"react/no-unescaped-entities": [ "error", {
+			"forbid": [">", "}"]
+		}],
 	},
 	"globals": {
 		"__stats__": true,

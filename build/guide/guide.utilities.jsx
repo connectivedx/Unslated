@@ -4,6 +4,7 @@
 
   IMPORTANT NOTE: Never remove any methods marked "CORE:" as they are dependencies for the framework.
 */
+const pretty = require('pretty');
 
 /*
   CORE: Helper method to convert raw int into bytes, kb or kb for display.
@@ -281,33 +282,7 @@ const WCAGTest = (ratio, size, level) => {
   Please note, this can't be used on JSX syntax as it normalizes the tags to being lowercase
 */
 
-const XMLParser = (node, level) => {
-  let textNode;
-  const indentBefore = new Array(level++ + 1).join('  ');
-  const indentAfter = new Array(level - 1).join('  ');
-
-  for (let i = 0; i < node.children.length; i++) {
-    if (level !== 1) {
-      textNode = document.createTextNode(`\n ${indentBefore}`);
-      node.insertBefore(textNode, node.children[i]);
-    }
-
-    XMLParser(node.children[i], level);
-
-    if (node.lastElementChild === node.children[i] && level !== 1) {
-      textNode = document.createTextNode(`\n ${indentAfter}`);
-      node.appendChild(textNode);
-    }
-  }
-
-  return node;
-};
-
-const XMLFormat = (string) => {
-  const div = document.createElement('div');
-  div.innerHTML = string.replace((/ {2}|\r\n|\n|\r/gm), '').trim();
-  return XMLParser(div, 0).innerHTML.replace(/^\s+|\s+$/g, '');
-};
+const XMLFormat = (string) => pretty(string);
 
 
 /*
