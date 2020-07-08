@@ -15,7 +15,7 @@ export class Button extends React.Component {
     /** Size variants */
     width: PropTypes.oneOf(['auto', 'full']),
     /** Style variant */
-    variant: PropTypes.oneOf(['default', 'link', 'cta']),
+    variant: PropTypes.oneOf(['default', 'link', 'cta', 'icon']),
     /** If used, button becomes an anchor tag with button styles */
     href: PropTypes.string,
     /** Children nodes being passed through */
