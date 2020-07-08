@@ -1,0 +1,12 @@
+:root {
+
+  /* CSS variables */
+}
+
+.accessibility {
+
+  /* Demo variants */
+  &[aria-pressed="true"] {
+    background-color: var(--color-gray-light);
+  }
+}
