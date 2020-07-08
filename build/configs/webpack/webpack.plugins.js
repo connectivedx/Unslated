@@ -62,7 +62,7 @@ class StaticBundle {
     }
 
     fs.writeFile(
-      path.resolve(__dirname, `../../../${Package.statics.dest}/${example.staticPath}`),
+      path.resolve(__dirname, `../../../${Package.statics.dest}/${example.exports}`),
       `<!--/* DO NOT EDIT!!! -- THIS FILE IS AUTO GENERATED -- DO NOT EDIT!!! */-->\n<!--/* (see: ${this.getSourcePath(example.name, compilation)}) */-->\n${DOM.toString()}`,
       (e) => {
         if (e) {
@@ -79,9 +79,9 @@ class StaticBundle {
 
       Object.keys(global.components).map((i) => {
         const example = global.components[i];
-        if (example.staticPath) {
-          example.staticPath = example.staticPath.replace(/\\/g, '/');
-          const fileless = example.staticPath.substring(0, example.staticPath.lastIndexOf("/"));
+        if (example.exports) {
+          example.exports = example.exports.replace(/\\/g, '/');
+          const fileless = example.exports.substring(0, example.exports.lastIndexOf("/"));
           const dest = path.resolve(__dirname, `../../../${Package.statics.dest}${fileless}`).replace(/\\/g, '/');
 
           fs.ensureDirSync(dest);

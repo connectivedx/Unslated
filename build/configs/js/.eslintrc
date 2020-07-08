@@ -5,6 +5,7 @@
 		"arrow-parens": ["error", "always"],
 		"camelcase": 0,
 		"comma-dangle": ["error", "never"],
+		"guard-for-in": 0,
 		"import/extensions": 0,
 		"import/no-extraneous-dependencies": 0,
 		"import/no-named-as-default": 0,
@@ -21,6 +22,7 @@
 		"no-new": 0,
 		"no-param-reassign": 0,
 		"no-plusplus": 0,
+		"no-restricted-syntax": ["off", "forInStatement", "ForOfStatement"],
 		"no-template-curly-in-string": 0,
 		"react/destructuring-assignment": 0,
 		"react/forbid-prop-types": 0,
@@ -37,7 +39,10 @@
 		"react/require-default-props": 0,
 		"react/jsx-props-no-spreading": 0,
 		"react/static-property-placement": 0,
-		"react/jsx-fragments": 0
+		"react/jsx-fragments": 0,
+		"react/no-unescaped-entities": [ "error", {
+			"forbid": [">", "}"]
+		}],
 	},
 	"globals": {
 		"__stats__": true,

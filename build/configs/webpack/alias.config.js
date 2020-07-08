@@ -29,6 +29,7 @@ module.exports = {
     '@guideModifiers': path.resolve(__dirname, '../../guide/src/elements/modifiers/'),
     '@guideOrganisms': path.resolve(__dirname, '../../guide/src/elements/organisms/'),
     '@sly': path.resolve(__dirname, '../../../src/elements/modifiers/Sly/Sly'),
+    '@razor': path.resolve(__dirname, '../../../src/elements/modifiers/Razor/Razor'),
     Utils: path.resolve(__dirname, '../../../src/utilities.jsx'),
     GuideUtils: path.resolve(__dirname, '../../guide/guide.utilities.jsx')
   },

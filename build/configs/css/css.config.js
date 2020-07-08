@@ -42,6 +42,7 @@ module.exports = {
     }),
     new POSTCSSInOut({
       preBuild: [
+        Plugins.MetricsCSS(),           // Captures hoisted up metrics to the Unslated guide tools and examples
         imports({                       // Bring resolve context to @import / url() usage (see: build/config/alias.config.js)
           resolve: (id, basedir) => {
             return ResolverFactory.createResolver({
@@ -66,7 +67,6 @@ module.exports = {
         Plugins.media(),         // Allows for custom media queries
         Plugins.roots(),         // Cleans up leftover :root declarations.
         Plugins.comments(),      // Cleans up comments.
-        Plugins.MetricsCSS(),
         (Package.optimize.css)   // Minification of our final CSS results.
           ? Plugins.minify()
           : () => {}

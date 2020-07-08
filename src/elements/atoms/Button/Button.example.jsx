@@ -28,10 +28,7 @@ export default [{
     name: 'Default styling',
     component: (
       <Button>Hello World</Button>
-    ),
-    options: {
-      background: '#666'
-    }
+    )
   }, {
     name: 'Linked button',
     component: (
