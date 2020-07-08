@@ -583,7 +583,7 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
     }
   };
 
-  return root => {
+  return (root) => {
     const __metrics = process.cssMetricsReset();
 
     let metrics = {...__metrics};
@@ -611,7 +611,8 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
     let marginLeft = [];
     let marginRight = [];
 
-    if (root.source.input.css.indexOf('.guide__menu') === -1) {
+    if (root.source.input.css.indexOf('.guide') === -1) {
+      console.log(root.source.input.origin(1, 1));
       const pseudoClasses = [
         ':active',
         ':checked',
@@ -657,7 +658,7 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
       root.walkRules(rule => {
         metrics.rules++;
 
-          if (rule.selector) {
+        if (rule.selector) {
           /* Selectors */
           metrics.selectors++;
 

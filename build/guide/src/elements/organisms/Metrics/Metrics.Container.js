@@ -413,7 +413,9 @@ export const GuideMetrics = (el) => {
         (filter)
           ? Object.keys(data[i].Tags[j].props).map(
             (k) => (
-              (data[i].Tags[j].props[k].type === filter) ? 1 : 0
+              (data[i].Tags[j].props[k].type === filter) // eslint-disable-line
+                ? 1
+                : (filter === 'isRequired' && data[i].Tags[j].props[k].required) ? 1 : 0 // eslint-disable-line
             )
           ).reduce((a, b) => a + b, 0)
           : data[i].Tags[j].props.length)
@@ -427,6 +429,50 @@ export const GuideMetrics = (el) => {
           (data[i].Using[j][filterType] === filter) ? 1 : 0
         )).reduce((a, b) => a + b, 0)
         : Object.keys(data[i].Using).length
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getReusedTagTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => Object.keys(data[i].Reusing).map(
+      (j) => (
+        (filter) // eslint-disable-line
+          ? (data[j].Level === filter) ? 1 : 0 // eslint-disable-line
+          : Object.keys(data[i].Reusing).length)
+    ).reduce((a, b) => a + b, 0)
+  ).reduce((a, b) => a + b, 0);
+
+  const getExamplesTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? (data[i].Level === filter) ? data[i].Examples : 0 // eslint-disable-line
+      : data[i].Examples
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getVariablesTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? Object.keys(data[i].variables).map((j) => (data[i].variables[j].kind === filter) ? 1 : 0).reduce((a, b) => a + b, 0) // eslint-disable-line
+      : data[i].variables.length
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getLoopsTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? Object.keys(data[i].loops).map((j) => (data[i].loops[j].type === filter) ? 1 : 0).reduce((a, b) => a + b, 0) // eslint-disable-line
+      : data[i].loops.length
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getMethodsTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? Object.keys(data[i].methods).map((j) => (data[i].methods[j].type === filter) ? 1 : 0).reduce((a, b) => a + b, 0) // eslint-disable-line
+      : data[i].methods.length
+    )
+  ).reduce((a, b) => a + b, 0);
+
+  const getExpressionsTotal = (data, filter = false) => Object.keys(data).map(
+    (i) => ((filter) // eslint-disable-line
+      ? Object.keys(data[i].expressions).map((j) => (data[i].expressions[j].type === filter) ? 1 : 0).reduce((a, b) => a + b, 0) // eslint-disable-line
+      : data[i].expressions.length
     )
   ).reduce((a, b) => a + b, 0);
 
@@ -452,114 +498,113 @@ export const GuideMetrics = (el) => {
     renderDoughnutChart(ui.charts.MediaChart, getFilteredData(__stats__, ['/*.svg', '/*.jpg', '/*.png']), 'Project Media (files and atomic levels)');
 
     // Install JS Metrics
-    ui.jsxMetrics.roots.innerHTML = `${getRootTagTotal(__jsxDocs__)} <sup>/ Root tags</sup>`; // eslint-disable-line
-    ui.jsxMetrics.subs.innerHTML = `${getSubTagTotal(__jsxDocs__)} <sup>/ Sub tags</sup>`; // eslint-disable-line
+    ui.jsxMetrics.roots.innerHTML = `${getRootTagTotal(__jsxDocs__)} <sup>/ Root elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.subs.innerHTML = `${getSubTagTotal(__jsxDocs__)} <sup>/ Root__Sub elements</sup>`; // eslint-disable-line
 
-    ui.jsxMetrics.props.innerHTML = `${getPropsTotal(__jsxDocs__)} <sup>/ total props</sup>`; // eslint-disable-line
-    ui.jsxMetrics.strings.innerHTML = `${getPropsTotal(__jsxDocs__, 'string')} <sup>/ propTypes.strings</sup>`; // eslint-disable-line
-    ui.jsxMetrics.elements.innerHTML = `${getPropsTotal(__jsxDocs__, 'element')} <sup>/ propTypes.elements</sup>`; // eslint-disable-line
-    ui.jsxMetrics.funcs.innerHTML = `${getPropsTotal(__jsxDocs__, 'function')} <sup>/ propTypes.functions</sup>`; // eslint-disable-line
-    ui.jsxMetrics.nodes.innerHTML = `${getPropsTotal(__jsxDocs__, 'node')} <sup>/ propTypes.nodes</sup>`; // eslint-disable-line
-    ui.jsxMetrics.oneOfs.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOf')} <sup>/ propTypes.oneOfs</sup>`; // eslint-disable-line
-    ui.jsxMetrics.oneOfTypes.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOfType')} <sup>/ propTypes.oneOfTypes</sup>`; // eslint-disable-line
-    ui.jsxMetrics.isReuireds.innerHTML = `${getPropsTotal(__jsxDocs__, 'isRequired')} <sup>/ propTypes.isRequired</sup>`; // eslint-disable-line
+    ui.jsxMetrics.props.innerHTML = `${getPropsTotal(__jsxDocs__)} <sup>/ Total props</sup>`; // eslint-disable-line
+    ui.jsxMetrics.strings.innerHTML = `${getPropsTotal(__jsxDocs__, 'string')} <sup>/ propTypes.<strong>strings</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.elements.innerHTML = `${getPropsTotal(__jsxDocs__, 'element')} <sup>/ propTypes.<strong>elements</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.funcs.innerHTML = `${getPropsTotal(__jsxDocs__, 'function')} <sup>/ propTypes.<strong>functions</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.nodes.innerHTML = `${getPropsTotal(__jsxDocs__, 'node')} <sup>/ propTypes.<strong>nodes</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.oneOfs.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOf')} <sup>/ propTypes.<strong>oneOfs</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.oneOfTypes.innerHTML = `${getPropsTotal(__jsxDocs__, 'oneOfType')} <sup>/ propTypes.<strong>oneOfTypes</strong></sup>`; // eslint-disable-line
+    ui.jsxMetrics.isReuireds.innerHTML = `${getPropsTotal(__jsxDocs__, 'isRequired')} <sup>/ propTypes.<strong>isRequired</strong></sup>`; // eslint-disable-line
 
-    ui.jsxMetrics.used.innerHTML = `${getUsedTagTotal(__jsxDocs__)} <sup>/ used elements</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedRoots.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'root', 'tagType')} <sup>/ used main elements</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedSubs.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'sub', 'tagType')} <sup>/ used sub elements</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedAtoms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'atoms', 'tagLevel')} <sup>/ used atoms</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedMolecules.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'molecules', 'tagLevel')} <sup>/ used molecules</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedOrganisms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'organisms', 'tagLevel')} <sup>/ used organisms</sup>`; // eslint-disable-line
-    ui.jsxMetrics.usedTemplates.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'templates', 'tagLevel')} <sup>/ used templates</sup>`; // eslint-disable-line
+    ui.jsxMetrics.used.innerHTML = `${getUsedTagTotal(__jsxDocs__)} <sup>/ Total used</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedRoots.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'root', 'tagType')} <sup>/ Root elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedSubs.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'sub', 'tagType')} <sup>/ Sub elements</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedAtoms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'atoms', 'tagLevel')} <sup>/ Atoms</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedMolecules.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'molecules', 'tagLevel')} <sup>/ Molecules used</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedOrganisms.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'organisms', 'tagLevel')} <sup>/ Organisms used</sup>`; // eslint-disable-line
+    ui.jsxMetrics.usedTemplates.innerHTML = `${getUsedTagTotal(__jsxDocs__, 'templates', 'tagLevel')} <sup>/ Templates used</sup>`; // eslint-disable-line
 
-    ui.jsxMetrics.examples.innerHTML = `${__stats__.jsx.examples.all} <sup>/ examples</sup>`;
-    ui.jsxMetrics.exampleExports.innerHTML = `${__stats__.jsx.examples.exported} <sup>/ exported examples</sup>`;
-    ui.jsxMetrics.exampleReused.innerHTML = `${__stats__.jsx.examples.reused} <sup>/ reused examples</sup>`;
+    ui.jsxMetrics.examples.innerHTML = `${getExamplesTotal(__jsxDocs__)} <sup>/ Total examples</sup>`; // eslint-disable-line
+    ui.jsxMetrics.exampleExports.innerHTML = `FIXME <sup>/ Exported</sup>`; // eslint-disable-line
+    ui.jsxMetrics.exampleReused.innerHTML = `${getReusedTagTotal(__jsxDocs__)} <sup>/ Utils.getExample</sup>`; // eslint-disable-line
 
-    ui.jsxMetrics.exampleAtoms.innerHTML = `${__stats__.jsx.examples.atoms} <sup>/ atom examples</sup>`;
-    ui.jsxMetrics.exampleMolecules.innerHTML = `${__stats__.jsx.examples.molecules} <sup>/ molecule examples</sup>`;
-    ui.jsxMetrics.exampleOrganisms.innerHTML = `${__stats__.jsx.examples.organisms} <sup>/ organism examples</sup>`;
-    ui.jsxMetrics.exampleTemplates.innerHTML = `${__stats__.jsx.examples.templates} <sup>/ template examples</sup>`;
+    ui.jsxMetrics.exampleAtoms.innerHTML = `${getExamplesTotal(__jsxDocs__, 'atoms')} <sup>/ Atoms examples</sup>`; // eslint-disable-line
+    ui.jsxMetrics.exampleMolecules.innerHTML = `${getExamplesTotal(__jsxDocs__, 'molecules')} <sup>/ Molecules examples</sup>`; // eslint-disable-line
+    ui.jsxMetrics.exampleOrganisms.innerHTML = `${getExamplesTotal(__jsxDocs__, 'organisms')} <sup>/ Organisms examples</sup>`; // eslint-disable-line
+    ui.jsxMetrics.exampleTemplates.innerHTML = `${getExamplesTotal(__jsxDocs__, 'templates')} <sup>/ Templates examples</sup>`; // eslint-disable-line
 
     // Install JS Metrics
-    ui.jsMetrics.variables.innerHTML = `${__stats__.js.variables.all} <sup>/ variables</sup>`;
-    ui.jsMetrics.loops.innerHTML = `${__stats__.js.loops.all} <sup>/ loops</sup>`;
-    ui.jsMetrics.methods.innerHTML = `${__stats__.js.methods.all} <sup>/ functions</sup>`;
-    ui.jsMetrics.expressions.innerHTML = `${__stats__.js.expressions.all} <sup>/ expressions</sup>`;
+    ui.jsMetrics.variables.innerHTML = `${getVariablesTotal(__esDocs__)} <sup>/ Variables</sup>`; // eslint-disable-line
+    ui.jsMetrics.loops.innerHTML = `${getLoopsTotal(__esDocs__)} <sup>/ Loops</sup>`;  // eslint-disable-line
+    ui.jsMetrics.methods.innerHTML = `${getMethodsTotal(__esDocs__)} <sup>/ Functions</sup>`;  // eslint-disable-line
+    ui.jsMetrics.expressions.innerHTML = `${getExpressionsTotal(__esDocs__)} <sup>/ Expressions</sup>`;  // eslint-disable-line
 
-    ui.jsMetrics.const.innerHTML = `${__stats__.js.variables.const} <sup>/ const</sup>`;
-    ui.jsMetrics.lets.innerHTML = `${__stats__.js.variables.lets} <sup>/ lets</sup>`;
+    ui.jsMetrics.const.innerHTML = `${getVariablesTotal(__esDocs__, 'const')} <sup>/ const</sup>`; // eslint-disable-line
+    ui.jsMetrics.lets.innerHTML = `${getVariablesTotal(__esDocs__, 'let')} <sup>/ lets</sup>`;  // eslint-disable-line
 
-    ui.jsMetrics.for.innerHTML = `${__stats__.js.loops.for} <sup>/ for() loops</sup>`;
-    ui.jsMetrics.forIn.innerHTML = `${__stats__.js.loops.forIn} <sup>/ forIn() loops</sup>`;
-    ui.jsMetrics.forOf.innerHTML = `${__stats__.js.loops.forOf} <sup>/ forOf() loops</sup>`;
-    ui.jsMetrics.while.innerHTML = `${__stats__.js.loops.while} <sup>/ while() loops</sup>`;
-    ui.jsMetrics.object.innerHTML = `${__stats__.js.loops.object} <sup>/ object.key() loops</sup>`;
+    ui.jsMetrics.for.innerHTML = `${getLoopsTotal(__esDocs__, 'ForStatement')} <sup>/ for() Loops</sup>`;  // eslint-disable-line
+    ui.jsMetrics.forIn.innerHTML = `${getLoopsTotal(__esDocs__, 'ForInStatement')} <sup>/ forIn() Loops</sup>`;  // eslint-disable-line
+    ui.jsMetrics.forOf.innerHTML = `${getLoopsTotal(__esDocs__, 'ForOfStatement')} <sup>/ forOf() Loops</sup>`;  // eslint-disable-line
+    ui.jsMetrics.while.innerHTML = `${getLoopsTotal(__esDocs__, 'WhileStatement')} <sup>/ while() Loops</sup>`;  // eslint-disable-line
+    ui.jsMetrics.object.innerHTML = `${getLoopsTotal(__esDocs__, 'ObjectKeysExpression')} <sup>/ object.key() Loops</sup>`;  // eslint-disable-line
 
-    ui.jsMetrics.functions.innerHTML = `${__stats__.js.methods.functions} <sup>/ Functions()</sup>`;
-    ui.jsMetrics.arrows.innerHTML = `${__stats__.js.methods.arrows} <sup>/ (Arrows) =></sup>`;
+    ui.jsMetrics.functions.innerHTML = `${getMethodsTotal(__esDocs__, 'FunctionExpression')} <sup>/ Functions()</sup>`;  // eslint-disable-line
+    ui.jsMetrics.arrows.innerHTML = `${getMethodsTotal(__esDocs__, 'ArrowFunctionExpression')} <sup>/ (Arrows) =></sup>`;  // eslint-disable-line
 
-    ui.jsMetrics.calls.innerHTML = `${__stats__.js.expressions.calls} <sup>/ x() calls</sup>`;
-    ui.jsMetrics.members.innerHTML = `${__stats__.js.expressions.members} <sup>/ x.y() members</sup>`;
-    ui.jsMetrics.assignments.innerHTML = `${__stats__.js.expressions.assignments} <sup>/ x = y assignments</sup>`;
+    ui.jsMetrics.calls.innerHTML = `${getExpressionsTotal(__esDocs__, 'CallExpression')} <sup>/ x() Calls</sup>`;  // eslint-disable-line
+    ui.jsMetrics.members.innerHTML = `${getExpressionsTotal(__esDocs__, 'MemberExpression')} <sup>/ x.y() Members</sup>`;  // eslint-disable-line
+    ui.jsMetrics.assignments.innerHTML = `${getExpressionsTotal(__esDocs__, 'AssignmentExpression')} <sup>/ x = y Assignments</sup>`;  // eslint-disable-line
 
     // Install CSS Metrics
-    ui.cssMetrics.selectors.innerHTML = `${__stats__.css.selectors} <sup>/ selectors</sup>`;
-    ui.cssMetrics.declarations.innerHTML = `${__stats__.css.selectors} <sup>/ declarations</sup>`;
-    ui.cssMetrics.declarations.innerHTML = `${__stats__.css.declarations} <sup>/ declarations</sup>`;
-    ui.cssMetrics.properties.innerHTML = `${__stats__.css.properties} <sup>/ properties</sup>`;
-    ui.cssMetrics.ids.innerHTML = `${__stats__.css.ids} <sup>/ ids</sup>`;
-    ui.cssMetrics.classes.innerHTML = `${__stats__.css.classes} <sup>/ classes</sup>`;
-    ui.cssMetrics.pseudoClass.innerHTML = `${__stats__.css.pseudo.class} <sup>/ pseudo class</sup>`;
-    ui.cssMetrics.pseudoElement.innerHTML = `${__stats__.css.pseudo.element} <sup>/ pseudo element</sup>`;
+    ui.cssMetrics.selectors.innerHTML = `${__stats__.css.selectors} <sup>/ Selectors</sup>`;
+    ui.cssMetrics.declarations.innerHTML = `${__stats__.css.selectors} <sup>/ Declarations</sup>`;
+    ui.cssMetrics.properties.innerHTML = `${__stats__.css.properties} <sup>/ Properties</sup>`;
+    ui.cssMetrics.ids.innerHTML = `${__stats__.css.ids} <sup>/ #ids</sup>`;
+    ui.cssMetrics.classes.innerHTML = `${__stats__.css.classes} <sup>/ .classes</sup>`;
+    ui.cssMetrics.pseudoClass.innerHTML = `${__stats__.css.pseudo.class} <sup>/ Pseudo class</sup>`;
+    ui.cssMetrics.pseudoElement.innerHTML = `${__stats__.css.pseudo.element} <sup>/ Pseudo element</sup>`;
 
-    ui.cssMetrics.display.innerHTML = `${__stats__.css.layout.display} <sup>/ display</sup>`;
-    ui.cssMetrics.float.innerHTML = `${__stats__.css.layout.float} <sup>/ float</sup>`;
-    ui.cssMetrics.width.innerHTML = `${__stats__.css.layout.width} <sup>/ width</sup>`;
-    ui.cssMetrics.height.innerHTML = `${__stats__.css.layout.height} <sup>/ height</sup>`;
-    ui.cssMetrics.maxWidth.innerHTML = `${__stats__.css.layout.maxWidth} <sup>/ max-width</sup>`;
-    ui.cssMetrics.minWidth.innerHTML = `${__stats__.css.layout.minWidth} <sup>/ min-width</sup>`;
-    ui.cssMetrics.maxHeight.innerHTML = `${__stats__.css.layout.maxHeight} <sup>/ max-height</sup>`;
-    ui.cssMetrics.minHeight.innerHTML = `${__stats__.css.layout.minHeight} <sup>/ min-height</sup>`;
+    ui.cssMetrics.display.innerHTML = `${__stats__.css.layout.display} <sup>/ Display</sup>`;
+    ui.cssMetrics.float.innerHTML = `${__stats__.css.layout.float} <sup>/ Float</sup>`;
+    ui.cssMetrics.width.innerHTML = `${__stats__.css.layout.width} <sup>/ Width</sup>`;
+    ui.cssMetrics.height.innerHTML = `${__stats__.css.layout.height} <sup>/ Height</sup>`;
+    ui.cssMetrics.maxWidth.innerHTML = `${__stats__.css.layout.maxWidth} <sup>/ Max-width</sup>`;
+    ui.cssMetrics.minWidth.innerHTML = `${__stats__.css.layout.minWidth} <sup>/ Min-width</sup>`;
+    ui.cssMetrics.maxHeight.innerHTML = `${__stats__.css.layout.maxHeight} <sup>/ Max-height</sup>`;
+    ui.cssMetrics.minHeight.innerHTML = `${__stats__.css.layout.minHeight} <sup>/ Min-height</sup>`;
 
-    ui.cssMetrics.color.innerHTML = `${__stats__.css.skin.color} <sup>/ color</sup>`;
-    ui.cssMetrics.backgroundColor.innerHTML = `${__stats__.css.skin.backgroundColor} <sup>/ background-color</sup>`;
-    ui.cssMetrics.borderColor.innerHTML = `${__stats__.css.skin.borderColor} <sup>/ border-color</sup>`;
-    ui.cssMetrics.boxShadow.innerHTML = `${__stats__.css.skin.boxShadow} <sup>/ box-shadow</sup>`;
+    ui.cssMetrics.color.innerHTML = `${__stats__.css.skin.color} <sup>/ Color</sup>`;
+    ui.cssMetrics.backgroundColor.innerHTML = `${__stats__.css.skin.backgroundColor} <sup>/ Background-color</sup>`;
+    ui.cssMetrics.borderColor.innerHTML = `${__stats__.css.skin.borderColor} <sup>/ Border-color</sup>`;
+    ui.cssMetrics.boxShadow.innerHTML = `${__stats__.css.skin.boxShadow} <sup>/ Box-shadow</sup>`;
 
-    ui.cssMetrics.family.innerHTML = `${__stats__.css.typography.family} <sup>/ font-family</sup>`;
-    ui.cssMetrics.size.innerHTML = `${__stats__.css.typography.size} <sup>/ font-size</sup>`;
-    ui.cssMetrics.weight.innerHTML = `${__stats__.css.typography.weight} <sup>/ font-weight</sup>`;
-    ui.cssMetrics.alignment.innerHTML = `${__stats__.css.typography.alignment} <sup>/ text-align</sup>`;
-    ui.cssMetrics.lineHeight.innerHTML = `${__stats__.css.typography.lineHeight} <sup>/ line-height</sup>`;
-    ui.cssMetrics.letterSpace.innerHTML = `${__stats__.css.typography.letterSpace} <sup>/ letter-spacing</sup>`;
-    ui.cssMetrics.decoration.innerHTML = `${__stats__.css.typography.decoration} <sup>/ decoration</sup>`;
-    ui.cssMetrics.transform.innerHTML = `${__stats__.css.typography.transform} <sup>/ transform</sup>`;
-    ui.cssMetrics.shadow.innerHTML = `${__stats__.css.typography.shadow} <sup>/ shadow</sup>`;
+    ui.cssMetrics.family.innerHTML = `${__stats__.css.typography.family} <sup>/ Font-family</sup>`;
+    ui.cssMetrics.size.innerHTML = `${__stats__.css.typography.size} <sup>/ Font-size</sup>`;
+    ui.cssMetrics.weight.innerHTML = `${__stats__.css.typography.weight} <sup>/ Font-weight</sup>`;
+    ui.cssMetrics.alignment.innerHTML = `${__stats__.css.typography.alignment} <sup>/ Text-align</sup>`;
+    ui.cssMetrics.lineHeight.innerHTML = `${__stats__.css.typography.lineHeight} <sup>/ Line-height</sup>`;
+    ui.cssMetrics.letterSpace.innerHTML = `${__stats__.css.typography.letterSpace} <sup>/ Letter-spacing</sup>`;
+    ui.cssMetrics.decoration.innerHTML = `${__stats__.css.typography.decoration} <sup>/ Decoration</sup>`;
+    ui.cssMetrics.transform.innerHTML = `${__stats__.css.typography.transform} <sup>/ Transform</sup>`;
+    ui.cssMetrics.shadow.innerHTML = `${__stats__.css.typography.shadow} <sup>/ Shadow</sup>`;
 
-    ui.cssMetrics.spacingPadding.innerHTML = `${__stats__.css.spacing.padding.all} <sup>/ padding</sup>`;
-    ui.cssMetrics.spacingPaddingTop.innerHTML = `${__stats__.css.spacing.padding.top} <sup>/ padding-top</sup>`;
-    ui.cssMetrics.spacingPaddingRight.innerHTML = `${__stats__.css.spacing.padding.right} <sup>/ padding-right</sup>`;
-    ui.cssMetrics.spacingPaddingBottom.innerHTML = `${__stats__.css.spacing.padding.bottom} <sup>/ padding-bottom</sup>`;
-    ui.cssMetrics.spacingPaddingLeft.innerHTML = `${__stats__.css.spacing.padding.left} <sup>/ padding-left</sup>`;
+    ui.cssMetrics.spacingPadding.innerHTML = `${__stats__.css.spacing.padding.all} <sup>/ Padding</sup>`;
+    ui.cssMetrics.spacingPaddingTop.innerHTML = `${__stats__.css.spacing.padding.top} <sup>/ Padding-top</sup>`;
+    ui.cssMetrics.spacingPaddingRight.innerHTML = `${__stats__.css.spacing.padding.right} <sup>/ Padding-right</sup>`;
+    ui.cssMetrics.spacingPaddingBottom.innerHTML = `${__stats__.css.spacing.padding.bottom} <sup>/ Padding-bottom</sup>`;
+    ui.cssMetrics.spacingPaddingLeft.innerHTML = `${__stats__.css.spacing.padding.left} <sup>/ Padding-left</sup>`;
 
-    ui.cssMetrics.spacingMargin.innerHTML = `${__stats__.css.spacing.margin.all} <sup>/ margin</sup>`;
-    ui.cssMetrics.spacingMarginTop.innerHTML = `${__stats__.css.spacing.margin.top} <sup>/ margin-top</sup>`;
-    ui.cssMetrics.spacingMarginRight.innerHTML = `${__stats__.css.spacing.margin.right} <sup>/ margin-right</sup>`;
-    ui.cssMetrics.spacingMarginBottom.innerHTML = `${__stats__.css.spacing.margin.bottom} <sup>/ margin-bottom</sup>`;
-    ui.cssMetrics.spacingMarginLeft.innerHTML = `${__stats__.css.spacing.margin.left} <sup>/ margin-left</sup>`;
+    ui.cssMetrics.spacingMargin.innerHTML = `${__stats__.css.spacing.margin.all} <sup>/ Margin</sup>`;
+    ui.cssMetrics.spacingMarginTop.innerHTML = `${__stats__.css.spacing.margin.top} <sup>/ Margin-top</sup>`;
+    ui.cssMetrics.spacingMarginRight.innerHTML = `${__stats__.css.spacing.margin.right} <sup>/ Margin-right</sup>`;
+    ui.cssMetrics.spacingMarginBottom.innerHTML = `${__stats__.css.spacing.margin.bottom} <sup>/ Margin-bottom</sup>`;
+    ui.cssMetrics.spacingMarginLeft.innerHTML = `${__stats__.css.spacing.margin.left} <sup>/ Margin-left</sup>`;
 
-    ui.cssMetrics.resetPadding.innerHTML = `${__stats__.css.resets.padding.all} <sup>/ padding</sup>`;
-    ui.cssMetrics.resetPaddingTop.innerHTML = `${__stats__.css.resets.padding.top} <sup>/ padding-top</sup>`;
-    ui.cssMetrics.resetPaddingRight.innerHTML = `${__stats__.css.resets.padding.right} <sup>/ padding-right</sup>`;
-    ui.cssMetrics.resetPaddingBottom.innerHTML = `${__stats__.css.resets.padding.bottom} <sup>/ padding-bottom</sup>`;
-    ui.cssMetrics.resetPaddingLeft.innerHTML = `${__stats__.css.resets.padding.left} <sup>/ padding-left</sup>`;
+    ui.cssMetrics.resetPadding.innerHTML = `${__stats__.css.resets.padding.all} <sup>/ Padding</sup>`;
+    ui.cssMetrics.resetPaddingTop.innerHTML = `${__stats__.css.resets.padding.top} <sup>/ Padding-top</sup>`;
+    ui.cssMetrics.resetPaddingRight.innerHTML = `${__stats__.css.resets.padding.right} <sup>/ Padding-right</sup>`;
+    ui.cssMetrics.resetPaddingBottom.innerHTML = `${__stats__.css.resets.padding.bottom} <sup>/ Padding-bottom</sup>`;
+    ui.cssMetrics.resetPaddingLeft.innerHTML = `${__stats__.css.resets.padding.left} <sup>/ Padding-left</sup>`;
 
-    ui.cssMetrics.resetMargin.innerHTML = `${__stats__.css.resets.margin.all} <sup>/ margin</sup>`;
-    ui.cssMetrics.resetMarginTop.innerHTML = `${__stats__.css.resets.margin.top} <sup>/ margin-top</sup>`;
-    ui.cssMetrics.resetMarginRight.innerHTML = `${__stats__.css.resets.margin.right} <sup>/ margin-right</sup>`;
-    ui.cssMetrics.resetMarginBottom.innerHTML = `${__stats__.css.resets.margin.bottom} <sup>/ margin-bottom</sup>`;
-    ui.cssMetrics.resetMarginLeft.innerHTML = `${__stats__.css.resets.margin.left} <sup>/ margin-left</sup>`;
+    ui.cssMetrics.resetMargin.innerHTML = `${__stats__.css.resets.margin.all} <sup>/ Margin</sup>`;
+    ui.cssMetrics.resetMarginTop.innerHTML = `${__stats__.css.resets.margin.top} <sup>/ Margin-top</sup>`;
+    ui.cssMetrics.resetMarginRight.innerHTML = `${__stats__.css.resets.margin.right} <sup>/ Margin-right</sup>`;
+    ui.cssMetrics.resetMarginBottom.innerHTML = `${__stats__.css.resets.margin.bottom} <sup>/ Margin-bottom</sup>`;
+    ui.cssMetrics.resetMarginLeft.innerHTML = `${__stats__.css.resets.margin.left} <sup>/ Margin-left</sup>`;
 
     ui.cssMetrics.compDisplay.innerHTML = `Display <br /><sup>${__stats__.css.comparison.layout.display.unique} Unique ${__stats__.css.comparison.layout.display.repeated} Repeated</sup>`;
     ui.cssMetrics.compFloat.innerHTML = `Float <br /><sup>${__stats__.css.comparison.layout.float.unique} Unique ${__stats__.css.comparison.layout.float.repeated} Repeated</sup>`;

@@ -50,7 +50,7 @@ export const Metrics = () => {
                   <div className="mini-numbers subs" />
                 </div>
 
-                <Heading level="h2">Prop Metrics</Heading>
+                <Heading level="h2">JSX Prop Metrics</Heading>
                 <div className="flex flex--wrap">
                   <div className="mini-numbers props" />
                   <div className="mini-numbers strings" />
@@ -62,7 +62,7 @@ export const Metrics = () => {
                   <div className="mini-numbers isReuireds" />
                 </div>
 
-                <Heading level="h2">Usage Metrics</Heading>
+                <Heading level="h2">JSX Usage Metrics</Heading>
                 <div className="flex flex--wrap">
                   <div className="mini-numbers used" />
                   <div className="mini-numbers used-roots" />
@@ -73,7 +73,7 @@ export const Metrics = () => {
                   <div className="mini-numbers used-templates" />
                 </div>
 
-                <Heading level="h2">Example Metrics</Heading>
+                <Heading level="h2">JSX Example Metrics</Heading>
                 <div className="flex flex--wrap">
                   <div className="mini-numbers examples" />
                   <div className="mini-numbers example-exported" />

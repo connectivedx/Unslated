@@ -5,12 +5,16 @@
 const path = require('path');
 const Package = require('../../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { ESDocs, JSXDocs, ESMetrics, JSXMetrics, Bundle } = require('./js.config.plugins.js');
+const { ESDocs, JSXDocs, ESMetrics, Bundle } = require('./js.config.plugins.js');
 
 const babelPlugins = [
   '@babel/plugin-proposal-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
   '@babel/plugin-proposal-class-properties', // (see: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)
-  '@babel/plugin-transform-react-display-name' // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
+  '@babel/plugin-transform-react-display-name', // (see: https://www.npmjs.com/package/babel-plugin-add-react-displayname)
+  '@babel/plugin-proposal-nullish-coalescing-operator', // (see: https://babeljs.io/docs/en/babel-plugin-proposal-nullish-coalescing-operator)
+  '@babel/plugin-proposal-async-generator-functions', // (see: https://babeljs.io/docs/en/babel-plugin-proposal-async-generator-functions)
+  '@babel/plugin-transform-for-of', // (see: https://babeljs.io/docs/en/babel-plugin-transform-for-of)
+  '@babel/plugin-proposal-optional-chaining' // (see: https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining)
 ];
 
 const babelOptions = {
@@ -65,7 +69,6 @@ module.exports = {
           'compact': false,
           'presets': ['@babel/preset-react'],
           'plugins': [
-            JSXMetrics,
             JSXDocs,
             ...babelPlugins
           ]
