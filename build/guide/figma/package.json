@@ -1,0 +1,15 @@
+{
+  "name": "Unslated",
+  "version": "1.0.0",
+  "description": "Your Figma Plugin",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.15.0",
+    "typescript": "^3.9.6"
+  }
+}

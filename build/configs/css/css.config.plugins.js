@@ -583,11 +583,11 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
     }
   };
 
-  return root => {
-    const __metrics = process.cssMetricsReset();
+  if (!process.cssMetrics) {
+    process.cssMetrics = {};
+  }
 
-    let metrics = {...__metrics};
-
+  return (root) => {
     let ids = [];
     let classes = [];
     let float = [];
@@ -611,7 +611,11 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
     let marginLeft = [];
     let marginRight = [];
 
-    if (root.source.input.css.indexOf('.guide__menu') === -1) {
+    if (root.source.input.file.indexOf('guide') === -1) {
+      const fileName = path.basename(root.source.input.file).replace('.css', '');
+      process.cssMetrics[fileName] = process.cssMetricsReset();
+      const metrics = process.cssMetrics[fileName];
+
       const pseudoClasses = [
         ':active',
         ':checked',
@@ -655,37 +659,37 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
       ];
 
       root.walkRules(rule => {
-        metrics.rules++;
+        process.cssMetrics[fileName].rules++;
 
-          if (rule.selector) {
+        if (rule.selector) {
           /* Selectors */
-          metrics.selectors++;
+          process.cssMetrics[fileName].selectors++;
 
           /* Ids */
           if (rule.selector.toString().indexOf('#') !== -1) {
             ids.push(rule.selector.toString());
           }
 
-          metrics.ids = reduceDuplicates(ids).join(' ').split('#').length - 1;
+          process.cssMetrics[fileName].ids = reduceDuplicates(ids).join(' ').split('#').length - 1;
 
           /* Classes */
           if (rule.selector.toString().indexOf('.') !== -1) {
             classes.push(rule.selector.toString());
           }
 
-          metrics.classes = reduceDuplicates(classes).join(' ').split('.').length - 1;
+          process.cssMetrics[fileName].classes = reduceDuplicates(classes).join(' ').split('.').length - 1;
 
 
           /* Pseudo Classes and Elements */
           Object.keys(pseudoClasses).map((i) => {
             if (rule.selector.toString().indexOf(pseudoClasses[i]) !== -1) {
-              metrics.pseudo.class++;
+              process.cssMetrics[fileName].pseudo.class++;
             }
           });
 
           Object.keys(pseudoElements).map((i) => {
             if (rule.selector.toString().indexOf(pseudoElements[i]) !== -1) {
-              metrics.pseudo.element++;
+              process.cssMetrics[fileName].pseudo.element++;
             }
           });
         }
@@ -693,163 +697,161 @@ const MetricsCSS = postcss.plugin('postcss-metrics', (options) => {
 
       root.walkDecls(decl => {
         if (decl) {
-          metrics.declarations++;
+          process.cssMetrics[fileName].declarations++;
         }
 
         if (decl.prop) {
-          metrics.properties++;
+          process.cssMetrics[fileName].properties++;
         }
 
         const prop = decl.prop.toString();
         const value = decl.value.toString();
 
         /* Layout */
-        if (prop === 'float') { metrics.layout.float++; float.push(value); }
+        if (prop === 'float') { process.cssMetrics[fileName].layout.float++; float.push(value); }
 
-        if (prop === 'width') { metrics.layout.width++; width.push(value); }
+        if (prop === 'width') { process.cssMetrics[fileName].layout.width++; width.push(value); }
 
-        if (prop === 'height') { metrics.layout.width++; height.push(value); }
+        if (prop === 'height') { process.cssMetrics[fileName].layout.width++; height.push(value); }
 
-        if (prop === 'display') { metrics.layout.display++; display.push(value); }
+        if (prop === 'display') { process.cssMetrics[fileName].layout.display++; display.push(value); }
 
-        if (prop === 'min-width') { metrics.layout.minWidth++; minWidth.push(value); }
+        if (prop === 'min-width') { process.cssMetrics[fileName].layout.minWidth++; minWidth.push(value); }
 
-        if (prop === 'max-width') { metrics.layout.maxWidth++; maxWidth.push(value); }
+        if (prop === 'max-width') { process.cssMetrics[fileName].layout.maxWidth++; maxWidth.push(value); }
 
-        if (prop === 'min-height') { metrics.layout.minHeight++; minHeight.push(value); }
+        if (prop === 'min-height') { process.cssMetrics[fileName].layout.minHeight++; minHeight.push(value); }
 
-        if (prop === 'max-height') { metrics.layout.maxHeight++; maxHeight.push(value); }
+        if (prop === 'max-height') { process.cssMetrics[fileName].layout.maxHeight++; maxHeight.push(value); }
 
         /* Skins */
-        if (prop === 'color') { metrics.skin.color++; }
+        if (prop === 'color') { process.cssMetrics[fileName].skin.color++; }
 
-        if (prop === 'background-color') { metrics.skin.backgroundColor++; }
+        if (prop === 'background-color') { process.cssMetrics[fileName].skin.backgroundColor++; }
 
-        if (prop === 'border-color') { metrics.skin.borderColor++; }
+        if (prop === 'border-color') { process.cssMetrics[fileName].skin.borderColor++; }
 
-        if (prop === 'box-shadow') { metrics.skin.boxShadow++; }
+        if (prop === 'box-shadow') { process.cssMetrics[fileName].skin.boxShadow++; }
 
         /* Typography */
-        if (prop === 'font-family') { metrics.typography.family++; }
+        if (prop === 'font-family') { process.cssMetrics[fileName].typography.family++; }
 
-        if (prop === 'font-size') { metrics.typography.size++; }
+        if (prop === 'font-size') { process.cssMetrics[fileName].typography.size++; }
 
-        if (prop === 'font-weight') { metrics.typography.weight++; }
+        if (prop === 'font-weight') { process.cssMetrics[fileName].typography.weight++; }
 
-        if (prop === 'text-align') { metrics.typography.alignment++; }
+        if (prop === 'text-align') { process.cssMetrics[fileName].typography.alignment++; }
 
-        if (prop === 'line-height') { metrics.typography.lineHeight++; }
+        if (prop === 'line-height') { process.cssMetrics[fileName].typography.lineHeight++; }
 
-        if (prop === 'letter-spacing') { metrics.typography.letterSpace++; }
+        if (prop === 'letter-spacing') { process.cssMetrics[fileName].typography.letterSpace++; }
 
-        if (prop === 'text-decoration') { metrics.typography.decoration++; }
+        if (prop === 'text-decoration') { process.cssMetrics[fileName].typography.decoration++; }
 
-        if (prop === 'text-transform') { metrics.typography.transform++; }
+        if (prop === 'text-transform') { process.cssMetrics[fileName].typography.transform++; }
 
-        if (prop === 'text-shadow') { metrics.typography.textShadow++; }
+        if (prop === 'text-shadow') { process.cssMetrics[fileName].typography.textShadow++; }
 
         /* Spacing */
         if (prop === 'padding') {
-          metrics.spacing.padding.all++;
-          if (parseInt(value) === 0) { metrics.resets.padding.all++; padding.push(value); }
+          process.cssMetrics[fileName].spacing.padding.all++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.padding.all++; padding.push(value); }
         }
         if (prop === 'padding-top') {
-          metrics.spacing.padding.top++;
-          if (parseInt(value) === 0) { metrics.resets.padding.top++; paddingTop.push(value); }
+          process.cssMetrics[fileName].spacing.padding.top++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.padding.top++; paddingTop.push(value); }
         }
         if (prop === 'padding-right') {
-          metrics.spacing.padding.right++;
-          if (parseInt(value) === 0) { metrics.resets.padding.right++; paddingRight.push(value); }
+          process.cssMetrics[fileName].spacing.padding.right++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.padding.right++; paddingRight.push(value); }
         }
         if (prop === 'padding-bottom') {
-          metrics.spacing.padding.bottom++;
-          if (parseInt(value) === 0) { metrics.resets.padding.bottom++; paddingBottom.push(value); }
+          process.cssMetrics[fileName].spacing.padding.bottom++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.padding.bottom++; paddingBottom.push(value); }
         }
         if (prop === 'padding-left') {
-          metrics.spacing.padding.left++;
-          if (parseInt(value) === 0) { metrics.resets.padding.left++; paddingLeft.push(value); }
+          process.cssMetrics[fileName].spacing.padding.left++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.padding.left++; paddingLeft.push(value); }
         }
 
         if (prop === 'margin') {
-          metrics.spacing.margin.all++;
-          if (parseInt(value) === 0) { metrics.resets.margin.all++; margin.push(value); }
+          process.cssMetrics[fileName].spacing.margin.all++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.margin.all++; margin.push(value); }
         }
         if (prop === 'margin-top') {
-          metrics.spacing.margin.top++;
-          if (parseInt(value) === 0) { metrics.resets.margin.top++; marginTop.push(value); }
+          process.cssMetrics[fileName].spacing.margin.top++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.margin.top++; marginTop.push(value); }
         }
         if (prop === 'margin-right') {
-          metrics.spacing.margin.right++;
-          if (parseInt(value) === 0) { metrics.resets.margin.right++; marginRight.push(value); }
+          process.cssMetrics[fileName].spacing.margin.right++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.margin.right++; marginRight.push(value); }
         }
         if (prop === 'margin-bottom') {
-          metrics.spacing.margin.bottom++;
-          if (parseInt(value) === 0) { metrics.resets.margin.bottom++; marginBottom.push(value); }
+          process.cssMetrics[fileName].spacing.margin.bottom++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.margin.bottom++; marginBottom.push(value); }
         }
         if (prop === 'margin-left') {
-          metrics.spacing.margin.left++;
-          if (parseInt(value) === 0) { metrics.resets.margin.left++; marginLeft.push(value); }
+          process.cssMetrics[fileName].spacing.margin.left++;
+          if (parseInt(value) === 0) { process.cssMetrics[fileName].resets.margin.left++; marginLeft.push(value); }
         }
       });
 
       /* Layout Compairson */
-      metrics.comparison.layout.display.unique = reduceDuplicates(display).length;
-      metrics.comparison.layout.display.repeated = display.length;
+      process.cssMetrics[fileName].comparison.layout.display.unique = reduceDuplicates(display).length;
+      process.cssMetrics[fileName].comparison.layout.display.repeated = display.length;
 
-      metrics.comparison.layout.float.unique = reduceDuplicates(float).length;
-      metrics.comparison.layout.float.repeated = float.length;
+      process.cssMetrics[fileName].comparison.layout.float.unique = reduceDuplicates(float).length;
+      process.cssMetrics[fileName].comparison.layout.float.repeated = float.length;
 
-      metrics.comparison.layout.width.unique = reduceDuplicates(width).length;
-      metrics.comparison.layout.width.repeated = width.length;
+      process.cssMetrics[fileName].comparison.layout.width.unique = reduceDuplicates(width).length;
+      process.cssMetrics[fileName].comparison.layout.width.repeated = width.length;
 
-      metrics.comparison.layout.height.unique = reduceDuplicates(height).length;
-      metrics.comparison.layout.height.repeated = height.length;
+      process.cssMetrics[fileName].comparison.layout.height.unique = reduceDuplicates(height).length;
+      process.cssMetrics[fileName].comparison.layout.height.repeated = height.length;
 
-      metrics.comparison.layout.maxWidth.unique = reduceDuplicates(maxWidth).length;
-      metrics.comparison.layout.maxWidth.repeated = maxWidth.length;
+      process.cssMetrics[fileName].comparison.layout.maxWidth.unique = reduceDuplicates(maxWidth).length;
+      process.cssMetrics[fileName].comparison.layout.maxWidth.repeated = maxWidth.length;
 
-      metrics.comparison.layout.minWidth.unique = reduceDuplicates(minWidth).length;
-      metrics.comparison.layout.minWidth.repeated = minWidth.length;
+      process.cssMetrics[fileName].comparison.layout.minWidth.unique = reduceDuplicates(minWidth).length;
+      process.cssMetrics[fileName].comparison.layout.minWidth.repeated = minWidth.length;
 
-      metrics.comparison.layout.maxHeight.unique = reduceDuplicates(maxHeight).length;
-      metrics.comparison.layout.maxHeight.repeated = maxHeight.length;
+      process.cssMetrics[fileName].comparison.layout.maxHeight.unique = reduceDuplicates(maxHeight).length;
+      process.cssMetrics[fileName].comparison.layout.maxHeight.repeated = maxHeight.length;
 
-      metrics.comparison.layout.minHeight.unique = reduceDuplicates(minHeight).length;
-      metrics.comparison.layout.minHeight.repeated = minHeight.length;
+      process.cssMetrics[fileName].comparison.layout.minHeight.unique = reduceDuplicates(minHeight).length;
+      process.cssMetrics[fileName].comparison.layout.minHeight.repeated = minHeight.length;
 
       /* Padding Compairson */
-      metrics.comparison.padding.all.unique = reduceDuplicates(padding).length;
-      metrics.comparison.padding.all.repeated = padding.length;
+      process.cssMetrics[fileName].comparison.padding.all.unique = reduceDuplicates(padding).length;
+      process.cssMetrics[fileName].comparison.padding.all.repeated = padding.length;
 
-      metrics.comparison.padding.top.unique = reduceDuplicates(paddingTop).length;
-      metrics.comparison.padding.top.repeated = paddingTop.length;
+      process.cssMetrics[fileName].comparison.padding.top.unique = reduceDuplicates(paddingTop).length;
+      process.cssMetrics[fileName].comparison.padding.top.repeated = paddingTop.length;
 
-      metrics.comparison.padding.right.unique = reduceDuplicates(paddingRight).length;
-      metrics.comparison.padding.right.repeated = paddingRight.length;
+      process.cssMetrics[fileName].comparison.padding.right.unique = reduceDuplicates(paddingRight).length;
+      process.cssMetrics[fileName].comparison.padding.right.repeated = paddingRight.length;
 
-      metrics.comparison.padding.bottom.unique = reduceDuplicates(paddingBottom).length;
-      metrics.comparison.padding.bottom.repeated = paddingBottom.length;
+      process.cssMetrics[fileName].comparison.padding.bottom.unique = reduceDuplicates(paddingBottom).length;
+      process.cssMetrics[fileName].comparison.padding.bottom.repeated = paddingBottom.length;
 
-      metrics.comparison.padding.left.unique = reduceDuplicates(paddingLeft).length;
-      metrics.comparison.padding.left.repeated = paddingLeft.length;
+      process.cssMetrics[fileName].comparison.padding.left.unique = reduceDuplicates(paddingLeft).length;
+      process.cssMetrics[fileName].comparison.padding.left.repeated = paddingLeft.length;
 
       /* Margin Compairson */
-      metrics.comparison.margin.all.unique = reduceDuplicates(margin).length;
-      metrics.comparison.margin.all.repeated = margin.length;
+      process.cssMetrics[fileName].comparison.margin.all.unique = reduceDuplicates(margin).length;
+      process.cssMetrics[fileName].comparison.margin.all.repeated = margin.length;
 
-      metrics.comparison.margin.top.unique = reduceDuplicates(marginTop).length;
-      metrics.comparison.margin.top.repeated = marginTop.length;
+      process.cssMetrics[fileName].comparison.margin.top.unique = reduceDuplicates(marginTop).length;
+      process.cssMetrics[fileName].comparison.margin.top.repeated = marginTop.length;
 
-      metrics.comparison.margin.right.unique = reduceDuplicates(marginRight).length;
-      metrics.comparison.margin.right.repeated = marginRight.length;
+      process.cssMetrics[fileName].comparison.margin.right.unique = reduceDuplicates(marginRight).length;
+      process.cssMetrics[fileName].comparison.margin.right.repeated = marginRight.length;
 
-      metrics.comparison.margin.bottom.unique = reduceDuplicates(marginBottom).length;
-      metrics.comparison.margin.bottom.repeated = marginBottom.length;
+      process.cssMetrics[fileName].comparison.margin.bottom.unique = reduceDuplicates(marginBottom).length;
+      process.cssMetrics[fileName].comparison.margin.bottom.repeated = marginBottom.length;
 
-      metrics.comparison.margin.left.unique = reduceDuplicates(marginLeft).length;
-      metrics.comparison.margin.left.repeated = marginLeft.length;
-
-      process.cssMetrics = metrics;
+      process.cssMetrics[fileName].comparison.margin.left.unique = reduceDuplicates(marginLeft).length;
+      process.cssMetrics[fileName].comparison.margin.left.repeated = marginLeft.length;
     }
   }
 });

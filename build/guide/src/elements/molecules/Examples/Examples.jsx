@@ -49,18 +49,12 @@ export const Examples = (props) => {
   // HTML Prisim Code Snips
   const getHTMLPrisim = (component) => {
     let prisimData = ReactDOMServer.renderToStaticMarkup(component);
-    let indent = '';
-    prisimData = prisimData.replace(/></g, (x) => {
-      indent += '  ';
-      return x.replace('><', `>\n${indent}<`);
-    }).trim();
-    if (component.props.devonly === 'true') {
-      prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
-    }
+    prisimData = prisimData.replace(/\r?\n|\r/g, '');
     prisimData = prisimData.replace(/&gt;/g, '>');
     prisimData = prisimData.replace(/&lt;/g, '<');
     prisimData = prisimData.replace(/&#x27;/g, "'");
     prisimData = prisimData.replace(/is="sly"/g, '');
+    prisimData = prisimData.replace(/<(.*)devonly="true">((.|\n)*)<\/(.*)>/m, '$2').trim();
     return Prism.highlight(GuideUtils.XMLFormat(prisimData), Prism.languages.html, 'html'); // eslint-disable-line
   };
 
