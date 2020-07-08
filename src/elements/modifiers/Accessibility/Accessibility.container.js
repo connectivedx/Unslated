@@ -24,6 +24,12 @@ export const Accessibility = (el) => {
         if (target.ariaPressed && type === 'click') {
           target.ariaPressed = !(target.ariaPressed === 'true');
         }
+        if (target.ariaPressed && type === 'keydown') {
+          if (event.which === 13 || event.which === 32) {
+            event.preventDefault();
+            target.ariaPressed = !(target.ariaPressed === 'true');
+          }
+        }
       });
 
       return false;
