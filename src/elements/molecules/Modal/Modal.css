@@ -79,7 +79,6 @@
     margin: auto; 
     padding: rem(20px); 
     position: relative; 
-    text-align: left;
     width: 100%;
 
     &--width {
