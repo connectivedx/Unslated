@@ -56,12 +56,16 @@ export const Accessibility = (el) => {
         const { target } = event;
 
         // Logic for aria pressed
-        if (target.ariaPressed && ['click', 'keydown'].indexOf(type) !== -1) {
+        if (target.ariaPressed && ['click', 'keyup'].indexOf(type) !== -1) {
           if (type === 'click') {
             target.ariaPressed = !(target.ariaPressed === 'true');
           } else if (event.which === 13 || event.which === 32) {
-            event.preventDefault();
-            target.ariaPressed = !(target.ariaPressed === 'true');
+            if (target.tagName !== 'BUTTON') {
+              event.preventDefault();
+              target.ariaPressed = !(target.ariaPressed === 'true');
+            } else {
+              target.ariaPressed = !(target.ariaPressed === 'true');
+            }
           }
         }
       });
