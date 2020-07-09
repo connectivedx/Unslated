@@ -36,6 +36,21 @@
     text-decoration: none;
   }
 
+  &--icon {
+    background-color: transparent;
+    border: none;
+    display: flex !important;
+    fill: var(--color-red);
+    font-size: rem(16px);  
+    padding: 2px;
+
+    &:hover,
+    &:active {
+      background-color: transparent;
+      fill: var(--color-black);
+    }
+  }
+
   /* sizes */
   &--auto {
     display: inline-block;
@@ -45,5 +60,10 @@
   &--full {
     display: block;
     width: 100%;
+  }
+
+  &[aria-pressed="true"] {
+    background-color: var(--color-gray-light);
+    border-color: var(--color-gray-light);
   }
 }

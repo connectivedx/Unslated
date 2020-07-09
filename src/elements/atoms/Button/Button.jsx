@@ -15,7 +15,7 @@ export class Button extends React.Component {
     /** Size variants */
     width: PropTypes.oneOf(['auto', 'full']),
     /** Style variant */
-    variant: PropTypes.oneOf(['default', 'link', 'cta']),
+    variant: PropTypes.oneOf(['default', 'link', 'cta', 'icon']),
     /** If used, button becomes an anchor tag with button styles */
     href: PropTypes.string,
     /** Children nodes being passed through */
@@ -59,6 +59,13 @@ export class Button extends React.Component {
       Tag = 'a';
       classStack = [classStack, ' button--link'].join('');
       attrs.href = href;
+    }
+
+    if (tagName !== 'button') {
+      attrs.role = 'button';
+      if (tagName !== 'a') {
+        attrs.tabIndex = '0';
+      }
     }
 
     return (
