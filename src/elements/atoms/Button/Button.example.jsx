@@ -68,12 +68,5 @@ export default [{
         <Icon name="close" aria-hidden="true" focusable="false" />
       </Button>
     )
-  }, {
-    name: 'Icon button',
-    component: (
-      <Button tagName="icon" variant="icon" aria-label="use when there's no button text">
-        <Icon name="close" aria-hidden="true" focusable="false" />
-      </Button>
-    )
   }]
 }];
