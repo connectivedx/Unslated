@@ -21,12 +21,12 @@ export const GuideReadme = (el) => {
   const jsxPropsListing = () => {
     const collection = [];
     if (data.jsxDocs) {
-      Object.keys(data.jsxDocs).map((i, index) => {
-        const elementProps = data.jsxDocs[i].props;
+      Object.keys(data.jsxDocs.Tags).map((i, index) => {
+        const elementProps = data.jsxDocs.Tags[i].props;
 
         collection.push(`
         <h4 class="guide__heading guide__heading--medium guide__heading--h4">&lt;${i}&gt;</h4>
-        <p>${data.jsxDocs[i].description}</p>
+        <p>${data.jsxDocs.Tags[i].description}</p>
         <table class="guide__table guide__table--default">
           <thead class="guide__table__head">
             <tr class="guide__table__row">

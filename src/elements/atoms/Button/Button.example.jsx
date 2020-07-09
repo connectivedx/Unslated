@@ -21,6 +21,7 @@
     ```
 */
 
+import Icon from '@atoms/Icon/Icon';
 import Button from './Button';
 
 export default [{
@@ -28,10 +29,7 @@ export default [{
     name: 'Default styling',
     component: (
       <Button>Hello World</Button>
-    ),
-    options: {
-      background: '#666'
-    }
+    )
   }, {
     name: 'Linked button',
     component: (
@@ -56,6 +54,18 @@ export default [{
     name: 'Linked Cta button',
     component: (
       <Button href="#/" variant="cta">Hello World</Button>
+    )
+  }, {
+    name: 'Toggle aria-pressed attribute',
+    component: (
+      <Button tagName="div" aria-pressed="false">Hello World</Button>
+    )
+  }, {
+    name: 'Icon button',
+    component: (
+      <Button variant="icon" aria-label="use when there's no button text">
+        <Icon name="close" aria-hidden="true" focusable="false" />
+      </Button>
     )
   }]
 }];
