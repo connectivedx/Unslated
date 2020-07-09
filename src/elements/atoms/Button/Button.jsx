@@ -19,16 +19,13 @@ export class Button extends React.Component {
     /** If used, button becomes an anchor tag with button styles */
     href: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node,
-    /** Defineds the accessibility pressed state for foreign tag usage */
-    'aria-pressed': PropTypes.string
+    children: PropTypes.node
   };
 
   static defaultProps = {
     tagName: 'button',
     variant: 'primary',
-    size: 'inline',
-    'aria-pressed': 'false'
+    size: 'inline'
   };
 
   /** Element level options */
