@@ -33,7 +33,7 @@ export default [{
       <React.Fragment>
         <Button variant="primary">Primary Button</Button>
         <Button variant="secondary">Seconary Button</Button>
-        <Button variant="tertiary">Tertiary</Button>
+        <Button variant="tertiary">Tertiary Button</Button>
       </React.Fragment>
     )
   }, {

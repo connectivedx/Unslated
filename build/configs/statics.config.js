@@ -50,6 +50,10 @@ const config = {
   },
   plugins: [
     ...alias.plugins,                      // see build/configs/alias.config.js
+    new Webpack.ProvidePlugin({
+      React: 'react',
+      PropTypes: 'prop-types'
+    }),
     new StaticBundle()                     // see build/configs/webpack.plugins.js
   ],
   resolve: {

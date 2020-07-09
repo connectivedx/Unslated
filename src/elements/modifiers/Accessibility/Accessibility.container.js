@@ -38,7 +38,7 @@ export const Accessibility = (el) => {
     {
       test: '[role="button"]',
       rule: (element) => (element.ariaLabel),
-      error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nWhen transforming a Button element's tagName to anything other than <a>, you need to supply an "arial-label" attribute and describe the elements intent to screen readers.`
+      error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nWhen transforming a Button element's tagName to anything other than <button>, you need to supply an "arial-label" attribute and describe the elements intent to screen readers.`
     },
     // Test for foreign link tags who have missing aria-label
     {
