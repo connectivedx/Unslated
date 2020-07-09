@@ -31,14 +31,14 @@ import Alert from './Alert';
 export default [{
   examples: [
     {
-      name: 'Inline Alert',
+      name: 'Default Inline Alert',
       description: '',
       staticPath: '',
       component: (
         <React.Fragment>
           <Rhythm>
             <Heading level="h5">Inline alert example. Refresh page after closing to rerender.</Heading>
-            <Alert variant="inline" className="flex flex--justify-content-between" role="alert">
+            <Alert className="flex flex--justify-content-between" role="alert">
               <div className="alert--inline-container" role="alertdialog">
                 <Heading level="h4" weight="thin">This is an inline alert!</Heading>
               </div>
@@ -56,28 +56,20 @@ export default [{
       staticPath: '',
       component: (
         <React.Fragment>
-          <Alert>
-            <Button data-modal="alert-modal-id-01">Click Me</Button>
+          <Alert variant="modal">
+            <Button data-modal="alert-modal-id-01">Click me to open alert modal</Button>
           </Alert>
           <Modal data-modal="alert-modal-id-01" className="alert-modal-id-01" size="medium" padding="medium" role="alert">
             <Rhythm size="large" role="alertdialog">
-              <Heading>Alert!!</Heading>
+              <Heading>Alert!</Heading>
               <p>{Utils.ipsum('sentence', 1)}</p>
               <div className="flex flex--justify-content-end">
-                <Button variant="cta">Primary Cta</Button>
-                <Button>Secondary Button</Button>
+                <Button>Primary Button</Button>
+                <Button variant="secondary">Secondary Button</Button>
               </div>
             </Rhythm>
           </Modal>
         </React.Fragment>
-      ),
-      notes: ''
-    }, {
-      name: 'Default styling',
-      description: '',
-      staticPath: '',
-      component: (
-        <Alert>This is an Alert!</Alert>
       ),
       notes: ''
     }

@@ -8,7 +8,7 @@
   /* Baseline styles */
 
   /* Style variants */
-  &--inline {
+  &--default {
     background-color: var(--color-gray-light);
     border-radius: 5px;
     color: var(--color-red);
