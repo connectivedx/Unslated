@@ -39,16 +39,22 @@ export class Link extends React.Component {
     } = this.props;
 
     const Tag = tagName;
-
     const classStack = Utils.createClassStack([
       'link',
       `link--${variant}`,
       className
     ]);
 
+    // foreign tags
     if (tagName !== 'a') {
+      // foreign tags get aria role="link"
       attrs.role = 'link';
+      // foreign tags get tabIndex
       attrs.tabIndex = '0';
+      // foreign tags get data-href
+      attrs['data-href'] = attrs.href;
+      // foreign do not get a href attribute
+      delete attrs.href;
     }
 
     return (

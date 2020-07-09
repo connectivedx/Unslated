@@ -5,7 +5,7 @@
 const path = require('path');
 const Package = require('../../../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { ESDocs, JSXDocs, ESMetrics, Bundle } = require('./js.config.plugins.js');
+const { ESDocs, JSXDocs, Bundle } = require('./js.config.plugins.js');
 
 const babelPlugins = [
   '@babel/plugin-proposal-object-rest-spread', // (see: https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread)
@@ -49,7 +49,6 @@ module.exports = {
         'options': {
           'compact': false,
           'plugins': [
-            ESMetrics,
             ESDocs
           ]
         }

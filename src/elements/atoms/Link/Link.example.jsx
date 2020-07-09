@@ -38,7 +38,13 @@ export default [{
     }, {
       name: 'Span as link',
       component: (
-        <Link tagName="span" data-href="#slime-span" aria-label="specific link info for screen readers">Span link</Link> // eslint-disable-line
+        <Link
+          tagName="span"
+          href="#slime-span"
+          aria-label="Specific link info for screen readers (required)"
+        >
+          Span link
+        </Link>
       )
     }, {
       name: 'Image as link',

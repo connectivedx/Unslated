@@ -37,7 +37,7 @@ const ESDocs = declare((api, opts) => {
     return comment;
   };
 
-  const getMethodParams = (containers) => (containers)
+  const getMethodParams = (containers) => (containers.init)
     ? [...Object.keys(containers.init.params).map((i) => containers.init.params[i].name)]
     : [];
 
@@ -121,8 +121,8 @@ const ESDocs = declare((api, opts) => {
                     name: container[i].id.name,
                     type: ast.type,
                     kind: ast.kind,
-                    params: getMethodParams(container[0]),
-                    comment: commentToSourceMatching(comments, ast, container[i].id.name),
+                    params: getMethodParams(container[i]),
+                    comment: (container[i].id) ? commentToSourceMatching(comments, ast, container[i].id.name) : '',
                     line: container.loc.start.line         // line in document this is expressed
                   });
                 }
@@ -130,11 +130,11 @@ const ESDocs = declare((api, opts) => {
             } else {
               if (container.type !== 'AssignmentExpression') {
                 process.esDocs[elementName].methods.push({
-                  name: container.id.name,
+                  name: (container.id) ? container.id.name : (container.key) ? container.key.name : '--',
                   type: ast.type,
                   kind: ast.kind,
                   params: getMethodParams(container),
-                  comment: commentToSourceMatching(comments, ast, container.id.name),
+                  comment: (container.id) ? commentToSourceMatching(comments, ast, container.id.name) : '',
                   line: container.loc.start.line         // line in document this is expressed
                 });
               }
@@ -292,9 +292,17 @@ const ESDocs = declare((api, opts) => {
 
           // Object Methods (keys, map)
           if (ast.node.property.name === 'keys') {
+            Object.keys(ast.container.arguments).map((i) => {
+              if (!ast.container.arguments[i].property) {
+                console.log();
+              }
+            });
             process.esDocs[elementName].loops.push({
               type: 'ObjectKeysExpression',
-              keys: Object.keys(ast.container.arguments).map((i) => ast.container.arguments[i].property.name),
+              keys: Object.keys(ast.container.arguments).map((i) => (ast.container.arguments[i].property)
+                ? ast.container.arguments[i].property.name
+                : ast.container.arguments[i].name
+              ),
               comments: commentToSourceMatching(comments, ast),
               line: ast.node.loc.start.line
             });
@@ -598,61 +606,6 @@ const JSXDocs = declare((api, opts) => {
   };
 });
 
-// Fuck you stupid waste of time method!
-const ESMetrics = declare((api, opts) => {
-  process.jsMetricsReset = () => {
-    return {
-      utils: {
-        all: 0,
-        xhr: 0,
-        fetch: 0
-      },
-      variables: {
-        all: 0,
-        const: 0,
-        lets: 0
-      },
-      loops: {
-        all: 0,
-        for: 0,
-        forIn: 0,
-        forOf: 0,
-        while: 0,
-        object: 0
-      },
-      methods: {
-        all: 0,
-        functions: 0,
-        arrows: 0
-      },
-      promises: {
-        all: 0,
-        async: 0,
-        await: 0
-      },
-      expressions: {
-        all: 0,
-        assignments: 0,
-        calls: 0,
-        members: 0
-      }
-    }
-  };
-
-  process.jsMetrics = process.jsMetricsReset();
-
-  // https://babeljs.io/docs/en/6.26.3/babel-types for all available babel AST types
-  // pre: used to make targeted updates to the collected data during dev builds
-  // visitor: used as the actual data collection all build types
-  // post: used as cleanup point for any collected data
-  return {
-    name: "metrics",
-    visitor: {
-
-    }
-  };
-});
-
 /*
   Helper plugin to compile our project metric and docs into guide.js
 */
@@ -725,7 +678,7 @@ class Bundle {
     compiler.hooks.emit.tap('StatsCompile', (compilation) => {
       Object.keys(compilation.assets).map((i) => {
         if (i.indexOf('guide.js') !== -1) {
-          this.stats.js = process.jsMetrics;
+          this.stats.js = [];
           this.stats.css = process.cssMetrics;
 
           const source = `
@@ -743,9 +696,6 @@ class Bundle {
               return source.length;
             }
           };
-
-          // The great memory leak prevention reset (DO NOT REMOVE!)
-          process.jsMetrics = process.jsMetricsReset();
         }
       });
     });
@@ -755,6 +705,5 @@ class Bundle {
 module.exports = {
   JSXDocs,
   ESDocs,
-  ESMetrics,
   Bundle
 };
