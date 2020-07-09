@@ -14,7 +14,9 @@ export class Link extends React.Component {
     /** Style variant */
     variant: PropTypes.string,
     /** Children nodes being passed through */
-    children: PropTypes.node
+    children: PropTypes.node,
+    /** Defines the address endpoint for link */
+    href: PropTypes.string.isRequired
   };
 
   static defaultProps = {
