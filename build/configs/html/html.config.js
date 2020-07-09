@@ -38,11 +38,11 @@ module.exports = {
         '//unpkg.com/prismjs@1.17.1/prism.js',
         '//unpkg.com/prismjs@1.17.1/components/prism-json.min.js',
         '//unpkg.com/prismjs@1.17.1/components/prism-jsx.min.js',
-        '//unpkg.com/react@16.8.0/umd/react.production.min.js',
+        '//unpkg.com/react@16.8.0/umd/react.development.js',                          // DO NOT USE MIN VERSION OR PRODUCTION VERSION!! WILL NOT LOG PROP ERROS
         '//unpkg.com/react-dom@16.8.0/umd/react-dom.production.min.js',
         '//unpkg.com/react-dom@16.8.0/umd/react-dom-server.browser.production.min.js',
         '//unpkg.com/react-router-dom@5.0.1/umd/react-router-dom.min.js',
-        '//unpkg.com/prop-types@15.7.2/prop-types.min.js'
+        '//unpkg.com/prop-types@15.7.2/prop-types.js'                                 // DO NOT USE MIN VERSION!!! WILL NOT LOG PROP ERRORS
       ]
     })
   ]

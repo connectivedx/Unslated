@@ -13,21 +13,22 @@ export class Button extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Size variants */
-    width: PropTypes.oneOf(['auto', 'full']),
+    size: PropTypes.oneOf(['inline', 'small', 'medium', 'large']),
     /** Style variant */
-    variant: PropTypes.oneOf(['default', 'link', 'cta', 'icon']),
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'link', 'icon']),
     /** If used, button becomes an anchor tag with button styles */
     href: PropTypes.string,
     /** Children nodes being passed through */
     children: PropTypes.node,
-    /** Testing is all */
-    newThing: PropTypes.string
+    /** Defineds the accessibility pressed state for foreign tag usage */
+    'aria-pressed': PropTypes.string
   };
 
   static defaultProps = {
     tagName: 'button',
-    variant: 'default',
-    width: 'auto'
+    variant: 'primary',
+    size: 'inline',
+    'aria-pressed': 'false'
   };
 
   /** Element level options */
@@ -41,7 +42,7 @@ export class Button extends React.Component {
       className,
       variant,
       children,
-      width,
+      size,
       href,
       ...attrs
     } = this.props;
@@ -51,7 +52,7 @@ export class Button extends React.Component {
     let classStack = Utils.createClassStack([
       'button',
       `button--${variant}`,
-      `button--${width}`,
+      `button--${size}`,
       className
     ]);
 
