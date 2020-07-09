@@ -1,0 +1,23 @@
+{
+  "name": "Unslated",
+  "id": "862389804133989142",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+	"menu": [
+	  {"name": "New Element", "command": "create-rectangles"},
+	  {"name": "New Design", "command": "create-rectangles"},
+	  {"separator": true},
+		{"name": "New Color", "command": "create-rectangles"},
+		{"name": "New Rhythm", "command": "create-rectangles"},
+		{"name": "New Wrapper", "command": "create-rectangles"},
+		{"name": "New Spacing", "command": "create-rectangles"},
+		{"name": "New Font", "command": "create-rectangles"},
+		{"name": "New Layout", "command": "create-rectangles"},
+		{"name": "New Image", "command": "create-rectangles"},
+		{"separator": true},
+		{"name": "Edit Headings", "command": "create-rectangles"},
+		{"name": "Edit Typography", "command": "create-rectangles"},
+		{"name": "Edit Typography", "command": "create-rectangles"}
+	]
+}

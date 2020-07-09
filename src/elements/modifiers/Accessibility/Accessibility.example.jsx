@@ -24,13 +24,13 @@
 export default [{
   examples: [
     {
-      name: 'Default styling',
+      name: 'Aria Pressed states',
       description: '',
       exports: '',
-      notes: '',
       component: (
-        <div className="{{name}}">Lorem ipsum</div>
-      )
+        <div className="accessibility padding--small flex--inline" aria-pressed="false" role="button">I want to be a button!</div>
+      ),
+      notes: ''
     }
   ]
 }];

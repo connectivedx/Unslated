@@ -22,41 +22,51 @@
 */
 
 import Icon from '@atoms/Icon/Icon';
+import Rhythm from '@atoms/Rhythm/Rhythm';
+import { List, List__item } from '@atoms/List/List';
 import Button from './Button';
 
 export default [{
   examples: [{
-    name: 'Default styling',
+    name: 'Button style variants',
     component: (
-      <Button>Hello World</Button>
-    ),
-    options: {
-      background: '#666'
-    }
-  }, {
-    name: 'Linked button',
-    component: (
-      <Button href="#/">Hello World</Button>
+      <React.Fragment>
+        <Button variant="primary">Primary Button</Button>
+        <Button variant="secondary">Seconary Button</Button>
+        <Button variant="tertiary">Tertiary Button</Button>
+      </React.Fragment>
     )
   }, {
-    name: 'Generic element with button styling',
+    name: 'Button size variants (relative to parent)',
     component: (
-      <Button tagName="div">Hello World</Button>
+      <List tagName={Rhythm} variant="blank">
+        <List__item><Button>Inline</Button></List__item>
+        <List__item><Button size="small">Small</Button></List__item>
+        <List__item><Button size="medium">Medium</Button></List__item>
+        <List__item><Button size="large">Large</Button></List__item>
+      </List>
     )
   }, {
-    name: 'Cta styling',
+    name: 'Button with anchor tag',
     component: (
-      <Button variant="cta">Hello World</Button>
+      <Button href="#/">Link Button</Button>
     )
   }, {
-    name: 'Full width styling',
+    name: 'Button with foreign tag',
     component: (
-      <Button width="full">Hello World</Button>
+      <Button tagName="div" aria-label="Specific link info for screen readers (required)">Div Button</Button>
     )
   }, {
-    name: 'Linked Cta button',
+    name: 'Toggle aria-pressed attribute',
     component: (
-      <Button href="#/" variant="cta">Hello World</Button>
+      <Button tagName="div" aria-label="Specific link info for screen readers (required)">I have a pressed state.. Try me!</Button>
+    )
+  }, {
+    name: 'Icon button',
+    component: (
+      <Button variant="icon" aria-label="Specific link info for screen readers (required)">
+        <Icon name="close" aria-hidden="true" focusable="false" />
+      </Button>
     )
   }, {
     name: 'Icon button',

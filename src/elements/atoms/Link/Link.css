@@ -1,5 +1,6 @@
 .link {
   text-decoration: underline;
+  cursor: pointer;
 
   /* variants */
   &--default {

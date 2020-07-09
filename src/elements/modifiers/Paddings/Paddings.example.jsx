@@ -26,7 +26,7 @@ export default [{
     {
       name: 'Small padding',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <div className="padding--small">{Utils.ipsum('paragraph', 2)}</div>
       ),
@@ -34,7 +34,7 @@ export default [{
     }, {
       name: 'Medium padding',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <div className="padding--medium">{Utils.ipsum('paragraph', 2)}</div>
       ),
@@ -42,7 +42,7 @@ export default [{
     }, {
       name: 'Large padding',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <div className="padding--large">{Utils.ipsum('paragraph', 2)}</div>
       ),
@@ -50,7 +50,7 @@ export default [{
     }, {
       name: 'Extra large padding',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <div className="padding--extra-large">{Utils.ipsum('paragraph', 2)}</div>
       ),

@@ -35,6 +35,24 @@ export default [{
       component: (
         <Link href="#slime" variant="cta">Click me</Link>
       )
+    }, {
+      name: 'Span as link',
+      component: (
+        <Link
+          tagName="span"
+          href="#slime-span"
+          aria-label="Specific link info for screen readers (required)"
+        >
+          Span link
+        </Link>
+      )
+    }, {
+      name: 'Image as link',
+      component: (
+        <Link href="#slime-image">
+          <img src="https://picsum.photos/150/150" alt="random generator" />
+        </Link>
+      )
     }
   ]
 }];

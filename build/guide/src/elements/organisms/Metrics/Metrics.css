@@ -31,7 +31,7 @@
     align-items: flex-start;
     .guide__card__body {
       position: sticky;
-      align-self: top;
+      align-self: bottom;
       top: 0;
       bottom: 0;
       width: 100%;
@@ -63,6 +63,7 @@
     width: 100%;
 
     &.fall-flip {
+      margin: rem(5px);
       animation: 2s ease-in-out fall-flip forwards;
     }
 
@@ -96,16 +97,21 @@
     }
 
     &.guide__card:nth-child(1) {
+      background-color: #5a9af1;
+      color: var(--color-white);
+    }
+
+    &.guide__card:nth-child(2) {
       background-color: #f1e05a;
       color: var(--color-black);
     }
 
-    &.guide__card:nth-child(2) {
+    &.guide__card:nth-child(3) {
       background-color: #563d7c;
       color: var(--color-white);
     }
 
-    &.guide__card:nth-child(3) {
+    &.guide__card:nth-child(4) {
       background-color: #90c185;
       color: var(--color-white);
     }

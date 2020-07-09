@@ -165,7 +165,7 @@ export default [{
     {
       name: 'Default styling',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <SomeComponent>Lorem ipsum</SomeComponent>
       ),
@@ -174,7 +174,7 @@ export default [{
     }, {
       name: 'Special styling',
       description: '',
-      staticPath: '',
+      exports: '',
       component: (
         <SomeComponent variant="special">Lorem ipsum</SomeComponent>
       ),

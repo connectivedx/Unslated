@@ -12,14 +12,14 @@ Object.keys(components).map((i) => {
   Object.keys(examples).map((j) => {
     const example = examples[j];
     const { component } = example;
-    const { staticPath } = example;
+    const { exports } = example;
     const { name } = component.type;
 
-    if (staticPath) {
+    if (exports) {
       global.components.push({
         name,
         source: component,
-        staticPath
+        exports
       });
     }
     return false;
