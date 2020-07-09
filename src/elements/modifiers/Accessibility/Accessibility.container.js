@@ -21,13 +21,11 @@ export const Accessibility = (el) => {
         const { target } = event;
 
         // Logic for aria pressed
-        if (target.ariaPressed && type === 'click') {
+        if (target.ariaPressed && ['click', 'keyup'].indexOf(type) !== -1) {
           target.ariaPressed = !(target.ariaPressed === 'true');
-        }
-        if (target.ariaPressed && type === 'keydown') {
+
           if (event.which === 13 || event.which === 32) {
             event.preventDefault();
-            target.ariaPressed = !(target.ariaPressed === 'true');
           }
         }
       });
