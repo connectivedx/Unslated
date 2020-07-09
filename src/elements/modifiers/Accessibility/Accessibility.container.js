@@ -32,7 +32,7 @@ export const Accessibility = (el) => {
 
         return isValid;
       },
-      error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nIf you do not intent to give immediate inner text to this Button, please give it an aria-label attribute instead which descibes the elements intent to screen readers.`
+      error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nIf you do not intend to give immediate inner text to this Button, please give it an aria-label attribute instead which descibes the elements intent to screen readers.`
     },
     // Test for foreign button tags who have missing aria-label
     {
