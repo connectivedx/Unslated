@@ -59,7 +59,7 @@ export default [{
   }, {
     name: 'Toggle aria-pressed attribute',
     component: (
-      <Button tagName="div" aria-label="Specific link info for screen readers (required)">I have a pressed state.. Try me!</Button>
+      <Button tagName="div" aria-pressed="false" aria-label="Specific link info for screen readers (required)">I have a pressed state.. Try me!</Button>
     )
   }, {
     name: 'Icon button',

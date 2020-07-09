@@ -60,8 +60,12 @@ export const Accessibility = (el) => {
           if (type === 'click') {
             target.ariaPressed = !(target.ariaPressed === 'true');
           } else if (event.which === 13 || event.which === 32) {
-            event.preventDefault();
-            target.ariaPressed = !(target.ariaPressed === 'true');
+            if (target.tagName !== 'BUTTON') {
+              event.preventDefault();
+              target.ariaPressed = !(target.ariaPressed === 'true');
+            } else {
+              target.ariaPressed = !(target.ariaPressed === 'true');
+            }
           }
         }
       });
