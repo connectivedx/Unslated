@@ -79,10 +79,7 @@
     width: 100%;
 
     &--width {
-      display: flex;
-      flex-direction: column;
       height: 100%;
-      justify-content: center;
       margin: auto;
       position: relative;
       transform: scale(0);
@@ -104,27 +101,6 @@
   &--large .modal-inner      { max-width: var(--size-large);      }
 
   &--extraLarge .modal-inner { max-width: var(--size-extraLarge); }
-
-  /* padding variants */
-  &--padding-none {
-    .modal-inner--width,
-    .modal-inner--height { padding: 0; }
-  }
-
-  &--padding-small {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-small); }
-  }
-
-  &--padding-medium {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-medium); }
-  }
-
-  &--padding-large {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-large); }
-  }
 
   /* style variants */
   &--default .modal-inner--width {

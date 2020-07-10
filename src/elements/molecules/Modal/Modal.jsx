@@ -29,7 +29,7 @@ export class Modal extends React.Component {
     tagName: 'div',
     variant: 'default',
     size: 'large',
-    padding: 'medium'
+    padding: 'small'
   };
 
   /** Element level options */
@@ -52,8 +52,20 @@ export class Modal extends React.Component {
       'modal',
       `modal--${variant}`,
       `modal--${size}`,
-      `modal--padding-${padding}`,
       className
+    ]);
+
+    const widthStack = Utils.createClassStack([
+      'modal-inner--width',
+      'flex',
+      'flex--column',
+      'flex--justify-content-center',
+      `padding--${padding}`
+    ]);
+
+    const heightStack = Utils.createClassStack([
+      'modal-inner--height',
+      `padding--${padding}`
     ]);
 
     return (
@@ -62,9 +74,9 @@ export class Modal extends React.Component {
         {...attrs}
       >
         <div className="modal-inner">
-          <div className="modal-inner--width">
+          <div className={widthStack}>
             <Icon name="close" data-modal-close />
-            <div className="modal-inner--height">
+            <div className={heightStack}>
               <div className="modal-content">
                 {children}
               </div>

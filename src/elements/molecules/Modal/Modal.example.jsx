@@ -28,51 +28,12 @@ import Modal from './Modal';
 export default [{
   examples: [
     {
-      name: 'Default (large size, medium padding)',
-      description: 'A default modal example that has a default size of large',
-      component: (
-        <React.Fragment>
-          <Button data-modal="my-modal-id-01">Click to open</Button>
-          <Modal data-modal="my-modal-id-01">
-            <List tagName="ul" className="list--small list--ordered list--color-light">
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-              <List__item>
-                <p>{Utils.ipsum('sentence', 1)}</p>
-              </List__item>
-            </List>
-          </Modal>
-        </React.Fragment>
-      )
-    }, {
-      name: 'Small',
+      name: 'Small Layout / Small Padding',
       description: 'A small size modal example (with small padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-02">Click to open</Button>
-          <Modal data-modal="my-modal-id-02" size="small" padding="small">
+          <Modal data-modal="my-modal-id-02" size="small">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 <p>{Utils.ipsum('sentence', 1)}</p>
@@ -97,12 +58,12 @@ export default [{
         </React.Fragment>
       )
     }, {
-      name: 'Medium',
+      name: 'Medium Layout / Small Padding',
       description: 'A medium size modal example (with medium padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-03">Click to open</Button>
-          <Modal data-modal="my-modal-id-03" size="medium" padding="medium">
+          <Modal data-modal="my-modal-id-03" size="medium">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 <p>{Utils.ipsum('sentence', 1)}</p>
@@ -136,12 +97,51 @@ export default [{
         </React.Fragment>
       )
     }, {
-      name: 'Extra large',
+      name: 'Large Layout / Small Padding',
+      description: 'A default modal example that has a default size of large',
+      component: (
+        <React.Fragment>
+          <Button data-modal="my-modal-id-01">Click to open</Button>
+          <Modal data-modal="my-modal-id-01" size="large">
+            <List tagName="ul" className="list--small list--ordered list--color-light">
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+              <List__item>
+                <p>{Utils.ipsum('sentence', 1)}</p>
+              </List__item>
+            </List>
+          </Modal>
+        </React.Fragment>
+      )
+    }, {
+      name: 'Extra Large Layout / Medium Padding',
       description: 'A large size modal example (with large padding)',
       component: (
         <React.Fragment>
           <Button data-modal="my-modal-id-04">Click to open</Button>
-          <Modal data-modal="my-modal-id-04" size="extraLarge" padding="large">
+          <Modal data-modal="my-modal-id-04" size="extraLarge" padding="medium">
             <List tagName="ul" className="list--small list--ordered list--color-light">
               <List__item>
                 <p>{Utils.ipsum('sentence', 1)}</p>
