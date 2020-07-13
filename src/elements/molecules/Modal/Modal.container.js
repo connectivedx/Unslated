@@ -8,31 +8,33 @@ export const Modal = (el) => {
   };
 
   // checks if window height is smaller than modal height
-  const checkHeight = () => {
-    const elm = document.querySelector('.modal-visible');
-    if (!elm) { return; }
-
-    elm.classList.remove('overflowing');
-    elm.classList[(window.innerHeight <= (ui.innerWidth.clientHeight + 96)) ? 'add' : 'remove']('overflowing');
+  const checkHeight = (modal) => {
+    if (!modal.classList.contains('hidden')) {
+      modal.classList.remove('overflowing');
+      modal.classList[
+        (window.innerHeight <= (ui.innerWidth.clientHeight + 96))
+          ? 'add'
+          : 'remove'
+      ]('overflowing');
+    }
   };
 
   // window resize event
-  const handleWindowResize = () => checkHeight();
+  const handleWindowResize = () => checkHeight(ui.modal);
 
   // Open modal
   const open = (modal, trigger) => {
     if (!modal || !modal.classList) { return; }
 
-    if (trigger.hasAttribute('href')) {
+    if (trigger.href) {
       modal.dataset.href = trigger.href;
     }
 
-    modal.classList.add('modal-visible');
+    modal.classList.remove('hidden');
     modal.removeAttribute('data-modal-hide');
+    modal.focus();
 
-    setTimeout(() => {
-      checkHeight();
-    });
+    checkHeight(ui.modal);
   };
 
   // Close modal
@@ -40,7 +42,7 @@ export const Modal = (el) => {
     if (!modal || !modal.classList) { return; }
     modal.removeAttribute('data-href');
     modal.removeAttribute('data-modal-hide');
-    modal.classList.remove('modal-visible');
+    modal.classList.add('hidden');
     window.removeEventListener('resize', handleWindowResize, true);
   };
 
@@ -49,32 +51,59 @@ export const Modal = (el) => {
 
   // Modals's main init method
   const init = () => {
+    // Moves modal out of DOM and into body for developers.
     document.body.appendChild(ui.modal);
-    window.addEventListener('resize', handleWindowResize, true);
 
+    // Setup resize listener for modal windows
+    window.addEventListener(
+      'resize',
+      handleWindowResize,
+      true
+    );
+
+    // One global event listener for modals
     if (window.modals) { return false; }
-    document.body.addEventListener('click', (e) => {
-      const { dataset } = e.target;
-      const { classList } = e.target;
-
-      if (dataset) {
-        if (dataset.modal && !classList.contains('modal')) {
-          open(getRefModal(dataset.modal), e.target);
-          e.preventDefault();
-        }
-
-        if (dataset.modalClose || classList.contains('modal')) {
-          console.log(e.target);
-          close(ui.modal);
-        }
-      }
-    });
     window.modal = true;
 
-    return false;
+    document.body.addEventListener('click', (event) => {
+      const { target } = event;
+      const { dataset } = target;
+      const { classList } = target;
+
+      if (!dataset) { return; }
+
+      if (dataset.modal && !classList.contains('modal')) {
+        open(getRefModal(dataset.modal), target);
+        event.preventDefault();
+      }
+
+      if (classList.contains('modal-close')) {
+        close(ui.modal);
+      }
+
+      if (
+        classList.contains('modal')
+        && classList.contains('modal--overlay-close-true')
+      ) {
+        close(ui.modal);
+      }
+    });
+
+    document.body.addEventListener('keyup', (event) => {
+      if (
+        !ui.modal.classList.contains('hidden')
+        && !ui.modal.classList.contains('modal--escape-close-false')
+        && event.which === 27
+      ) {
+        close(ui.modal);
+      }
+    });
+
+    return true;
   };
 
   // Self init
+  el.close = close;
   init();
 };
 

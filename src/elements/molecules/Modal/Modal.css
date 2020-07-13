@@ -2,28 +2,21 @@
   --size-small: 480px;
   --size-medium: 768px;
   --size-large: 1024px;
-  --size-extraLarge: 1200px;
-
-  --padding-small: rem(4px) rem(8px) rem(8px);
-  --padding-medium: rem(4px) rem(16px) rem(16px);
-  --padding-large: rem(4px) rem(24px) rem(24px);
+  --size-extra-large: 1200px;
 }
 
 .modal {
-  background: rgba(0, 0, 0, 0.25);
+  -webkit-overflow-scrolling: touch;
   bottom: 0;
-  display: none;
   left: 0;
-  opacity: 0;
   position: fixed;
   right: 0;
   text-align: center;
   top: 0;
   transition: opacity 0.2s, z-index 0s 0.2s;
   white-space: nowrap;
-  z-index: -1;
-  -webkit-overflow-scrolling: touch;
 
+  /* Aspect ratio helper */
   &:before {
     content: '';
     display: inline-block;
@@ -33,24 +26,6 @@
     width: 0;
   }
 
-  /* for multiple modals */
-  &[data-modal-hide] {
-    &.modal-visible {
-      display: none;
-    }
-  }
-
-  &.overflowing {
-    & .modal-inner {
-      height: 100%;
-
-      &--height {
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
-    }
-  }
-
   & > * {
     display: inline-block;
     text-align: left;
@@ -58,40 +33,23 @@
     white-space: normal;
   }
 
-  & .button { margin-top: rem(16px); }
-
-  &-visible {
-    display: block;
-    opacity: 1;
-    transition: opacity 0.2s;
-    z-index: 99;
-
-    & .modal-inner--width {
-      opacity: 1;
-      transform: scale(1);
-      transition: opacity 0.2s, transform 0.2s;
-      z-index: 100;
+  &.hidden {
+    .modal-inner--width {
+      transform: scale(0);
     }
   }
 
+  /* Inner container */
   &-inner {
-    background-color: var(--color-white);
-    margin: auto; 
-    padding: rem(20px); 
-    position: relative; 
     width: 100%;
 
     &--width {
-      display: flex;
-      flex-direction: column;
       height: 100%;
-      justify-content: center;
       margin: auto;
       position: relative;
-      transform: scale(0);
-      transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
+      transform: scale(1);
+      transition: all 0.15s;
       width: 100%;
-      z-index: -1;
 
       @media (--large) {
         margin: 0;
@@ -99,46 +57,86 @@
     }
   }
 
+  /* Supporting style for element options */
+  &--overlay-false { background: transparent !important; }
+
+  /* For small viewports */
+  &.overflowing {
+    & .card,
+    & .card__body,
+    & .scrollblock,
+    & .modal-inner,
+    & .modal-inner--width,
+    & .modal-inner--height,
+    & .card__body {
+      height: 100%;
+    }
+
+    & .card__body {
+      .scrollblock {
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
+    }
+  }
+
   /* size variants */
-  &--small .modal-inner      { max-width: var(--size-small);      }
-
-  &--medium .modal-inner     { max-width: var(--size-medium);     }
-
-  &--large .modal-inner      { max-width: var(--size-large);      }
-
-  &--extraLarge .modal-inner { max-width: var(--size-extraLarge); }
-
-  /* padding variants */
-  &--padding-none {
-    .modal-inner--width,
-    .modal-inner--height { padding: 0; }
+  &--small .modal-inner {
+    max-width: var(--size-small);
   }
 
-  &--padding-small {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-small); }
+  &--medium .modal-inner {
+    max-width: var(--size-medium);
   }
 
-  &--padding-medium {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-medium); }
+  &--large .modal-inner {
+    max-width: var(--size-large);
   }
 
-  &--padding-large {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-large); }
+  &--extra-large .modal-inner {
+    max-width: var(--size-extra-large);
   }
 
-  /* style variants */
-  &--default .modal-inner--width {
-    background: var(--color-white);
-    border-radius: 4px;
+  /* Style variants */
+  &--default {
+    background: rgba(0, 0, 0, 0.25);
+
+    .modal-content {
+      background: var(--color-white);
+    }
   }
 
-  .icon--close {
+  /* Close variants */
+  &-close {
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    fill: var(--color-gray);
-    float: right; 
-    font-size: 20px;  
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    top: -35px;
+    z-index: calc(var(--zindex--content) + 2);
+
+    &:before {
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: var(--zindex--content);
+    }
+
+    &:--haf {
+      background-color: transparent;
+    }
+  }
+
+  .card &-close {
+    position: relative;
+    right: 0;
+    top: 0;
   }
 }
