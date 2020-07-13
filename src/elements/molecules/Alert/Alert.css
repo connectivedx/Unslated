@@ -1,0 +1,29 @@
+:root {
+
+  /* CSS variables */
+}
+
+.alert {
+
+  /* Baseline styles */
+
+  &--buttons {
+    justify-content: flex-end;
+  }
+
+  /* Style variants */
+  &--inline {
+    background-color: var(--color-gray-light);
+    border-radius: 5px;
+    color: var(--color-red);
+    padding: rem(16px);
+    
+    &.alert-hidden {
+      display: none;
+    }
+  }
+
+  .alert-close-btn:hover {
+    color: darkgray;
+  }
+}

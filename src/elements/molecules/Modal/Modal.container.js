@@ -108,6 +108,7 @@ export const Modal = (el) => {
   };
 
   // Self init
+  el.close = close;
   init();
 };
 
