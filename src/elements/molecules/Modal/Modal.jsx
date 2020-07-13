@@ -85,9 +85,7 @@ export class Modal extends React.Component {
     const classStack = Utils.createClassStack([
       'modal',
       'hidden',
-      'padding--small-top',
-      'padding--small-bottom',
-      `modal--${size}`,
+      (hideTitle) && 'modal--title-hidden',
       `modal--${variant}`,
       `modal--overlay-${hasOverlay}`,
       `modal--overlay-close-${hasOverlayClose}`,
@@ -124,11 +122,12 @@ export class Modal extends React.Component {
       <Tag
         className={classStack}
         role={role}
+        aria-modal="true"
         aria-labelledby={`${attrs['data-modal']}Title`}
         aria-describedby={`${attrs['data-modal']}Desc`}
         {...attrs}
       >
-        <div className="modal-inner">
+        <div className={`modal-inner wrapper--${size}`}>
           <div className={widthStack}>
             {
               (close && hideTitle)
