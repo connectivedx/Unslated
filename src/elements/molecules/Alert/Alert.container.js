@@ -2,7 +2,8 @@
 export const Alert = (el) => {
   // Alert's helper UI object
   const ui = {
-    el
+    el,
+    alertTrigger: el.querySelector('.alert--trigger')
   };
 
   // Alert's main init point
@@ -22,6 +23,22 @@ export const Alert = (el) => {
       if (ui.el.classList.contains('alert--inline')) {
         ui.el.classList.add('alert-hidden');
       }
+    }
+
+    if (ui.alertTrigger) {
+      const refModal = document.querySelector(`.modal[data-modal="${ui.alertTrigger.dataset.modal}"]`);
+      const modalButtons = refModal.querySelectorAll('.button');
+      Object.keys(modalButtons).map((i) => {
+        modalButtons[i].addEventListener('click', () => {
+          if (modalButtons[i].classList.contains('alert--accept')) {
+            refModal.close(refModal);
+          }
+          if (modalButtons[i].classList.contains('alert--deny')) {
+            refModal.close(refModal);
+          }
+        });
+        return false;
+      });
     }
 
     // this is primarily for the guide to restore alert & remove from localStorage

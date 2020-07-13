@@ -7,6 +7,11 @@
 
   /* Baseline styles */
 
+  &--buttons {
+    justify-content: flex-end;
+    padding: rem(24px) 0;
+  }
+
   /* Style variants */
   &--inline {
     background-color: var(--color-gray-light);

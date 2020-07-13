@@ -56,16 +56,15 @@ export default [{
       staticPath: '',
       component: (
         <React.Fragment>
-          <Alert variant="modal">
-            <Button data-modal="alert-modal-id-01">Click me to open alert modal</Button>
+          <Alert variant="modal" role="alert">
+            <Button className="alert--trigger" data-modal="alert-modal-id-01">Click me to open alert modal</Button>
           </Alert>
-          <Modal data-modal="alert-modal-id-01" size="medium" padding="medium" role="alert">
-            <Rhythm size="large" role="alertdialog">
-              <Heading>Alert!</Heading>
-              <p>{Utils.ipsum('sentence', 1)}</p>
-              <div className="flex flex--justify-content-end">
-                <Button>Primary Button</Button>
-                <Button variant="secondary">Secondary Button</Button>
+          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert" role="alert-dialog" aria-modal="true">
+            <Rhythm>
+              {Utils.ipsum('paragraph', 1)}
+              <div className="flex alert--buttons">
+                <Button className="alert--accept">Okay</Button>
+                <Button className="alert--deny">Nope</Button>
               </div>
             </Rhythm>
           </Modal>
