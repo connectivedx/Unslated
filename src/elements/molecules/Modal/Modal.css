@@ -1,29 +1,20 @@
-:root {
-  --size-small: 480px;
-  --size-medium: 768px;
-  --size-large: 1024px;
-  --size-extraLarge: 1200px;
-
-  --padding-small: rem(16px);
-  --padding-medium: rem(32px);
-  --padding-large: rem(48px);
-}
-
 .modal {
-  background: rgba(0, 0, 0, 0.25);
+  -webkit-overflow-scrolling: touch;
   bottom: 0;
-  display: none;
   left: 0;
-  opacity: 0;
+  padding: rem(75px) rem(48px) rem(24px) rem(48px);
   position: fixed;
   right: 0;
   text-align: center;
   top: 0;
   transition: opacity 0.2s, z-index 0s 0.2s;
   white-space: nowrap;
-  z-index: -1;
-  -webkit-overflow-scrolling: touch;
 
+  @media (--large) {
+    padding: rem(96px) rem(75px) rem(75px);
+  }
+
+  /* Aspect ratio helper */
   &:before {
     content: '';
     display: inline-block;
@@ -33,62 +24,50 @@
     width: 0;
   }
 
-  /* for multiple modals */
-  &[data-modal-hide] {
-    &.modal-visible {
-      display: none;
+  .card__header {
+    bottom: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .card__body {
+    min-height: 40px;
+  }
+
+  &.hidden {
+    left: -999rem;
+    top: -999rem;
+
+    .modal-inner--width {
+      transform: scale(0);
     }
   }
 
-  &.overflowing {
-    & .modal-inner {
-      height: 100%;
+  &--title-hidden {
+    padding: rem(48px) rem(48px) rem(24px) rem(48px);
 
-      &--height {
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
+    .modal-close {
+      position: absolute;
+      right: 5px;
+      top: -35px;
     }
   }
 
-  & > * {
+  /* Inner container */
+  &-inner {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
     white-space: normal;
-  }
-
-  & .button { margin-top: rem(16px); }
-
-  &-visible {
-    display: block;
-    opacity: 1;
-    transition: opacity 0.2s;
-    z-index: 99;
-
-    & .modal-inner--width {
-      opacity: 1;
-      transform: scale(1);
-      transition: opacity 0.2s, transform 0.2s;
-      z-index: 100;
-    }
-  }
-
-  &-inner {
-    padding: rem(64px) rem(16px) rem(32px);
     width: 100%;
 
     &--width {
-      display: flex;
-      flex-direction: column;
       height: 100%;
-      justify-content: center;
       margin: auto;
       position: relative;
-      transform: scale(0);
-      transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
+      transform: scale(1);
+      transition: all 0.15s;
       width: 100%;
-      z-index: -1;
 
       @media (--large) {
         margin: 0;
@@ -96,50 +75,65 @@
     }
   }
 
-  /* size variants */
-  &--small .modal-inner      { max-width: var(--size-small);      }
+  /* Supporting style for element options */
+  &--overlay-false { background: transparent !important; }
 
-  &--medium .modal-inner     { max-width: var(--size-medium);     }
+  /* For small viewports */
+  &.overflowing {
+    & .card,
+    & .card__body,
+    & .scrollblock,
+    & .modal-inner,
+    & .modal-inner--width,
+    & .modal-inner--height,
+    & .card__body {
+      height: 100%;
+      min-height: 100px;
+    }
 
-  &--large .modal-inner      { max-width: var(--size-large);      }
+    & .card__body {
+      overflow: hidden;
+    }
 
-  &--extraLarge .modal-inner { max-width: var(--size-extraLarge); }
-
-  /* padding variants */
-  &--padding-none {
-    .modal-inner--width,
-    .modal-inner--height { padding: 0; }
+    .scrollblock {
+      min-height: 40px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
   }
 
-  &--padding-small {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-small); }
+  /* Style variants */
+  &--default {
+    background: rgba(0, 0, 0, 0.25);
+
+    .modal-content {
+      background: var(--color-white);
+      position: relative;
+    }
   }
 
-  &--padding-medium {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-medium); }
-  }
-
-  &--padding-large {
-    .modal-inner--width,
-    .modal-inner--height { padding: var(--padding-large); }
-  }
-
-  /* style variants */
-  &--default .modal-inner--width {
-    background: var(--color-white);
-    border-radius: 4px;
-  }
-
-  .icon--close {
+  /* Close variants */
+  &-close {
+    background-color: transparent;
+    border: none;
     cursor: pointer;
     height: 25px;
     line-height: 25px;
-    position: absolute;
-    right: 5px;
-    top: -35px;
-    width: 25px;
-    z-index: 2;
+    padding: 0;
+    z-index: calc(var(--zindex--content) + 2);
+
+    &:before {
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: var(--zindex--content);
+    }
+
+    &:--haf {
+      background-color: transparent;
+    }
   }
 }

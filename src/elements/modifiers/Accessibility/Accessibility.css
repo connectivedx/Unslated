@@ -5,8 +5,17 @@
 
 .accessibility {
 
-  /* Demo variants */
-  &[aria-pressed="true"] {
-    background-color: var(--color-gray-light);
-  }
+  /* Accessibility variants */
+
+}
+
+/* Screen reader friendly hidden class */
+.hidden {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  position: absolute;
+  left: -999rem;
+  top: -999rem;
+  z-index: var(--zindex--hidden);
 }

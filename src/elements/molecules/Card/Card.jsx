@@ -15,7 +15,7 @@ export class Card extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node
+    children: PropTypes.any
   };
 
   static defaultProps = {
@@ -67,7 +67,7 @@ export class Card__header extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node
+    children: PropTypes.any
   };
 
   static defaultProps = {
@@ -114,7 +114,7 @@ export class Card__body extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node
+    children: PropTypes.any
   };
 
   static defaultProps = {
@@ -161,7 +161,7 @@ export class Card__footer extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.node
+    children: PropTypes.any
   };
 
   static defaultProps = {

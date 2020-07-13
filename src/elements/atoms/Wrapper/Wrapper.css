@@ -3,15 +3,19 @@
   padding: 2em;
 
   /* sizes */
-  &--narrow {
+  &--small {
     max-width: 640px;
   }
 
-  &--default {
-    max-width: 960px;
+  &--medium {
+    max-width: 896px;
   }
 
-  &--wide {
-    max-width: 1280px;
+  &--large {
+    max-width: 1024px;
+  }
+
+  &--extra-large {
+    max-width: 1152px;
   }
 }
