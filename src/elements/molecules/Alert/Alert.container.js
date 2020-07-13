@@ -25,6 +25,7 @@ export const Alert = (el) => {
       }
     }
 
+    // close alert modal
     if (ui.alertTrigger) {
       const refModal = document.querySelector(`.modal[data-modal="${ui.alertTrigger.dataset.modal}"]`);
       const modalButtons = refModal.querySelectorAll('.button');
@@ -41,9 +42,15 @@ export const Alert = (el) => {
       });
     }
 
+    // set modal aria role attribute to alertdialog
+    if (ui.el.classList.contains('alert--modal')) {
+      const modalId = ui.el.querySelector('.button.alert--trigger').dataset.modal;
+      document.querySelector(`.modal[data-modal="${modalId}"]`).setAttribute('role', 'alertdialog');
+    }
+
     // this is primarily for the guide to restore alert & remove from localStorage
-    if (ui.el.dataset.alert && document.querySelector(`button[data-alert=${ui.el.dataset.alert}]`)) {
-      const restoreButton = document.querySelector(`button[data-alert=${ui.el.dataset.alert}]`);
+    if (ui.el.dataset.alert && document.querySelector(`button[data-alert="${ui.el.dataset.alert}"]`)) {
+      const restoreButton = document.querySelector(`button[data-alert="${ui.el.dataset.alert}"]`);
       restoreButton.addEventListener('click', () => {
         ui.el.classList.remove('alert-hidden');
         if (localStorage.getItem(restoreButton.dataset.alert)) {

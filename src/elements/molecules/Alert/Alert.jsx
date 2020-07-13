@@ -51,13 +51,10 @@ export class Alert extends React.Component {
       attrs['data-persistent'] = true;
     }
 
-    if (variant === 'inline') {
-      attrs.role = 'inline';
-    }
-
     return (
       <Tag
         className={classStack}
+        role="alert"
         {...attrs}
       >
         {children}

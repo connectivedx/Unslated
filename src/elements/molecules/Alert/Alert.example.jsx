@@ -56,10 +56,10 @@ export default [{
       staticPath: '',
       component: (
         <React.Fragment>
-          <Alert variant="modal" role="alert">
+          <Alert variant="modal">
             <Button className="alert--trigger" data-modal="alert-modal-id-01">Click me to open alert modal</Button>
           </Alert>
-          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert" role="alertdialog">
+          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert">
             <Rhythm>
               <p>{Utils.ipsum('paragraph', 1)}</p>
               <div className="flex alert--buttons">

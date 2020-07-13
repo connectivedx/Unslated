@@ -1,6 +1,5 @@
 import Icon from '@atoms/Icon/Icon';
 import Button from '@atoms/Button/Button';
-import Rhythm from '@atoms/Rhythm/Rhythm';
 import {
   Card,
   Card__header,
@@ -150,9 +149,7 @@ export class Modal extends React.Component {
                 </Card__header>
                 <Card__body>
                   <div className={`scrollblock padding--${padding}`} id={`${attrs['data-modal']}Desc`}>
-                    <Rhythm>
-                      {children}
-                    </Rhythm>
+                    {children}
                   </div>
                 </Card__body>
               </Card>
