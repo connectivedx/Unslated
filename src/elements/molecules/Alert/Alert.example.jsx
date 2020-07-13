@@ -43,7 +43,7 @@ export default [{
                 <Heading level="h4" weight="thin">This is an inline alert!</Heading>
               </div>
               <Button variant="icon" className="alert--close-icon" aria-label="close alert">
-                <Icon name="close" />
+                <Icon name="close" aria-hidden="true" />
               </Button>
             </Alert>
           </Rhythm>
@@ -59,9 +59,9 @@ export default [{
           <Alert variant="modal" role="alert">
             <Button className="alert--trigger" data-modal="alert-modal-id-01">Click me to open alert modal</Button>
           </Alert>
-          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert" role="alert-dialog" aria-modal="true">
+          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert" role="alertdialog">
             <Rhythm>
-              {Utils.ipsum('paragraph', 1)}
+              <p>{Utils.ipsum('paragraph', 1)}</p>
               <div className="flex alert--buttons">
                 <Button className="alert--accept">Okay</Button>
                 <Button className="alert--deny">Nope</Button>
