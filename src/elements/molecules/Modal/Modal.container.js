@@ -12,7 +12,7 @@ export const Modal = (el) => {
     if (!modal.classList.contains('hidden')) {
       modal.classList.remove('overflowing');
       modal.classList[
-        (window.innerHeight <= (ui.innerWidth.clientHeight + 96))
+        (window.innerHeight <= (ui.innerWidth.clientHeight + 128))
           ? 'add'
           : 'remove'
       ]('overflowing');
@@ -43,7 +43,7 @@ export const Modal = (el) => {
     modal.removeAttribute('data-href');
     modal.removeAttribute('data-modal-hide');
     modal.classList.add('hidden');
-    window.removeEventListener('resize', handleWindowResize, true);
+    // window.removeEventListener('resize', handleWindowResize, true);
   };
 
   // Get modal by ID
@@ -54,16 +54,16 @@ export const Modal = (el) => {
     // Moves modal out of DOM and into body for developers.
     document.body.appendChild(ui.modal);
 
+    // One global event listener for modals
+    if (window.modals) { return false; }
+    window.modal = true;
+
     // Setup resize listener for modal windows
     window.addEventListener(
       'resize',
       handleWindowResize,
       true
     );
-
-    // One global event listener for modals
-    if (window.modals) { return false; }
-    window.modal = true;
 
     document.body.addEventListener('click', (event) => {
       const { target } = event;
@@ -98,6 +98,11 @@ export const Modal = (el) => {
         close(ui.modal);
       }
     });
+
+    // Hoist methods onto modal's DOM for other components to access
+    el.checkHeight = checkHeight;
+    el.close = close;
+    el.open = open;
 
     return true;
   };

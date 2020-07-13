@@ -1,20 +1,18 @@
-:root {
-  --size-small: 480px;
-  --size-medium: 768px;
-  --size-large: 1024px;
-  --size-extra-large: 1200px;
-}
-
 .modal {
   -webkit-overflow-scrolling: touch;
   bottom: 0;
   left: 0;
+  padding: rem(75px) rem(48px) rem(24px) rem(48px);
   position: fixed;
   right: 0;
   text-align: center;
   top: 0;
   transition: opacity 0.2s, z-index 0s 0.2s;
   white-space: nowrap;
+
+  @media (--large) {
+    padding: rem(96px) rem(75px) rem(75px);
+  }
 
   /* Aspect ratio helper */
   &:before {
@@ -26,21 +24,41 @@
     width: 0;
   }
 
-  & > * {
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-    white-space: normal;
+  .card__header {
+    bottom: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .card__body {
+    min-height: 40px;
   }
 
   &.hidden {
+    left: -999rem;
+    top: -999rem;
+
     .modal-inner--width {
       transform: scale(0);
     }
   }
 
+  &--title-hidden {
+    padding: rem(48px) rem(48px) rem(24px) rem(48px);
+
+    .modal-close {
+      position: absolute;
+      right: 5px;
+      top: -35px;
+    }
+  }
+
   /* Inner container */
   &-inner {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    white-space: normal;
     width: 100%;
 
     &--width {
@@ -70,31 +88,18 @@
     & .modal-inner--height,
     & .card__body {
       height: 100%;
+      min-height: 100px;
     }
 
     & .card__body {
-      .scrollblock {
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
+      overflow: hidden;
     }
-  }
 
-  /* size variants */
-  &--small .modal-inner {
-    max-width: var(--size-small);
-  }
-
-  &--medium .modal-inner {
-    max-width: var(--size-medium);
-  }
-
-  &--large .modal-inner {
-    max-width: var(--size-large);
-  }
-
-  &--extra-large .modal-inner {
-    max-width: var(--size-extra-large);
+    .scrollblock {
+      min-height: 40px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
   }
 
   /* Style variants */
@@ -103,6 +108,7 @@
 
     .modal-content {
       background: var(--color-white);
+      position: relative;
     }
   }
 
@@ -114,9 +120,6 @@
     height: 25px;
     line-height: 25px;
     padding: 0;
-    position: absolute;
-    right: 5px;
-    top: -35px;
     z-index: calc(var(--zindex--content) + 2);
 
     &:before {
@@ -132,11 +135,5 @@
     &:--haf {
       background-color: transparent;
     }
-  }
-
-  .card &-close {
-    position: relative;
-    right: 0;
-    top: 0;
   }
 }
