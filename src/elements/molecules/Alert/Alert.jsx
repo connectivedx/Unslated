@@ -13,18 +13,19 @@ export class Alert extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default', 'modal']),
+    variant: PropTypes.oneOf(['inline', 'modal']),
     /** Children passed through */
     children: PropTypes.node,
     /** Allows you to specify if alert is a modal or inline */
     modal: PropTypes.bool,
     /** Use local storage */
-    persistant: PropTypes.bool
+    persistent: PropTypes.bool
   };
 
   static defaultProps = {
     tagName: 'div',
-    variant: 'default'
+    variant: 'inline',
+    persistent: false
   };
 
   /** Element level options */
@@ -36,6 +37,7 @@ export class Alert extends React.Component {
       className,
       variant,
       children,
+      persistent,
       ...attrs
     } = this.props;
 
@@ -45,11 +47,18 @@ export class Alert extends React.Component {
       className
     ]);
 
+    if (persistent) {
+      attrs['data-persistent'] = true;
+    }
+
+    if (variant === 'inline') {
+      attrs.role = 'inline';
+    }
+
     return (
       <Tag
         className={classStack}
         {...attrs}
-        role="alert"
       >
         {children}
       </Tag>

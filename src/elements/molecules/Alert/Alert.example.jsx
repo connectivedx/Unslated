@@ -38,7 +38,7 @@ export default [{
         <React.Fragment>
           <Rhythm>
             <Heading level="h5">Inline alert example. Refresh page after closing to rerender.</Heading>
-            <Alert className="flex flex--justify-content-between" role="alert">
+            <Alert variant="inline" className="flex flex--justify-content-between">
               <div className="alert--inline-container" role="alertdialog">
                 <Heading level="h4" weight="thin">This is an inline alert!</Heading>
               </div>
@@ -59,7 +59,7 @@ export default [{
           <Alert variant="modal">
             <Button data-modal="alert-modal-id-01">Click me to open alert modal</Button>
           </Alert>
-          <Modal data-modal="alert-modal-id-01" className="alert-modal-id-01" size="medium" padding="medium" role="alert">
+          <Modal data-modal="alert-modal-id-01" size="medium" padding="medium" role="alert">
             <Rhythm size="large" role="alertdialog">
               <Heading>Alert!</Heading>
               <p>{Utils.ipsum('sentence', 1)}</p>
@@ -69,6 +69,36 @@ export default [{
               </div>
             </Rhythm>
           </Modal>
+        </React.Fragment>
+      ),
+      notes: ''
+    }, {
+      name: 'Stored in localStorage',
+      description: '',
+      staticPath: '',
+      component: (
+        <React.Fragment>
+          <Rhythm>
+            <Button className="alert--restore-button" data-alert="alert-id-01">Restore alert and remove from localStorage</Button>
+            <Alert
+              variant="inline"
+              className="flex flex--justify-content-between"
+              id="alert-id-01"
+              data-alert="alert-id-01"
+              persistent={true}
+            >
+              <div className="alert--inline-container" role="alertdialog">
+                <Heading level="h4" weight="thin">After you dismiss me, I'll be stored in localStorage!</Heading>
+              </div>
+              <Button
+                variant="icon"
+                className="alert--close-icon"
+                aria-label="close alert"
+              >
+                <Icon name="close" />
+              </Button>
+            </Alert>
+          </Rhythm>
         </React.Fragment>
       ),
       notes: ''

@@ -64,6 +64,7 @@ export const Modal = (el) => {
         }
 
         if (dataset.modalClose || classList.contains('modal')) {
+          console.log(e.target);
           close(ui.modal);
         }
       }
