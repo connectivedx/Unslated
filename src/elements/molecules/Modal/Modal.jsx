@@ -121,6 +121,7 @@ export class Modal extends React.Component {
       <Tag
         className={classStack}
         role={role}
+        aria-modal="true"
         aria-labelledby={`${attrs['data-modal']}Title`}
         aria-describedby={`${attrs['data-modal']}Desc`}
         {...attrs}
