@@ -1,5 +1,5 @@
 /**
-  ELEMENT DESCRIPTION HERE
+  Alert messages can be used to notify the user about something special: danger, success, information or warning.
 */
 
 export class Alert extends React.Component {
