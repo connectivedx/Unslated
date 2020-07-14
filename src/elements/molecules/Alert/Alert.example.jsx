@@ -84,6 +84,9 @@ export default [{
           <Alert
             type="modal"
             title="Alert modal example"
+            close={false}
+            hasEscapeClose={false}
+            hasOverlayClose={false}
           >
             <Rhythm>
               <p>{Utils.ipsum('paragraph', 4)}</p>
