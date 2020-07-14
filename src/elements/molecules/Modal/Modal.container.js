@@ -23,7 +23,7 @@ export const Modal = (el) => {
   const handleWindowResize = () => checkHeight(ui.modal);
 
   // Open modal
-  const open = (modal, trigger) => {
+  const open = (modal, trigger = false) => {
     if (!modal || !modal.classList) { return; }
 
     if (trigger.href) {

@@ -3,60 +3,59 @@ export const Alert = (el) => {
   // Alert's helper UI object
   const ui = {
     el,
-    alertTrigger: el.querySelector('.alert--trigger')
+    trigger: el.querySelector('.alert--trigger'),
+    closeIcon: el.querySelector('.alert--close-icon')
+  };
+
+  const state = {
+    isModal: el.classList.contains('alert--modal'),
+    isInline: el.classList.contains('alert--inline'),
+    isPersistent: el.classList.contains('alert--persistent-true')
   };
 
   // Alert's main init point
   const init = () => {
-    // dismiss alert
-    if (ui.el.querySelector('.alert--close-icon')) {
-      ui.el.querySelector('.alert--close-icon').addEventListener('click', () => {
-        ui.el.classList.add('alert-hidden');
-        if (ui.el.dataset.persistent) {
-          localStorage.setItem((ui.el.dataset.alert), 'alert dismissed');
-        }
-      });
+    // If we are alert modal, lets open it at page load
+    if (state.isModal) {
+      el.open(el);
     }
+
+    ui.el.addEventListener('click', (event) => {
+      const { target } = event;
+      const { classList } = target;
+
+      // Dismiss alert
+      if (target === ui.closeIcon) {
+        ui.el.classList.add('hidden');
+        ui.el.ariaHidden = true;
+
+        if (state.isPersistent) {
+          if (!el.id) {
+            console.error('Warning: You are trying to store an Alert molecule\'s state in localStorage but you have not supplied an id attribute on the <Alert> tag.'); // eslint-disable-line
+          } else {
+            localStorage.setItem(
+              el.id,
+              'alert dismissed'
+            );
+          }
+        }
+      }
+
+      // close alert modal
+      if (
+        classList.contains('alert--accept')
+        || classList.contains('alert--deny')
+      ) {
+        el.close(el);
+      }
+    });
 
     // hide alert if in localStorage
-    if (ui.el.dataset && localStorage.getItem(ui.el.dataset.alert)) {
-      if (ui.el.classList.contains('alert--inline')) {
-        ui.el.classList.add('alert-hidden');
+    if (localStorage.getItem(el.id)) {
+      if (state.isInline) {
+        el.classList.add('hidden');
+        el.ariaHidden = true;
       }
-    }
-
-    // close alert modal
-    if (ui.alertTrigger) {
-      const refModal = document.querySelector(`.modal[data-modal="${ui.alertTrigger.dataset.modal}"]`);
-      const modalButtons = refModal.querySelectorAll('.button');
-      Object.keys(modalButtons).map((i) => {
-        modalButtons[i].addEventListener('click', () => {
-          if (modalButtons[i].classList.contains('alert--accept')) {
-            refModal.close(refModal);
-          }
-          if (modalButtons[i].classList.contains('alert--deny')) {
-            refModal.close(refModal);
-          }
-        });
-        return false;
-      });
-    }
-
-    // set modal aria role attribute to alertdialog
-    if (ui.el.classList.contains('alert--modal')) {
-      const modalId = ui.el.querySelector('.button.alert--trigger').dataset.modal;
-      document.querySelector(`.modal[data-modal="${modalId}"]`).setAttribute('role', 'alertdialog');
-    }
-
-    // this is primarily for the guide to restore alert & remove from localStorage
-    if (ui.el.dataset.alert && document.querySelector(`button[data-alert="${ui.el.dataset.alert}"]`)) {
-      const restoreButton = document.querySelector(`button[data-alert="${ui.el.dataset.alert}"]`);
-      restoreButton.addEventListener('click', () => {
-        ui.el.classList.remove('alert-hidden');
-        if (localStorage.getItem(restoreButton.dataset.alert)) {
-          localStorage.removeItem(restoreButton.dataset.alert);
-        }
-      });
     }
   };
 
