@@ -43,22 +43,22 @@
   &--error {
     background-color: color(var(--color-red), 0.9);
     border: 1px solid var(--color-red);
-    color: var(--color-white);
+    color: var(--color-red);
 
     .icon {
-      fill: var(--color-white);
-      stroke: var(--color-white);
+      fill: var(--color-red);
+      stroke: var(--color-red);
     }
   }
 
   &--success {
     background-color: color(var(--color-green), 0.95);
     border: 1px solid var(--color-green);
-    color: var(--color-white);
+    color: var(--color-green);
 
     .icon {
-      fill: var(--color-white);
-      stroke: var(--color-white);
+      fill: var(--color-green);
+      stroke: var(--color-green);
     }
   }
 
