@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   Utils.initComponent('Expand', '.expand', Expand);
   Utils.initComponent('Accordion', '.accordion', Accordion);
   Utils.initComponent('Tabs', '.tabs', Tabs);
-  Utils.initComponent('Alert', '.alert', Alert);
   Utils.initComponent('Modal', '.modal', Modal, () => {
+    Utils.initComponent('Alert', '.alert', Alert);
     Utils.initComponent('Form', '.form', Form);
     Utils.initComponent('Input', '.input', Input);
     Utils.initComponent('Select', '.select', Select);

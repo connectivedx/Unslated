@@ -36,7 +36,7 @@ const colors = postcss.plugin('postcss-color', (options) => {
     let G = (intParse(color[1]) === 0) ? 1 : color[1];
     let B = (intParse(color[2]) === 0) ? 1 : color[2];
     let A = (intParse(color[3]) === 0) ? 1 : color[3];
-    let t = (percent / 100);
+    let t = (percent / 100) * 256; // percent of a range of 256 colors across a million possible shades
 
     return [
       'rgb',
@@ -59,7 +59,7 @@ const colors = postcss.plugin('postcss-color', (options) => {
           const arguments = colors[index].replace(/^color\((.*?)\)$/, '$1').split(',');
           const color = (arguments[0].length < 7) ? (arguments[0] + arguments[0].replace('#', '')) : arguments[0];
 
-          const brightness = parseFloat(arguments[1]);
+          const brightness = (parseFloat(arguments[1]) > 256) ? 256 : parseFloat(arguments[1]);
 
           decl.value = decl.value.replace(colors[index], RGB_Linear_Shade(HexToRGB(color), brightness));
         });

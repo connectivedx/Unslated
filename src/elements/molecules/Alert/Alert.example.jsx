@@ -22,32 +22,56 @@
 */
 
 import Button from '@atoms/Button/Button';
-import Icon from '@atoms/Icon/Icon';
 import Heading from '@atoms/Heading/Heading';
-import Modal from '@molecules/Modal/Modal';
 import Rhythm from '@atoms/Rhythm/Rhythm';
 import Alert from './Alert';
 
 export default [{
   examples: [
     {
-      name: 'Default Inline Alert',
+      name: 'Default Inline Alerts',
       description: '',
       staticPath: '',
       component: (
-        <React.Fragment>
-          <Rhythm>
-            <Heading level="h5">Inline alert example. Refresh page after closing to rerender.</Heading>
-            <Alert variant="inline" className="flex flex--justify-content-between">
-              <div className="alert--inline-container" role="alertdialog">
-                <Heading level="h4" weight="thin">This is an inline alert!</Heading>
-              </div>
-              <Button variant="icon" className="alert--close-icon" aria-label="close alert">
-                <Icon name="close" aria-hidden="true" />
-              </Button>
-            </Alert>
-          </Rhythm>
-        </React.Fragment>
+        <Rhythm>
+          <Alert variant="default">
+            <Heading level="h4" weight="thin">Inline default style variant example!</Heading>
+          </Alert>
+
+          <Alert variant="error">
+            <Heading level="h4" weight="thin">Inline error style variant example!</Heading>
+          </Alert>
+
+          <Alert variant="success">
+            <Heading level="h4" weight="thin">Inline success style variant example!</Heading>
+          </Alert>
+
+          <Alert variant="warning">
+            <Heading level="h4" weight="thin">Inline warning style variant example!</Heading>
+          </Alert>
+        </Rhythm>
+      ),
+      notes: ''
+    }, {
+      name: 'Store state and persistently hide',
+      description: '',
+      staticPath: '',
+      component: (
+        <Rhythm>
+          <Alert
+            className="flex flex--justify-content-between"
+            persistent={true}
+            id="unslated-alert-demo"
+            variant="warning"
+          >
+            <div>
+              <Heading level="h4" weight="thin">
+                After you dismiss me, my state is stored in localStorage and I'm persitently hidden.<br />
+                Id attribute is required! Used to store the alert state in localStorage.
+              </Heading>
+            </div>
+          </Alert>
+        </Rhythm>
       ),
       notes: ''
     }, {
@@ -56,48 +80,19 @@ export default [{
       staticPath: '',
       component: (
         <React.Fragment>
-          <Alert variant="modal">
-            <Button className="alert--trigger" data-modal="alert-modal-id-01">Click me to open alert modal</Button>
-          </Alert>
-          <Modal data-modal="alert-modal-id-01" size="medium" hasOverlayClose={false} close={false} hasEscapeClose={false} title="Alert">
+          <p>You seen me at page load!</p>
+          <Alert
+            type="modal"
+            title="Alert modal example"
+          >
             <Rhythm>
-              <p>{Utils.ipsum('paragraph', 1)}</p>
-              <div className="flex alert--buttons">
+              <p>{Utils.ipsum('paragraph', 4)}</p>
+              <div className="flex flex--justify-content-end alert--buttons">
                 <Button className="alert--accept">Okay</Button>
                 <Button className="alert--deny">Nope</Button>
               </div>
             </Rhythm>
-          </Modal>
-        </React.Fragment>
-      ),
-      notes: ''
-    }, {
-      name: 'Stored in localStorage',
-      description: '',
-      staticPath: '',
-      component: (
-        <React.Fragment>
-          <Rhythm>
-            <Button className="alert--restore-button" data-alert="alert-id-01">Restore alert and remove from localStorage</Button>
-            <Alert
-              variant="inline"
-              className="flex flex--justify-content-between"
-              id="alert-id-01"
-              data-alert="alert-id-01"
-              persistent={true}
-            >
-              <div className="alert--inline-container" role="alertdialog">
-                <Heading level="h4" weight="thin">After you dismiss me, I'll be stored in localStorage!</Heading>
-              </div>
-              <Button
-                variant="icon"
-                className="alert--close-icon"
-                aria-label="close alert"
-              >
-                <Icon name="close" />
-              </Button>
-            </Alert>
-          </Rhythm>
+          </Alert>
         </React.Fragment>
       ),
       notes: ''
