@@ -12,12 +12,15 @@ export class Icon extends React.Component {
     /** Style variant */
     variant: PropTypes.oneOf(['default', 'dark', 'light']),
     /** Icon file's name */
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    /** Hide decorative Icons from screen readers */
+    ariaHidden: PropTypes.bool
   };
 
   static defaultProps = {
     size: 'normal',
-    variant: 'default'
+    variant: 'default',
+    ariaHidden: false
   };
 
   /** Element level options */
@@ -31,6 +34,7 @@ export class Icon extends React.Component {
       size,
       variant,
       name,
+      ariaHidden,
       ...attrs
     } = this.props;
 
@@ -41,6 +45,11 @@ export class Icon extends React.Component {
       `icon--${variant}`,
       className
     ]);
+
+    if (ariaHidden) {
+      attrs['aria-hidden'] = 'true';
+      attrs.focusable = 'false';
+    }
 
     return (
       <svg className={classStack} {...attrs}>

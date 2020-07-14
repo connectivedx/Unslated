@@ -54,18 +54,18 @@ export default [{
   }, {
     name: 'Button with foreign tag',
     component: (
-      <Button tagName="div" aria-label="Specific link info for screen readers (required)">Div Button</Button>
+      <Button tagName="div" aria-label="Accessible name for screen readers (required)">Div Button</Button>
     )
   }, {
     name: 'Toggle aria-pressed attribute',
     component: (
-      <Button tagName="div" aria-pressed="false" aria-label="Specific link info for screen readers (required)">I have a pressed state.. Try me!</Button>
+      <Button tagName="div" aria-pressed="false" aria-label="Accessible name for screen readers (required)">I have a pressed state.. Try me!</Button>
     )
   }, {
-    name: 'Icon button',
+    name: 'Icon Button',
     component: (
-      <Button variant="icon" aria-label="Specific link info for screen readers (required)">
-        <Icon name="close" aria-hidden="true" />
+      <Button variant="icon" aria-label="Accessible name for screen readers (required)">
+        <Icon name="close" ariaHidden={true} />
       </Button>
     )
   }]
