@@ -60,8 +60,6 @@
   &--icon {
     background-color: transparent;
     border: none;
-    display: flex !important;
-    fill: var(--color-red);
     font-size: rem(16px);
     padding: 2px;
 

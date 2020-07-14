@@ -3,7 +3,7 @@
   &__stylist {
     background-color: var(--color-white);
     border: 1px #eee solid;
-    box-shadow: 2px 4px 10px 0px color(var(--color-black), 75%);
+    box-shadow: 2px 4px 10px 0px color(var(--color-black), 0.75);
     max-width: 320px;
     position: fixed;
     right: 2rem;

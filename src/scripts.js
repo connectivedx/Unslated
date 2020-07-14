@@ -5,6 +5,7 @@ import Modal from '@molecules/Modal/Modal.container';
 import Select from '@atoms/Select/Select.container';
 import Expand from '@molecules/Expand/Expand.container';
 import Textarea from '@atoms/Textarea/Textarea.container';
+import Alert from '@molecules/Alert/Alert.container';
 import Accordion from '@molecules/Accordion/Accordion.container';
 import Accessibility from '@modifiers/Accessibility/Accessibility.container';
 
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Utils.initComponent('Accordion', '.accordion', Accordion);
   Utils.initComponent('Tabs', '.tabs', Tabs);
   Utils.initComponent('Modal', '.modal', Modal, () => {
+    Utils.initComponent('Alert', '.alert', Alert);
     Utils.initComponent('Form', '.form', Form);
     Utils.initComponent('Input', '.input', Input);
     Utils.initComponent('Select', '.select', Select);

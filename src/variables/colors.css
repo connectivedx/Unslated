@@ -11,22 +11,22 @@
 */
 
 :export {
-  --color-generic--blue: #003346;
-  --color-generic--green: #358450;
-  --color-generic--red: #a40000;
-
-  /* general colors */
+  /* General colors */
   --color-red: #fa0000;
   --color-blue: #0000fa;
+  --color-yellow: #ffff00;
+  --color-green: #008000;
 
-  /* grayscale */
+  /* Grayscale */
   --color-white: #fff;
   --color-gray-light: #dcdcdc;
   --color-gray: #8c8c8c;
   --color-gray-dark: #4c4c4c;
   --color-black: #000000;
 
-  /* text colors */
+  /* Text colors */
   --color-text--primary: var(--color-black);
   --color-text--secondary: var(--color-white);
+
+  /* Project colors */
 }

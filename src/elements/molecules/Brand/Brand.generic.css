@@ -1,4 +1,4 @@
 .Theme--generic .brand {
-  background-color: var(--color-generic--blue);
+  background-color: var(--color-gray-light);
   color: var(--color-white);
 }

@@ -49,6 +49,7 @@ export class Button extends React.Component {
     let classStack = Utils.createClassStack([
       'button',
       `button--${variant}`,
+      (variant === 'icon') && 'flex',
       `button--${size}`,
       className
     ]);
