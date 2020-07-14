@@ -294,7 +294,7 @@ const ESDocs = declare((api, opts) => {
           if (ast.node.property.name === 'keys') {
             Object.keys(ast.container.arguments).map((i) => {
               if (!ast.container.arguments[i].property) {
-                console.log();
+                // console.log();
               }
             });
             process.esDocs[elementName].loops.push({
