@@ -45,6 +45,29 @@ export const Accessibility = (el) => {
       test: '[role="link"]',
       rule: (element) => (element.ariaLabel),
       error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nWhen transforming a Link element's tagName to anything other than <a>, you need to supply an "arial-label" attribute and describe the elements intent to screen readers.`
+    },
+    {
+      test: '.button',
+      rule: (element) => {
+        const isValidIcon = (Object.keys(element.childNodes).map((i) => {
+          if (element.childNodes[i].nodeType === 3) {
+            return true;
+          }
+          return false;
+        }).indexOf(true) !== -1);
+
+        if (!isValidIcon) {
+          if (element.childNodes[0].tagName === 'svg') {
+            if (!element.childNodes[0].ariaHidden) {
+              return false;
+            }
+            return true;
+          }
+        }
+
+        return isValidIcon;
+      },
+      error: (element) => `Missing "aria-hidden" prop (${element.children.innerHTML}):\r\nWhen an Icon is the only content of a button, the Icon needs to be hidden from screen readers. You need to supply an "arial-hidden" attribute.`
     }
   ];
 
