@@ -24,7 +24,6 @@
       font-size: rem(16px);
       font-weight: normal;
       margin-top: rem(-1px);
-      padding: var(--trigger-padding);
     }
 
     .expand__target {

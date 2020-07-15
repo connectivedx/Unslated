@@ -81,7 +81,9 @@ export class Accordion__section extends React.Component {
     /** Level attribute overloads the heading tag size of a accordion section (h1-h6) */
     level: PropTypes.string,
     /** align attribute passes its value down to the expand molecule to align expanded content from top or bottom */
-    align: PropTypes.oneOf(['top', 'bottom'])
+    align: PropTypes.oneOf(['top', 'bottom']),
+    /** ID required for corresponding aria-labelledBy */
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -98,6 +100,7 @@ export class Accordion__section extends React.Component {
       children,
       title,
       align,
+      id,
       ...attrs
     } = this.props;
 
@@ -113,6 +116,7 @@ export class Accordion__section extends React.Component {
         className={classStack}
         title={title}
         align={align}
+        id={id}
         {...attrs}
       >
         {children}
