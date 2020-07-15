@@ -12,9 +12,13 @@ export const Expand = (el) => {
       if (el.classList.contains('expand-state--open')) {
         el.classList.remove('expand-state--open');
         el.classList.add('expand-state--closed');
+        ui.trigger.ariaExpanded = false;
+        ui.target.ariaHidden = true;
       } else {
         el.classList.remove('expand-state--closed');
         el.classList.add('expand-state--open');
+        ui.trigger.ariaExpanded = true;
+        ui.target.ariaHidden = false;
       }
     });
   };

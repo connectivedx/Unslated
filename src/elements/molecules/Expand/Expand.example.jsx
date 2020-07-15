@@ -29,7 +29,7 @@ export default [{
       name: 'Default state (align top)',
       component: (
         <div>
-          <Expand title="Toggle me" level="h5">
+          <Expand title="Toggle me" level="h5" id="expand-01">
             {Utils.ipsum('word', 3)}
           </Expand>
         </div>
@@ -39,7 +39,7 @@ export default [{
       name: 'Overloaded state (align top)',
       component: (
         <div>
-          <Expand title="Toggle me also" defaultState="open" level="h5">
+          <Expand title="Toggle me also" defaultState="open" level="h5" id="expand-02">
             {Utils.ipsum('word', 3)}
           </Expand>
         </div>
@@ -49,7 +49,7 @@ export default [{
       name: 'Align bottom',
       component: (
         <div>
-          <Expand title="Toggle me also" defaultState="open" level="h5" align="bottom">
+          <Expand title="Toggle me also" defaultState="open" level="h5" align="bottom" id="expand-03">
             {Utils.ipsum('word', 3)}
           </Expand>
         </div>
@@ -59,7 +59,7 @@ export default [{
       name: 'Align left',
       component: (
         <div>
-          <Expand title="Toggle me also" defaultState="open" level="h5" align="left">
+          <Expand title="Toggle me also" defaultState="open" level="h5" align="left" id="expand-04">
             {Utils.ipsum('word', 3)}
           </Expand>
         </div>
@@ -69,7 +69,7 @@ export default [{
       name: 'Align right',
       component: (
         <div>
-          <Expand title="Toggle me also" defaultState="open" level="h5" align="right">
+          <Expand title="Toggle me also" defaultState="open" level="h5" align="right" id="expand-05">
             {Utils.ipsum('word', 3)}
           </Expand>
         </div>

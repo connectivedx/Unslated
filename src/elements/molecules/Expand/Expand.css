@@ -1,5 +1,15 @@
+:root {
+  --trigger-padding: rem(10px) var(--target-padding);
+}
+
 .expand {
   display: flex;
+
+  &__trigger {
+    border: none;
+    padding: var(--trigger-padding);
+    text-align: start;
+  }
 
   /* states */
   &-state {
