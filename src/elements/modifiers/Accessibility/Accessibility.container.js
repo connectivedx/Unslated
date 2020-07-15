@@ -49,7 +49,7 @@ export const Accessibility = (el) => {
     },
     // Test for buttons without text whose only child is an icon who have missing aria-hidden
     {
-      test: ['.button--icon'],
+      test: '.button--icon',
       rule: (element) => {
         const isValid = (Object.keys(element.childNodes).map((i) => {
           if (element.childNodes[i].nodeType === 3) {
