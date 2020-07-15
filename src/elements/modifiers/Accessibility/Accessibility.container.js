@@ -12,6 +12,7 @@ export const Accessibility = (el) => {
   };
 
   const events = ['click', 'mouseover', 'mouseout', 'keyup', 'keydown', 'focused', 'blur', 'input'];
+
   const rules = [
     {
       // Test for buttons who have no inner text and missing aria-label
@@ -45,6 +46,63 @@ export const Accessibility = (el) => {
       test: '[role="link"]',
       rule: (element) => (element.ariaLabel),
       error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nWhen transforming a Link element's tagName to anything other than <a>, you need to supply an "arial-label" attribute and describe the elements intent to screen readers.`
+    },
+    // Test for buttons without text whose only child is an icon who have missing aria-hidden
+    {
+      test: '.button--icon',
+      rule: (element) => {
+        const isValid = (Object.keys(element.childNodes).map((i) => {
+          if (element.childNodes[i].nodeType === 3) {
+            return true;
+          }
+          return false;
+        }).indexOf(true) !== -1);
+
+        if (!isValid) {
+          if (element.childNodes[0].tagName === 'svg') {
+            if (!element.childNodes[0].ariaHidden) {
+              return false;
+            }
+            return true;
+          }
+        }
+        return isValid;
+      },
+      error: (element) => `Missing "aria-hidden" prop (${element.parentNode.innerHTML}):\r\nWhen an Icon is the only content of a button, the Icon needs to be hidden from screen readers. You need to supply an "arial-hidden" attribute.`
+    },
+    // Test for links that only have an icon, and icon is missing aria-hidden
+    {
+      test: '.link--icon',
+      rule: (element) => {
+        const isValid = (Object.keys(element.childNodes).map((i) => {
+          if (element.childNodes[i].nodeType === 3) {
+            return true;
+          }
+          return false;
+        }).indexOf(true) !== -1);
+
+        if (!isValid) {
+          if (element.childNodes[0].tagName === 'svg') {
+            if (!element.childNodes[0].ariaHidden) {
+              return false;
+            }
+            return true;
+          }
+        }
+        return isValid;
+      },
+      error: (element) => `Missing aria-hidden="true" prop (${element.parentNode.innerHTML}):\r\nWhen an Icon is the only content of a link, the Icon needs to be hidden from screen readers. You need to supply an "arial-hidden" attribute.`
+    }, {
+      // Test for links that only have an icon and are missing aria-label
+      test: '.link--icon',
+      rule: (element) => {
+        if (element.hasAttribute('aria-label')) {
+          return true;
+        }
+
+        return false;
+      },
+      error: (element) => `Missing "aria-label" prop (${element.parentNode.innerHTML}):\r\nIf you do not intend to give immediate inner text to this Link, please give it an aria-label attribute instead which descibes the elements intent to screen readers.`
     }
   ];
 

@@ -21,6 +21,9 @@
     ```
 */
 
+import Icon from '@atoms/Icon/Icon';
+import Image from '@atoms/Image/Image';
+import imageSrc from '@atoms/Image/assets/rancheria-falls.jpg';
 import Link from './Link';
 
 export default [{
@@ -41,7 +44,7 @@ export default [{
         <Link
           tagName="span"
           href="#slime-span"
-          aria-label="Specific link info for screen readers (required)"
+          aria-label="Accessible name for screen readers (required)"
         >
           Span link
         </Link>
@@ -49,8 +52,23 @@ export default [{
     }, {
       name: 'Image as link',
       component: (
-        <Link href="#slime-image">
-          <img src="https://picsum.photos/150/150" alt="random generator" />
+        <Link
+          href="#slime-image"
+          aria-label="Accessible name for screen readers"
+        >
+          <Image src={imageSrc} alt="" />
+        </Link>
+      )
+    },
+    {
+      name: 'Icon as link',
+      component: (
+        <Link
+          href="#/"
+          variant="icon"
+          aria-label="Accessible name for screen readers (required)"
+        >
+          <Icon name="close" className="flex" ariaHidden={true} />
         </Link>
       )
     }
