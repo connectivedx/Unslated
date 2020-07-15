@@ -51,10 +51,6 @@
 
   &--link {
     text-decoration: none;
-
-    &.button--icon {
-      width: fit-content;
-    }
   }
 
   &--icon {
