@@ -18,9 +18,4 @@
       color: var(--color-black);
     }
   }
-
-  &--icon {
-    display: flex;
-    width: fit-content;
-  }
 }
