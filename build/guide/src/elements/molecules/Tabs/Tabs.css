@@ -2,7 +2,7 @@
   --border-styles: 1px solid var(--color-gray);
   --tabs-bg-color: var(--color-white);
   --tabs-trigger-padding: rem(8px);
-  --tabs-target-padding: rem(16px);
+  --tabs-target-padding: rem(8px);
 }
 
 /* Baseline styles */
@@ -16,7 +16,7 @@
     display: none !important;
   }
 
-  .tabs__triggers {
+  .guide__tabs__triggers {
     @media (--medium) {
       display: flex;
     }
@@ -58,7 +58,6 @@
     /* Trigger styles */
     [data-tabs-trigger] {
       background-color: var(--tabs-bg-color);
-      border: var(--border-styles);
       cursor: pointer;
       min-width: 180px;
       padding: var(--tabs-trigger-padding);
@@ -78,7 +77,6 @@
     /* Target styles */
     [data-tabs-target] {
       background-color: var(--tabs-bg-color);
-      border: var(--border-styles);
       height: 100%;
       padding: var(--tabs-target-padding);
       position: relative;

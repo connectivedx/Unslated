@@ -19,7 +19,7 @@ export const Metrics = () => {
 
   return (
     <Rhythm tagName="section" className={classStack}>
-      <Tabs className="card__deck" defaultTab="0" align="top" variant="metrics" justify="center">
+      <Tabs className="card__deck" defaultTab="0" align="top" justify="center">
         <Tabs__triggers>
           <Card className="tabs__trigger fall-flip tabs-state--open">
             <Card__body className="jsx-size" tagName="h2" />

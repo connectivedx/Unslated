@@ -31,10 +31,11 @@ export class List extends React.Component {
     const {
       tagName,
       className,
-      variant,
       children,
       ...attrs
     } = this.props;
+
+    let { variant } = this.props;
 
     const getTagName = () => {
       switch (variant) {
@@ -49,6 +50,11 @@ export class List extends React.Component {
     };
 
     const Tag = tagName || getTagName();
+
+    if (['ol', 'ul', 'dl'].indexOf(Tag) === -1) {
+      attrs.role = 'list';
+      variant = 'blank';
+    }
 
     const classStack = Utils.createClassStack([
       'list',
@@ -106,6 +112,10 @@ export class List__item extends React.Component {
     };
 
     const Tag = tagName || getTagName();
+
+    if (['dt', 'dd', 'li'].indexOf(Tag) === -1) {
+      attrs.role = 'listitem';
+    }
 
     const classStack = Utils.createClassStack([
       'list__item',

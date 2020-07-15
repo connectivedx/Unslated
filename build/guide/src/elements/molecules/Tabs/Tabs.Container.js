@@ -3,8 +3,8 @@ export const Tabs = (el) => {
   // Tabs ui helper object
   const ui = {
     el,
-    triggers: el.querySelectorAll('[data-tabs-trigger]'),
-    targets: el.querySelectorAll('[data-tabs-target]')
+    triggers: el.querySelectorAll('.guide__tabs__triggers > *'),
+    targets: el.querySelectorAll('.guide__tabs__targets > *')
   };
 
   // Sets active state of clicked tab trigger
@@ -33,6 +33,23 @@ export const Tabs = (el) => {
 
   // Tabs's main init method
   const init = () => {
+    // Setup children attributes and classing of triggers
+    Object.keys(ui.triggers).map((i) => {
+      const trigger = ui.triggers[i];
+      trigger.dataset.tabsTrigger = i;
+      trigger.classList.add('guide__tabs__trigger');
+      return false;
+    });
+
+    // Setup children attributes and classing of targets
+    Object.keys(ui.targets).map((i) => {
+      const target = ui.targets[i];
+      target.dataset.tabsTarget = i;
+      target.classList.add('guide__tabs__target');
+      target.classList.add('hide');
+      return false;
+    });
+
     show(el.dataset.default);
 
     // Event listener
