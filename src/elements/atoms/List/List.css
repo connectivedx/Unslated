@@ -21,7 +21,7 @@
   }
 
   &--definition {
-    & .List__item {
+    & .list__item {
       &--term {
         font-weight: bold;
       }

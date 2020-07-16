@@ -29,7 +29,16 @@ import {
 export default [{
   examples: [
     {
-      name: 'default',
+      name: 'Blank list',
+      component: (
+        <List variant="blank">
+          <List__item className="is-leader">Pig</List__item>
+          <List__item>Dog</List__item>
+          <List__item>Horse</List__item>
+        </List>
+      )
+    }, {
+      name: 'Unordered List (default)',
       component: (
         <List>
           <List__item>Horse</List__item>
@@ -38,7 +47,7 @@ export default [{
         </List>
       )
     }, {
-      name: 'ordered list',
+      name: 'Ordered list',
       component: (
         <List variant="ordered">
           <List__item className="is-leader">Pig</List__item>
@@ -47,7 +56,7 @@ export default [{
         </List>
       )
     }, {
-      name: 'definition list',
+      name: 'Definition list',
       component: (
         <List variant="definition">
           <List__item variant="term">Pig</List__item>
@@ -61,27 +70,13 @@ export default [{
         </List>
       )
     }, {
-      name: 'blank list',
+      name: 'Foreign tag list',
       component: (
-        <List variant="blank">
-          <List__item className="is-leader">Pig</List__item>
-          <List__item>Dog</List__item>
-          <List__item>Horse</List__item>
+        <List tagName="section">
+          <List__item tagName="div">Pig</List__item>
+          <List__item tagName="div">Dog</List__item>
+          <List__item tagName="div">Horse</List__item>
         </List>
-      )
-    }, {
-      name: 'list w/ class',
-      component: (
-        <List className="boogy-monster">
-          <List__item className="is-leader">Pig</List__item>
-          <List__item>Dog</List__item>
-          <List__item>Horse</List__item>
-        </List>
-      )
-    }, {
-      name: 'list item w/ class',
-      component: (
-        <List__item className="yahoo">Horse</List__item>
       )
     }
   ]

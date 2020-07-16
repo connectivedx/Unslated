@@ -104,19 +104,9 @@ export class Tabs__triggers extends React.Component {
     const {
       tagName: Tag,
       variant,
+      children,
       ...attrs
     } = this.props;
-
-    let { children } = this.props;
-
-    children = Object.keys(children).map((i) => {
-      children[i].props['data-tabs-trigger'] = i;
-      children[i].props.className = Utils.createClassStack([
-        'tabs__trigger',
-        children[i].props.className
-      ]);
-      return children[i];
-    });
 
     return (
       <Tag className="tabs__triggers" {...attrs}>
@@ -152,20 +142,9 @@ export class Tabs__targets extends React.Component {
     const {
       tagName: Tag,
       variant,
+      children,
       ...attrs
     } = this.props;
-
-    let { children } = this.props;
-
-    children = Object.keys(children).map((i) => {
-      children[i].props['data-tabs-target'] = i;
-      children[i].props.className = Utils.createClassStack([
-        'hide',
-        'tabs__target',
-        children[i].props.className
-      ]);
-      return children[i];
-    });
 
     return (
       <Tag className="tabs__targets" {...attrs}>
