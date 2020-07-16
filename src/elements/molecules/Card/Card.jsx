@@ -15,7 +15,9 @@ export class Card extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.any
+    children: PropTypes.any,
+    /** Defines the id to use for accessibility attributes */
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -33,7 +35,7 @@ export class Card extends React.Component {
       tagName: Tag,
       className,
       variant,
-      children,
+      id,
       ...attrs
     } = this.props;
 
@@ -43,9 +45,31 @@ export class Card extends React.Component {
       className
     ]);
 
+    let { children } = this.props;
+    if (id) {
+      children = Object.keys(children).map((i) => {
+        const child = children[i];
+        if (child) {
+          if (child.type) {
+            if (child.type.toString().indexOf('Card__header') !== -1) {
+              return React.cloneElement(child, { id: `${id}CardTitle`, key: i });
+            }
+
+            if (child.type.toString().indexOf('Card__body') !== -1) {
+              return React.cloneElement(child, { id: `${id}CardDesc`, key: i });
+            }
+          }
+        }
+
+        return false;
+      });
+    }
+
     return (
       <Tag
         className={classStack}
+        aria-labelledby={`${id}CardTitle`}
+        aria-describedby={`${id}CardDesc`}
         {...attrs}
       >
         {children}
@@ -181,132 +205,6 @@ export class Card__footer extends React.Component {
     const classStack = Utils.createClassStack([
       'card__footer',
       `card__footer--${variant}`,
-      className
-    ]);
-
-    return (
-      <Tag
-        className={classStack}
-        {...attrs}
-      >
-        {children}
-      </Tag>
-    );
-  }
-}
-
-export class Card__group extends React.Component {
-  static propTypes = {
-    /** Tag overload */
-    tagName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element,
-      PropTypes.func
-    ]),
-    /** Class stacking */
-    className: PropTypes.string,
-    /** Children passed through */
-    children: PropTypes.node
-  };
-
-  static defaultProps = {
-    tagName: 'div'
-  };
-
-  render = () => {
-    const {
-      tagName: Tag,
-      className,
-      children,
-      ...attrs
-    } = this.props;
-
-    const classStack = Utils.createClassStack([
-      'card__group',
-      className
-    ]);
-
-    return (
-      <Tag
-        className={classStack}
-        {...attrs}
-      >
-        {children}
-      </Tag>
-    );
-  }
-}
-
-export class Card__deck extends React.Component {
-  static propTypes = {
-    /** Tag overload */
-    tagName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element,
-      PropTypes.func
-    ]),
-    /** Class stacking */
-    className: PropTypes.string,
-    /** Children passed through */
-    children: PropTypes.node
-  };
-
-  static defaultProps = {
-    tagName: 'div'
-  };
-
-  render = () => {
-    const {
-      tagName: Tag,
-      className,
-      children,
-      ...attrs
-    } = this.props;
-
-    const classStack = Utils.createClassStack([
-      'card__deck',
-      className
-    ]);
-
-    return (
-      <Tag
-        className={classStack}
-        {...attrs}
-      >
-        {children}
-      </Tag>
-    );
-  }
-}
-
-export class Card__grid extends React.Component {
-  static propTypes = {
-    /** Tag overload */
-    tagName: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element,
-      PropTypes.func
-    ]),
-    /** Class stacking */
-    className: PropTypes.string,
-    /** Children passed through */
-    children: PropTypes.node
-  };
-
-  static defaultProps = {
-    tagName: 'div'
-  };
-
-  render = () => {
-    const {
-      tagName: Tag,
-      className,
-      children,
-      ...attrs
-    } = this.props;
-
-    const classStack = Utils.createClassStack([
-      'card__grid',
       className
     ]);
 
