@@ -29,24 +29,6 @@ export const Tabs = (el) => {
 
   // Tabs's main init method
   const init = () => {
-    // Setup children attributes and classing of triggers
-    Object.keys(ui.triggers).map((i) => {
-      const trigger = ui.triggers[i];
-      trigger.dataset.tabsTrigger = i;
-      trigger.classList.add('tabs__trigger');
-      return false;
-    });
-
-    // Setup children attributes and classing of targets
-    Object.keys(ui.targets).map((i) => {
-      const target = ui.targets[i];
-      target.dataset.tabsTarget = i;
-      target.classList.add('tabs__target');
-      target.classList.add('hide');
-      return false;
-    });
-
-
     // Open default tabbed section
     show(el.dataset.default);
 

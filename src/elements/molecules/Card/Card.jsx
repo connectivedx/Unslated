@@ -17,7 +17,7 @@ export class Card extends React.Component {
     /** Children passed through */
     children: PropTypes.any,
     /** Defines the id to use for accessibility attributes */
-    id: PropTypes.string
+    id: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -46,23 +46,24 @@ export class Card extends React.Component {
     ]);
 
     let { children } = this.props;
-    if (id) {
-      children = Object.keys(children).map((i) => {
-        const child = children[i];
-        if (child) {
-          if (child.type) {
-            if (child.type.toString().indexOf('Card__header') !== -1) {
-              return React.cloneElement(child, { id: `${id}CardTitle`, key: i });
-            }
 
-            if (child.type.toString().indexOf('Card__body') !== -1) {
-              return React.cloneElement(child, { id: `${id}CardDesc`, key: i });
-            }
-          }
-        }
+    const distributeIds = (child, index = false) => {
+      if (child.type.toString().indexOf('Card__header')) {
+        return React.cloneElement(child, { id: `${id}CardTitle`, key: index });
+      }
+      if (child.type.toString().indexOf('Card__body')) {
+        return React.cloneElement(child, { id: `${id}CardDesc`, key: index });
+      }
 
-        return false;
-      });
+      return child;
+    };
+
+    if (id && !children.type) {
+      children = Object.keys(children).map((i) => distributeIds(children[i], i));
+    }
+
+    if (children.type) {
+      distributeIds(children);
     }
 
     return (
