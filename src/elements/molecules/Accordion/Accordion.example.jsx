@@ -28,14 +28,14 @@ export default [{
     {
       name: 'Default styling',
       component: (
-        <Accordion>
-          <Accordion__section title="Accordion section one" id="accordion-1">
+        <Accordion id="accordion-1">
+          <Accordion__section title="Accordion section one">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section two" id="accordion-2">
+          <Accordion__section title="Accordion section two">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section three" id="accordion-3">
+          <Accordion__section title="Accordion section three">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
@@ -44,14 +44,14 @@ export default [{
     }, {
       name: 'Spread styling',
       component: (
-        <Accordion variant="spread">
-          <Accordion__section title="Accordion section one" id="accordion-4">
+        <Accordion variant="spread" id="accordion-2">
+          <Accordion__section title="Accordion section one">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section two" id="accordion-5">
+          <Accordion__section title="Accordion section two">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section three" id="accordion-6">
+          <Accordion__section title="Accordion section three">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
@@ -60,14 +60,14 @@ export default [{
     }, {
       name: 'Align bottom',
       component: (
-        <Accordion variant="spread">
-          <Accordion__section title="Accordion section one" align="bottom" id="accordion-7">
+        <Accordion variant="spread" id="accordion-3">
+          <Accordion__section title="Accordion section one" align="bottom">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section two" align="bottom" id="accordion-8">
+          <Accordion__section title="Accordion section two" align="bottom">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section three" align="bottom" id="accordion-9">
+          <Accordion__section title="Accordion section three" align="bottom">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>
@@ -76,14 +76,14 @@ export default [{
     }, {
       name: 'Disabled multiple sections',
       component: (
-        <Accordion multi={false}>
-          <Accordion__section title="Accordion section one" id="accordion-10">
+        <Accordion multi={false} id="accordion-4">
+          <Accordion__section title="Accordion section one">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section two" id="accordion-11">
+          <Accordion__section title="Accordion section two">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
-          <Accordion__section title="Accordion section three" id="accordion-12">
+          <Accordion__section title="Accordion section three">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
         </Accordion>

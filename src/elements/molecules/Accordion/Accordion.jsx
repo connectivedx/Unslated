@@ -20,7 +20,9 @@ export class Accordion extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Multi allows you specify if accordion allows multiple sections open at once. */
-    multi: PropTypes.bool
+    multi: PropTypes.bool,
+    /** ID required for corresponding aria-labelledBy */
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -39,10 +41,13 @@ export class Accordion extends React.Component {
       tagName: Tag,
       className,
       variant,
-      children,
       multi,
+      id,
       ...attrs
     } = this.props;
+
+    let { children } = this.props;
+    children = Object.keys(children).map((i) => React.cloneElement(children[i], { id: `${id}-${i}`, key: i }));
 
     const classStack = Utils.createClassStack([
       'accordion',

@@ -79,8 +79,8 @@ export class Expand extends React.Component {
         className={classStack}
         {...attrs}
       >
-        <Heading tagName="button" level={level} className="expand__trigger" aria-expanded={expanded} id={id}>{title}</Heading>
-        <section className="expand__target" aria-hidden={!expanded} aria-labelledBy={id}>
+        <Heading tagName="button" level={level} className="expand__trigger" aria-expanded={expanded} id={`${id}ExpandTitle`} aria-controls={`${id}ExpandDesc`}>{title}</Heading>
+        <section className="expand__target" aria-hidden={!expanded} id={`${id}ExpandDesc`} aria-labelledBy={`${id}ExpandTitle`}>
           {children}
         </section>
       </Tag>
