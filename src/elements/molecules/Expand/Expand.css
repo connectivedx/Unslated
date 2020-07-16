@@ -7,8 +7,10 @@
 
   &__trigger {
     border: none;
+    font-size: inherit;
     padding: var(--trigger-padding);
     text-align: start;
+    width: 100%;
   }
 
   /* states */

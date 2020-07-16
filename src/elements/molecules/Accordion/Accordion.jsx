@@ -104,6 +104,7 @@ export class Accordion__section extends React.Component {
       variant,
       children,
       title,
+      level,
       align,
       id,
       ...attrs
@@ -122,6 +123,7 @@ export class Accordion__section extends React.Component {
         title={title}
         align={align}
         id={id}
+        level={level}
         {...attrs}
       >
         {children}
