@@ -20,7 +20,9 @@ export class Accordion extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Multi allows you specify if accordion allows multiple sections open at once. */
-    multi: PropTypes.bool
+    multi: PropTypes.bool,
+    /** ID required for corresponding aria-labelledBy */
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -39,10 +41,13 @@ export class Accordion extends React.Component {
       tagName: Tag,
       className,
       variant,
-      children,
       multi,
+      id,
       ...attrs
     } = this.props;
+
+    let { children } = this.props;
+    children = Object.keys(children).map((i) => React.cloneElement(children[i], { id: `${id}-${i}`, key: i }));
 
     const classStack = Utils.createClassStack([
       'accordion',
@@ -81,7 +86,9 @@ export class Accordion__section extends React.Component {
     /** Level attribute overloads the heading tag size of a accordion section (h1-h6) */
     level: PropTypes.string,
     /** align attribute passes its value down to the expand molecule to align expanded content from top or bottom */
-    align: PropTypes.oneOf(['top', 'bottom'])
+    align: PropTypes.oneOf(['top', 'bottom']),
+    /** ID required for corresponding aria-labelledBy */
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -98,6 +105,7 @@ export class Accordion__section extends React.Component {
       children,
       title,
       align,
+      id,
       ...attrs
     } = this.props;
 
@@ -113,6 +121,7 @@ export class Accordion__section extends React.Component {
         className={classStack}
         title={title}
         align={align}
+        id={id}
         {...attrs}
       >
         {children}

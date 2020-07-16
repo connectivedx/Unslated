@@ -30,7 +30,9 @@ export class Expand extends React.Component {
     /** Level defines the heading tag size (h1 - h6) of the expand trigger */
     level: PropTypes.string,
     /** Aligns expand target to be top or bottom */
-    align: PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
+    align: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+    /** Descriptive accessible ID required for corresponding aria-labelledBy */
+    id: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -58,6 +60,7 @@ export class Expand extends React.Component {
       defaultState,
       level,
       align,
+      id,
       ...attrs
     } = this.props;
 
@@ -69,13 +72,15 @@ export class Expand extends React.Component {
       className
     ]);
 
+    const expanded = defaultState !== 'closed';
+
     return (
       <Tag
         className={classStack}
         {...attrs}
       >
-        <Heading level={level} className="expand__trigger">{title}</Heading>
-        <section className="expand__target">
+        <Heading tagName="button" level={level} className="expand__trigger" aria-expanded={expanded} id={`${id}ExpandTitle`} aria-controls={`${id}ExpandDesc`}>{title}</Heading>
+        <section className="expand__target" aria-hidden={!expanded} id={`${id}ExpandDesc`} aria-labelledBy={`${id}ExpandTitle`}>
           {children}
         </section>
       </Tag>
