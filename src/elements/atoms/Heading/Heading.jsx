@@ -45,6 +45,12 @@ export class Heading extends React.Component {
 
     const Tag = tagName || level || 'h1';
 
+    // If foreign tag, this indicates to AT that element should be treated like a heading
+    if (tagName) {
+      attrs.role = 'heading';
+      attrs['aria-level'] = level.replace(/[a-zA-Z]/g, '');
+    }
+
     const classStack = Utils.createClassStack([
       'heading',
       `heading--${weight}`,

@@ -45,7 +45,7 @@ export default [{
       name: 'Spread styling',
       component: (
         <Accordion variant="spread" id="accordion-2">
-          <Accordion__section title="Accordion section one">
+          <Accordion__section title="Accordion section one" level="h2">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Accordion__section>
           <Accordion__section title="Accordion section two">
