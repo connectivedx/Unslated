@@ -83,6 +83,7 @@ export default [{
           <p>You seen me at page load!</p>
           <Alert
             type="modal"
+            id="modal-01"
             title="Alert modal example"
             close={false}
             hasEscapeClose={false}

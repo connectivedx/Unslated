@@ -46,7 +46,13 @@
 
   &__deck {
     .card {
+      display: flex;
+      flex-direction: column;
       margin: calc(var(--card-spacing) * 2) 0;
+
+      &__body {
+        height: 100%;
+      }
 
       @media (--medium) {
         margin: 0 var(--card-spacing);
@@ -63,7 +69,13 @@
     flex-wrap: wrap;
 
     .card {
+      display: flex;
+      flex-direction: column;
       margin: calc(var(--card-spacing) * 2) 0;
+
+      &__body {
+        height: 100%;
+      }
 
       @media (--medium) {
         max-width: calc(calc(100% / var(--card-grid__per-row)) - calc(var(--card-spacing) * var(--card-grid__per-row)));

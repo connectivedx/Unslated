@@ -104,9 +104,17 @@ export class Tabs__triggers extends React.Component {
     const {
       tagName: Tag,
       variant,
-      children,
       ...attrs
     } = this.props;
+
+    let { children } = this.props;
+
+    // Setup children attributes and classing of triggers
+    children = Object.keys(children).map((i) => React.cloneElement(children[i], {
+      className: `${children[i].props.className} tabs__trigger`,
+      'data-tabs-trigger': i,
+      key: i
+    }));
 
     return (
       <Tag className="tabs__triggers" {...attrs}>
@@ -142,9 +150,17 @@ export class Tabs__targets extends React.Component {
     const {
       tagName: Tag,
       variant,
-      children,
       ...attrs
     } = this.props;
+
+    let { children } = this.props;
+
+    // Setup children attributes and classing of targets
+    children = Object.keys(children).map((i) => React.cloneElement(children[i], {
+      className: `${children[i].props.className} tabs__target hide`,
+      'data-tabs-target': i,
+      key: i
+    }));
 
     return (
       <Tag className="tabs__targets" {...attrs}>

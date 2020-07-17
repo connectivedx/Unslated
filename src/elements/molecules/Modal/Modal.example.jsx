@@ -32,23 +32,23 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-01">Small Layout (click me)</Button>
-          <Modal data-modal="my-modal-id-01" size="small" title="Small modal layout example">
+          <Button data-modal="modal-01">Small Layout (click me)</Button>
+          <Modal id="modal-01" size="small" title="Small modal layout example">
             <p>{Utils.ipsum('paragraph', 1)}</p>
           </Modal>
 
-          <Button data-modal="my-modal-id-02">Medium Layout (click me)</Button>
-          <Modal data-modal="my-modal-id-02" size="medium" title="Medium modal layout example">
+          <Button data-modal="modal-02">Medium Layout (click me)</Button>
+          <Modal id="modal-02" size="medium" title="Medium modal layout example">
             <p>{Utils.ipsum('paragraph', 2)}</p>
           </Modal>
 
-          <Button data-modal="my-modal-id-03">Large Layout (click me)</Button>
-          <Modal data-modal="my-modal-id-03" size="large" title="Large modal layout example">
+          <Button data-modal="modal-03">Large Layout (click me)</Button>
+          <Modal id="modal-03" size="large" title="Large modal layout example">
             <p>{Utils.ipsum('paragraph', 3)}</p>
           </Modal>
 
-          <Button data-modal="my-modal-id-04">Extra Layout large (click me)</Button>
-          <Modal data-modal="my-modal-id-04" size="extra-large" padding="medium" title="Extra large layout example">
+          <Button data-modal="modal-04">Extra Layout large (click me)</Button>
+          <Modal id="modal-04" size="extra-large" padding="medium" title="Extra large layout example">
             <p>{Utils.ipsum('paragraph', 4)}</p>
           </Modal>
         </React.Fragment>
@@ -58,18 +58,18 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-05">Small Padding (click me)</Button>
-          <Modal data-modal="my-modal-id-05" size="extra-large" padding="small" title="Small padding example">
+          <Button data-modal="modal-05">Small Padding (click me)</Button>
+          <Modal id="modal-05" size="extra-large" padding="small" title="Small padding example">
             {Utils.ipsum('paragraph', 4)}
           </Modal>
 
-          <Button data-modal="my-modal-id-06">Medium Padding (click me)</Button>
-          <Modal data-modal="my-modal-id-06" size="extra-large" padding="medium" title="Medium padding example">
+          <Button data-modal="modal-06">Medium Padding (click me)</Button>
+          <Modal id="modal-06" size="extra-large" padding="medium" title="Medium padding example">
             {Utils.ipsum('paragraph', 3)}
           </Modal>
 
-          <Button data-modal="my-modal-id-07">Large Padding (click me)</Button>
-          <Modal data-modal="my-modal-id-07" size="extra-large" padding="large" title="Large padding example">
+          <Button data-modal="modal-07">Large Padding (click me)</Button>
+          <Modal id="modal-07" size="extra-large" padding="large" title="Large padding example">
             {Utils.ipsum('paragraph', 2)}
           </Modal>
         </React.Fragment>
@@ -79,19 +79,19 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-08">Textual Close (click me)</Button>
-          <Modal data-modal="my-modal-id-08" size="small" close="Close text" title="Textual close example">
+          <Button data-modal="modal-08">Textual Close (click me)</Button>
+          <Modal id="modal-08" size="small" close="Close text" title="Textual close example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 
-          <Button data-modal="my-modal-id-09">Icon Close (click me)</Button>
-          <Modal data-modal="my-modal-id-09" size="small" close={<Icon name="down" />} title="Icon close example">
+          <Button data-modal="modal-09">Icon Close (click me)</Button>
+          <Modal id="modal-09" size="small" close={<Icon name="down" />} title="Icon close example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 
-          <Button data-modal="my-modal-id-10">Elemental Close (click me)</Button>
+          <Button data-modal="modal-10">Elemental Close (click me)</Button>
           <Modal
-            data-modal="my-modal-id-10"
+            id="modal-10"
             size="small"
             close={<span style={{ backgroundColor: '#999', color: '#fff', padding: '0.25rem' }}>Close element</span>}
             title="Elemental close example"
@@ -105,18 +105,18 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-11">Disable Esc Close (click me)</Button>
-          <Modal data-modal="my-modal-id-11" size="small" hasEscapeClose={false} title="Disabled Esc example">
+          <Button data-modal="modal-11">Disable Esc Close (click me)</Button>
+          <Modal id="modal-11" size="small" hasEscapeClose={false} title="Disabled Esc example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 
-          <Button data-modal="my-modal-id-12">Disable Esc & Overlay Close (click me)</Button>
-          <Modal data-modal="my-modal-id-12" size="small" hasEscapeClose={false} hasOverlayClose={false} title="Disabled Esc & overlay example">
+          <Button data-modal="modal-12">Disable Esc & Overlay Close (click me)</Button>
+          <Modal id="modal-12" size="small" hasEscapeClose={false} hasOverlayClose={false} title="Disabled Esc & overlay example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 
-          <Button data-modal="my-modal-id-13">Disable Overlay Close & Close Button (click me)</Button>
-          <Modal data-modal="my-modal-id-13" size="small" hasOverlayClose={false} close={false} title="Disabled overlay & close example (hint: press esc)">
+          <Button data-modal="modal-13">Disable Overlay Close & Close Button (click me)</Button>
+          <Modal id="modal-13" size="small" hasOverlayClose={false} close={false} title="Disabled overlay & close example (hint: press esc)">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
         </React.Fragment>
@@ -126,13 +126,13 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-14">Disable Overlay (click me)</Button>
-          <Modal data-modal="my-modal-id-14" size="small" hasOverlay={false} title="Disabled overlay example">
+          <Button data-modal="modal-14">Disable Overlay (click me)</Button>
+          <Modal id="modal-14" size="small" hasOverlay={false} title="Disabled overlay example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 
-          <Button data-modal="my-modal-id-15">Disable Overlay & Overlay Close (click me)</Button>
-          <Modal data-modal="my-modal-id-15" size="small" hasOverlayClose={false} hasOverlay={false} title="Disabled overlay & overlay close">
+          <Button data-modal="modal-15">Disable Overlay & Overlay Close (click me)</Button>
+          <Modal id="modal-15" size="small" hasOverlayClose={false} hasOverlay={false} title="Disabled overlay & overlay close">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
         </React.Fragment>
@@ -142,8 +142,8 @@ export default [{
       description: '',
       component: (
         <React.Fragment>
-          <Button data-modal="my-modal-id-16">Simple Modal without title</Button>
-          <Modal data-modal="my-modal-id-16" size="small" hideTitle={true} title="Disabled overlay example">
+          <Button data-modal="modal-16">Simple Modal without title</Button>
+          <Modal id="modal-16" size="small" hideTitle={true} title="Disabled overlay example">
             {Utils.ipsum('paragraph', 3)}
           </Modal>
         </React.Fragment>

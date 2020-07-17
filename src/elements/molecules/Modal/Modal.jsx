@@ -25,6 +25,8 @@ export class Modal extends React.Component {
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
     children: PropTypes.node,
+    /** Defines the id used for accessibility aria attributes */
+    id: PropTypes.string.isRequired,
     /** Defines the close button text, icon or even element */
     close: PropTypes.any,
     /** Defines if modal can be closed with escape key or not */
@@ -65,6 +67,7 @@ export class Modal extends React.Component {
 
   render = () => {
     const {
+      id,
       role,
       size,
       title,
@@ -119,11 +122,12 @@ export class Modal extends React.Component {
 
     return (
       <Tag
-        className={classStack}
+        id={id}
         role={role}
+        className={classStack}
         aria-modal="true"
-        aria-labelledby={`${attrs['data-modal']}Title`}
-        aria-describedby={`${attrs['data-modal']}Desc`}
+        aria-labelledby={`${id}Title`}
+        aria-describedby={`${id}Desc`}
         {...attrs}
       >
         <div className={`modal-inner wrapper--${size}`}>
@@ -134,10 +138,9 @@ export class Modal extends React.Component {
                 : ''
             }
             <div className={heightStack}>
-              <Card className="modal-content">
+              <Card className="modal-content" id={id}>
                 <Card__header
                   className={titleStack}
-                  id={`${attrs['data-modal']}Title`}
                   aria-hidden="false"
                 >
                   {title}
@@ -148,7 +151,7 @@ export class Modal extends React.Component {
                   }
                 </Card__header>
                 <Card__body>
-                  <div className={`scrollblock padding--${padding}`} id={`${attrs['data-modal']}Desc`}>
+                  <div className={`scrollblock padding--${padding}`}>
                     {children}
                   </div>
                 </Card__body>

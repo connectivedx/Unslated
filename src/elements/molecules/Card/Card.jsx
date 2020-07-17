@@ -15,7 +15,9 @@ export class Card extends React.Component {
     /** Style variants */
     variant: PropTypes.oneOf(['default']),
     /** Children passed through */
-    children: PropTypes.any
+    children: PropTypes.any,
+    /** Defines the id to use for accessibility attributes */
+    id: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -33,7 +35,7 @@ export class Card extends React.Component {
       tagName: Tag,
       className,
       variant,
-      children,
+      id,
       ...attrs
     } = this.props;
 
@@ -42,6 +44,27 @@ export class Card extends React.Component {
       `card--${variant}`,
       className
     ]);
+
+    let { children } = this.props;
+
+    const distributeIds = (child, index = false) => {
+      if (child.type.toString().indexOf('Card__header') !== -1) {
+        attrs['aria-labelledby'] = `${id}CardTitle`;
+        return React.cloneElement(child, { id: `${id}CardTitle`, key: index });
+      }
+      if (child.type.toString().indexOf('Card__body') !== -1) {
+        attrs['aria-describedby'] = `${id}CardDesc`;
+        return React.cloneElement(child, { id: `${id}CardDesc`, key: index });
+      }
+
+      return child;
+    };
+
+    if (id && !children.type) {
+      children = Object.keys(children).map((i) => distributeIds(children[i], i));
+    } else if (children.type) {
+      children = distributeIds(children);
+    }
 
     return (
       <Tag

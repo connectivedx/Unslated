@@ -47,7 +47,7 @@ export const Modal = (el) => {
   };
 
   // Get modal by ID
-  const getRefModal = (modalId) => document.querySelector(`.modal[data-modal="${modalId}"]`);
+  const getRefModal = (modalId) => document.querySelector(`#${modalId}`);
 
   // Modals's main init method
   const init = () => {
