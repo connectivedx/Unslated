@@ -1,0 +1,89 @@
+:root {
+
+  /* CSS variables */
+}
+
+.divider {
+
+  /* Baseline styles */
+  border-color: var(--color-black);
+  
+  /* Style variants */
+  &--horizontal {
+    border: solid;
+    margin: rem(32px) auto;
+
+    &.divider--length {
+      &-large {
+        width: 100%;
+      }
+  
+      &-medium {
+        width: 75%;
+      }
+  
+      &-medium-small {
+        width: 50%;
+      }
+  
+      &-small{
+        width: 25%;
+      }
+    }
+  }
+
+  &--vertical {
+    display: inline-block;
+    border: solid;
+    margin: 0 rem(32px);
+
+    &.divider--length {
+      &-large {
+        margin: 0 rem(32px);
+      }
+  
+      &-medium {
+        height: 75%;
+        margin: auto rem(32px);
+      }
+  
+      &-medium-small {
+        height: 50%;
+        margin: auto rem(32px);
+      }
+  
+      &-small{
+        height: 25%;
+        margin: auto rem(32px);
+      }
+    }
+  }
+
+  &--thickness {
+    &-small {
+      border-width: 1px;
+    }
+
+    &-medium {
+      border-width: 2px;
+    }
+
+    &-large {
+      border-width: 5px;
+    }
+  }
+
+  &--color {
+    &-red {
+      border-color: var(--color-red);
+    }
+
+    &-green {
+      border-color: var(--color-green);
+    }
+
+    &-gray {
+      border-color: var(--color-gray-light);
+    }
+  }
+}
