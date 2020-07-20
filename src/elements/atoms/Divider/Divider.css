@@ -10,7 +10,7 @@
   
   /* Style variants */
   &--horizontal {
-    border-top: solid;
+    border: solid;
     margin: rem(32px) auto;
 
     &.divider--length {
@@ -34,7 +34,7 @@
 
   &--vertical {
     display: inline-block;
-    border-left: solid;
+    border: solid;
     margin: 0 rem(32px);
 
     &.divider--length {

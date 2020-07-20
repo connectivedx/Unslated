@@ -23,7 +23,7 @@ export class Divider extends React.Component {
   };
 
   static defaultProps = {
-    tagName: 'div',
+    tagName: 'hr',
     variant: 'horizontal',
     length: 'large',
     thickness: 'medium',
@@ -35,7 +35,7 @@ export class Divider extends React.Component {
 
   render = () => {
     const {
-      tagName: Tag,
+      tagName,
       className,
       variant,
       children,
@@ -45,6 +45,12 @@ export class Divider extends React.Component {
       color,
       ...attrs
     } = this.props;
+
+    let Tag = tagName;
+
+    if (variant === 'veritcal') {
+      Tag = 'div';
+    }
 
     const classStack = Utils.createClassStack([
       'divider',
@@ -58,6 +64,7 @@ export class Divider extends React.Component {
     return (
       <Tag
         className={classStack}
+        role="presentation"
         {...attrs}
       >
         {children}
