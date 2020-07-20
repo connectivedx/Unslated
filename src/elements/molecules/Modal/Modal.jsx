@@ -52,7 +52,7 @@ export class Modal extends React.Component {
     variant: 'default',
     size: 'large',
     padding: 'small',
-    close: <Icon name="close" data-modal-close />,
+    close: <Icon name="close" data-modal-close label="Modal close icon" />,
     hasEscapeClose: true,
     hasOverlayClose: true,
     hasOverlay: true,

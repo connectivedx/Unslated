@@ -85,7 +85,7 @@ export default [{
           </Modal>
 
           <Button data-modal="modal-09">Icon Close (click me)</Button>
-          <Modal id="modal-09" size="small" close={<Icon name="down" />} title="Icon close example">
+          <Modal id="modal-09" size="small" close={<Icon name="down" label="Modal close icon" />} title="Icon close example">
             {Utils.ipsum('paragraph', 1)}
           </Modal>
 

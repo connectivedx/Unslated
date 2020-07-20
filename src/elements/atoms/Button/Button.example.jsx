@@ -64,8 +64,8 @@ export default [{
   }, {
     name: 'Icon Button',
     component: (
-      <Button variant="icon" aria-label="Accessible name for screen readers (required)">
-        <Icon name="close" ariaHidden={true} />
+      <Button variant="icon">
+        <Icon name="close" ariaHidden={true} label="Close icon" />
       </Button>
     )
   }]

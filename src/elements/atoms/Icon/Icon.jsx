@@ -14,7 +14,9 @@ export class Icon extends React.Component {
     /** Icon file's name */
     name: PropTypes.string.isRequired,
     /** Hide decorative Icons from screen readers */
-    ariaHidden: PropTypes.bool
+    ariaHidden: PropTypes.bool,
+    /** Defines the label used by screen readers to describe the icon */
+    label: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -34,6 +36,7 @@ export class Icon extends React.Component {
       size,
       variant,
       name,
+      label,
       ariaHidden,
       ...attrs
     } = this.props;
@@ -46,13 +49,20 @@ export class Icon extends React.Component {
       className
     ]);
 
+    attrs['aria-label'] = label;
+
     if (ariaHidden) {
       attrs['aria-hidden'] = 'true';
       attrs.focusable = 'false';
+      attrs['aria-label'] = '';
     }
 
     return (
-      <svg className={classStack} {...attrs}>
+      <svg
+        role="img"
+        className={classStack}
+        {...attrs}
+      >
         <use xlinkHref={`#icon-${name}`} />
       </svg>
     );

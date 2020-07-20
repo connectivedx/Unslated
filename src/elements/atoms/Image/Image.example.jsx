@@ -21,6 +21,7 @@
     ```
 */
 
+import Heading from '@atoms/Heading/Heading';
 import imageSrc from '@atoms/Image/assets/rancheria-falls.jpg';
 import imageSrcMd from '@atoms/Image/assets/rancheria-falls-md.jpg';
 import imageSrcLg from '@atoms/Image/assets/rancheria-falls-lg.jpg';
@@ -29,26 +30,44 @@ import Image from './Image';
 export default [{
   examples: [
     {
-      name: 'Default Image',
+      name: 'Auto inline vs. full width',
       component: (
-        <Image
-          src={imageSrc}
-          alt="Rancheria Falls"
-        />
+        <React.Fragment>
+          <Image
+            src={imageSrc}
+            variant="auto"
+            alt="Rancheria Falls"
+          />
+
+          <Image
+            src={imageSrc}
+            variant="full"
+            alt="Rancheria Falls"
+          />
+        </React.Fragment>
       )
     }, {
-      name: 'Default Image with srcset',
+      name: 'Image srcset (uses <picture> with IE11 fallback)',
       component: (
         <Image
           src={imageSrc}
           srcSet={`${imageSrcMd} 720w, ${imageSrcLg} 1440w`}
           alt="Rancheria Falls"
+          variant="full"
         />
       )
     }, {
-      name: 'Auto size Image behavior',
+      name: 'Image as background of a container',
       component: (
-        <Image src={imageSrc} alt="Rancheria Falls" variant="auto" />
+        <Image
+          src={imageSrc}
+          size="100%"
+          position="center"
+          className="padding--medium"
+        >
+          <Heading level="h2">Hello World!</Heading>
+          <p>Well this is neat!</p>
+        </Image>
       )
     }
   ]
