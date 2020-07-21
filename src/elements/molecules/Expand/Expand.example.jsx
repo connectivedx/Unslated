@@ -75,6 +75,26 @@ export default [{
         </div>
       ),
       notes: ''
+    }, {
+      name: 'Default state with Icon',
+      component: (
+        <div>
+          <Expand title="Example with Icon" level="h5" id="expand-01" icon="plus" size="normal">
+            {Utils.ipsum('word', 3)}
+          </Expand>
+        </div>
+      ),
+      notes: ''
+    }, {
+      name: 'Open state with Icon',
+      component: (
+        <div>
+          <Expand title="Example with Icon" defaultState="open" level="h5" id="expand-01" icon="plus" size="normal">
+            {Utils.ipsum('word', 3)}
+          </Expand>
+        </div>
+      ),
+      notes: ''
     }
   ]
 }];
