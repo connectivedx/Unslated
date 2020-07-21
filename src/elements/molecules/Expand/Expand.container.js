@@ -14,11 +14,13 @@ export const Expand = (el) => {
         el.classList.add('expand-state--closed');
         ui.trigger.ariaExpanded = false;
         ui.target.ariaHidden = true;
+        el.querySelector('.icon use').setAttribute('xlink:href', '#icon-plus');
       } else {
         el.classList.remove('expand-state--closed');
         el.classList.add('expand-state--open');
         ui.trigger.ariaExpanded = true;
         ui.target.ariaHidden = false;
+        el.querySelector('.icon use').setAttribute('xlink:href', '#icon-minus');
       }
     });
   };
