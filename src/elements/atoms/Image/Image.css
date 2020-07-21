@@ -10,29 +10,25 @@
 
 
   /* Container background */
-  &--container {
+  &__content {
     position: relative;
+    z-index: 3;
+  }
 
-    .image--background {
-      z-index: 1;
-    }
+  &__background {
+    z-index: 1;
+  }
 
-    .image--color {
-      z-index: 2;
-    }
+  &__color {
+    z-index: 2;
+  }
 
-    .image--inner {
-      position: relative;
-      z-index: 3;
-    }
-
-    .image--color,
-    .image--background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
+  &__color,
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }

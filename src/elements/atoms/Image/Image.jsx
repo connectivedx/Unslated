@@ -17,9 +17,9 @@ export class Image extends React.Component {
     /** Defines a responsive set of images */
     srcSet: PropTypes.string,
     /** Defines the background-size if used with children */
-    size: PropTypes.string,
+    backgroundSize: PropTypes.string,
     /** Defines the background-position if used with children */
-    position: PropTypes.oneOf([
+    backgroundPosition: PropTypes.oneOf([
       'top',
       'right',
       'bottom',
@@ -35,20 +35,20 @@ export class Image extends React.Component {
       'center center',
       'center bottom'
     ]),
-    /** Defines the image's level of opacity */
-    imageOpacity: PropTypes.float,
     /** Defines a belnding color with image */
-    color: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    /** Defines the image's level of opacity */
+    imageOpacity: PropTypes.number,
     /** Defines the color's level of opacity */
-    colorOpacity: PropTypes.int
+    colorOpacity: PropTypes.number
   };
 
   static defaultProps = {
     variant: 'auto',
     imageOpacity: 1.0,
     colorOpacity: 1.0,
-    position: 'center',
-    size: '100%'
+    backgroundSize: '100%',
+    backgroundPosition: 'center'
   };
 
   /** Element level options */
@@ -64,9 +64,9 @@ export class Image extends React.Component {
       alt,
       src,
       srcSet,
-      size,
-      position,
-      color,
+      backgroundSize,
+      backgroundPosition,
+      backgroundColor,
       imageOpacity,
       colorOpacity,
       ...attrs
@@ -107,28 +107,26 @@ export class Image extends React.Component {
       (!children)
         ? <img alt={alt} src={src} className={classStack} {...attrs} />
         : (
-          <div
-            className="image--container"
-          >
-            <div className={[classStack, 'image--inner'].join('')}>
+          <div className="image">
+            <div className={[classStack, 'image__content'].join(' ')}>
               {children}
             </div>
 
             <span
-              className="image--background"
+              className="image__background"
               style={{
                 backgroundImage: `url(${src})`,
-                backgroundSize: `${size}`,
-                backgroundPosition: `${position}`,
+                backgroundSize: `${backgroundSize}`,
+                backgroundPosition: `${backgroundPosition}`,
                 opacity: `${imageOpacity}`
               }}
               {...attrs}
             />
 
             <span
-              className="image--color"
+              className="image__color"
               style={{
-                backgroundColor: `${color}`,
+                backgroundColor: `${backgroundColor}`,
                 opacity: `${colorOpacity}`
               }}
             />

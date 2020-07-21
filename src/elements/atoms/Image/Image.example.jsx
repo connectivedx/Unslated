@@ -57,17 +57,52 @@ export default [{
         />
       )
     }, {
-      name: 'Image as background of a container',
+      name: 'Image as background with color mixing',
       component: (
-        <Image
-          src={imageSrc}
-          size="100%"
-          position="center"
-          className="padding--medium"
-        >
-          <Heading level="h2">Hello World!</Heading>
-          <p>Well this is neat!</p>
-        </Image>
+        <React.Fragment>
+          <Image
+            src={imageSrcLg}
+            backgroundSize="100%"
+            backgroundColor="red"
+            backgroundPosition="center"
+            imageOpacity={0.4}
+            colorOpacity={0.2}
+            className="padding--medium rhythm"
+            alt="Background image"
+          >
+            <Heading level="h2">Hello World!</Heading>
+            <p>{Utils.ipsum('paragraph', 2)}</p>
+          </Image>
+
+          <Image
+            src={imageSrcLg}
+            backgroundSize="100%"
+            backgroundColor="blue"
+            backgroundPosition="center"
+            imageOpacity={0.4}
+            colorOpacity={0.2}
+            className="padding--medium rhythm"
+            alt="Background image"
+          >
+            <Heading level="h2">Hello World!</Heading>
+            <p>{Utils.ipsum('paragraph', 2)}</p>
+          </Image>
+
+          <Image
+            src={imageSrcLg}
+            backgroundSize="100%"
+            backgroundColor="green"
+            backgroundPosition="center"
+            imageOpacity={0.4}
+            colorOpacity={0.2}
+            className="padding--medium rhythm"
+            alt="Background image"
+          >
+            <Heading level="h2">Hello World!</Heading>
+            <p>{Utils.ipsum('paragraph', 2)}</p>
+          </Image>
+
+        </React.Fragment>
       )
     }
   ]
