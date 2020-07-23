@@ -15,7 +15,7 @@ export class Carousel extends React.Component {
     /** Class stacking */
     className: PropTypes.string,
     /** Style variants */
-    variant: PropTypes.oneOf(['default', 'icon-wrapper']),
+    variant: PropTypes.oneOf(['default']),
     /** Children passed through */
     children: PropTypes.node,
     /** Autoplay determines if slide advances or placed in time delay */
@@ -76,7 +76,7 @@ export class Carousel extends React.Component {
       classStack = [classStack, ' carousel--no-pagination'].join('');
     }
 
-    if (delay) {
+    if (delay && autoplay) {
       const reg = RegExp('^[0-9]*$');
       if (reg.test(delay)) {
         dataCarousel = delay;
@@ -106,10 +106,8 @@ export class Carousel__slide extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /** Style variant */
-    className: PropTypes.string,
     /** Class stacking */
-    variant: PropTypes.oneOf(['default']),
+    className: PropTypes.string,
     /** Children nodes being passed through */
     children: PropTypes.node.isRequired
   };
@@ -122,7 +120,6 @@ export class Carousel__slide extends React.Component {
     const {
       tagName,
       className,
-      variant,
       children,
       ...attrs
     } = this.props;
@@ -131,7 +128,6 @@ export class Carousel__slide extends React.Component {
 
     const classStack = Utils.createClassStack([
       'carousel__slide',
-      `carousel__slide--${variant}`,
       'padding--medium',
       className
     ]);
@@ -152,10 +148,8 @@ export class Carousel__container extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /** Style variant */
-    className: PropTypes.string,
     /** Class stacking */
-    variant: PropTypes.oneOf(['default']),
+    className: PropTypes.string,
     /** Children nodes being passed through */
     children: PropTypes.node.isRequired
   };
@@ -168,7 +162,6 @@ export class Carousel__container extends React.Component {
     const {
       tagName,
       className,
-      variant,
       children,
       ...attrs
     } = this.props;
@@ -177,7 +170,6 @@ export class Carousel__container extends React.Component {
 
     const classStack = Utils.createClassStack([
       'carousel__container',
-      `carousel__container--${variant}`,
       className
     ]);
 
@@ -197,10 +189,8 @@ export class Carousel__controls extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    /** Style variant */
-    className: PropTypes.string,
     /** Class stacking */
-    variant: PropTypes.oneOf(['default']),
+    className: PropTypes.string,
     /** Children nodes being passed through */
     children: PropTypes.node,
     /** Autoplay passed from parent Carousel */
@@ -216,7 +206,6 @@ export class Carousel__controls extends React.Component {
     const {
       tagName,
       className,
-      variant,
       children,
       autoplay,
       ...attrs
@@ -226,7 +215,6 @@ export class Carousel__controls extends React.Component {
 
     const classStack = Utils.createClassStack([
       'carousel__controls',
-      `carousel__controls--${variant}`,
       'flex',
       className
     ]);

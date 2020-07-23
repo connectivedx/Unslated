@@ -22,7 +22,6 @@
 */
 
 import Image from '@atoms/Image/Image';
-// import Icon from '@atoms/Icon/Icon';
 import Button from '@atoms/Button/Button';
 import Card from '@molecules/Card/Card';
 import {
@@ -233,12 +232,13 @@ export default [{
         </Carousel>
       )
     }, {
-      name: 'Icon Wrapped Custom Pagination (custom required)',
+      name: 'Controls Wrapping Custom Pagination',
       description: '',
       exports: '',
       notes: '',
       component: (
         <Carousel>
+          <p>Note: only custom pagination can have icon wrap. The custom pagination in this example is using existing tns styling </p>
           <Carousel__container>
             <Carousel__slide style={{ textAlign: 'center' }}>
               <Image src="https://picsum.photos/id/10/600" variant="auto" alt="" />
