@@ -1,4 +1,5 @@
 import Heading from '@atoms/Heading/Heading';
+import Icon from '@atoms/Icon/Icon';
 
 /**
   Expand is a molecule used to hide or display conent under a given title.
@@ -32,13 +33,14 @@ export class Expand extends React.Component {
     /** Aligns expand target to be top or bottom */
     align: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
     /** Descriptive accessible ID required for corresponding aria-labelledBy */
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    /** Defines the icon size */
+    size: PropTypes.any
   };
 
   static defaultProps = {
     tagName: 'div',
     variant: 'default',
-    icon: 'plus',
     defaultState: 'closed',
     level: 'h3',
     align: 'top'
@@ -61,6 +63,7 @@ export class Expand extends React.Component {
       level,
       align,
       id,
+      size,
       ...attrs
     } = this.props;
 
@@ -84,12 +87,17 @@ export class Expand extends React.Component {
         >
           <button
             type="button"
-            className="expand__trigger"
+            className="expand__trigger flex flex--justify-content-between"
             aria-expanded={expanded}
             id={`${id}ExpandTitle`}
             aria-controls={`${id}ExpandDesc`}
           >
             {title}
+            {
+              (icon)
+                ? <Icon name={expanded ? 'minus' : 'plus'} size={size} />
+                : ''
+            }
           </button>
         </Heading>
         <section

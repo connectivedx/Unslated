@@ -1,16 +1,15 @@
-:root {
-  --trigger-padding: rem(10px) var(--target-padding);
-}
-
 .expand {
   display: flex;
 
   &__trigger {
     border: none;
     font-size: inherit;
-    padding: var(--trigger-padding);
     text-align: start;
     width: 100%;
+  }
+
+  &__target {
+    padding: 0 8px;
   }
 
   /* states */
