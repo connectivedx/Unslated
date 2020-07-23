@@ -22,7 +22,7 @@
 */
 
 import Image from '@atoms/Image/Image';
-import Icon from '@atoms/Icon/Icon';
+// import Icon from '@atoms/Icon/Icon';
 import Button from '@atoms/Button/Button';
 import Card from '@molecules/Card/Card';
 import {
@@ -67,7 +67,7 @@ export default [{
         </Carousel>
       )
     }, {
-      name: 'Default Style With Autoplay',
+      name: 'With Autoplay',
       description: '',
       exports: '',
       notes: '',
@@ -99,7 +99,39 @@ export default [{
         </Carousel>
       )
     }, {
-      name: 'Default Style No Loop',
+      name: 'With Autoplay and Custom Delay',
+      description: '',
+      exports: '',
+      notes: '',
+      component: (
+        <Carousel autoplay={true} delay="3500">
+          <Carousel__controls />
+          <Carousel__container style={{ textAlign: 'center' }}>
+            <Carousel__slide>
+              <Card id="carousel-card-05" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-06" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-07" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-08" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+          </Carousel__container>
+        </Carousel>
+      )
+    }, {
+      name: 'No Loop',
       description: '',
       exports: '',
       notes: '',
@@ -131,7 +163,7 @@ export default [{
         </Carousel>
       )
     }, {
-      name: 'Default Style No Pagination',
+      name: 'No Pagination',
       description: '',
       exports: '',
       notes: '',
@@ -163,40 +195,72 @@ export default [{
         </Carousel>
       )
     }, {
-      name: 'Icon Wrapper Variant & Custom Pagination',
+      name: 'Custom Pagination',
       description: '',
       exports: '',
       notes: '',
       component: (
-        <Carousel variant="icon-wrapper" style={{ width: '50%' }}>
-          <div className="flex" aria-label="Carousel navigation">
-            <Button variant="icon" aria-label="previous slide" className="carousel__button carousel__button-prev">
-              <Icon name="left" ariaHidden />
-            </Button>
-            <Carousel__container>
-              <Carousel__slide style={{ textAlign: 'center' }}>
-                <Image src="https://picsum.photos/id/10/400" variant="auto" alt="" />
-              </Carousel__slide>
-              <Carousel__slide style={{ textAlign: 'center' }}>
-                <Image src="https://picsum.photos/id/1016/400" variant="auto" alt="" />
-              </Carousel__slide>
-              <Carousel__slide style={{ textAlign: 'center' }}>
-                <Image src="https://picsum.photos/id/1057/400" variant="auto" alt="" />
-              </Carousel__slide>
-              <Carousel__slide style={{ textAlign: 'center' }}>
-                <Image src="https://picsum.photos/id/1018/400" variant="auto" alt="" />
-              </Carousel__slide>
-            </Carousel__container>
-            <Button variant="icon" aria-label="next slide" className="carousel__button carousel__button-next">
-              <Icon name="right" ariaHidden />
-            </Button>
-          </div>
+        <Carousel>
+          <Carousel__controls />
+          <Carousel__container style={{ textAlign: 'center' }}>
+            <Carousel__slide>
+              <Card id="carousel-card-05" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-06" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-07" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+            <Carousel__slide>
+              <Card id="carousel-card-08" className="padding--medium">
+                <p>{Utils.ipsum('paragraph', 2)}</p>
+              </Card>
+            </Carousel__slide>
+          </Carousel__container>
           <div className="carousel__pagination carousel__pagination-custom">
-            <button type="button" aria-label="">1</button>
-            <button type="button" aria-label="">2</button>
-            <button type="button" aria-label="">3</button>
-            <button type="button" aria-label="">4</button>
+            <Button>1</Button>
+            <Button>2</Button>
+            <Button>3</Button>
+            <Button>4</Button>
           </div>
+        </Carousel>
+      )
+    }, {
+      name: 'Icon Wrapped Custom Pagination (custom required)',
+      description: '',
+      exports: '',
+      notes: '',
+      component: (
+        <Carousel>
+          <Carousel__container>
+            <Carousel__slide style={{ textAlign: 'center' }}>
+              <Image src="https://picsum.photos/id/10/600" variant="auto" alt="" />
+            </Carousel__slide>
+            <Carousel__slide style={{ textAlign: 'center' }}>
+              <Image src="https://picsum.photos/id/1016/600" variant="auto" alt="" />
+            </Carousel__slide>
+            <Carousel__slide style={{ textAlign: 'center' }}>
+              <Image src="https://picsum.photos/id/1057/600" variant="auto" alt="" />
+            </Carousel__slide>
+            <Carousel__slide style={{ textAlign: 'center' }}>
+              <Image src="https://picsum.photos/id/1018/600" variant="auto" alt="" />
+            </Carousel__slide>
+          </Carousel__container>
+          <Carousel__controls>
+            <div className="carousel__pagination carousel__pagination-custom tns-nav">
+              <button type="button" />
+              <button type="button" />
+              <button type="button" />
+              <button type="button" />
+            </div>
+          </Carousel__controls>
         </Carousel>
       )
     }

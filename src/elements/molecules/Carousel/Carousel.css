@@ -6,17 +6,18 @@
 .carousel {
 
   /* Baseline styles */
-  margin: 0 auto;
+  margin: rem(16px) auto;
 
   &__controls {
-    align-items: center;
     justify-content: center;
-    margin: rem(16px);
+
+    .carousel__button {
+      margin: auto rem(8px);
+    }
   }
 
   &__pagination:not(.carousel__pagination-custom),
   .tns-nav {
-    margin: rem(16px);
     text-align: center;
 
     button {
@@ -54,21 +55,18 @@
 
   .tns-nav-active {
     background-color: var(--color-gray) !important;
+    color: var(--color-white);
   }
 
   /* Style variants */
-  &--icon-wrapper {
-    .carousel__button {
-      margin: auto;
-    }
-  }
 
   &__pagination-custom {
-    margin: rem(16px);
+    display: flex;
+    justify-content: center;
     text-align: center;
 
-    > * {
-      margin: rem(8px);
+    .button {
+      border-radius: 5px;
     }
   }
 }
