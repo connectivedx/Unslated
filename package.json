@@ -1,130 +1,131 @@
 {
-	"name": "Unslated",
-	"version": "1.0.0",
-	"description": "Boilerplate++ (component-based UI development)",
-	"repository": "drolsen/unslated",
-	"bugs": {
-		"url": "https://github.com/drolsen/unslated/issues"
-	},
-	"author": "Devin Olsen",
-	"license": "MIT",
-	"directories": {
-		"source": "src",
-		"dest": "dist",
-		"assetPath": "assets",
-		"publicPath": "/"
-	},
-	"statics": {
-		"enable": false,
-		"dest": "./dist/statics"
-	},
-	"remote": {
-		"type": "IIS"
-	},
-	"local": {
-		"port": "",
-		"host": "localhost",
-		"allowedHosts": []
-	},
-	"optimize": {
-		"js": true,
-		"css": true
-	},
-	"favicon": {
-		"src": "src/favicon.svg",
-		"options": {
-			"background": "#000",
-			"theme_color": "#000"
-		},
-		"types": {
-			"android": true,
-			"appleIcon": true,
-			"appleStartup": true,
-			"coast": true,
-			"favicons": true,
-			"firefox": true,
-			"opengraph": true,
-			"twitter": true,
-			"yandex": true,
-			"windows": true
-		}
-	},
-	"scripts": {
-		"dev": "node build/scaffolding/node.build.js sync && webpack-dev-server --config build/configs/dev.config.js --mode development --open",
-		"build": "node build/scaffolding/node.build.js sync && webpack --config build/configs/build.config.js --mode production && npm run static",
-		"guide": "node build/scaffolding/node.build.js sync && webpack --config build/configs/guide.config.js --mode production",
-		"static": "node build/scaffolding/node.build.js static",
-		"staticDebug": "webpack --config build/configs/statics.config.js --mode production",
-		"new:page": "node build/scaffolding/scaffolding.build.js new pages",
-		"new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
-		"new:molecule": "node build/scaffolding/scaffolding.build.js new molecules",
-		"new:organism": "node build/scaffolding/scaffolding.build.js new organisms",
-		"new:modifier": "node build/scaffolding/scaffolding.build.js new modifiers",
-		"new:template": "node build/scaffolding/scaffolding.build.js new templates",
-		"new:variable": "node build/scaffolding/scaffolding.build.js new variables"
-	},
-	"engines": {
-		"node": ">=10.16.0"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.5.5",
-		"@babel/parser": "^7.5.5",
-		"@babel/plugin-proposal-async-generator-functions": "^7.10.4",
-		"@babel/plugin-proposal-class-properties": "^7.5.5",
-		"@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
-		"@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-		"@babel/plugin-proposal-optional-chaining": "^7.10.4",
-		"@babel/plugin-transform-for-of": "^7.10.4",
-		"@babel/plugin-transform-react-display-name": "^7.2.0",
-		"@babel/preset-env": "^7.5.5",
-		"@babel/preset-react": "^7.0.0",
-		"@babel/register": "^7.5.5",
-		"@babel/traverse": "^7.5.5",
-		"@babel/types": "^7.10.3",
-		"babel-eslint": "^10.0.3",
-		"babel-loader": "^8.0.6",
-		"clean-css": "^4.2.1",
-		"clean-webpack-plugin": "^3.0.0",
-		"copy-webpack-plugin": "^5.1.1",
-		"css-loader": "^3.2.0",
-		"enhanced-resolve": "^4.1.0",
-		"es6-object-assign": "^1.1.0",
-		"eslint": "^6.8.0",
-		"eslint-config-airbnb": "^18.1.0",
-		"eslint-friendly-formatter": "^4.0.1",
-		"eslint-loader": "^3.0.0",
-		"eslint-plugin-import": "^2.20.1",
-		"eslint-plugin-jsx-a11y": "^6.2.3",
-		"eslint-plugin-react": "^7.19.0",
-		"eslint-plugin-react-hooks": "^2.5.0",
-		"favicons-webpack-plugin": "^3.0.1",
-		"file-loader": "^4.2.0",
-		"fs-extra": "^8.1.0",
-		"html-loader": "^0.5.5",
-		"html-webpack-plugin": "^4.3.0",
-		"image-webpack-loader": "^5.0.0",
-		"loader-utils": "^2.0.0",
-		"mini-css-extract-plugin": "^0.8.0",
-		"node-html-parser": "^1.1.16",
-		"postcss": "^7.0.17",
-		"postcss-custom-selectors": "^5.1.2",
-		"postcss-import": "^12.0.1",
-		"postcss-in-out": "^1.1.0",
-		"postcss-loader": "^3.0.0",
-		"postcss-nested": "^4.1.2",
-		"pretty": "^2.0.0",
-		"react": "^16.9.0",
-		"react-dom": "^16.9.0",
-		"reset-css": "^4.0.1",
-		"rimraf": "^3.0.0",
-		"style-loader": "^1.0.0",
-		"stylelint": "^13.3.3",
-		"stylelint-webpack-plugin": "^2.0.0",
-		"webpack": "^4.43.0",
-		"webpack-cdn-inject": "^1.0.4",
-		"webpack-cli": "^3.3.7",
-		"webpack-dev-server": "^3.11.0",
-		"webpack-node-externals": "^1.7.2",
-		"webpack-svg-spritely": "^1.3.8"
-	}
+  "name": "Unslated",
+  "version": "1.0.0",
+  "description": "Boilerplate++ (component-based UI development)",
+  "repository": "drolsen/unslated",
+  "bugs": {
+    "url": "https://github.com/drolsen/unslated/issues"
+  },
+  "author": "Devin Olsen",
+  "license": "MIT",
+  "directories": {
+    "source": "src",
+    "dest": "dist",
+    "assetPath": "assets",
+    "publicPath": "/"
+  },
+  "statics": {
+    "enable": false,
+    "dest": "./dist/statics"
+  },
+  "remote": {
+    "type": "IIS"
+  },
+  "local": {
+    "port": "",
+    "host": "localhost",
+    "allowedHosts": []
+  },
+  "optimize": {
+    "js": true,
+    "css": true
+  },
+  "favicon": {
+    "src": "src/favicon.svg",
+    "options": {
+      "background": "#000",
+      "theme_color": "#000"
+    },
+    "types": {
+      "android": true,
+      "appleIcon": true,
+      "appleStartup": true,
+      "coast": true,
+      "favicons": true,
+      "firefox": true,
+      "opengraph": true,
+      "twitter": true,
+      "yandex": true,
+      "windows": true
+    }
+  },
+  "scripts": {
+    "dev": "node build/scaffolding/node.build.js sync && webpack-dev-server --config build/configs/dev.config.js --mode development --open",
+    "build": "node build/scaffolding/node.build.js sync && webpack --config build/configs/build.config.js --mode production && npm run static",
+    "guide": "node build/scaffolding/node.build.js sync && webpack --config build/configs/guide.config.js --mode production",
+    "static": "node build/scaffolding/node.build.js static",
+    "staticDebug": "webpack --config build/configs/statics.config.js --mode production",
+    "new:page": "node build/scaffolding/scaffolding.build.js new pages",
+    "new:atom": "node build/scaffolding/scaffolding.build.js new atoms",
+    "new:molecule": "node build/scaffolding/scaffolding.build.js new molecules",
+    "new:organism": "node build/scaffolding/scaffolding.build.js new organisms",
+    "new:modifier": "node build/scaffolding/scaffolding.build.js new modifiers",
+    "new:template": "node build/scaffolding/scaffolding.build.js new templates",
+    "new:variable": "node build/scaffolding/scaffolding.build.js new variables"
+  },
+  "engines": {
+    "node": ">=10.16.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/parser": "^7.5.5",
+    "@babel/plugin-proposal-async-generator-functions": "^7.10.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
+    "@babel/plugin-transform-for-of": "^7.10.4",
+    "@babel/plugin-transform-react-display-name": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.5.5",
+    "@babel/traverse": "^7.5.5",
+    "@babel/types": "^7.10.3",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "clean-css": "^4.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.2.0",
+    "enhanced-resolve": "^4.1.0",
+    "es6-object-assign": "^1.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "favicons-webpack-plugin": "^3.0.1",
+    "file-loader": "^4.2.0",
+    "fs-extra": "^8.1.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^4.3.0",
+    "image-webpack-loader": "^5.0.0",
+    "loader-utils": "^2.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-html-parser": "^1.1.16",
+    "postcss": "^7.0.17",
+    "postcss-custom-selectors": "^5.1.2",
+    "postcss-import": "^12.0.1",
+    "postcss-in-out": "^1.1.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
+    "pretty": "^2.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "reset-css": "^4.0.1",
+    "rimraf": "^3.0.0",
+    "style-loader": "^1.0.0",
+    "stylelint": "^13.3.3",
+    "stylelint-webpack-plugin": "^2.0.0",
+    "tiny-slider": "^2.9.2",
+    "webpack": "^4.43.0",
+    "webpack-cdn-inject": "^1.0.4",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-svg-spritely": "^1.3.8"
+  }
 }

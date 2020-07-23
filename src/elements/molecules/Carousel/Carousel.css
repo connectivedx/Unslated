@@ -6,6 +6,69 @@
 .carousel {
 
   /* Baseline styles */
+  margin: 0 auto;
+
+  &__controls {
+    align-items: center;
+    justify-content: center;
+    margin: rem(16px);
+  }
+
+  &__pagination:not(.carousel__pagination-custom),
+  .tns-nav {
+    margin: rem(16px);
+    text-align: center;
+
+    button {
+      background-color: color(var(--color-gray-light), 0.5);
+      border: 1px solid;
+      border-color: var(--color-gray);
+      border-radius: 50%;
+      height: rem(16px);
+      margin: 5px;
+      width: rem(16px);
+    }
+  }
+
+  &--autoplay-button {
+    border-color: transparent transparent transparent var(--color-black);
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 16px;
+    padding: 0;
+
+    &.play {
+      border-style: solid;
+      border-width: 9px 0 9px 15px;
+    }
+
+    &.pause {
+      border-style: double;
+      border-width: 0px 0 0px 15px;
+    }
+
+    &.button--primary {
+      background-color: transparent !important;
+    }
+  }
+
+  .tns-nav-active {
+    background-color: var(--color-gray) !important;
+  }
 
   /* Style variants */
+  &--icon-wrapper {
+    .carousel__button {
+      margin: auto;
+    }
+  }
+
+  &__pagination-custom {
+    margin: rem(16px);
+    text-align: center;
+
+    > * {
+      margin: rem(8px);
+    }
+  }
 }
