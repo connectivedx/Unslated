@@ -26,9 +26,14 @@
       border-color: var(--color-gray);
       border-radius: 50%;
       height: rem(16px);
-      margin: 5px;
+      margin: rem(5px);
       width: rem(16px);
     }
+  }
+
+  .tns-nav-active {
+    background-color: var(--color-gray) !important;
+    color: var(--color-white);
   }
 
   &--autoplay-button {
@@ -51,11 +56,6 @@
     &.button--primary {
       background-color: transparent !important;
     }
-  }
-
-  .tns-nav-active {
-    background-color: var(--color-gray) !important;
-    color: var(--color-white);
   }
 
   /* Style variants */
