@@ -61,13 +61,11 @@ export default [{
       component: (
         <React.Fragment>
           <Image
-            src={imageSrcLg}
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
             backgroundSize="100%"
             backgroundColor="red"
             backgroundPosition="center"
-            imageOpacity={0.4}
-            colorOpacity={0.2}
-            className="padding--medium rhythm"
+            backgroundColorOpacity={0.2}
             alt="Background image"
           >
             <Heading level="h2">Hello World!</Heading>
@@ -75,13 +73,10 @@ export default [{
           </Image>
 
           <Image
-            src={imageSrcLg}
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
             backgroundSize="100%"
             backgroundColor="blue"
-            backgroundPosition="center"
-            imageOpacity={0.4}
-            colorOpacity={0.2}
-            className="padding--medium rhythm"
+            backgroundColorOpacity={0.2}
             alt="Background image"
           >
             <Heading level="h2">Hello World!</Heading>
@@ -89,13 +84,10 @@ export default [{
           </Image>
 
           <Image
-            src={imageSrcLg}
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
             backgroundSize="100%"
             backgroundColor="green"
-            backgroundPosition="center"
-            imageOpacity={0.4}
-            colorOpacity={0.2}
-            className="padding--medium rhythm"
+            backgroundColorOpacity={0.1}
             alt="Background image"
           >
             <Heading level="h2">Hello World!</Heading>

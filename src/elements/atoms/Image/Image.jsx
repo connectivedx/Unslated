@@ -37,18 +37,15 @@ export class Image extends React.Component {
     ]),
     /** Defines a belnding color with image */
     backgroundColor: PropTypes.string,
-    /** Defines the image's level of opacity */
-    imageOpacity: PropTypes.number,
     /** Defines the color's level of opacity */
-    colorOpacity: PropTypes.number
+    backgroundColorOpacity: PropTypes.number
   };
 
   static defaultProps = {
     variant: 'auto',
-    imageOpacity: 1.0,
-    colorOpacity: 1.0,
     backgroundSize: '100%',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    backgroundColorOpacity: 1.0
   };
 
   /** Element level options */
@@ -66,9 +63,8 @@ export class Image extends React.Component {
       srcSet,
       backgroundSize,
       backgroundPosition,
+      backgroundColorOpacity,
       backgroundColor,
-      imageOpacity,
-      colorOpacity,
       ...attrs
     } = this.props;
 
@@ -78,10 +74,48 @@ export class Image extends React.Component {
       className
     ]);
 
-    if (srcSet) {
+
+    const getPicture = (asBackground = false) => {
+      if (!srcSet && !children) {
+        return <img alt={alt} src={src} className={(asBackground) ? classStack : 'image__background'} {...attrs} />;
+      }
+
       const set = srcSet.split(',');
+
+      // Nested bakground image
+      if (srcSet && children) {
+        const backgroundImage = `-webkit-image-set(${
+          Object.keys(set).map((i) => {
+            const source = `${set[i].split(' ').filter((n) => n)[0]}`;
+            const breakpoint = `${set[i].split(' ').filter((n) => n)[1].replace(/vw/g, 'x').replace(/w/g, 'x').replace(/px/g, 'x')}`;
+
+            return `url(${source}) ${breakpoint}`;
+          })
+        })`;
+
+        return (
+          <div
+            className="image image--background"
+            style={{
+              backgroundSize,
+              backgroundImage,
+              backgroundPosition
+            }}
+          >
+            <div className="image__content">{children}</div>
+            <span
+              className="image__color"
+              style={{
+                backgroundColor,
+                opacity: backgroundColorOpacity
+              }}
+            />
+          </div>
+        );
+      }
+
       return (
-        <picture className={classStack}>
+        <picture className={(asBackground) ? classStack : 'image__background'}>
           {
             Object.keys(set).map((i) => {
               const width = `(max-width: ${set[i].split(' ').filter((n) => n)[1].replace(/vw/g, 'px').replace(/w/g, 'px')})`;
@@ -91,7 +125,7 @@ export class Image extends React.Component {
                 return (
                   <React.Fragment key={i}>
                     <source media={width} srcSet={source} />
-                    <img src={src} alt={alt} data-fallback={srcSet} />
+                    <img src={source} alt={alt} data-fallback={srcSet} />
                   </React.Fragment>
                 );
               }
@@ -101,38 +135,9 @@ export class Image extends React.Component {
           }
         </picture>
       );
-    }
+    };
 
-    return (
-      (!children)
-        ? <img alt={alt} src={src} className={classStack} {...attrs} />
-        : (
-          <div className="image">
-            <div className={[classStack, 'image__content'].join(' ')}>
-              {children}
-            </div>
-
-            <span
-              className="image__background"
-              style={{
-                backgroundImage: `url(${src})`,
-                backgroundSize: `${backgroundSize}`,
-                backgroundPosition: `${backgroundPosition}`,
-                opacity: `${imageOpacity}`
-              }}
-              {...attrs}
-            />
-
-            <span
-              className="image__color"
-              style={{
-                backgroundColor: `${backgroundColor}`,
-                opacity: `${colorOpacity}`
-              }}
-            />
-          </div>
-        )
-    );
+    return getPicture();
   }
 }
 
