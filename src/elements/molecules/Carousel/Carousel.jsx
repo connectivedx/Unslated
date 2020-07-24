@@ -84,7 +84,7 @@ export class Carousel extends React.Component {
     }
 
     if (dataCarousel.length > 0) {
-      attrs['data-carousel-delay'] = `${dataCarousel}`;
+      attrs['data-delay'] = `${dataCarousel}`;
     }
 
     return (

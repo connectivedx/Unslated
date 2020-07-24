@@ -29,12 +29,13 @@
       margin: rem(5px);
       width: rem(16px);
     }
+    
+    .tns-nav-active {
+      background-color: var(--color-gray);
+      color: var(--color-white);
+    }
   }
 
-  .tns-nav-active {
-    background-color: var(--color-gray) !important;
-    color: var(--color-white);
-  }
 
   &--autoplay-button {
     border-color: transparent transparent transparent var(--color-black);
@@ -54,7 +55,7 @@
     }
 
     &.button--primary {
-      background-color: transparent !important;
+      background: transparent;
     }
   }
 

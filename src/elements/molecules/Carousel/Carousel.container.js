@@ -9,7 +9,7 @@ export const Carousel = (el) => {
     prevButton: el.querySelector('.carousel__button-prev'),
     nextButton: el.querySelector('.carousel__button-next'),
     autoplay: el.classList.contains('carousel--autoplay'),
-    delay: el.dataset.carouseldelay ? el.dataset.carouseldelay : '5000',
+    delay: el.dataset.delay ? el.dataset.delay : '5000',
     loop: !el.classList.contains('carousel--no-loop'),
     pagination: !el.classList.contains('carousel--no-pagination'),
     customPagination: el.querySelector('.carousel__pagination-custom') ? el.querySelector('.carousel__pagination-custom') : false
