@@ -43,7 +43,7 @@ export default [{
         <div>
           <Expand title="Toggle me also" defaultState="open" level="h5" id="expand-02">
             {Utils.ipsum('paragraph', 2)}
-            <Image src={image1} />
+            <Image src={image1} alt="trees" variant="auto" />
           </Expand>
         </div>
       ),
@@ -83,7 +83,7 @@ export default [{
       component: (
         <div>
           <Expand title="Example with Icon" level="h5" id="expand-01" icon="plus" size="normal">
-            <Image src={image1} />
+            <Image src={image1} alt="trees" variant="auto" />
           </Expand>
         </div>
       ),
