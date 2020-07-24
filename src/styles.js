@@ -13,4 +13,3 @@ require('@atoms/Root/Root.css');
 require('@atoms/RichText/RichText.css');
 
 // Third party libs
-require('tiny-slider/dist/tiny-slider.css');
