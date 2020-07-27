@@ -58,6 +58,11 @@ export default [{
       component: (
         <Icon name="plus" data-id="yoyoyo" />
       )
+    }, {
+      name: 'left chevron',
+      component: (
+        <Icon name="left" />
+      )
     }
   ]
 }];

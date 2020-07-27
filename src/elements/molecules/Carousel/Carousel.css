@@ -1,0 +1,75 @@
+@import "tiny-slider/dist/tiny-slider.css";
+
+:root {
+
+  /* CSS variables */
+}
+
+.carousel {
+
+  /* Baseline styles */
+  margin: rem(16px) auto;
+
+  &__controls {
+    justify-content: center;
+
+    .carousel__button {
+      margin: auto rem(8px);
+    }
+  }
+
+  &__pagination:not(.carousel__pagination-custom),
+  .tns-nav {
+    text-align: center;
+
+    button {
+      background-color: color(var(--color-gray-light), 0.5);
+      border: 1px solid;
+      border-color: var(--color-gray);
+      border-radius: 50%;
+      height: rem(16px);
+      margin: rem(5px);
+      width: rem(16px);
+    }
+    
+    .tns-nav-active {
+      background-color: var(--color-gray);
+      color: var(--color-white);
+    }
+  }
+
+
+  &--autoplay-button {
+    border-color: transparent transparent transparent var(--color-black);
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 16px;
+    padding: 0;
+
+    &.play {
+      border-style: solid;
+      border-width: 9px 0 9px 15px;
+    }
+
+    &.pause {
+      border-style: double;
+      border-width: 0px 0 0px 15px;
+    }
+
+    &.button--primary {
+      background: transparent;
+    }
+  }
+
+  /* Style variants */
+
+  &__pagination-custom {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    .button {
+      border-radius: 5px;
+    }
+  }
+}
