@@ -21,6 +21,12 @@
     ```
 */
 
+import {
+  Card,
+  Card__header,
+  Card__body
+} from '@molecules/Card/Card';
+import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
 import { FlexColumn, FlexRow } from './Flex';
 
@@ -31,14 +37,14 @@ export default [{
       description: '',
       component: (
         <FlexRow>
-          <div style={{ width: '100%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '100%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '100%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '100%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexRow>
       ),
       notes: ''
@@ -47,14 +53,14 @@ export default [{
       description: '',
       component: (
         <FlexRow reverse={true}>
-          <div style={{ width: '100%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '100%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '100%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '100%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexRow>
       ),
       notes: ''
@@ -63,18 +69,18 @@ export default [{
       description: '',
       component: (
         <FlexRow justify="start">
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexRow>
       ),
       notes: ''
@@ -83,18 +89,18 @@ export default [{
       description: '',
       component: (
         <FlexRow justify="end">
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '25%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '25%' }}>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexRow>
       ),
       notes: ''
@@ -103,18 +109,18 @@ export default [{
       description: '',
       component: (
         <FlexRow justify="between">
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexRow>
       ),
       notes: ''
@@ -123,18 +129,18 @@ export default [{
       description: '',
       component: (
         <div className="flex flex--justify-content-around">
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </div>
       ),
       notes: ''
@@ -143,18 +149,18 @@ export default [{
       description: '',
       component: (
         <div className="flex flex--justify-content-even">
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div style={{ width: '30%' }} className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card style={{ width: '30%' }}>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </div>
       ),
       notes: ''
@@ -163,18 +169,18 @@ export default [{
       description: '',
       component: (
         <FlexColumn>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -183,14 +189,14 @@ export default [{
       description: '',
       component: (
         <FlexColumn reverse={true}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -199,18 +205,18 @@ export default [{
       description: '',
       component: (
         <FlexColumn justify="start" style={{ minHeight: '400px' }}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -219,18 +225,18 @@ export default [{
       description: '',
       component: (
         <FlexColumn justify="end" style={{ minHeight: '400px' }}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -239,18 +245,18 @@ export default [{
       description: '',
       component: (
         <FlexColumn justify="between" style={{ minHeight: '500px' }}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -259,18 +265,18 @@ export default [{
       description: '',
       component: (
         <FlexColumn justify="even" style={{ minHeight: '500px' }}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
       ),
       notes: ''
@@ -279,19 +285,123 @@ export default [{
       description: '',
       component: (
         <FlexColumn justify="around" style={{ minHeight: '500px' }}>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item One</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Two</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
-          <div className="border--gray-solid padding--small">
-            <Heading level="h2">Item Three</Heading>
-            <p>{Utils.ipsum('word', 40)}</p>
-          </div>
+          <Card>
+            <Card__header>Item One</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Two</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
+          <Card>
+            <Card__header>Item Three</Card__header>
+            <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+          </Card>
         </FlexColumn>
+      ),
+      notes: ''
+    }, {
+      name: 'Flex and breakpoints',
+      description: '',
+      component: (
+        <Rhythm>
+          <p>The following examples show how you can define a particular breakpoint size to enable flexbox.<br /> This is useful for when you want to stack elements at mobile, but flex them at desktop:</p>
+          <Heading level="h4">Small breakpoint and up</Heading>
+          <FlexRow breakpoint="small">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Medium breakpoint and up</Heading>
+          <FlexRow breakpoint="medium">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Large breakpoint and up</Heading>
+          <FlexRow breakpoint="large">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Extra-large breakpoint and up</Heading>
+          <FlexRow breakpoint="extra-large">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Small breakpoint and below</Heading>
+          <FlexRow breakpoint="below-small">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Medium breakpoint and below</Heading>
+          <FlexRow breakpoint="below-medium">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Large breakpoint and below</Heading>
+          <FlexRow breakpoint="below-large">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+
+          <Heading level="h4">Extra-large breakpoint and below</Heading>
+          <FlexRow breakpoint="below-extra-large">
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item One</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <Card__header>Item Two</Card__header>
+              <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
+            </Card>
+          </FlexRow>
+        </Rhythm>
       ),
       notes: ''
     }

@@ -6,7 +6,7 @@
 .border {
 
   /* Baseline styles */
-
+  border-width: 1px;
 
   /* Size variants */
   &--small {
@@ -26,21 +26,28 @@
   }
 
   /* Style variants */
+  &--solid {
+    border-style: solid;
+  }
+
+  &--dashed {
+    border-style: dashed;
+  }
+
+  &--dotted {
+    border-style: dotted;
+  }
+
+  /* Shade variants */
   &--gray {
-    &-solid,
-    &-dashed,
-    &-dotted {
-      border-color: var(--color-gray);
-      border-style: solid;
-      border-width: 1px;
+    border-color: var(--color-gray);
+
+    &-light {
+      border-color: var(--color-gray-light);
     }
 
-    &-dashed {
-      border-style: dashed;
-    }
-
-    &-dotted {
-      border-style: dotted;
+    &-dark {
+      border-color: var(--color-gray-dark);
     }
   }
 }

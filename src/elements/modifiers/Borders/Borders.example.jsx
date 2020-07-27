@@ -20,6 +20,7 @@
       },
     ```
 */
+import { FlexRow } from '@atoms/Flex/Flex';
 
 export default [{
   examples: [
@@ -29,11 +30,41 @@ export default [{
       exports: '',
       notes: '',
       component: (
-        <React.Fragment>
-          <div className="border--gray-solid">{Utils.ipsum('words', 200)}</div>
-          <div className="border--gray-dashed">{Utils.ipsum('words', 200)}</div>
-          <div className="border--gray-dotted">{Utils.ipsum('words', 200)}</div>
-        </React.Fragment>
+        <FlexRow justify="around">
+          <div
+            style={{ width: '30%' }}
+            className="
+              border--solid
+              border--small
+              border--gray
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+          <div
+            style={{ width: '30%' }}
+            className="
+              border--dashed
+              border--small
+              border--gray
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+          <div
+            style={{ width: '30%' }}
+            className="
+              border--dotted
+              border--small
+              border--gray
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+        </FlexRow>
       )
     }, {
       name: 'Border size variants',
@@ -41,12 +72,52 @@ export default [{
       exports: '',
       notes: '',
       component: (
-        <React.Fragment>
-          <div className="border--gray-solid border--small">{Utils.ipsum('words', 200)}</div>
-          <div className="border--gray-solid border--medium">{Utils.ipsum('words', 200)}</div>
-          <div className="border--gray-solid border--large">{Utils.ipsum('words', 200)}</div>
-          <div className="border--gray-solid border--extra-large">{Utils.ipsum('words', 200)}</div>
-        </React.Fragment>
+        <FlexRow justify="around">
+          <div
+            style={{ width: '20%' }}
+            className="
+              border--gray-dark
+              border--dotted
+              border--small
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+          <div
+            style={{ width: '20%' }}
+            className="
+              border--gray-dark
+              border--dotted
+              border--medium
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+          <div
+            style={{ width: '20%' }}
+            className="
+              border--gray-dark
+              border--dotted
+              border--large
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+          <div
+            style={{ width: '20%' }}
+            className="
+              border--gray-dark
+              border--dotted
+              border--extra-large
+              padding--small
+            "
+          >
+            {Utils.ipsum('words', 50)}
+          </div>
+        </FlexRow>
       )
     }
   ]
