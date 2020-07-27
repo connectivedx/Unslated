@@ -16,6 +16,11 @@
     flex-wrap: wrap;
   }
 
+  &--wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+
   /*
     Breakpoint variants
   */
@@ -96,11 +101,6 @@
         flex-wrap: wrap;
       }
     }
-  }
-
-
-  &--wrap-reverse {
-    flex-wrap: wrap-reverse;
   }
 
   /* .flex--column */

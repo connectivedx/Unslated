@@ -1,0 +1,46 @@
+:root {
+
+  /* CSS variables */
+}
+
+.border {
+
+  /* Baseline styles */
+
+
+  /* Size variants */
+  &--small {
+    border-width: 1px;
+  }
+
+  &--medium {
+    border-width: 4px;
+  }
+
+  &--large {
+    border-width: 8px;
+  }
+
+  &--extra-large {
+    border-width: 16px;
+  }
+
+  /* Style variants */
+  &--gray {
+    &-solid,
+    &-dashed,
+    &-dotted {
+      border-color: var(--color-gray);
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    &-dashed {
+      border-style: dashed;
+    }
+
+    &-dotted {
+      border-style: dotted;
+    }
+  }
+}
