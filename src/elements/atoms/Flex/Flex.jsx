@@ -16,7 +16,7 @@ export class FlexColumn extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Defines a breakpoint size at which flex is enabled (default is all breakpoints) */
-    breakpoint: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large']),
+    breakpoint: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large', 'below-small', 'below-medium', 'below-large', 'below-extra-large']),
     /** Defines if column children should be in reverse order */
     reverse: PropTypes.bool,
     /** Defines if the flex container should have children wrap to new line or not */
@@ -94,7 +94,7 @@ export class FlexRow extends React.Component {
     /** Children passed through */
     children: PropTypes.node,
     /** Defines a breakpoint size at which flex is enabled (default is all breakpoints) */
-    breakpoint: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large']),
+    breakpoint: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large', 'below-small', 'below-medium', 'below-large', 'below-extra-large']),
     /** Defines if row children should be in reverse order */
     reverse: PropTypes.bool,
     /** Defines if the flex container should have children wrap to new line or not */
