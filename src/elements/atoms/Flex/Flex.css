@@ -16,13 +16,18 @@
     flex-wrap: wrap;
   }
 
+  &--wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+
   /*
     Breakpoint variants
   */
 
   /*
     .flex--small
-    Flex will not applied until browser window has reached breakpoint size "small".
+    Flex will not be applied until browser window has reached breakpoint size "small".
   */
   &--small {
     @media (--small) {
@@ -41,8 +46,28 @@
   }
 
   /*
+    .flex--below-small
+    Flex will be applied until browser window has exceeded breakpoint size "below-small".
+  */
+  &--below-small {
+    @media (--below-small) {
+      display: flex;
+
+      /* .flex--small-inline */
+      &--inline {
+        display: inline-flex;
+      }
+
+      /* .flex--small-wrap */
+      &-wrap {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  /*
     .flex--medium
-    Flex will not applied until browser window has reached breakpoint size "medium".
+    Flex will not be applied until browser window has reached breakpoint size "medium".
   */
   &--medium {
     @media (--medium) {
@@ -61,8 +86,28 @@
 
 
   /*
+    .flex--below-medium
+    Flex will be applied until browser window has exceeded breakpoint size "below-medium".
+  */
+  &--below-medium {
+    @media (--below-medium) {
+      display: flex;
+
+      /* .flex--small-inline */
+      &--inline {
+        display: inline-flex;
+      }
+
+      /* .flex--small-wrap */
+      &-wrap {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  /*
     .flex--large
-    Flex will not applied until browser window has reached breakpoint size "large".
+    Flex will not be applied until browser window has reached breakpoint size "large".
   */
   &--large {
     @media (--large) {
@@ -80,8 +125,28 @@
   }
 
   /*
+    .flex--below-large
+    Flex will be applied until browser window has exceeded breakpoint size "below-large".
+  */
+  &--below-large {
+    @media (--below-large) {
+      display: flex;
+
+      /* .flex--small-inline */
+      &--inline {
+        display: inline-flex;
+      }
+
+      /* .flex--small-wrap */
+      &-wrap {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  /*
     .flex--large
-    Flex will not applied until browser window has reached breakpoint size "large".
+    Flex will not be applied until browser window has reached breakpoint size "large".
   */
   &--extra-large {
     @media (--extra-large) {
@@ -99,9 +164,26 @@
   }
 
 
-  &--wrap-reverse {
-    flex-wrap: wrap-reverse;
+  /*
+    .flex--below-extra-large
+    Flex will be applied until browser window has exceeded breakpoint size "below-large".
+  */
+  &--below-extra-large {
+    @media (--below-extra-large) {
+      display: flex;
+
+      /* .flex--small-inline */
+      &--inline {
+        display: inline-flex;
+      }
+
+      /* .flex--small-wrap */
+      &-wrap {
+        flex-wrap: wrap;
+      }
+    }
   }
+
 
   /* .flex--column */
   &--column {
