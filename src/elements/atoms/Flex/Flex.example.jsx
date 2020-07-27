@@ -128,7 +128,7 @@ export default [{
       name: 'Flex row, justify content/items around',
       description: '',
       component: (
-        <div className="flex flex--justify-content-around">
+        <FlexRow justify="around">
           <Card style={{ width: '30%' }} id="flex-14">
             <Card__header>Item One</Card__header>
             <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
@@ -141,14 +141,14 @@ export default [{
             <Card__header>Item Three</Card__header>
             <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
           </Card>
-        </div>
+        </FlexRow>
       ),
       notes: ''
     }, {
       name: 'Flex row, justify content/items evenly',
       description: '',
       component: (
-        <div className="flex flex--justify-content-even">
+        <FlexRow justify="even">
           <Card style={{ width: '30%' }} id="flex-17">
             <Card__header>Item One</Card__header>
             <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
@@ -161,7 +161,7 @@ export default [{
             <Card__header>Item Three</Card__header>
             <Card__body><p>{Utils.ipsum('word', 40)}</p></Card__body>
           </Card>
-        </div>
+        </FlexRow>
       ),
       notes: ''
     }, {
