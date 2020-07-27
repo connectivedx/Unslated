@@ -65,10 +65,6 @@ export class FlexColumn extends React.Component {
       className
     ]);
 
-    if (['around', 'between'].indexOf(align) !== -1) {
-      console.error(`Align "${align}" is only applicable to FlexRows`);
-    }
-
     return (
       <Tag
         className={classStack}
