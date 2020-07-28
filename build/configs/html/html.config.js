@@ -34,6 +34,9 @@ module.exports = {
         '//unpkg.com/prismjs@1.17.1/themes/prism.css'
       ],
       body: [
+        '//unpkg.com/mdn-polyfills/Object.assign.js',
+        '//unpkg.com/mdn-polyfills/String.prototype.repeat.js',
+        '//unpkg.com/mdn-polyfills/Array.prototype.forEach.js',
         '//unpkg.com/chart.js@2.8.0/dist/Chart.min.js',
         '//unpkg.com/prismjs@1.17.1/prism.js',
         '//unpkg.com/prismjs@1.17.1/components/prism-json.min.js',

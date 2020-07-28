@@ -68,7 +68,7 @@ export default [{
           variant="icon"
           aria-label="Accessible name for screen readers (required)"
         >
-          <Icon name="close" className="flex" ariaHidden={true} />
+          <Icon name="close" className="flex" ariaHidden={true} label="Close icon" />
         </Link>
       )
     }

@@ -107,7 +107,7 @@ export const Examples = (props) => {
               <Card key={index} className="examples">
                 <Card__header className="examples__header">
                   <a href={exampleLink} className="examples__header-jumplink">
-                    <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName} <Icon name="unlink" /></Heading>
+                    <Heading level="h5" className="examples__heading" id={exampleNameNoSpace}>{exampleName} <Icon name="unlink" label="Link icon" /></Heading>
                     <Input type="text" id={`jumplink-path-${index}`} name="jumplink-path" className="examples__header-jumplink-path" />
                   </a>
                 </Card__header>

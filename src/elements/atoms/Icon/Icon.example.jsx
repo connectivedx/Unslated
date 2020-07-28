@@ -28,40 +28,45 @@ export default [{
     {
       name: 'default',
       component: (
-        <Icon name="close" />
+        <Icon name="close" label="Close icon" />
       )
     }, {
       name: 'small size',
       component: (
-        <Icon size="small" name="cancel" />
+        <Icon size="small" name="cancel" label="Cancel icon" />
       )
     }, {
       name: 'large size',
       component: (
-        <Icon size="large" name="plus" />
+        <Icon size="large" name="plus" label="Plus icon" />
       )
     }, {
       name: 'wide custom size',
       component: (
-        <Icon size="wide" name="minus" />
+        <Icon size="wide" name="minus" label="Minus icon" />
       )
     }, {
       name: 'light icon on dark background',
       options: {
-        darkBackground: true
+        brightness: 0.5
       },
       component: (
-        <Icon name="plus" variant="light" />
+        <Icon name="plus" variant="light" label="Plus icon" />
       )
     }, {
       name: 'extra attribute',
       component: (
-        <Icon name="plus" data-id="yoyoyo" />
+        <Icon name="plus" data-id="yoyoyo" label="Plus icon" />
+      )
+    }, {
+      name: 'hidden from screen readers',
+      component: (
+        <Icon name="plus" ariaHidden={true} label="Plus icon" />
       )
     }, {
       name: 'left chevron',
       component: (
-        <Icon name="left" />
+        <Icon name="left" label="Left chevron" />
       )
     }
   ]

@@ -20,35 +20,98 @@
       },
     ```
 */
-
-import imageSrc from '@atoms/Image/assets/rancheria-falls.jpg';
-import imageSrcMd from '@atoms/Image/assets/rancheria-falls-md.jpg';
-import imageSrcLg from '@atoms/Image/assets/rancheria-falls-lg.jpg';
+import Rhythm from '@atoms/Rhythm/Rhythm';
+import Heading from '@atoms/Heading/Heading';
 import Image from './Image';
 
 export default [{
   examples: [
     {
-      name: 'Default Image',
+      name: 'Auto inline vs. full width',
+      component: (
+        <React.Fragment>
+          <Image
+            src="https://via.placeholder.com/1024x480"
+            variant="auto"
+            alt="Rancheria Falls"
+          />
+
+          <Image
+            src="https://via.placeholder.com/1024x480"
+            variant="full"
+            alt="Rancheria Falls"
+          />
+        </React.Fragment>
+      )
+    }, {
+      name: 'Inline Image srcSet (resize me)',
       component: (
         <Image
-          src={imageSrc}
+          src="https://via.placeholder.com/1440x640"
+          srcSet="https://via.placeholder.com/480 720w, https://via.placeholder.com/1440x640 1440w"
           alt="Rancheria Falls"
+          variant="full"
         />
       )
     }, {
-      name: 'Default Image with srcset',
+      name: 'Background Image with srcSet (resize me)',
       component: (
         <Image
-          src={imageSrc}
-          srcSet={`${imageSrcMd} 720w, ${imageSrcLg} 1440w`}
-          alt="Rancheria Falls"
-        />
+          srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+          size="100%"
+          position="center"
+          alt="Background image"
+        >
+          <div className="padding--large">
+            <Heading level="h2">Hello World!</Heading>
+            <p>{Utils.ipsum('paragraph', 2)}</p>
+          </div>
+        </Image>
       )
     }, {
-      name: 'Auto size Image behavior',
+      name: 'Background Image / color overlay mixing / srcSet (resize me)',
       component: (
-        <Image src={imageSrc} alt="Rancheria Falls" variant="auto" />
+        <Rhythm deep={true}>
+          <Image
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+            size="100%"
+            color="red"
+            position="center"
+            opacity={0.2}
+            alt="Background image"
+          >
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
+          </Image>
+
+          <Image
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+            size="100%"
+            color="blue"
+            opacity={0.2}
+            alt="Background image"
+          >
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
+          </Image>
+
+          <Image
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+            size="100%"
+            color="green"
+            opacity={0.1}
+            alt="Background image"
+          >
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
+          </Image>
+        </Rhythm>
       )
     }
   ]

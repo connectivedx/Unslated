@@ -7,4 +7,31 @@
     width: auto;
     height: auto;
   }
+
+  /* Picture support */
+  picture& img {
+    width: 100%;
+  }
+
+  /* Container background */
+  &--background {
+    background-repeat: no-repeat;
+  }
+
+  &[role="img"] {
+    .image__content {
+      position: relative;
+      z-index: var(--zindex-content);
+    }
+
+    .image__color {
+      height: 100%;
+      left: 0;
+      margin-top: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: var(--zindex-base);
+    }
+  }
 }
