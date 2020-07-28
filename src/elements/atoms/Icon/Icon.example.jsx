@@ -66,7 +66,7 @@ export default [{
     }, {
       name: 'left chevron',
       component: (
-        <Icon name="left" />
+        <Icon name="left" label="Left chevron" />
       )
     }
   ]
