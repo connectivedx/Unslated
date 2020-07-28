@@ -5,14 +5,11 @@ export const Image = (el) => {
     el
   };
 
-  const backgroundSrcSet = (sets) => Object.keys(sets).map((i) => {
+  /* Image used as backgrounds supports srcSet still with this helper method */
+  const srcSetBackgroundUpdate = (sets) => Object.keys(sets).map((i) => {
     const set = sets[i].split(' ').filter((n) => n);
-    const image = set[0];
-    const width = parseInt(window.innerWidth, 10);
-    const breakpoint = parseInt(set[1], 10);
-    console.log((width >= breakpoint), width, breakpoint);
-    if (width >= breakpoint) {
-      el.style.backgroundImage = image;
+    if (parseInt(window.innerWidth, 10) >= parseInt(set[1], 10)) {
+      ui.el.style.backgroundImage = set[0]; // eslint-disable-line
       return false;
     }
 
@@ -22,14 +19,10 @@ export const Image = (el) => {
   // Main init point
   const init = () => {
     // Responsive inline background image polyfill
-    const sets = ui.el.style.backgroundImage.replace(/-webkit-image-set\((.*?)\)/g, '$1').split(',');
-
     if (ui.el.style.backgroundImage.indexOf('image-set') !== -1) {
-      window.addEventListener('resize', () => {
-        backgroundSrcSet(sets);
-      });
-
-      backgroundSrcSet(sets);
+      const sets = ui.el.style.backgroundImage.replace(/-webkit-image-set\((.*?)\)/g, '$1').split(',');
+      srcSetBackgroundUpdate(sets); // window load
+      window.addEventListener('resize', () => srcSetBackgroundUpdate(sets)); // window resize
     }
   };
 

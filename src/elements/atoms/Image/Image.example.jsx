@@ -20,11 +20,8 @@
       },
     ```
 */
-
+import Rhythm from '@atoms/Rhythm/Rhythm';
 import Heading from '@atoms/Heading/Heading';
-import imageSrc from '@atoms/Image/assets/rancheria-falls.jpg';
-import imageSrcMd from '@atoms/Image/assets/rancheria-falls-md.jpg';
-import imageSrcLg from '@atoms/Image/assets/rancheria-falls-lg.jpg';
 import Image from './Image';
 
 export default [{
@@ -34,67 +31,87 @@ export default [{
       component: (
         <React.Fragment>
           <Image
-            src={imageSrc}
+            src="https://via.placeholder.com/1024x480"
             variant="auto"
             alt="Rancheria Falls"
           />
 
           <Image
-            src={imageSrc}
+            src="https://via.placeholder.com/1024x480"
             variant="full"
             alt="Rancheria Falls"
           />
         </React.Fragment>
       )
     }, {
-      name: 'Image srcset (uses <picture> with IE11 fallback)',
+      name: 'Inline Image srcSet (resize me)',
       component: (
         <Image
-          src={imageSrc}
-          srcSet={`${imageSrcMd} 720w, ${imageSrcLg} 1440w`}
+          src="https://via.placeholder.com/1440x640"
+          srcSet="https://via.placeholder.com/480 720w, https://via.placeholder.com/1440x640 1440w"
           alt="Rancheria Falls"
           variant="full"
         />
       )
     }, {
-      name: 'Image as background with color mixing',
+      name: 'Background Image with srcSet (resize me)',
       component: (
-        <React.Fragment>
-          <Image
-            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
-            backgroundSize="100%"
-            backgroundColor="red"
-            backgroundPosition="center"
-            backgroundColorOpacity={0.2}
-            alt="Background image"
-          >
+        <Image
+          srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+          size="100%"
+          position="center"
+          alt="Background image"
+        >
+          <div className="padding--large">
             <Heading level="h2">Hello World!</Heading>
             <p>{Utils.ipsum('paragraph', 2)}</p>
+          </div>
+        </Image>
+      )
+    }, {
+      name: 'Background Image / color overlay mixing / srcSet (resize me)',
+      component: (
+        <Rhythm deep={true}>
+          <Image
+            srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
+            size="100%"
+            color="red"
+            position="center"
+            opacity={0.2}
+            alt="Background image"
+          >
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
           </Image>
 
           <Image
             srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
-            backgroundSize="100%"
-            backgroundColor="blue"
-            backgroundColorOpacity={0.2}
+            size="100%"
+            color="blue"
+            opacity={0.2}
             alt="Background image"
           >
-            <Heading level="h2">Hello World!</Heading>
-            <p>{Utils.ipsum('paragraph', 2)}</p>
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
           </Image>
 
           <Image
             srcSet="https://via.placeholder.com/480 480w, https://via.placeholder.com/768x480 768w, https://via.placeholder.com/1440x640 1024w"
-            backgroundSize="100%"
-            backgroundColor="green"
-            backgroundColorOpacity={0.1}
+            size="100%"
+            color="green"
+            opacity={0.1}
             alt="Background image"
           >
-            <Heading level="h2">Hello World!</Heading>
-            <p>{Utils.ipsum('paragraph', 2)}</p>
+            <div className="padding--large">
+              <Heading level="h2">Hello World!</Heading>
+              <p>{Utils.ipsum('paragraph', 2)}</p>
+            </div>
           </Image>
-
-        </React.Fragment>
+        </Rhythm>
       )
     }
   ]

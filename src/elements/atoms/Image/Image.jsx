@@ -1,5 +1,6 @@
 /**
-  Image should be used in place of the <img /> tag
+  Image allows for graphical media in and around HTML documents.
+  Image can support both inline and container backgrounds as well as srcSet / Picture tag with IE11 fallbacks.
 */
 
 export class Image extends React.Component {
@@ -12,14 +13,14 @@ export class Image extends React.Component {
     variant: PropTypes.oneOf(['full', 'auto']),
     /** Alt attribute is required */
     alt: PropTypes.string.isRequired,
-    /** Src attribute is required */
-    src: PropTypes.string.isRequired,
+    /** Defines the path source of an image */
+    src: PropTypes.string,
     /** Defines a responsive set of images */
     srcSet: PropTypes.string,
     /** Defines the background-size if used with children */
-    backgroundSize: PropTypes.string,
+    size: PropTypes.string,
     /** Defines the background-position if used with children */
-    backgroundPosition: PropTypes.oneOf([
+    position: PropTypes.oneOf([
       'top',
       'right',
       'bottom',
@@ -36,16 +37,16 @@ export class Image extends React.Component {
       'center bottom'
     ]),
     /** Defines a belnding color with image */
-    backgroundColor: PropTypes.string,
+    color: PropTypes.string,
     /** Defines the color's level of opacity */
-    backgroundColorOpacity: PropTypes.number
+    opacity: PropTypes.number
   };
 
   static defaultProps = {
     variant: 'auto',
-    backgroundSize: '100%',
-    backgroundPosition: 'center',
-    backgroundColorOpacity: 1.0
+    size: '100%',
+    position: 'center',
+    opacity: 1.0
   };
 
   /** Element level options */
@@ -61,10 +62,10 @@ export class Image extends React.Component {
       alt,
       src,
       srcSet,
-      backgroundSize,
-      backgroundPosition,
-      backgroundColorOpacity,
-      backgroundColor,
+      size,
+      position,
+      opacity,
+      color,
       ...attrs
     } = this.props;
 
@@ -74,40 +75,47 @@ export class Image extends React.Component {
       className
     ]);
 
+    // Used to remove CSS units from strings
+    const clearUnits = (string) => string.replace(/vw/g, 'x').replace(/w/g, 'x').replace(/px/g, 'x');
 
-    const getPicture = (asBackground = false) => {
-      if (!srcSet && !children) {
-        return <img alt={alt} src={src} className={(asBackground) ? classStack : 'image__background'} {...attrs} />;
+    // Used to get <img>, <picture> or <div role="img" arial-label={alt} style="background-image:...;">...</div>
+    const getPicture = () => {
+      if (!children && !srcSet) {
+        return <img alt={alt} src={src} className={classStack} {...attrs} />;
       }
 
-      const set = srcSet.split(',');
-
       // Nested bakground image
-      if (srcSet && children) {
-        const backgroundImage = `-webkit-image-set(${
-          Object.keys(set).map((i) => {
-            const source = `${set[i].split(' ').filter((n) => n)[0]}`;
-            const breakpoint = `${set[i].split(' ').filter((n) => n)[1].replace(/vw/g, 'x').replace(/w/g, 'x').replace(/px/g, 'x')}`;
+      const set = srcSet ? srcSet.split(',') : false;
+      if (children) {
+        let backgroundImage = `url(${src})`;
 
-            return `url(${source}) ${breakpoint}`;
-          })
-        })`;
+        if (srcSet) {
+          backgroundImage = `-webkit-image-set(${
+            Object.keys(set).map((i) => {
+              const setData = set[i].split(' ').filter((n) => n);
+              return `url(${setData[0]}) ${clearUnits(setData[1])}`;
+            })
+          })`;
+        }
 
         return (
           <div
+            role="img"
+            aria-label={alt}
             className="image image--background"
             style={{
-              backgroundSize,
-              backgroundImage,
-              backgroundPosition
+              backgroundSize: size,
+              backgroundPosition: position,
+              backgroundImage
             }}
           >
             <div className="image__content">{children}</div>
             <span
+              role="none"
               className="image__color"
               style={{
-                backgroundColor,
-                opacity: backgroundColorOpacity
+                opacity,
+                backgroundColor: color
               }}
             />
           </div>
@@ -115,11 +123,12 @@ export class Image extends React.Component {
       }
 
       return (
-        <picture className={(asBackground) ? classStack : 'image__background'}>
+        <picture className={classStack}>
           {
             Object.keys(set).map((i) => {
-              const width = `(max-width: ${set[i].split(' ').filter((n) => n)[1].replace(/vw/g, 'px').replace(/w/g, 'px')})`;
-              const source = `${set[i].split(' ').filter((n) => n)[0]}`;
+              const setData = set[i].split(' ').filter((n) => n);
+              const width = `(max-width: ${clearUnits(setData[1]).replace('x', 'px')})`;
+              const source = `${setData[0]}`;
 
               if (parseInt(i, 10) === parseInt(set.length, 10) - 1) {
                 return (
