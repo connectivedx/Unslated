@@ -1,0 +1,53 @@
+:root {
+
+  /* CSS variables */
+}
+
+.border {
+
+  /* Baseline styles */
+  border-width: 1px;
+
+  /* Size variants */
+  &--small {
+    border-width: 1px;
+  }
+
+  &--medium {
+    border-width: 4px;
+  }
+
+  &--large {
+    border-width: 8px;
+  }
+
+  &--extra-large {
+    border-width: 16px;
+  }
+
+  /* Style variants */
+  &--solid {
+    border-style: solid;
+  }
+
+  &--dashed {
+    border-style: dashed;
+  }
+
+  &--dotted {
+    border-style: dotted;
+  }
+
+  /* Shade variants */
+  &--gray {
+    border-color: var(--color-gray);
+
+    &-light {
+      border-color: var(--color-gray-light);
+    }
+
+    &-dark {
+      border-color: var(--color-gray-dark);
+    }
+  }
+}

@@ -8,6 +8,7 @@ import Select from '@atoms/Select/Select.container';
 import Expand from '@molecules/Expand/Expand.container';
 import Textarea from '@atoms/Textarea/Textarea.container';
 import Accordion from '@molecules/Accordion/Accordion.container';
+import Carousel from '@molecules/Carousel/Carousel.container';
 import Accessibility from '@modifiers/Accessibility/Accessibility.container';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Utils.initComponent('Select', '.select', Select);
     Utils.initComponent('Textarea', '.Textarea', Textarea);
   });
+  Utils.initComponent('Carousel', '.carousel', Carousel);
   Utils.initComponent('Accessibility', 'body', Accessibility);
   Utils.initComponent('Image', '.image', Image);
 }, false);

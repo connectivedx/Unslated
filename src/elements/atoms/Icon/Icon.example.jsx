@@ -63,6 +63,11 @@ export default [{
       component: (
         <Icon name="plus" ariaHidden={true} label="Plus icon" />
       )
+    }, {
+      name: 'left chevron',
+      component: (
+        <Icon name="left" />
+      )
     }
   ]
 }];

@@ -21,6 +21,8 @@
     ```
 */
 
+import Image from '@atoms/Image/Image';
+import image1 from '@atoms/Image/assets/rancheria-falls.jpg';
 import Expand from './Expand';
 
 export default [{
@@ -40,7 +42,8 @@ export default [{
       component: (
         <div>
           <Expand title="Toggle me also" defaultState="open" level="h5" id="expand-02">
-            {Utils.ipsum('word', 3)}
+            {Utils.ipsum('paragraph', 2)}
+            <Image src={image1} alt="trees" variant="auto" />
           </Expand>
         </div>
       ),
@@ -50,7 +53,7 @@ export default [{
       component: (
         <div>
           <Expand title="Toggle me also" defaultState="open" level="h5" align="bottom" id="expand-03">
-            {Utils.ipsum('word', 3)}
+            {Utils.ipsum('paragraph', 2)}
           </Expand>
         </div>
       ),
@@ -70,7 +73,27 @@ export default [{
       component: (
         <div>
           <Expand title="Toggle me also" defaultState="open" level="h5" align="right" id="expand-05">
-            {Utils.ipsum('word', 3)}
+            {Utils.ipsum('paragraph', 1)}
+          </Expand>
+        </div>
+      ),
+      notes: ''
+    }, {
+      name: 'Default state with Icon',
+      component: (
+        <div>
+          <Expand title="Example with Icon" level="h5" id="expand-01" icon="plus" size="normal">
+            <Image src={image1} alt="trees" variant="auto" />
+          </Expand>
+        </div>
+      ),
+      notes: ''
+    }, {
+      name: 'Open state with Icon',
+      component: (
+        <div>
+          <Expand title="Example with Icon" defaultState="open" level="h5" id="expand-01" icon="plus" size="normal">
+            {Utils.ipsum('sentence', 3)}
           </Expand>
         </div>
       ),

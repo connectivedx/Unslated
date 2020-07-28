@@ -409,15 +409,15 @@ const ipsum = (type, amount) => {
     return paragraphs;
   };
 
-  if (type === 'word') {
+  if (['word', 'words'].indexOf(type) !== -1) {
     return generateWords(amount);
   }
 
-  if (type === 'sentence') {
+  if (['sentence', 'sentences'].indexOf(type) !== -1) {
     return generateSentences();
   }
 
-  if (type === 'paragraph') {
+  if (['paragraph', 'pargaraphs'].indexOf(type) !== -1) {
     return generateParagraphs();
   }
 
